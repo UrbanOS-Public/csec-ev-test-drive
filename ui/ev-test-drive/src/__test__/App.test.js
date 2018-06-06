@@ -7,3 +7,8 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
+it('supports mocking', () => {
+  const mockedFn = jest.fn();
+  expect(mockedFn.mock.calls.length).toBe(0);
+});
