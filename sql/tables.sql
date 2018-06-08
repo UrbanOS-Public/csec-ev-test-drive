@@ -297,11 +297,21 @@ values
   (1000503, null, 1000000, 3),
   (1000504, null, 1000000, 4),
   (1000505, null, 1000000, 5),
-  (1000506, 'On a scale of 1 – 7 (1 = not at all important, 7 = extremely important), please indicate the importance of each of the following vehicle features in your next vehicle', 1000000, 6),
-  (1000507, 'On a scale of 1-7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs): ', 1000000, 7),
+  (1000506, 'On a scale of 1 - 7 (1 = not at all important, 7 = extremely important), please indicate the importance of each of the following vehicle features in your next vehicle', 1000000, 6),
+  (1000507, 'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs): ', 1000000, 7),
   (1000508, null, 1000000, 8),
   (1000509, null, 1000000, 9),
-  (1000510, null, 1000000, 10);
+  (1000510, null, 1000000, 10),
+  (1000511, null, 1000001, 0),
+  (1000512, null, 1000001, 1),
+  (1000513, null, 1000001, 2),
+  (1000514, null, 1000001, 3),
+  (1000515, 'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs)', 1000001, 4),
+  (1000516, null, 1000001, 5),
+  (1000517, null, 1000001, 6),
+  (1000518, null, 1000001, 7),
+  (1000519, null, 1000001, 8)
+;
 
 
 insert into survey_question (`id`, `text`, `survey_question_group_id`, `type`, `order_index`)
@@ -335,7 +345,28 @@ values
    'MC', 0),
   (1000126,
    'If you were able to charge your car at work, would you be more likely to consider purchasing an electric vehicle (EV)?',
-   1000510, 'MC', 0);
+   1000510, 'MC', 0),
+
+  (1000127, 'Select the photo of the person who was your right seat driver', 1000511, 'MC', 0),
+  (1000128, 'How likely are you to consider purchasing or leasing an electric vehicle (EV) for your next car?', 1000512, 'MC', 0),
+  (1000129, 'What is your overall opinion of electric vehicles (EVs)?', 1000513, 'MC', 0),
+  (1000130, 'Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?', 1000514, 'MC', 0),
+
+  (1000131, 'Driving an EV means that I’m an environmentalist', 1000515, 'SCALE', 0),
+  (1000132, 'Driving an EV means that I am doing the right thing', 1000515, 'SCALE', 1),
+  (1000133, 'Driving an EV means that I am a trendsetter', 1000515, 'SCALE', 2),
+  (1000134, 'Driving an EV means that I am tech savvy', 1000515, 'SCALE', 3),
+  (1000135, 'Driving an EV means that I am doing right by my family', 1000515, 'SCALE', 4),
+  (1000136, 'Driving an EV means that I am patriotic', 1000515, 'SCALE', 5),
+  (1000137, 'Driving an EV means that I am a good community member', 1000515, 'SCALE', 6),
+  (1000138, 'Driving an EV means that I am socially responsible', 1000515, 'SCALE', 7),
+  (1000139, 'Driving an electric vehicle (EV) means that I make practical choices', 1000515, 'SCALE', 8),
+  (1000140, 'Driving an EV demonstrates to others that I care about the environment', 1000515, 'SCALE', 9),
+  (1000141, 'If you were able to charge your car at work, would you be more likely to consider purchasing an electric vehicle (EV)?', 1000516, 'MC', 0),
+  (1000142, 'How would you rate your right seat driver’s knowledge and engagement?', 1000517, 'MC', 0),
+  (1000143, 'How would you rate your overall experience at the Ride and Drive?', 1000518, 'MC', 0),
+  (1000144, 'Anything else you would like to tell us about your experience or viewpoint on electric vehicles?', 1000519, 'MC', 0)
+;
 
 
 insert into survey_question_option (`id`, `survey_question_id`, `text`, `free_form`, `order_index`, `image_url`)
@@ -530,4 +561,140 @@ values
 
   (1000662, 1000126, 'Yes', FALSE, 0, null),
   (1000663, 1000126, 'No', FALSE, 1, null),
-  (1000664, 1000126, 'Not Applicable', FALSE, 2, null);
+  (1000664, 1000126, 'Not Applicable', FALSE, 2, null),
+
+  (1000665, 1000127, 'Joe', FALSE, 0, null),
+  (1000666, 1000127, 'Joe', FALSE, 1, null),
+  (1000667, 1000127, 'Joe', FALSE, 2, null),
+  (1000668, 1000127, 'Joe', FALSE, 3, null),
+  (1000669, 1000127, 'Joe', FALSE, 4, null),
+  (1000670, 1000127, 'Joe', FALSE, 5, null),
+  (1000671, 1000127, 'Joe', FALSE, 6, null),
+  (1000672, 1000127, 'Joe', FALSE, 7, null),
+  (1000673, 1000127, 'Joe', FALSE, 8, null),
+  (1000674, 1000127, 'Joe', FALSE, 9, null),
+  (1000675, 1000127, 'Joe', FALSE, 10, null),
+  (1000676, 1000127, 'Joe', FALSE, 11, null),
+  (1000677, 1000127, 'Joe', FALSE, 12, null),
+  (1000678, 1000127, 'Joe', FALSE, 13, null),
+  (1000679, 1000127, 'Joe', FALSE, 14, null),
+  (1000680, 1000127, 'Joe', FALSE, 15, null),
+  (1000681, 1000127, 'Joe', FALSE, 16, null),
+  (1000682, 1000127, 'Joe', FALSE, 17, null),
+  (1000683, 1000127, 'Joe', FALSE, 18, null),
+  (1000684, 1000127, 'Joe', FALSE, 19, null),
+
+  (1000685, 1000128, 'Very Likely', FALSE, 0, null),
+  (1000686, 1000128, 'Likely', FALSE, 1, null),
+  (1000687, 1000128, 'Unlikely', FALSE, 2, null),
+  (1000688, 1000128, 'Very Unlikely', FALSE, 3, null),
+
+  (1000689, 1000129, 'For me', FALSE, 0, null),
+  (1000690, 1000129, 'Not for me', FALSE, 1, null),
+  (1000691, 1000129, 'No Opinion', FALSE, 2, null),
+
+  (1000692, 1000130, 'Yes, and I give you permission to share my contact information for this purpose', FALSE, 0, null),
+  (1000693, 1000130, 'No', FALSE, 1, null),
+
+  (1000694, 1000131, '1', FALSE, 0, null),
+  (1000695, 1000131, '2', FALSE, 1, null),
+  (1000696, 1000131, '3', FALSE, 2, null),
+  (1000697, 1000131, '4', FALSE, 3, null),
+  (1000698, 1000131, '5', FALSE, 4, null),
+  (1000699, 1000131, '6', FALSE, 5, null),
+  (1000700, 1000131, '7', FALSE, 6, null),
+
+  (1000701, 1000132, '1', FALSE, 0, null),
+  (1000702, 1000132, '2', FALSE, 1, null),
+  (1000703, 1000132, '3', FALSE, 2, null),
+  (1000704, 1000132, '4', FALSE, 3, null),
+  (1000705, 1000132, '5', FALSE, 4, null),
+  (1000706, 1000132, '6', FALSE, 5, null),
+  (1000707, 1000132, '7', FALSE, 6, null),
+
+  (1000708, 1000133, '1', FALSE, 0, null),
+  (1000709, 1000133, '2', FALSE, 1, null),
+  (1000710, 1000133, '3', FALSE, 2, null),
+  (1000711, 1000133, '4', FALSE, 3, null),
+  (1000712, 1000133, '5', FALSE, 4, null),
+  (1000713, 1000133, '6', FALSE, 5, null),
+  (1000714, 1000133, '7', FALSE, 6, null),
+
+  (1000715, 1000134, '1', FALSE, 0, null),
+  (1000716, 1000134, '2', FALSE, 1, null),
+  (1000717, 1000134, '3', FALSE, 2, null),
+  (1000718, 1000134, '4', FALSE, 3, null),
+  (1000719, 1000134, '5', FALSE, 4, null),
+  (1000720, 1000134, '6', FALSE, 5, null),
+  (1000721, 1000134, '7', FALSE, 6, null),
+
+  (1000722, 1000135, '1', FALSE, 0, null),
+  (1000723, 1000135, '2', FALSE, 1, null),
+  (1000724, 1000135, '3', FALSE, 2, null),
+  (1000725, 1000135, '4', FALSE, 3, null),
+  (1000726, 1000135, '5', FALSE, 4, null),
+  (1000727, 1000135, '6', FALSE, 5, null),
+  (1000728, 1000135, '7', FALSE, 6, null),
+
+  (1000729, 1000136, '1', FALSE, 0, null),
+  (1000730, 1000136, '2', FALSE, 1, null),
+  (1000731, 1000136, '3', FALSE, 2, null),
+  (1000732, 1000136, '4', FALSE, 3, null),
+  (1000733, 1000136, '5', FALSE, 4, null),
+  (1000734, 1000136, '6', FALSE, 5, null),
+  (1000735, 1000136, '7', FALSE, 6, null),
+
+  (1000736, 1000137, '1', FALSE, 0, null),
+  (1000737, 1000137, '2', FALSE, 1, null),
+  (1000738, 1000137, '3', FALSE, 2, null),
+  (1000739, 1000137, '4', FALSE, 3, null),
+  (1000740, 1000137, '5', FALSE, 4, null),
+  (1000741, 1000137, '6', FALSE, 5, null),
+  (1000742, 1000137, '7', FALSE, 6, null),
+
+  (1000743, 1000138, '1', FALSE, 0, null),
+  (1000744, 1000138, '2', FALSE, 1, null),
+  (1000745, 1000138, '3', FALSE, 2, null),
+  (1000746, 1000138, '4', FALSE, 3, null),
+  (1000747, 1000138, '5', FALSE, 4, null),
+  (1000748, 1000138, '6', FALSE, 5, null),
+  (1000749, 1000138, '7', FALSE, 6, null),
+
+  (1000750, 1000139, '1', FALSE, 0, null),
+  (1000751, 1000139, '2', FALSE, 1, null),
+  (1000752, 1000139, '3', FALSE, 2, null),
+  (1000753, 1000139, '4', FALSE, 3, null),
+  (1000754, 1000139, '5', FALSE, 4, null),
+  (1000755, 1000139, '6', FALSE, 5, null),
+  (1000756, 1000139, '7', FALSE, 6, null),
+
+  (1000757, 1000140, '1', FALSE, 0, null),
+  (1000758, 1000140, '2', FALSE, 1, null),
+  (1000759, 1000140, '3', FALSE, 2, null),
+  (1000760, 1000140, '4', FALSE, 3, null),
+  (1000761, 1000140, '5', FALSE, 4, null),
+  (1000762, 1000140, '6', FALSE, 5, null),
+  (1000763, 1000140, '7', FALSE, 6, null),
+
+  (1000764, 1000141, 'Yes', FALSE, 0, null),
+  (1000765, 1000141, 'No', FALSE, 1, null),
+  (1000766, 1000141, 'Not applicable', FALSE, 2, null),
+
+  (1000767, 1000142, '1', FALSE, 0, null),
+  (1000768, 1000142, '2', FALSE, 1, null),
+  (1000769, 1000142, '3', FALSE, 2, null),
+  (1000770, 1000142, '4', FALSE, 3, null),
+  (1000771, 1000142, '5', FALSE, 4, null),
+
+  (1000772, 1000143, 'Excellent', FALSE, 0, null),
+  (1000773, 1000143, 'Very Good', FALSE, 1, null),
+  (1000774, 1000143, 'Good', FALSE, 2, null),
+  (1000775, 1000143, 'Poor', FALSE, 3, null),
+
+  (1000776, 1000144, 'No', FALSE, 0, null),
+  (1000777, 1000144, 'Yes', TRUE, 1, null)
+
+
+
+
+;
