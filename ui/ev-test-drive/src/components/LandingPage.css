@@ -5,3 +5,8 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.LandingPage-logo {
+  margin: 36px;
+  width: 106px;
+}
