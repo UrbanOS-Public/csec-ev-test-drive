@@ -306,12 +306,13 @@ values
   (1000512, null, 1000001, 1),
   (1000513, null, 1000001, 2),
   (1000514, null, 1000001, 3),
-  (1000515, 'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs)', 1000001, 4),
+  (1000515,
+   'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs)',
+   1000001, 4),
   (1000516, null, 1000001, 5),
   (1000517, null, 1000001, 6),
   (1000518, null, 1000001, 7),
-  (1000519, null, 1000001, 8)
-;
+  (1000519, null, 1000001, 8);
 
 
 insert into survey_question (`id`, `text`, `survey_question_group_id`, `type`, `order_index`)
@@ -362,11 +363,13 @@ values
   (1000138, 'Driving an EV means that I am socially responsible', 1000515, 'SCALE', 7),
   (1000139, 'Driving an electric vehicle (EV) means that I make practical choices', 1000515, 'SCALE', 8),
   (1000140, 'Driving an EV demonstrates to others that I care about the environment', 1000515, 'SCALE', 9),
-  (1000141, 'If you were able to charge your car at work, would you be more likely to consider purchasing an electric vehicle (EV)?', 1000516, 'MC', 0),
+  (1000141,
+   'If you were able to charge your car at work, would you be more likely to consider purchasing an electric vehicle (EV)?',
+   1000516, 'MC', 0),
   (1000142, 'How would you rate your right seat driver’s knowledge and engagement?', 1000517, 'MC', 0),
   (1000143, 'How would you rate your overall experience at the Ride and Drive?', 1000518, 'MC', 0),
-  (1000144, 'Anything else you would like to tell us about your experience or viewpoint on electric vehicles?', 1000519, 'MC', 0)
-;
+  (1000144, 'Anything else you would like to tell us about your experience or viewpoint on electric vehicles?', 1000519,
+   'MC', 0);
 
 
 insert into survey_question_option (`id`, `survey_question_id`, `text`, `free_form`, `order_index`, `image_url`)
@@ -692,9 +695,4 @@ values
   (1000775, 1000143, 'Poor', FALSE, 3, null),
 
   (1000776, 1000144, 'No', FALSE, 0, null),
-  (1000777, 1000144, 'Yes', TRUE, 1, null)
-
-
-
-
-;
+  (1000777, 1000144, 'Yes', TRUE, 1, null);
