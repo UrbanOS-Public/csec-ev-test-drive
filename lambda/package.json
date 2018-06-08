@@ -1,0 +1,24 @@
+{
+  "name": "Smart-Experience-EV-Test-Drive-Server",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "",
+  "scripts": {
+    "test": "mocha --recursive",
+    "deploy": "./deploy.sh"
+  },
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "request": "^2.81.0",
+    "moment": "^2.22.2"
+  },
+  "author": "Step It Up (http://getstepitup.com/)",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "4.1.2",
+    "aws-sdk": "2.225.1",
+    "mocha": "4.0.1",
+    "sinon-chai": "^3.0.0",
+    "sinon": "4.0.1"
+  }
+}

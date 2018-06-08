@@ -1,4 +1,4 @@
 **/.terraform/*
 .idea
 **/node_modules/*
-
+lambda/lambdas.zip
