@@ -1,0 +1,61 @@
+.LandingPage {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.LandingPage-logo {
+  position: absolute;
+  width: 106px;
+  top: 36px;
+  left: 36px;
+}
+
+.LandingPage-welcomeBox {
+  background-color: white;
+  position: absolute;
+  width: 445px;
+  height: 406px;
+  left: calc(50vw - 222px);
+  top: calc(50vh - 203px);
+}
+
+.LandingPage-welcomeBox-title {
+  text-align: center;
+  font-size: 45px;
+  font-weight: 500;
+  color: rgba(51,51,51,1);
+}
+
+.LandingPage-welcomeBox-subtitle {
+  text-align: center;
+  font-size: 21px;
+  font-weight: 300;
+  color: rgba(51,51,51,1);
+}
+
+.LandingPage-welcomeBox-scheduleButton {
+  background-color: rgb(193, 1, 148);
+  position: absolute;
+  width: 336px;
+  height: 72px;
+  left: calc(50% - 168px);
+  top: calc(100% - 128px);
+  box-shadow: 5px 5px rgba(58, 52, 66, 0.22);
+  border-radius: 4px;
+}
+
+.LandingPage-welcomeBox-scheduleButton-text {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: 500;
+  height: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+}

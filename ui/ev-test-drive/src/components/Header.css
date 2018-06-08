@@ -1,0 +1,17 @@
+.Header {
+  background-color: #222;
+  height: 55pt;
+  color: white;
+}
+
+.Header-logo {
+  float: left;
+  padding: 0px 0px 0px 16px;
+}
+
+.Header-text {
+  text-align: center;
+  font-size: 1.5em;
+  padding: 15pt 0pt 0pt 67pt;
+  text-transform: uppercase;
+}
