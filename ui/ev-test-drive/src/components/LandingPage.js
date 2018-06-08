@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {PAGES} from '../actions'
 
 import topBanner from '../images/top banner.jpg';
 import logo from '../images/logo 2.svg';
 
 import './LandingPage.css';
 
-const LandingPage = ({isActive}) => (
+const LandingPage = ({isActive, setVisiblePage}) => (
   <div className="LandingPage"
     style={{
       visibility: isActive ? 'visible' : 'hidden',
@@ -22,17 +23,20 @@ const LandingPage = ({isActive}) => (
       <div className="LandingPage-welcomeBox-subtitle">
         To get started, tap the<br/>'Schedule Your Drive' button.
       </div>
-      <div className="LandingPage-welcomeBox-scheduleButton">
+      <button className="LandingPage-welcomeBox-scheduleButton"
+        onClick={() => setVisiblePage(PAGES.DRIVER_INFO)}
+      >
         <div className="LandingPage-welcomeBox-scheduleButton-text">
           Schedule your drive
         </div>
-      </div>
+      </button>
     </div>
   </div>
 );
 
 LandingPage.propTypes = {
-  isActive: PropTypes.bool.isRequired
+  isActive: PropTypes.bool.isRequired,
+  setVisiblePage: PropTypes.func.isRequired
 }
 
 export default LandingPage;
