@@ -51,11 +51,11 @@ CREATE TABLE drive (
 
 
 CREATE TABLE user_drive_map (
-  `user_id`      BIGINT(20) NOT NULL,
-  `drive_id`     BIGINT(20) NOT NULL,
-  `role`         DATETIME   NOT NULL,
-  `date_created` DATETIME   NOT NULL DEFAULT now(),
-  `last_updated` DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
+  `user_id`      BIGINT(20)  NOT NULL,
+  `drive_id`     BIGINT(20)  NOT NULL,
+  `role`         VARCHAR(32) NOT NULL,
+  `date_created` DATETIME    NOT NULL DEFAULT now(),
+  `last_updated` DATETIME    NOT NULL DEFAULT now() ON UPDATE now(),
   PRIMARY KEY (`user_id`, `drive_id`),
   CONSTRAINT FOREIGN KEY (`drive_id`) REFERENCES `drive` (`id`),
   CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -99,13 +99,12 @@ CREATE TABLE schedule_exception (
 
 
 CREATE TABLE car_schedule (
-  `id`           BIGINT(20) NOT NULL AUTO_INCREMENT,
   `car_id`       BIGINT(20) NOT NULL,
   `date`         DATE       NOT NULL,
   `active`       BOOLEAN    NOT NULL,
   `date_created` DATETIME   NOT NULL DEFAULT now(),
   `last_updated` DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`car_id`, `date`),
   CONSTRAINT FOREIGN KEY (`car_id`) REFERENCES `car` (`id`)
 )
   ENGINE = InnoDB
@@ -696,3 +695,13 @@ values
 
   (1000776, 1000144, 'No', FALSE, 0, null),
   (1000777, 1000144, 'Yes', TRUE, 1, null);
+
+insert into car_schedule (`car_id`, `date`, `active`)
+    values
+      (1, '2018-06-01', true),
+      (2, '2018-06-01', true),
+      (3, '2018-06-01', true),
+      (4, '2018-06-01', true),
+      (5, '2018-06-01', false),
+      (6, '2018-06-01', false)
+;
