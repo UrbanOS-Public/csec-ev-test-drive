@@ -15,7 +15,19 @@ const LandingPage = ({isActive}) => (
     }}
   >
     <img src={logo} className="LandingPage-logo" alt="logo" />
-    Landing Page
+    <div className="LandingPage-welcomeBox">
+      <h1 className="LandingPage-welcomeBox-title">
+        Welcome to<br/>Smart Columbus!
+      </h1>
+      <div className="LandingPage-welcomeBox-subtitle">
+        To get started, tap the<br/>'Schedule Your Drive' button.
+      </div>
+      <div className="LandingPage-welcomeBox-scheduleButton">
+        <div className="LandingPage-welcomeBox-scheduleButton-text">
+          Schedule your drive
+        </div>
+      </div>
+    </div>
   </div>
 );
 
