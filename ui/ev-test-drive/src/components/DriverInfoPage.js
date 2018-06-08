@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from './Header';
+import Footer from './Footer';
 
 const DriverInfoPage = ({isActive}) => (
   <div
@@ -8,7 +10,9 @@ const DriverInfoPage = ({isActive}) => (
       display: isActive ? 'inherit' : 'none'
     }}
   >
+    <Header />
     Driver Info Page
+    <Footer />
   </div>
 );
 

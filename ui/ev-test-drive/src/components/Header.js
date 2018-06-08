@@ -4,21 +4,14 @@ import logo from '../images/logo 2.svg';
 
 import './Header.css';
 
-const Header = ({isVisible}) => (
-  <header
-    className="Header"
-    style={{
-      visibility: isVisible ? 'visible' : 'hidden',
-      display: isVisible ? 'inherit' : 'none'
-    }}
-  >
+const Header = () => (
+  <header className="Header">
     <img src={logo} className="Header-logo" alt="logo" />
     <h1 className="Header-text">Schedule a Ride</h1>
   </header>
 )
 
 Header.propTypes = {
-  isVisible: PropTypes.bool.isRequired
 }
 
 export default Header;
