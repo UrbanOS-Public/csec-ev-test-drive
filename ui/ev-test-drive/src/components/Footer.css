@@ -1,0 +1,15 @@
+.Footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50pt;
+  background-color: white;
+  color: black;
+  border-top: rgba(206,206,206,1) 1pt solid;
+}
+
+.Footer-text {
+  float: right;
+  padding-right: 20pt;
+}
