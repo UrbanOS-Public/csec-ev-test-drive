@@ -3,7 +3,7 @@ module "JobPopulateCarScheduleRole" {
   lambda_role_name = "JobPopulateCarScheduleRole"
 }
 
-module "JobPopulateCarSchedule" {
+module "JobPopulateCarScheduleFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
   function_name = "JobPopulateCarSchedule"
   handler = "src/JobPopulateCarSchedule.handler"
@@ -21,4 +21,10 @@ module "JobPopulateCarSchedule" {
   }
 }
 
-//TODO: NEED TO DO SCHEDULE.
+module "JobPopulateCarScheduleTimer" {
+  source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
+  name = "JobPopulateCarScheduleSchedule"
+  schedule_expression = "cron(0 1 * * ? *)"
+  schedule_description = "Runs everyday at 0100 UTC"
+  lambda_function_arn = "${module.JobPopulateCarScheduleFunction.arn}"
+}
