@@ -3,7 +3,6 @@ resource "aws_s3_bucket" "smart_experience_artifact_repo" {
   acl = "private"
 }
 
-
 resource "aws_security_group" "LambdaSecurityGroup" {
   name = "LambdaSecurityGroup"
   tags {
@@ -11,8 +10,14 @@ resource "aws_security_group" "LambdaSecurityGroup" {
   }
   description = "Security Group used by lambdas to access the RDS instance"
   vpc_id = "${var.vpc_id}"
-}
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 resource "aws_subnet" "Subnet1a" {
   vpc_id     = "${var.vpc_id}"

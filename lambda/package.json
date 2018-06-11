@@ -8,9 +8,9 @@
     "deploy": "./deploy.sh"
   },
   "dependencies": {
+    "moment": "^2.22.2",
     "mysql": "^2.15.0",
-    "request": "^2.81.0",
-    "moment": "^2.22.2"
+    "request": "^2.87.0"
   },
   "author": "Step It Up (http://getstepitup.com/)",
   "license": "ISC",
