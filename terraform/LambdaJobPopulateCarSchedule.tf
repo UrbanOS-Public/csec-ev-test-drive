@@ -14,7 +14,7 @@ module "JobPopulateCarSchedule" {
   vpc_security_group_ids = [ "${aws_security_group.LambdaSecurityGroup.id}" ]
   environment = {
     variables = {
-      host = "${aws_db_instance.smartexperience_mysql_db.arn}"
+      host = "${aws_db_instance.smartexperience_mysql_db.address}"
       user = "${var.user}"
       password = "${var.password}"
     }
