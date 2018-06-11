@@ -43,6 +43,7 @@ deployLambdas() {
         lambdaNames=($1)
     else
         lambdaNames=(
+            'JobPopulateCarSchedule'
         )
     fi
 
