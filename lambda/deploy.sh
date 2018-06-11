@@ -44,6 +44,7 @@ deployLambdas() {
     else
         lambdaNames=(
             'JobPopulateCarSchedule'
+            'JobArchiveCarSchedule'
         )
     fi
 
