@@ -16,6 +16,10 @@
 .env.test.local
 .env.production.local
 
+# vim
+*.swp
+*.swo
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
