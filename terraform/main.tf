@@ -14,22 +14,49 @@ resource "aws_security_group" "LambdaSecurityGroup" {
 }
 
 
-resource "aws_subnet" "LambdaSubnet1" {
+resource "aws_subnet" "Subnet1a" {
   vpc_id     = "${var.vpc_id}"
-  cidr_block = "172.31.96.0/20"
+  cidr_block = "172.31.80.0/20"
   availability_zone = "us-east-1a"
-
+  map_public_ip_on_launch = true
   tags {
-    Name = "LambdaSubnet1"
+    Name = "Subnet1a"
   }
 }
 
-resource "aws_subnet" "LambdaSubnet2" {
+resource "aws_subnet" "Subnet1b" {
   vpc_id     = "${var.vpc_id}"
-  cidr_block = "172.31.112.0/20"
+  cidr_block = "172.31.16.0/20"
   availability_zone = "us-east-1b"
+  map_public_ip_on_launch = true
+  tags {
+    Name = "Subnet1b"
+  }
+}
+
+resource "aws_subnet" "Subnet1f" {
+  vpc_id     = "${var.vpc_id}"
+  cidr_block = "172.31.64.0/20"
+  availability_zone = "us-east-1f"
+  map_public_ip_on_launch = true
+  tags {
+    Name = "Subnet1f"
+  }
+}
+
+resource "aws_internet_gateway" "gw" {
+  vpc_id = "${var.vpc_id}"
+}
+
+resource "aws_eip" "nat_gateway_ip" {
+  vpc      = true
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = "${aws_eip.nat_gateway_ip.id}"
+  subnet_id     = "${aws_subnet.Subnet1f.id}"
 
   tags {
-    Name = "LambdaSubnet2"
+    Name = "gw NAT"
   }
 }
