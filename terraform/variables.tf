@@ -26,3 +26,11 @@ variable "subnet-us-east-1-a" {
 variable "subnet-us-east-1-b" {
   default = "subnet-91a933db"
 }
+
+variable "user" {
+  default = "smrt"
+}
+
+variable "password" {
+  default = "akdg9le&e82ldKa"
+}

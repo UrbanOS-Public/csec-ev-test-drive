@@ -1,5 +1,5 @@
 variable "lambda_s3_artifact_bucket" {
-  default = "smart_experience_artifact_repo"
+  default = "smart-experience-artifact-repo"
 }
 variable "lambda_s3_artifact_key" {
   default = "lambdas.zip"
@@ -51,8 +51,8 @@ resource "aws_lambda_function" "function" {
   memory_size = "${var.memory_size }"
   environment = ["${var.environment}"]
   vpc_config = {
-    subnet_ids = "${var.vpc_subnet_ids}"
-    security_group_ids = "${var.vpc_security_group_ids}"
+    subnet_ids = ["${var.vpc_subnet_ids}"]
+    security_group_ids = ["${var.vpc_security_group_ids}"]
   }
 }
 

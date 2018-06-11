@@ -13,6 +13,13 @@ resource "aws_security_group" "smartexperience_db_security_group" {
     cidr_blocks = [
       "0.0.0.0/0"]
   }
+
+  ingress {
+    from_port = 3306
+    to_port = 3306
+    protocol = "TCP"
+    security_groups = ["${aws_security_group.LambdaSecurityGroup.id}"]
+  }
 }
 
 
@@ -24,8 +31,8 @@ resource "aws_db_instance" "smartexperience_mysql_db" {
   engine_version = "5.7.21"
   instance_class = "db.t2.micro"
   name = "smart_experience"
-  username = "smrt"
-  password = "akdg9le&e82ldKa"
+  username = "${var.user}"
+  password = "${var.password}"
   vpc_security_group_ids = [
     "${aws_security_group.smartexperience_db_security_group.id}"]
   publicly_accessible = false
