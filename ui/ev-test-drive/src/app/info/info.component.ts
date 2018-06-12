@@ -14,7 +14,6 @@ export class InfoComponent implements OnInit {
   titleText: string;
   introText: string;
   bullets: any[] = [];
-  displayError: boolean = false;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -35,8 +34,6 @@ export class InfoComponent implements OnInit {
           this.titleText = infoPage.title;
           this.introText = infoPage.text;
           this.bullets = infoPage.bullets;
-        } else {
-          this.displayError = true;
         }
       }
     );
