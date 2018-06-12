@@ -56,6 +56,15 @@ resource "aws_lambda_function" "function" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "function" {
+  name = "/aws/lambda/${var.function_name}"
+  retention_in_days = 3
+}
+
 output "arn" {
   value = "${aws_lambda_function.function.arn}"
+}
+
+output "invoke_arn" {
+  value = "${aws_lambda_function.function.invoke_arn}"
 }

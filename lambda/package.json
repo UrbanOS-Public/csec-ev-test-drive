@@ -8,6 +8,8 @@
     "deploy": "./deploy.sh"
   },
   "dependencies": {
+    "email-validator": "^2.0.4",
+    "extend": "^3.0.1",
     "moment": "^2.22.2",
     "mysql": "^2.15.0",
     "request": "^2.87.0"
