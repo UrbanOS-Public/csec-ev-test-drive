@@ -6,6 +6,7 @@ import { AppRoutingModule }     from './app-routing.module';
 
 import { HomeComponent } from './home/home.component';
 
+import { InfoComponent } from './info/info.component';
 import { NotAloneComponent } from './info/not-alone/not-alone.component';
 
 
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         HomeComponent,
+        InfoComponent,
         NotAloneComponent
       ],
       imports: [

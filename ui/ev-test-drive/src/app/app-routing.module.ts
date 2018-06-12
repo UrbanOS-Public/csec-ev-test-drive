@@ -5,12 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent }   from './home/home.component';
 
 // Info (QR Code) Pages
-import { NotAloneComponent } from './info/not-alone/not-alone.component';
+import { InfoComponent } from './info/info.component';
  
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'info/yourenotalone', component: NotAloneComponent },
+  { path: 'info/:pageId', component: InfoComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
  

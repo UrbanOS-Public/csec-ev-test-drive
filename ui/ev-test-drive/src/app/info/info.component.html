@@ -1,0 +1,23 @@
+<div class="info">
+  <div class="headerImage"
+    [ngStyle]="{'background': backgroundStyle}">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <div class="titleText">
+      <h1>{{ titleText }}</h1>
+    </div>
+  </div>
+  <div class="introText">
+    <p>{{ introText }}</p>
+  </div>
+  <div class="bulletPoints">
+    <ul class="bulletList">
+      <li *ngFor='let bullet of bullets'>
+        <p>{{ bullet.bulletText }}</p>
+      </li>
+    </ul>
+  </div>
+  <div class="footer">
+    <p>&copy;2018 SMARTcolumbus.  All rights reserved. </p>
+  </div>
+
+</div>
