@@ -1,10 +1,7 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Home Page 
-import { HomeComponent }   from './home/home.component';
-
-// Info (QR Code) Pages
+import { HomeComponent } from './home/home.component';
 import { InfoComponent } from './info/info.component';
  
 const routes: Routes = [
