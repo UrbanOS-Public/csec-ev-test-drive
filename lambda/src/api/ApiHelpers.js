@@ -1,10 +1,10 @@
 const extend = require('extend');
 
 module.exports.httpResponse = (callback, statusCode, bodyObject, headers) => {
-    var defaultHeaders = {
+    const defaultHeaders = {
         'Access-Control-Allow-Origin': '*',
     };
-    var headersToSend = extend(defaultHeaders, headers);
+    const headersToSend = extend(defaultHeaders, headers);
 
     callback(null, {
         statusCode: statusCode,
