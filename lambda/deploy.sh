@@ -45,6 +45,7 @@ deployLambdas() {
         lambdaNames=(
             'JobPopulateCarSchedule'
             'JobArchiveCarSchedule'
+            'ApiSaveUser'
         )
     fi
 
