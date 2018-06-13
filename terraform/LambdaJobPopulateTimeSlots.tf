@@ -21,10 +21,10 @@ module "JobPopulateTimeSlotsFunction" {
   }
 }
 
-//module "JobPopulateTimeSlotsTimer" {
-//  source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-//  name = "JobPopulateTimeSlotsSchedule"
-//  schedule_expression = "cron(15 1 * * ? *)"
-//  schedule_description = "Runs everyday at 0115 UTC"
-//  lambda_function_arn = "${module.JobPopulateTimeSlotsFunction.arn}"
-//}
+module "JobPopulateTimeSlotsTimer" {
+  source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
+  name = "JobPopulateTimeSlotsSchedule"
+  schedule_expression = "cron(30 1 * * ? *)"
+  schedule_description = "Runs everyday at 0115 UTC"
+  lambda_function_arn = "${module.JobPopulateTimeSlotsFunction.arn}"
+}
