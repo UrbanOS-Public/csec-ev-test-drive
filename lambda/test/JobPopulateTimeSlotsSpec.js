@@ -120,7 +120,7 @@ describe('JobPopulateTimeSlots', () => {
                                     expect(data.length).to.equal(20);
                                     expect(data[0].start_time).to.equal("10:00:00");
                                     expect(data[0].end_time).to.equal("10:30:00");
-                                    expect(data[0].available_count).to.equal(2);
+                                    expect(data[1].available_count).to.equal(2);
                                     expect(data[1].start_time).to.equal("10:30:00");
                                     expect(data[2].start_time).to.equal("11:00:00");
                                     expect(data[3].start_time).to.equal("11:30:00");
