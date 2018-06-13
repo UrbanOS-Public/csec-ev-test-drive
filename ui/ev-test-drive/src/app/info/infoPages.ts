@@ -105,7 +105,7 @@ export const infoPages = [
   {
     id: "charginglevels",
     title: "Charging Levels",
-    text: "There are a few types of charging levels for your vehicle that you should know.  Level one to Level three, with level one being the slowest charge rate and level three being the fastest.",
+    text: "There are a few types of charging levels for your vehicle that you should know.  Level one to level three, with level one being the slowest charge rate and level three being the fastest.",
     bullets: [
       {
         bulletText: "Level one charge is conducted through a regular electrical outlet that you are accustomed to.  A cord comes with any plug-in car you buy, and you can plug in anywhere to give yourself some miles.  In most plug-in models, this level of charge would take you a full night's sleep to recharge."
@@ -125,7 +125,7 @@ export const infoPages = [
     text: "As an EV driver, you are helping your city meet its goals of increasing electric vehicle ownership by 500% by 2020.",
     bullets: [
       {
-        bulletText: "Electric vehicles are the new normal, become an EVIP by buying an plug-in hybrid or full plug-in electric vehicle at an area dealer by 2020."
+        bulletText: "Electric vehicles are the new normal, become an EVIP by buying a plug-in hybrid or full plug-in electric vehicle at an area dealer by 2020."
       },
       {
         bulletText: "The best way to know if an EV is for you is to get in one. We are offering electric vehicle test drives today from the Experience Center!  Register for one at the front desk."

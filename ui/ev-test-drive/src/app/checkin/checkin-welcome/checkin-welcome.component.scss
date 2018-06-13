@@ -1,0 +1,88 @@
+ .welcomeScreen {
+  width: 100vw;
+  margin: 0;
+  font-family: Gotham, sans-serif;
+
+  .headerImage {
+    background: no-repeat top/100% url("../../../assets/top_banner.jpg");
+    background-color: #000;
+    position: relative;
+    overflow: visible;
+    height: 466px;
+
+    .scLogo {
+      left: 36px;
+      top: 36px;
+      display: inline-block;
+      height: 140px;
+      width: 100px;
+      position: absolute;
+    }
+
+    .welcomePane {
+      height: 405px;
+      width: 445px;
+      background-color: #FFF;
+      overflow: visible;
+      display: inline-block;
+      margin-left: calc(50vw - 222px);
+      margin-top: 164px;
+      border: 1px solid #DBDBDB;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.19);
+
+      .titleText {
+        color: #333;
+        font-size: 45px;
+        font-weight: 500;
+        line-height: 51px;
+        letter-spacing: -0.93px;
+        text-align: center;
+      }
+
+      .getStartedText {
+        color: #333;
+        font-size: 21px;
+        font-weight: 200;
+        line-height: 32px;
+        letter-spacing: -0.93px;
+        text-align: center;
+        margin-left: 70px;
+        margin-right: 70px;
+      }
+
+      .scheduleDriveLink {
+        margin: 0;
+        color: #FFF;
+        text-decoration: none;
+        cursor: pointer;
+
+        .scheduleDriveButton {
+          height: 72px;
+          width: 335px;
+          margin-top: 45px;
+          margin-left: 55px;
+          background-color: #C10194;
+          border-radius: 4px;
+          box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22); 
+
+          .scheduleDriveButtonText {
+            color: #FFF;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 42px;
+            letter-spacing: -0.68px;
+            text-align: center;
+            text-transform: uppercase;
+            padding-top: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .bottomHalf {
+    background-color: #000;
+    height: 368px;
+  }
+} 

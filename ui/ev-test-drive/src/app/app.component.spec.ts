@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 
 import { InfoComponent } from './info/info.component';
 
+import { CheckinWelcomeComponent } from './checkin/checkin-welcome/checkin-welcome.component';
+import { RegistrationComponent } from './checkin/registration/registration.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,7 +17,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         HomeComponent,
-        InfoComponent
+        InfoComponent,
+        CheckinWelcomeComponent,
+        RegistrationComponent
       ],
       imports: [
         AppRoutingModule
