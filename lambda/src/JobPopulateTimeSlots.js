@@ -81,7 +81,7 @@ class JobPopulateTimeSlots {
             values.push(row);
         }
 
-        return this.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time), available_count = values(available_count)", [values]);
+        return this.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time)", [values]);
     }
 
     createCarSlotsForDate(date) {
