@@ -120,7 +120,8 @@ CREATE TABLE time_slot (
   `available_count` TINYINT    NOT NULL,
   `date_created`    DATETIME   NOT NULL DEFAULT now(),
   `last_updated`    DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `time_slot_unique_date_start_time` (`date`, `start_time`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 500000
@@ -136,7 +137,8 @@ CREATE TABLE car_slot (
   `last_updated` DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
   PRIMARY KEY (`id`),
   CONSTRAINT FOREIGN KEY (`time_slot_id`) REFERENCES `time_slot` (`id`),
-  CONSTRAINT FOREIGN KEY (`car_id`) REFERENCES `car` (`id`)
+  CONSTRAINT FOREIGN KEY (`car_id`) REFERENCES `car` (`id`),
+  UNIQUE KEY `time_slot_unique_date_start_time` (`time_slot_id`, `car_id`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 750000
@@ -264,7 +266,7 @@ values
    '25 EV miles (640 Total)', '8.8 kWh', 'Level 2 (240V)', '2.1 hours'),
   (4, 'Honda', 'Clarity', 'http://', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$33,400 before tax credits',
    '48 EV miles (340 Total)', '17 kWh', 'Level 2 (240V)', '2-3 hours'),
-  (5, 'Chevrolet', 'Volt', 'http://', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$34,095 before tax credits',
+  (5, 'Chevrolet', 'Bolt', 'http://', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$34,095 before tax credits',
    '53 EV miles (420 Total)', '18.4 kWh', 'Level 2 (240V)', '4-5 hours'),
   (6, 'Mercedes', 'GLE 550e', 'http://', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$66,700 before tax credits',
    '10 EV miles (??? Total)', '3.3 kWh', 'Level 2 (240V)', '2.3 hours');
@@ -705,3 +707,23 @@ insert into car_schedule (`car_id`, `date`, `active`)
       (5, '2018-06-01', false),
       (6, '2018-06-01', false)
 ;
+
+# insert into time_slot (`id`, `date`, `start_time`, `end_time`, `available_count`)
+#     values
+#       (500000, '2018-06-11', '9:00', '9:30', 1),
+#       (500001, '2018-06-11', '9:30', '10:00', 0),
+#       (500002, '2018-06-11', '13:00', '13:30', 2)
+# ;
+#
+# insert into car_slot (`time_slot_id`, `car_id`, `reserved`)
+#     values
+#       (500000, 1, false),
+#       (500000, 2, false),
+#       (500000, 3, true),
+#       (500000, 4, false),
+#       (500001, 1, false),
+#       (500001, 2, false),
+#       (500001, 3, true),
+#       (500001, 4, true),
+#       (500002, 1, false)
+# ;
