@@ -150,13 +150,13 @@ class JobPopulateTimeSlots {
     }
 
     successHandler(callback) {
-        // smartExperienceMySQLPool.closePool(this.pool);
+        smartExperienceMySQLPool.closePool(this.pool);
         console.log(`Done`);
         callback(null);
     }
 
     errorHandler(callback, error) {
-        // smartExperienceMySQLPool.closePool(this.pool);
+        smartExperienceMySQLPool.closePool(this.pool);
         console.log(`ERROR: ${error}`);
         callback(error);
     }

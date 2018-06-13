@@ -45,7 +45,8 @@ describe('JobPopulateTimeSlots', () => {
 
         return handler
             .assert(() => {
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
+                    pool = SmartExperienceMySQLPool.newPool();
                     doQuery("select * from archive_car_slot", [])
                         .then((data) => {
                             expect(data[0].time_slot_id).to.equal(500000);
@@ -61,6 +62,7 @@ describe('JobPopulateTimeSlots', () => {
         return handler
             .assert(() => {
                 return new Promise((resolve, reject) => {
+                    pool = SmartExperienceMySQLPool.newPool();
                     doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", [yesterday])
                         .then((data) => {
                             expect(data.length).to.equal(0);
@@ -79,6 +81,7 @@ describe('JobPopulateTimeSlots', () => {
         return handler
             .assert(() => {
                 return new Promise((resolve) => {
+                    pool = SmartExperienceMySQLPool.newPool();
                     doQuery("select * from archive_time_slot", [])
                         .then((data) => {
                             expect(data[0].id).to.equal(500000);
@@ -93,7 +96,8 @@ describe('JobPopulateTimeSlots', () => {
 
         return handler
             .assert(() => {
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
+                    pool = SmartExperienceMySQLPool.newPool();
                     doQuery("select * from time_slot where date = ?", [yesterday])
                         .then((data) => {
                             expect(data.length).to.equal(0);
@@ -111,7 +115,8 @@ describe('JobPopulateTimeSlots', () => {
             .then(() => {
                 return handler
                     .assert(() => {
-                        return new Promise((resolve, reject) => {
+                        return new Promise((resolve) => {
+                            pool = SmartExperienceMySQLPool.newPool();
                             doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(20);
@@ -141,7 +146,8 @@ describe('JobPopulateTimeSlots', () => {
 
                 return handler
                     .assert(() => {
-                        return new Promise((resolve, reject) => {
+                        return new Promise((resolve) => {
+                            pool = SmartExperienceMySQLPool.newPool();
                             doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(22);
@@ -161,7 +167,8 @@ describe('JobPopulateTimeSlots', () => {
             .then(() => {
                 return handler
                     .assert(() => {
-                        return new Promise((resolve, reject) => {
+                        return new Promise((resolve) => {
+                            pool = SmartExperienceMySQLPool.newPool();
                             doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(40);
@@ -180,7 +187,8 @@ describe('JobPopulateTimeSlots', () => {
             .then(() => {
                 return handler
                     .assert(() => {
-                        return new Promise((resolve, reject) => {
+                        return new Promise((resolve) => {
+                            pool = SmartExperienceMySQLPool.newPool();
                             doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(80);
@@ -203,14 +211,12 @@ describe('JobPopulateTimeSlots', () => {
             .then(() => {
                 return handler
                     .assert(() => {
-                        return new Promise((resolve, reject) => {
+                        return new Promise((resolve) => {
+                            pool = SmartExperienceMySQLPool.newPool();
                             doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(4);
                                     resolve(data);
-                                })
-                                .catch(err => {
-                                    reject(err);
                                 });
                         });
                     });
