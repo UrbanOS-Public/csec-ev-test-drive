@@ -1,8 +1,5 @@
 const {JobPopulateTimeSlots} = require('../src/JobPopulateTimeSlots');
-const sinon = require('sinon');
 const chai = require('chai');
-const sinonChai = require('sinon-chai');
-chai.use(sinonChai);
 const expect = chai.expect;
 const {prepare} = require('ndc-util');
 const moment = require('moment');
@@ -36,6 +33,7 @@ describe('JobPopulateTimeSlots', () => {
             SmartExperienceMySQLPool.closePool(pool);
         }, 1000);
         setTimeout(() => {
+            //TODO: IDK why but the test hangs without this.
             process.exit();
         }, 1500);
     });
