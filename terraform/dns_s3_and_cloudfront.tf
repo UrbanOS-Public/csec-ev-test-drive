@@ -21,16 +21,16 @@ resource "aws_route53_record" "ns" {
   ]
 }
 
-resource "aws_route53_record" "cert_domain_verification" {
-  zone_id = "${aws_route53_zone.main.zone_id}"
-  name = "_23e0705e6d375e3b1d868773b74af662.${var.dns_name}"
-  type = "CNAME"
-  ttl = "30"
-
-  records = [
-    "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
-  ]
-}
+//resource "aws_route53_record" "cert_domain_verification" {
+//  zone_id = "${aws_route53_zone.main.zone_id}"
+//  name = "_23e0705e6d375e3b1d868773b74af662.${var.dns_name}"
+//  type = "CNAME"
+//  ttl = "30"
+//
+//  records = [
+//    "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
+//  ]
+//}
 
 resource "aws_acm_certificate" "cert" {
   domain_name = "${var.dns_name}"
@@ -109,8 +109,7 @@ resource "aws_cloudfront_distribution" "website" {
 
   "restrictions" {
     "geo_restriction" {
-      restriction_type = "whitelist"
-      locations = ["US"]
+      restriction_type = "none"
     }
   }
   "viewer_certificate" {
