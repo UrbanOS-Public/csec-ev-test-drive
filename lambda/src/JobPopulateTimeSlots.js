@@ -61,22 +61,22 @@ class JobPopulateTimeSlots {
     }
 
     createTimeSlotsForDate(schedule, date) {
-        const day = `2018-01-01`;
+        const day = this.moment().format("YYYY-MM-DD");
         const dayStartTime = schedule.start_time;
         const dayEndTime = schedule.end_time;
         const available_count = schedule.employees_per_slot;
         const slot_length_minutes = schedule.slot_length_minutes;
 
-        const start = moment(`${day} ${dayStartTime}`);
-        const end = moment(`${day} ${dayEndTime}`);
+        const start = this.moment(`${day} ${dayStartTime}`);
+        const end = this.moment(`${day} ${dayEndTime}`);
         const diffInMilliseconds = end.diff(start);
         const lengthOfDayInMinutes = diffInMilliseconds / 1000 / 60;
         const numberOfSlots = lengthOfDayInMinutes / slot_length_minutes;
 
         let values = [];
         for (var i = 0; i < numberOfSlots; i++) {
-            const row_start_time = moment(`${day} ${dayStartTime}`).add(i * slot_length_minutes, 'minutes').format("HH:mm:ss");
-            const row_end_time = moment(`${day} ${dayStartTime}`).add((i + 1) * slot_length_minutes, 'minutes').format("HH:mm:ss");
+            const row_start_time = this.moment(`${day} ${dayStartTime}`).add(i * slot_length_minutes, 'minutes').format("HH:mm:ss");
+            const row_end_time = this.moment(`${day} ${dayStartTime}`).add((i + 1) * slot_length_minutes, 'minutes').format("HH:mm:ss");
             const row = [date, row_start_time, row_end_time, available_count];
             values.push(row);
         }
@@ -119,34 +119,6 @@ class JobPopulateTimeSlots {
                 }
             });
         });
-    }
-
-    createNewSchedules(carsAndSchedules) {
-        const promises = carsAndSchedules.map((carAndSchedule) => {
-            return new Promise((resolve, reject) => {
-                const car = carAndSchedule.car;
-                const car_schedule = carAndSchedule.car_schedule;
-
-                var active = 0;
-                if (car_schedule) {
-                    active = car_schedule.active;
-                }
-                const daysFromNowToProduceFor = 180;
-                var values = [];
-                for (var i = 1; i <= daysFromNowToProduceFor; i++) {
-                    values.push([car.id, this.moment().add(i, 'days').startOf('day').format("YYYY-MM-DD"), active]);
-                }
-                this.pool.query('insert ignore into car_schedule (car_id, date, active) values ? on duplicate key update active = values(active)', [values], (error, data) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        resolve(data);
-                    }
-                });
-
-            });
-        });
-        return Promise.all(promises);
     }
 
     successHandler(callback) {
