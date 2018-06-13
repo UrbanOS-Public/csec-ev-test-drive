@@ -45,38 +45,19 @@ class JobPopulateTimeSlots {
     }
 
     getScheduleForToday(today, dayOfTheWeekStartingSundayZeroBased) {
-        // return new Promise((resolve, reject) => {
-        //     const queryForExceptions = `select * from schedule_exception where date = ?`;
-        //     this.doQuery(queryForExceptions, today)
-        //         .then((data) => {
-        //             if (data) {
-        //                 resolve(data);
-        //             } else {
-        //                 const queryForDefaultSchedule = `select * from schedule where day_of_the_week = ?`;
-        //                 this.doQuery(queryForDefaultSchedule, dayOfTheWeekStartingSundayZeroBased)
-        //                     .then((data) => {
-        //                         resolve(data);
-        //                     })
-        //                     .catch(err => {
-        //                         reject(err);
-        //                     });
-        //             }
-        //         })
-        //         .catch(err => {
-        //             reject(err);
-        //         });
-        // });
+        const scheduleExceptionPromise = this.doQuery(`select * from schedule_exception where date = ?`, today);
+        const defaultSchedulePromise = this.doQuery(`select * from schedule where day_of_the_week = ?`, dayOfTheWeekStartingSundayZeroBased);
 
-        return new Promise((resolve, reject) => {
-            const queryForDefaultSchedule = `select * from schedule where day_of_the_week = ?`;
-            this.doQuery(queryForDefaultSchedule, dayOfTheWeekStartingSundayZeroBased)
-                .then((data) => {
-                    resolve(data[0]);
-                })
-                .catch(err => {
-                    reject(err);
-                });
-        });
+        return Promise.all([scheduleExceptionPromise, defaultSchedulePromise])
+            .then((data) => {
+                const scheduleException = data[0][0];
+                const defaultSchedule = data[1][0];
+                if (scheduleException) {
+                    return scheduleException;
+                } else {
+                    return defaultSchedule;
+                }
+            });
     }
 
     createTimeSlotsForDate(schedule, date) {
@@ -100,7 +81,7 @@ class JobPopulateTimeSlots {
             values.push(row);
         }
 
-        return this.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time)", [values]);
+        return this.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time), available_count = values(available_count)", [values]);
     }
 
     createCarSlotsForDate(date) {

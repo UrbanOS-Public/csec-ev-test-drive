@@ -13,7 +13,6 @@ const SmartExperienceMySQLPool = require('../src/utils/SmartExperienceMySQLPool'
 describe('JobPopulateTimeSlots', () => {
 
     let handler;
-    let mockedMoment;
     let pool;
     const yesterday = moment().subtract(1, 'days').format("YYYY-MM-DD");
     const today = moment().format("YYYY-MM-DD");
@@ -79,14 +78,11 @@ describe('JobPopulateTimeSlots', () => {
 
         return handler
             .assert(() => {
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
                     doQuery("select * from archive_time_slot", [])
                         .then((data) => {
                             expect(data[0].id).to.equal(500000);
                             resolve(data);
-                        })
-                        .catch(err => {
-                            reject(err);
                         });
                 });
             });
@@ -102,9 +98,6 @@ describe('JobPopulateTimeSlots', () => {
                         .then((data) => {
                             expect(data.length).to.equal(0);
                             resolve(data);
-                        })
-                        .catch(err => {
-                            reject(err);
                         });
                 });
             });
@@ -122,25 +115,19 @@ describe('JobPopulateTimeSlots', () => {
                             doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(20);
+                                    expect(data[0].start_time).to.equal("10:00:00");
+                                    expect(data[0].end_time).to.equal("10:30:00");
+                                    expect(data[0].available_count).to.equal(2);
+                                    expect(data[1].start_time).to.equal("10:30:00");
+                                    expect(data[2].start_time).to.equal("11:00:00");
+                                    expect(data[3].start_time).to.equal("11:30:00");
+                                    expect(data[4].start_time).to.equal("12:00:00");
+                                    expect(data[5].start_time).to.equal("12:30:00");
+                                    expect(data[6].start_time).to.equal("13:00:00");
                                     resolve(data);
-                                    expect(data[0].start_time).to.equal("10:00");
-                                    expect(data[0].end_time).to.equal("10:30");
-                                    expect(data[0].available_count).to.equal("2");
-                                    expect(data[1].start_time).to.equal("10:30");
-                                    expect(data[2].start_time).to.equal("11:00");
-                                    expect(data[3].start_time).to.equal("11:30");
-                                    expect(data[4].start_time).to.equal("12:00");
-                                    expect(data[5].start_time).to.equal("12:30");
-                                    expect(data[6].start_time).to.equal("13:00");
-                                })
-                                .catch(err => {
-                                    reject(err);
                                 });
                         });
                     });
-            })
-            .catch(err => {
-                console.log(err);
             });
     });
 
@@ -159,26 +146,19 @@ describe('JobPopulateTimeSlots', () => {
                                 .then((data) => {
                                     expect(data.length).to.equal(22);
                                     resolve(data);
-                                })
-                                .catch(err => {
-                                    reject(err);
                                 });
                         });
                     });
-            })
-            .catch(err => {
-                console.log(err);
             });
     });
 
     it('should use length', () => {
-        var p1 = cleanseDb();
-        var p2 = populateDb();
+        const p1 = cleanseDb();
+        const p2 = populateDb();
+        const p3 = doQuery("update schedule set slot_length_minutes = 15 where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased);
 
-        return Promise.all([p1, p2])
+        return Promise.all([p1, p2, p3])
             .then(() => {
-                doQuery("update schedule set slot_length_minutes = 15 where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased);
-
                 return handler
                     .assert(() => {
                         return new Promise((resolve, reject) => {
@@ -186,15 +166,9 @@ describe('JobPopulateTimeSlots', () => {
                                 .then((data) => {
                                     expect(data.length).to.equal(40);
                                     resolve(data);
-                                })
-                                .catch(err => {
-                                    reject(err);
                                 });
                         });
                     });
-            })
-            .catch(err => {
-                console.log(err);
             });
     });
 
@@ -209,10 +183,34 @@ describe('JobPopulateTimeSlots', () => {
                         return new Promise((resolve, reject) => {
                             doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", [today])
                                 .then((data) => {
-                                    console.log(`after query`);
-                                    console.log(data.length);
                                     expect(data.length).to.equal(80);
                                     resolve(data);
+                                });
+                        });
+                    });
+            });
+    });
+
+    it('should use schedule_exception if exists for today', () => {
+        const p1 = cleanseDb();
+        const p2 = populateDb();
+        const values = [
+            [dayOfTheWeekStartingSundayZeroBased, today, '10:00', '11:00', 15, 3]
+        ];
+        const p3 = doQuery("insert into schedule_exception (`day_of_the_week`, `date`, `start_time`, `end_time`, `slot_length_minutes`, `employees_per_slot`) values ?", [values]);
+
+        return Promise.all([p1, p2, p3])
+            .then(() => {
+                return handler
+                    .assert(() => {
+                        return new Promise((resolve, reject) => {
+                            doQuery("select * from time_slot where date = ? order by start_time asc", [today])
+                                .then((data) => {
+                                    expect(data.length).to.equal(4);
+                                    resolve(data);
+                                })
+                                .catch(err => {
+                                    reject(err);
                                 });
                         });
                     });
@@ -237,7 +235,7 @@ describe('JobPopulateTimeSlots', () => {
             ["insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values (500000, 1, false)", []],
             ["insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values (500001, 1, false)", []],
             ["insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values (500002, 1, false)", []],
-            ["update schedule set end_time = '20:00', slot_length_minutes = 30 where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased],
+            ["update schedule set end_time = '20:00', slot_length_minutes = 30, employees_per_slot = 2 where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased],
             ["insert ignore into car_schedule (`car_id`, `date`, `active`) values ?", [carSchedules]]
 
         ];
@@ -250,6 +248,7 @@ describe('JobPopulateTimeSlots', () => {
     let cleanseDb = () => {
         const queries = [
             'delete from car_slot',
+            'delete from schedule_exception',
             'delete from archive_time_slot',
             'delete from archive_car_schedule',
             'delete from archive_car_slot',
