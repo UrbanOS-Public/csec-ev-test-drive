@@ -43,7 +43,7 @@ class GetCars {
                 specs: {
                     msrp: row.msrp,
                     evRange: row.ev_range,
-                   totalRange: row.total_range,
+                    totalRange: row.total_range,
                     battery: row.battery_size,
                     chargingStandard: row.charging_standard,
                     chargeTime: row.charge_time
@@ -61,8 +61,7 @@ class GetCars {
     errorHandler(callback, error) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`ERROR: ${error}`);
-        callback(error);
-        this.ApiHelpers.httpResponse(callback, 500, {error: ""});
+        this.ApiHelpers.httpResponse(callback, 500, {error: error});
     }
 }
 
