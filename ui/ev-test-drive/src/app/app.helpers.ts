@@ -28,5 +28,16 @@ class Helpers {
   encodeSpecialCharacters (text) {
     return encodeURIComponent(text);
   }
+
+  formatAMPM(date: Date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    let strMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const strTime = hours + ':' + strMinutes + ' ' + ampm;
+    return strTime;
+  }
 }
 export { Helpers };
