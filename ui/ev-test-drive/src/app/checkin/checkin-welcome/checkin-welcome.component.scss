@@ -1,4 +1,6 @@
- .welcomeScreen {
+@import "../../../colors.scss";
+
+.welcomeScreen {
   width: 100vw;
   margin: 0;
   font-family: Gotham, sans-serif;
@@ -61,7 +63,7 @@
           width: 335px;
           margin-top: 45px;
           margin-left: 55px;
-          background-color: #C10194;
+          background-color: $pink;
           border-radius: 4px;
           box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22); 
 

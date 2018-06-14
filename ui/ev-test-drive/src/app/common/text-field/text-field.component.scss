@@ -1,3 +1,5 @@
+@import "../../../colors.scss";
+
 input {
   margin-top: 15px;
   margin-bottom: 8px !important;
@@ -15,11 +17,11 @@ input {
 }
 
 input.has-warning {
-  border: solid 2px #C10194;
+  border: solid 2px $pink;
 }
 
 input.has-danger {
-  border: solid 2px #C10194;
+  border: solid 2px $pink;
 }
 
 label {
@@ -44,7 +46,7 @@ input::placeholder {
 }
 
 p {
-  color: #C10194;
+  color: $pink;
   font-size: 16px;
   font-weight: 200;
   letter-spacing: -0.71px;
