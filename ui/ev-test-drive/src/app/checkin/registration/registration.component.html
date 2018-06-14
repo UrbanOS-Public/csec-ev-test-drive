@@ -1,3 +1,94 @@
-<p>
-  registration works!
-</p>
+<div class="registrationForm">
+  <div class="header">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <div class="pageTitle">
+      <h1>Schedule Your Drive</h1>
+    </div>
+  </div>
+
+  <form
+    [formGroup]="applicationForm"
+    (ngSubmit)="doSubmit()"
+    class="questionnaire">
+
+    <div class="registrationForm">
+
+      <div class="formHeader">
+        <img class="carLogo" src="assets/carLogo.svg">
+        <p>Fill out your driver information below.</p>
+      </div>
+    
+      <div class="questions">
+
+        <text-field
+          class="first-name"
+          [questionId]="'first-name'"
+          [type]="'text'"
+          [question]="'First Name'"
+          [required]="true"
+          [group]="applicationForm"
+          [formSubmitted]="formSubmitted">
+        </text-field>
+    
+        <text-field
+          class="last-name"
+          [questionId]="'last-name'"
+          [type]="'text'"
+          [question]="'Last Name'"
+          [required]="true"
+          [group]="applicationForm"
+          [formSubmitted]="formSubmitted">
+        </text-field>
+    
+        <text-field
+          class="zip"
+          [questionId]="'zip'"
+          [type]="'number'"
+          [question]="'Zip'"
+          [required]="true"
+          [group]="applicationForm"
+          [formSubmitted]="formSubmitted">
+        </text-field>
+    
+        <text-field
+          class="email"
+          [questionId]="'email'"
+          [type]="'email'"
+          [question]="'Email'"
+          [required]="true"
+          [group]="applicationForm"
+          [formSubmitted]="formSubmitted">
+        </text-field>
+    
+        <text-field
+          class="phone"
+          [questionId]="'phone'"
+          [type]="'tel'"
+          [question]="'Phone'"
+          [required]="true"
+          [group]="applicationForm"
+          [formSubmitted]="formSubmitted">
+        </text-field>
+    
+      </div>
+    </div> 
+
+    <div class="footer">
+      <div class="horizontal-rule"></div>
+
+      <button
+        class="cancel"
+        (click)="doCancel()"
+        [ngClass]="{'disabled': formSubmitted}">
+          Cancel
+      </button>
+
+      <button 
+        class="submit" 
+        [disabled]="!applicationForm.valid || formSubmitted"
+        [ngClass]="{'disabled': !applicationForm.valid || formSubmitted}">
+          {{ formSubmitted == true ? 'SUBMITTING...' : 'NEXT ->' }}
+      </button>
+    </div>
+  </form>
+</div>
