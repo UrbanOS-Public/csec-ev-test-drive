@@ -4,7 +4,7 @@ const ApiHelpers = require('./ApiHelpers');
 const email_validator = require('email-validator');
 
 class SaveUser {
-    constructor(moment, pool, ApiHelpers) {
+    constructor(pool, moment, ApiHelpers) {
         this.moment = moment;
         this.pool = pool;
         this.ApiHelpers = ApiHelpers;
@@ -69,6 +69,6 @@ class SaveUser {
 
 exports.ApiSaveUser = SaveUser;
 exports.handler = (event, context, callback) => {
-    const handler = new SaveUser(moment, smartExperienceMySQLPool.newPool(), ApiHelpers);
+    const handler = new SaveUser(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };

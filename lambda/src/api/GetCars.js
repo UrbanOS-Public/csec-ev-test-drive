@@ -3,7 +3,7 @@ const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
 
 class GetCars {
-    constructor(moment, pool, ApiHelpers) {
+    constructor(pool, moment, ApiHelpers) {
         this.moment = moment;
         this.pool = pool;
         this.ApiHelpers = ApiHelpers;
@@ -67,6 +67,6 @@ class GetCars {
 
 exports.GetCars = GetCars;
 exports.handler = (event, context, callback) => {
-    const handler = new GetCars(moment, smartExperienceMySQLPool.newPool(), ApiHelpers);
+    const handler = new GetCars(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };
