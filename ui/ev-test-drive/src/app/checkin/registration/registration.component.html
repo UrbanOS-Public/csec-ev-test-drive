@@ -78,12 +78,11 @@
     <div class="footer">
       <div class="horizontal-rule"></div>
 
-      <button
+      <div
         class="cancel"
-        (click)="doCancel()"
-        [ngClass]="{'disabled': formSubmitted}">
+        (click)="doCancel()">
           Cancel
-      </button>
+      </div>
 
       <button 
         class="submit" 
