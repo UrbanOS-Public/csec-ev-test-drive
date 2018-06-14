@@ -1,0 +1,116 @@
+@import "../../../colors.scss";
+
+.registrationForm {
+  background-color: #F6F6F6;
+  margin: 0;
+  font-family: Gotham, sans-serif;
+  width: 100vw;
+  height: calc(100vh - 70px);
+
+  .header {
+    background-color: #000000;
+    height: 70px;
+    width: 100vw;
+    position: relative;
+
+    .scLogo {
+      height: 68px;
+      width: 51px;
+      display: inline-block;
+      position: absolute;
+      left: 16px;
+      top: 1px;
+    }
+
+    .pageTitle {
+      text-align: center;
+
+      h1 {
+        color: #FFFFFF;
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 51px;
+        letter-spacing: -0.43px;
+        text-transform: uppercase;
+        display: inline-block;
+      }
+    }
+  }
+
+  form {
+    .registrationForm {
+      .formHeader {
+        padding-top: 45px;
+        text-align: center;
+      }
+
+      .questions {
+        padding-top: 65px;
+        text-align: center;
+
+        text-field {
+          text-align: left;
+          display: inline-block;
+          min-height: 150px;
+        }
+        .first-name {
+          width: 288px;
+        }
+        .last-name {
+          width: 288px;
+          margin-left: 50px;
+        }
+        .zip {
+          width: 144px;
+          margin-left: 50px;
+        }
+        .email {
+          width: 385px;
+        }
+        .phone {
+          width: 385px;
+          margin-left: 50px;
+        }
+      }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      text-align: right;
+      min-height: 80px;
+
+      .horizontal-rule {
+        width: 100vw;
+        height: 1px;
+        background-color: #CECECE;
+        margin-bottom: 15px;
+      }
+
+      .cancel {
+        height: 50px;
+        width: 165px;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.46px;
+        display: inline-block;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .submit {
+        color: #FFF;
+        height: 50px;
+        width: 130px;
+        border-radius: 5px;
+        background-color: $pink;
+        box-shadow: 4px 4px 0 0 #D5D3D6;
+        font-size: 21px;
+        font-weight: 500;
+        letter-spacing: -0.57px;
+        margin-right: 40px;
+      }
+    }
+  }
+}
