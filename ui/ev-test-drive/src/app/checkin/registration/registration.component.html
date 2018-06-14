@@ -89,7 +89,8 @@
         class="submit" 
         [disabled]="!applicationForm.valid || formSubmitted"
         [ngClass]="{'disabled': !applicationForm.valid || formSubmitted}">
-          {{ formSubmitted == true ? 'SUBMITTING...' : 'NEXT ->' }}
+          {{ formSubmitted ? '' : 'NEXT ->' }}
+          <img src="{{ formSubmitted ? 'assets/spinner.gif' : '' }}">
       </button>
     </div>
   </form>
