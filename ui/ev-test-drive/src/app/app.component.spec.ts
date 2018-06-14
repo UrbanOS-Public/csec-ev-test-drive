@@ -4,6 +4,10 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule }     from './app-routing.module';
 
+import { FormComponent } from './common/form/form.component';
+import { TextBoxComponent } from './common/text-box/text-box.component';
+import { TextFieldComponent } from './common/text-field/text-field.component';
+
 import { HomeComponent } from './home/home.component';
 
 import { InfoComponent } from './info/info.component';
@@ -16,6 +20,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
+        FormComponent,
+        TextBoxComponent,
+        TextFieldComponent,
         HomeComponent,
         InfoComponent,
         CheckinWelcomeComponent,
