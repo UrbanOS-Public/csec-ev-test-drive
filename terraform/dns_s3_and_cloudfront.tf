@@ -21,16 +21,16 @@ resource "aws_route53_record" "ns" {
   ]
 }
 
-resource "aws_route53_record" "cert_domain_verification" {
-  zone_id = "${aws_route53_zone.main.zone_id}"
-  name = "_23e0705e6d375e3b1d868773b74af662.${var.dns_name}"
-  type = "CNAME"
-  ttl = "30"
-
-  records = [
-    "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
-  ]
-}
+//resource "aws_route53_record" "cert_domain_verification" {
+//  zone_id = "${aws_route53_zone.main.zone_id}"
+//  name = "_23e0705e6d375e3b1d868773b74af662.${var.dns_name}"
+//  type = "CNAME"
+//  ttl = "30"
+//
+//  records = [
+//    "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
+//  ]
+//}
 
 resource "aws_acm_certificate" "cert" {
   domain_name = "${var.dns_name}"
@@ -109,8 +109,7 @@ resource "aws_cloudfront_distribution" "website" {
 
   "restrictions" {
     "geo_restriction" {
-      restriction_type = "whitelist"
-      locations = ["US"]
+      restriction_type = "none"
     }
   }
   "viewer_certificate" {
@@ -129,4 +128,127 @@ resource "aws_cloudfront_distribution" "website" {
     response_page_path = "/index.html"
     response_code = 200
   }
+}
+
+resource "aws_ses_domain_identity" "drivesmart_email" {
+  domain = "${var.dns_name}"
+}
+
+resource "aws_route53_record" "drivesmart_email_amazonses_verification_record" {
+  zone_id = "${aws_route53_zone.main.zone_id}"
+  name    = "_amazonses.${var.dns_name}"
+  type    = "TXT"
+  ttl     = "600"
+  records = ["${aws_ses_domain_identity.drivesmart_email.verification_token}"]
+}
+
+resource "aws_ses_domain_dkim" "drivesmart_dkim" {
+  domain = "${aws_ses_domain_identity.drivesmart_email.domain}"
+}
+
+resource "aws_route53_record" "drivesmart_email_amazonses_dkim_record" {
+  count   = 3
+  zone_id = "${aws_route53_zone.main.zone_id}"
+  name    = "${element(aws_ses_domain_dkim.drivesmart_dkim.dkim_tokens, count.index)}._domainkey.${var.dns_name}"
+  type    = "CNAME"
+  ttl     = "600"
+  records = ["${element(aws_ses_domain_dkim.drivesmart_dkim.dkim_tokens, count.index)}.dkim.amazonses.com"]
+}
+
+
+resource "aws_s3_bucket" "received_emails" {
+  bucket = "smart-experience-emails"
+  acl    = "private"
+  policy = "${data.aws_iam_policy_document.bucket_policy_for_emails.json}"
+}
+
+
+data "aws_iam_policy_document" "bucket_policy_for_emails" {
+  statement {
+    effect = "Allow"
+    principals = {
+      type = "Service"
+      identifiers = ["ses.amazonaws.com"]
+    }
+    actions = ["s3:PutObject"]
+    resources = ["arn:aws:s3:::smart-experience-emails/*"]
+    condition {
+      test = "StringEquals"
+      variable = "aws:Referer"
+      values = ["${var.account_number}"]
+    }
+  }
+}
+
+resource "aws_ses_receipt_rule_set" "main" {
+  rule_set_name = "primary-rules"
+}
+
+resource "aws_ses_receipt_rule" "store1" {
+  name          = "store"
+  rule_set_name = "${aws_ses_receipt_rule_set.main.rule_set_name}"
+  recipients    = ["no-reply@${var.dns_name}"]
+  enabled       = true
+  scan_enabled  = false
+
+
+  s3_action {
+    position = 1
+    bucket_name = "${aws_s3_bucket.received_emails.id}"
+  }
+}
+resource "aws_ses_receipt_rule" "store2" {
+  name          = "store.mail"
+  rule_set_name = "${aws_ses_receipt_rule_set.main.rule_set_name}"
+  recipients    = ["no-reply@mail.${var.dns_name}"]
+  enabled       = true
+  scan_enabled  = false
+
+
+  s3_action {
+    position = 1
+    bucket_name = "${aws_s3_bucket.received_emails.id}"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+resource "aws_ses_domain_mail_from" "mail_drivesmartcbus" {
+  domain           = "${aws_ses_domain_identity.drivesmart_email.domain}"
+  mail_from_domain = "mail.${aws_ses_domain_identity.drivesmart_email.domain}"
+}
+
+resource "aws_route53_record" "example_ses_domain_mail_from_mx" {
+  zone_id = "${aws_route53_zone.main.id}"
+  name    = "${aws_ses_domain_mail_from.mail_drivesmartcbus.mail_from_domain}"
+  type    = "MX"
+  ttl     = "600"
+  records = ["10 feedback-smtp.us-east-1.amazonses.com", "20 inbound-smtp.us-east-1.amazonaws.com"]
+}
+
+resource "aws_route53_record" "drivesmartcbus_email_inbound_mx" {
+  zone_id = "${aws_route53_zone.main.id}"
+  name    = "${var.dns_name}"
+  type    = "MX"
+  ttl     = "600"
+  records = ["1 inbound-smtp.us-east-1.amazonaws.com"]
+}
+
+
+resource "aws_route53_record" "example_ses_domain_mail_from_txt" {
+  zone_id = "${aws_route53_zone.main.id}"
+  name    = "${aws_ses_domain_mail_from.mail_drivesmartcbus.mail_from_domain}"
+  type    = "TXT"
+  ttl     = "600"
+  records = ["v=spf1 include:amazonses.com -all"]
 }
