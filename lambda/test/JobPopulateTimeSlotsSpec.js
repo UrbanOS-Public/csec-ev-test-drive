@@ -21,7 +21,6 @@ describe('JobPopulateTimeSlots', () => {
         process.env.user = 'root';
         process.env.password = '';
         pool = SmartExperienceMySQLPool.newPool();
-        cleanseDb();
 
         handler = prepare(new JobPopulateTimeSlots(pool, moment), 'handleEvent')
             .withArgs({}, context);
@@ -39,7 +38,9 @@ describe('JobPopulateTimeSlots', () => {
     });
 
     it('archive car slots for yesterday', () => {
+        cleanseDb();
         populateDb();
+
 
         return handler
             .assert(() => {
@@ -55,6 +56,7 @@ describe('JobPopulateTimeSlots', () => {
     });
 
     it('delete car slots for yesterday', () => {
+        cleanseDb();
         populateDb();
 
         return handler
@@ -74,6 +76,7 @@ describe('JobPopulateTimeSlots', () => {
     });
 
     it('archive time slots for yesterday', () => {
+        cleanseDb();
         populateDb();
 
         return handler
@@ -90,6 +93,7 @@ describe('JobPopulateTimeSlots', () => {
     });
 
     it('delete time slots for yesterday', () => {
+        cleanseDb();
         populateDb();
 
         return handler
