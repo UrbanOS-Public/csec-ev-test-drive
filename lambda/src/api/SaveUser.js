@@ -32,8 +32,6 @@ class SaveUser {
         this.saveUser(body)
             .then(() => this.successHandler(callback), (err) => this.errorHandler(callback, err))
         ;
-
-        this.ApiHelpers.httpResponse(callback, 200, {});
     }
 
     saveUser(body) {
@@ -59,13 +57,13 @@ class SaveUser {
     successHandler(callback) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`Done`);
-        callback(null);
+        this.ApiHelpers.httpResponse(callback, 200, {message: "Success"});
     }
 
     errorHandler(callback, error) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`ERROR: ${error}`);
-        callback(error);
+        this.ApiHelpers.httpResponse(callback, 500, {errors: error});
     }
 }
 

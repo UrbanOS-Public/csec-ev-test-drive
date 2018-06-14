@@ -13,6 +13,9 @@ variable "account_number" {
 variable "api_key_required" {
   default = "false"
 }
+variable "method" {
+
+}
 
 resource "aws_api_gateway_resource" "cors_resource" {
   path_part = "${var.path}"
@@ -60,7 +63,7 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
   status_code = "${aws_api_gateway_method_response.options_200.status_code}"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'",
+    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,${var.method}'",
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
   response_templates {
@@ -73,7 +76,7 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
 resource "aws_api_gateway_method" "cors_method" {
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.cors_resource.id}"
-  http_method = "POST"
+  http_method = "${var.method}"
   authorization = "NONE"
   api_key_required = "${var.api_key_required}"
 }
