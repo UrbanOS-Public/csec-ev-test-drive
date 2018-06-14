@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Helpers } from '../../app.helpers';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RegistrationService } from './registration.service';
+import { EVService } from '../../common/ev.service';
 
 @Component({
   selector: 'app-registration',
@@ -19,7 +19,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService) { }
+    private evService: EVService) { }
 
   ngOnInit() {
   }
@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnInit {
 
     console.log(data);
 
-    this.registrationService.postNewUser(data).subscribe(
+    this.evService.postNewUser(data).subscribe(
       response => console.log(response),
       error => console.log(error)
     );

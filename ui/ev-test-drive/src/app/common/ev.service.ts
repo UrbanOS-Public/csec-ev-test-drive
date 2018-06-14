@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as globals from '../../app.constants';
+import * as globals from '../app.constants';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -12,7 +12,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService {
+export class EVService {
 
   constructor(private http: HttpClient) { }
 
