@@ -1,3 +1,5 @@
+@import "../../../colors.scss";
+
 .registrationForm {
   background-color: #F6F6F6;
   margin: 0;
@@ -101,7 +103,7 @@
         height: 50px;
         width: 130px;
         border-radius: 5px;
-        background-color: #C10194;
+        background-color: $pink;
         box-shadow: 4px 4px 0 0 #D5D3D6;
         font-size: 21px;
         font-weight: 500;

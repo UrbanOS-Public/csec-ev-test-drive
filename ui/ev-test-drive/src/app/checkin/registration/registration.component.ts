@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Helpers } from '../../app.helpers';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { RegistrationService } from './registration.service';
 
 @Component({
   selector: 'app-registration',
@@ -17,7 +17,9 @@ export class RegistrationComponent implements OnInit {
   submitApplicationFailed: boolean = false;
   submitApplicationSuccessful: boolean = false;    
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private registrationService: RegistrationService) { }
 
   ngOnInit() {
   }
@@ -37,5 +39,10 @@ export class RegistrationComponent implements OnInit {
     const data = this.applicationForm.value;
 
     console.log(data);
+
+    this.registrationService.postNewUser(data).subscribe(
+      response => console.log(response),
+      error => console.log(error)
+    );
   }
 }
