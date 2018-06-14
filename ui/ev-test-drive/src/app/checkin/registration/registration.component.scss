@@ -46,14 +46,15 @@
 
       .questions {
         padding-top: 65px;
+        text-align: center;
 
         text-field {
+          text-align: left;
           display: inline-block;
-          min-height: 188px;
+          min-height: 150px;
         }
         .first-name {
           width: 288px;
-          margin-left: 90px;
         }
         .last-name {
           width: 288px;
@@ -64,11 +65,10 @@
           margin-left: 50px;
         }
         .email {
-          width: 288px;
-          margin-left: 150px;
+          width: 385px;
         }
         .phone {
-          width: 288px;
+          width: 385px;
           margin-left: 50px;
         }
       }
