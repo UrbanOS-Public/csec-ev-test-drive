@@ -49,6 +49,7 @@ deployLambdas() {
             'ApiSaveUser'
             'ApiGetCars'
             'ApiGetPreSurvey'
+            'ApiGetPostSurvey'
         )
     fi
 
