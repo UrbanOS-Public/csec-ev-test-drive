@@ -67,7 +67,7 @@ class SaveUser {
     }
 }
 
-exports.ApiSaveUser = SaveUser;
+exports.SaveUser = SaveUser;
 exports.handler = (event, context, callback) => {
     const handler = new SaveUser(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);

@@ -50,6 +50,7 @@ deployLambdas() {
             'ApiGetCars'
             'ApiGetPreSurvey'
             'ApiGetPostSurvey'
+            'ApiSaveSurvey'
         )
     fi
 
