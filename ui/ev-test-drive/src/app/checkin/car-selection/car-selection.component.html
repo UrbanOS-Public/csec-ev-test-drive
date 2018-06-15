@@ -1,3 +1,57 @@
-<p>
-  car-selection works!
-</p>
+<div class="car-selection-screen">
+
+  <div class="header">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <p class="title-text">Schedule Your Drive</p>
+    <p class="reset">Clear All</p>
+  </div>
+
+  <div class="times-container">
+    <div class="times-pane">
+      <div class="times-header">
+        <img class="calendarLogo" src="assets/calendarLogoBlack.svg">
+        <p class="header-text">Select a Time</p>
+      </div>
+
+      <div class="date">
+        <p>{{ formattedDate }}</p>
+      </div>
+
+      <div
+        class="time" 
+        *ngFor="let time of times"
+        id="{{ time.tileId }}"
+        (click)="doSelectTime(time.tileId)">
+
+        <p>{{ time.formattedTime }}</p> 
+      </div>
+    </div>
+  </div>
+
+  <div class="cars-container">
+    <div class="cars-pane">
+      <div class="cars-header">
+        <img class="carLogo" src="assets/carLogo.svg">
+        <p class="header-text">Select a Car</p>
+      </div>
+      <car-tile 
+        id="{{ car.tileId }}"
+        class="car-tile"
+        *ngFor="let car of cars"
+        [car]="car"
+        (click)='doSelectCar(car.tileId)'>
+      </car-tile>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="horizontal-rule"></div>
+    <div class="cancel">
+      <p>Cancel</p>
+    </div>
+    <div class="next">
+      <p>Next -></p>
+    </div>
+  </div>
+
+</div>

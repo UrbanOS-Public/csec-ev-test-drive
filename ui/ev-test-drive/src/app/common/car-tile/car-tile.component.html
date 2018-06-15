@@ -1,0 +1,16 @@
+<div class="tile">
+  <div class="imageDiv">
+    <img class="carImage" src="{{ car.imageUrl }}">
+  </div>
+  <p class="year">{{ car.year }}</p>
+  <p class="make-model">{{ car.make }} {{ car.model }}</p>
+  <p class="label msrp">MSRP</p>
+  <p class="value msrp">{{ car.specs.msrp }}</p>
+  <p class="label range">Range (miles)</p>
+  <p class="value range">{{ car.specs.evRange }} EV miles ({{ car.specs.totalRange }} total)</p>
+  <p class="label battery">Battery Size</p>
+  <p class="value battery">{{ car.specs.battery }}</p>
+  <p class="label charge-standard">{{ car.specs.chargingStandard }}</p>
+  <p class="label charge">Charge Time</p>
+  <p class="value charge">{{ car.specs.chargeTime }}</p>
+</div>
