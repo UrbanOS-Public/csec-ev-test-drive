@@ -9,7 +9,7 @@ import { infoPages } from './infoPages';
 })
 export class InfoComponent implements OnInit {
 
-  pageId: string;
+  pageId: number;
   backgroundStyle: string;
   titleText: string;
   introText: string;
@@ -25,11 +25,11 @@ export class InfoComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         let infoPage = infoPages.find(infoPage => {
-          return infoPage.id === params['pageId'];
+          return infoPage.pageId == params['pageId'];
         });
 
         if (infoPage) {
-          this.pageId = infoPage.id;
+          this.pageId = infoPage.pageId;
           this.backgroundStyle = `no-repeat top/100% url('../../assets/info/${infoPage.id}.jpg')`;
           this.titleText = infoPage.title;
           this.introText = infoPage.text;
