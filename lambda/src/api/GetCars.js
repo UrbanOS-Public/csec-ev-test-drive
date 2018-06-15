@@ -61,7 +61,7 @@ class GetCars {
     errorHandler(callback, error) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`ERROR: ${error}`);
-        this.ApiHelpers.httpResponse(callback, 500, {error: error});
+        this.ApiHelpers.httpResponse(callback, 500, {error: 'An error occurred when processing your request.'});
     }
 }
 
