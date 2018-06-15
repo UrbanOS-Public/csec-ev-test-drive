@@ -48,6 +48,7 @@ deployLambdas() {
             'JobPopulateTimeSlots'
             'ApiSaveUser'
             'ApiGetCars'
+            'ApiGetPreSurvey'
         )
     fi
 

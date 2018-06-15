@@ -63,7 +63,7 @@ class SaveUser {
     errorHandler(callback, error) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`ERROR: ${error}`);
-        this.ApiHelpers.httpResponse(callback, 500, {errors: error});
+        this.ApiHelpers.httpResponse(callback, 500, {errors: 'An error occurred when processing your request.'});
     }
 }
 
