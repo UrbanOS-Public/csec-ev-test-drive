@@ -58,7 +58,7 @@ class JobPopulateCarSchedule {
                 }
                 const daysFromNowToProduceFor = 180;
                 var values = [];
-                for (var i = 1; i <= daysFromNowToProduceFor; i++) {
+                for (var i = 0; i <= daysFromNowToProduceFor; i++) {
                     values.push([car.id, this.moment().add(i, 'days').startOf('day').format("YYYY-MM-DD"), active]);
                 }
                 this.pool.query('insert ignore into car_schedule (car_id, date, active) values ? on duplicate key update active = values(active)', [values], (error, data) => {

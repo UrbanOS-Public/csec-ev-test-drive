@@ -184,6 +184,10 @@ resource "aws_ses_receipt_rule_set" "main" {
   rule_set_name = "primary-rules"
 }
 
+resource "aws_ses_active_receipt_rule_set" "main" {
+  rule_set_name = "primary-rules"
+}
+
 resource "aws_ses_receipt_rule" "store1" {
   name          = "store"
   rule_set_name = "${aws_ses_receipt_rule_set.main.rule_set_name}"
@@ -211,18 +215,6 @@ resource "aws_ses_receipt_rule" "store2" {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 resource "aws_ses_domain_mail_from" "mail_drivesmartcbus" {
   domain           = "${aws_ses_domain_identity.drivesmart_email.domain}"
   mail_from_domain = "mail.${aws_ses_domain_identity.drivesmart_email.domain}"
@@ -233,7 +225,7 @@ resource "aws_route53_record" "example_ses_domain_mail_from_mx" {
   name    = "${aws_ses_domain_mail_from.mail_drivesmartcbus.mail_from_domain}"
   type    = "MX"
   ttl     = "600"
-  records = ["10 feedback-smtp.us-east-1.amazonses.com", "20 inbound-smtp.us-east-1.amazonaws.com"]
+  records = ["1 inbound-smtp.us-east-1.amazonaws.com", "10 feedback-smtp.us-east-1.amazonses.com"]
 }
 
 resource "aws_route53_record" "drivesmartcbus_email_inbound_mx" {

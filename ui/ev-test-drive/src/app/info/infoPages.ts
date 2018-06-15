@@ -2,6 +2,7 @@ export const infoPages = [
 
   {
     id: "whyelectric",
+    pageId: 1,
     title: "Introduction to 'Why Electric'",
     text: "As battery prices fall, consumer interest rises, and self-driving cars get closer to reality, automotive manufacturers across the globe have declared that electric vehicles will be the drivetrain of the future.",
     bullets: [
@@ -22,6 +23,7 @@ export const infoPages = [
 
   {
     id: "nevergotothegasstationagain",
+    pageId: 2,
     title: "Never Go to the Gas Station Again",
     text: "Think of refueling your electric car like recharging your smartphone.  Plug it in at night to charge the battery to full.  Maintain the charge you need by plugging in while you’re at the office.  Stop by a publicly-available station should your charge run low while you’re out and about.",
     bullets: [
@@ -42,6 +44,7 @@ export const infoPages = [
 
   {
     id: "costsavings",
+    pageId: 3,
     title: "Cost Savings",
     text: "Electric Vehicle drivers can save 36% - About $10,538 – on car ownership costs over 5 years, compared to internal combustion engines.",
     bullets: [
@@ -59,6 +62,7 @@ export const infoPages = [
 
   {
     id: "drivingperformance",
+    pageId: 4,
     title: "Driving Performance",
     text: "Powered by a rechargeable battery instead of a traditional, gas-burning engine, Electric Vehicles are simply a better way to drive. The dashboard display includes speed and mileage like a gas-powered car, but instead of a gas gauge, a range monitor lets you know how far you can drive before needing a new charge.",
     bullets: [
@@ -73,6 +77,7 @@ export const infoPages = [
 
   {
     id: "easytomaintain",
+    pageId: 5,
     title: "Easy to Maintain",
     text: "Electric vehicles have 1/100th the moving parts of an internal combustion vehicle.  That means there’s less to break down.  Just rotate the tires, top off the wiper fluid, and go!",
     bullets: [
@@ -87,6 +92,7 @@ export const infoPages = [
 
   {
     id: "environmentallyfriendly",
+    pageId: 6,
     title: "Environmentally Friendly",
     text: "Electric Vehicles emit zero tail pipe emissions.  As the grid gets cleaner over time, so does your electric vehicle which can be powered by solar and wind.",
     bullets: [
@@ -104,6 +110,7 @@ export const infoPages = [
 
   {
     id: "charginglevels",
+    pageId: 7,
     title: "Charging Levels",
     text: "There are a few types of charging levels for your vehicle that you should know.  Level one to level three, with level one being the slowest charge rate and level three being the fastest.",
     bullets: [
@@ -121,6 +128,7 @@ export const infoPages = [
 
   {
     id: "yourenotalone",
+    pageId: 8,
     title: "You're Not Alone",
     text: "As an EV driver, you are helping your city meet its goals of increasing electric vehicle ownership by 500% by 2020.",
     bullets: [

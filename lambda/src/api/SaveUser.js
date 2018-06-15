@@ -4,7 +4,7 @@ const ApiHelpers = require('./ApiHelpers');
 const email_validator = require('email-validator');
 
 class SaveUser {
-    constructor(moment, pool, ApiHelpers) {
+    constructor(pool, moment, ApiHelpers) {
         this.moment = moment;
         this.pool = pool;
         this.ApiHelpers = ApiHelpers;
@@ -32,8 +32,6 @@ class SaveUser {
         this.saveUser(body)
             .then(() => this.successHandler(callback), (err) => this.errorHandler(callback, err))
         ;
-
-        this.ApiHelpers.httpResponse(callback, 200, {});
     }
 
     saveUser(body) {
@@ -59,18 +57,18 @@ class SaveUser {
     successHandler(callback) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`Done`);
-        callback(null);
+        this.ApiHelpers.httpResponse(callback, 200, {message: "Success"});
     }
 
     errorHandler(callback, error) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`ERROR: ${error}`);
-        callback(error);
+        this.ApiHelpers.httpResponse(callback, 500, {errors: error});
     }
 }
 
 exports.ApiSaveUser = SaveUser;
 exports.handler = (event, context, callback) => {
-    const handler = new SaveUser(moment, smartExperienceMySQLPool.newPool(), ApiHelpers);
+    const handler = new SaveUser(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };
