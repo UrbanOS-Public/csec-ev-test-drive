@@ -14,6 +14,7 @@ import { FormComponent } from './common/form/form.component';
 import { TextFieldComponent } from './common/text-field/text-field.component';
 import { TextBoxComponent } from './common/text-box/text-box.component';
 import { CarSelectionComponent } from './checkin/car-selection/car-selection.component';
+import { CarTileComponent } from './common/car-tile/car-tile.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CarSelectionComponent } from './checkin/car-selection/car-selection.com
     FormComponent,
     TextFieldComponent,
     TextBoxComponent,
-    CarSelectionComponent
+    CarSelectionComponent,
+    CarTileComponent
   ],
   imports: [
     BrowserModule,
