@@ -81,3 +81,15 @@ module "api_get_preSurvey" {
   account_number = "${var.account_number}"
   method = "GET"
 }
+
+module "api_get_postSurvey" {
+  source = "./modules/api/create_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_rest_api.SmartExperienceApi.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "postSurvey"
+  function_invoke_arn = "${module.ApiGetPostSurveyFunction.invoke_arn}"
+  function_arn = "${module.ApiGetPostSurveyFunction.arn}"
+  api_key_required = "true"
+  account_number = "${var.account_number}"
+  method = "GET"
+}
