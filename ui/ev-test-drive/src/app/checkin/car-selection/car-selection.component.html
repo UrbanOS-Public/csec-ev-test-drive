@@ -21,6 +21,7 @@
         class="time" 
         *ngFor="let time of times"
         id="{{ time.tileId }}"
+        [ngClass]="{'disabled': time.disabled}"
         (click)="doSelectTime(time.tileId)">
 
         <p>{{ time.formattedTime }}</p> 
@@ -29,18 +30,20 @@
   </div>
 
   <div class="cars-container">
-    <div class="cars-pane">
-      <div class="cars-header">
-        <img class="carLogo" src="assets/carLogo.svg">
-        <p class="header-text">Select a Car</p>
+    <div class="cars-pane-container">
+      <div class="cars-pane">
+        <div class="cars-header">
+          <img class="carLogo" src="assets/carLogo.svg">
+          <p class="header-text">Select a Car</p>
+        </div>
+        <car-tile 
+          id="{{ car.tileId }}"
+          class="car-tile"
+          *ngFor="let car of cars"
+          [car]="car"
+          (click)='doSelectCar(car.tileId)'>
+        </car-tile>
       </div>
-      <car-tile 
-        id="{{ car.tileId }}"
-        class="car-tile"
-        *ngFor="let car of cars"
-        [car]="car"
-        (click)='doSelectCar(car.tileId)'>
-      </car-tile>
     </div>
   </div>
 
