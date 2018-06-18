@@ -1,6 +1,7 @@
 const moment = require('moment');
 const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
+const extend = require('extend');
 
 const ALREADY_RESERVED_MESSAGE = "Sorry that time slot has been reserved by someone else, please select another car/time combination.";
 
@@ -41,7 +42,8 @@ class ScheduleDrive {
     }
 
     insertDrive(userAndDriveData) {
-        const userId = userAndDriveData[0][0].id;
+        const user = userAndDriveData[0][0];
+        const userId = user.id;
         const carTimeSlotData = userAndDriveData[1][0];
         const car_id = carTimeSlotData.car_id;
         const date = carTimeSlotData.date;
@@ -57,14 +59,17 @@ class ScheduleDrive {
             this.doQuery("insert into drive set ?", driveData)
                 .then((insertResponse) => {
                     const drive_id = insertResponse.insertId;
+                    const confirmation_number = `${user.first_name.slice(0, 1).toUpperCase()}${user.last_name.slice(0, 1).toUpperCase()}${drive_id}`;
                     const userDriveMap = {
                         user_id: userId,
                         drive_id: drive_id,
-                        role: "DRIVER"
+                        role: "DRIVER",
+                        confirmation_number: confirmation_number
                     };
+                    console.log(userDriveMap);
                     this.doQuery("insert into user_drive_map set ?", userDriveMap)
-                        .then((resp) => {
-                            resolve(resp);
+                        .then(() => {
+                            resolve({confirmation_number: confirmation_number});
                         })
                         .catch(err => {
                             reject(err);
@@ -88,8 +93,8 @@ class ScheduleDrive {
     successHandler(callback, data) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`Done`);
-        console.log(data);
-        this.ApiHelpers.httpResponse(callback, 200, {message: "Success"});
+        const response = extend({message: "Success"}, data);
+        this.ApiHelpers.httpResponse(callback, 200, response);
     }
 
     errorHandler(callback, error) {
