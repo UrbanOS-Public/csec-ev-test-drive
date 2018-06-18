@@ -49,16 +49,18 @@ CREATE TABLE drive (
   CONSTRAINT FOREIGN KEY (`car_id`) REFERENCES `car` (`id`)
 )
   ENGINE = InnoDB
-  AUTO_INCREMENT = 50000
+  AUTO_INCREMENT = 5000
   DEFAULT CHARSET = utf8;
 
 
 CREATE TABLE user_drive_map (
-  `user_id`      BIGINT(20)  NOT NULL,
-  `drive_id`     BIGINT(20)  NOT NULL,
-  `role`         VARCHAR(32) NOT NULL,
-  `date_created` DATETIME    NOT NULL DEFAULT now(),
-  `last_updated` DATETIME    NOT NULL DEFAULT now() ON UPDATE now(),
+  `user_id`             BIGINT(20)  NOT NULL,
+  `drive_id`            BIGINT(20)  NOT NULL,
+  `role`                VARCHAR(32) NOT NULL,
+  `confirmation_number` VARCHAR(32) NOT NULL,
+  `email_sent`          BOOLEAN default FALSE,
+  `date_created`        DATETIME    NOT NULL DEFAULT now(),
+  `last_updated`        DATETIME    NOT NULL DEFAULT now() ON UPDATE now(),
   PRIMARY KEY (`user_id`, `drive_id`),
   CONSTRAINT FOREIGN KEY (`drive_id`) REFERENCES `drive` (`id`),
   CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -736,5 +738,4 @@ values
 # ;
 
 insert into user (`email`, `first_name`, `last_name`, `phone`, `zipcode`)
-    values ('jarred.128@gmail.com', 'Jarred', 'Olson', 'stuff', '12345')
-;
+values ('jarred.128@gmail.com', 'Jarred', 'Olson', 'stuff', '12345');
