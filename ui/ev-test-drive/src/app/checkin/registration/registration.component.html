@@ -7,6 +7,7 @@
   </div>
 
   <form
+    autocomplete="off"
     [formGroup]="applicationForm"
     (ngSubmit)="doSubmit()"
     class="questionnaire">
@@ -81,15 +82,16 @@
       <div
         class="cancel"
         (click)="doCancel()">
-          Cancel
+          <p>Cancel</p>
       </div>
 
       <button 
         class="submit" 
         [disabled]="!applicationForm.valid || formSubmitted"
         [ngClass]="{'disabled': !applicationForm.valid || formSubmitted}">
-          {{ formSubmitted ? '' : 'NEXT ->' }}
-          <img src="{{ formSubmitted ? 'assets/spinner.gif' : '' }}">
+          {{ formSubmitted ? '' : 'NEXT ' }}
+          <img src="assets/arrow.png" *ngIf="!formSubmitted">
+          <app-spinner *ngIf="formSubmitted"></app-spinner>
       </button>
     </div>
   </form>
