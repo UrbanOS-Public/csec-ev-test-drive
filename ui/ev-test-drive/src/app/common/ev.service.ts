@@ -31,4 +31,8 @@ export class EVService {
   getTimeslots() {
     return this.http.get(globals.timeslotUrl, httpOptions);
   }
+
+  getPreSurvey() {
+    return this.http.get(globals.preSurveyUrl, httpOptions);
+  }
 }

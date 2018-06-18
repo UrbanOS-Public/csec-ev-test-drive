@@ -16,6 +16,7 @@ import { TextBoxComponent } from './common/text-box/text-box.component';
 import { CarSelectionComponent } from './checkin/car-selection/car-selection.component';
 import { CarTileComponent } from './common/car-tile/car-tile.component';
 import { SpinnerComponent } from './common/spinner/spinner.component';
+import { CarReviewComponent } from './checkin/car-review/car-review.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SpinnerComponent } from './common/spinner/spinner.component';
     TextBoxComponent,
     CarSelectionComponent,
     CarTileComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CarReviewComponent
   ],
   imports: [
     BrowserModule,

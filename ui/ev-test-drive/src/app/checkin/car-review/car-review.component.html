@@ -1,0 +1,49 @@
+<div class="car-review-screen">
+
+  <div class="header">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <p class="title-text">Schedule Your Drive</p>
+  </div>
+
+  <div class="car-review-pane" *ngIf="selectedCar && selectedTime">
+
+    <p class="review-text">Review your scheduled drive below.</p>
+
+    <div class="car-pane">
+      <div class="pane-header">
+        <p class="top">Selected</p>
+        <div class="partial-rule"></div>
+        <p class="bottom">{{ selectedTime.formattedDate }} {{ selectedTime.formattedTime }}</p>
+      </div>
+
+      <car-tile
+        class="car-tile"
+        [car]="selectedCar">
+      </car-tile>
+
+      <div class="edit" (click)="doEdit()">
+        <p>Edit</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="horizontal-rule"></div>
+
+    <div class="cancel" (click)="doCancel()">
+      <p>Cancel</p>
+    </div>
+
+    <div
+      class="next"
+      (click)="doSubmit()"
+      [ngClass]="{'disabled': isSubmitting }">
+      <p>
+        {{ isSubmitting ? "" : "Next "}}
+        <img src="assets/arrow.png" *ngIf="!isSubmitting">
+      </p>
+      <app-spinner *ngIf="isSubmitting"></app-spinner>
+    </div>
+
+  </div>
+</div>
