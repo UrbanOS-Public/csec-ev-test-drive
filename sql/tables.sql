@@ -1,13 +1,13 @@
 CREATE TABLE car (
   `id`                BIGINT(20)   NOT NULL AUTO_INCREMENT,
-  `year`              char(4) NOT NULL,
+  `year`              char(4)      NOT NULL,
   `make`              VARCHAR(256) NOT NULL,
   `model`             VARCHAR(256) NOT NULL,
   `image_url`         VARCHAR(1024)         DEFAULT NULL,
   `type`              VARCHAR(256) NOT NULL,
   `msrp`              VARCHAR(256) NOT NULL,
-  `ev_range`             VARCHAR(256) NOT NULL,
-  `total_range`             VARCHAR(256) NOT NULL,
+  `ev_range`          VARCHAR(256) NOT NULL,
+  `total_range`       VARCHAR(256) NOT NULL,
   `battery_size`      VARCHAR(256) NOT NULL,
   `charging_standard` VARCHAR(256) NOT NULL,
   `charge_time`       VARCHAR(256) NOT NULL,
@@ -40,8 +40,9 @@ CREATE TABLE user (
 CREATE TABLE drive (
   `id`                   BIGINT(20) NOT NULL AUTO_INCREMENT,
   `car_id`               BIGINT(20) NOT NULL,
-  `scheduled_start_date` DATETIME   NOT NULL,
-  `scheduled_end_date`   DATETIME   NOT NULL,
+  `date`                 DATE       NOT NULL,
+  `scheduled_start_time` TIME       NOT NULL,
+  `scheduled_end_time`   TIME       NOT NULL,
   `date_created`         DATETIME   NOT NULL DEFAULT now(),
   `last_updated`         DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
   PRIMARY KEY (`id`),
@@ -260,12 +261,23 @@ CREATE TABLE miscellaneous_data (
 
 insert into car (`id`, `year`, `make`, `model`, `image_url`, `type`, `msrp`, `ev_range`, `total_range`, `battery_size`, `charging_standard`, `charge_time`)
 values
-  (1, '2018', 'BMW', 'i3', 'https://drivesmartcbus.com/assets/cars/2018_BMW_i3.png', 'Battery Electric Vehicle (BEV)', '$44,450 before tax credits', '114', '114', '33 kWh', 'Level 2 (240V)', '4-5 hours'),
-  (2, '2018', 'Nissan', 'Leaf', 'https://drivesmartcbus.com/assets/cars/2018_Nissan_Leaf.png', 'Battery Electric Vehicle (BEV)', '$29,900 before tax credits', '151', '151', '40 kWh', 'Level 2 (240V)', '8 hours'),
-  (3, '2018', 'Toyota', 'Prius Prime', 'https://drivesmartcbus.com/assets/cars/2018_Toyota_Prius_Prime.png', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$27,100 before tax credits', '25', '640', '8.8 kWh', 'Level 2 (240V)', '2.1 hours'),
-  (4, '2018', 'Honda', 'Clarity', 'https://drivesmartcbus.com/assets/cars/2018_Honda_Clarity.png', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$33,400 before tax credits', '48', '340',  '17 kWh', 'Level 2 (240V)', '2-3 hours'),
-  (5, '2018', 'Chevrolet', 'Bolt', 'https://drivesmartcbus.com/assets/cars/2018_Chevrolet_Bolt.png', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$34,095 before tax credits', '53', '420', '18.4 kWh', 'Level 2 (240V)', '4-5 hours'),
-  (6, '2018', 'Mercedes', 'GLE 550e', 'https://drivesmartcbus.com/assets/cars/2018_Mercedes_GLE_550e.png', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$66,700 before tax credits', '10', '460', '3.3 kWh', 'Level 2 (240V)', '2.3 hours');
+  (1, '2018', 'BMW', 'i3', 'https://drivesmartcbus.com/assets/cars/2018_BMW_i3.png', 'Battery Electric Vehicle (BEV)',
+      '$44,450 before tax credits', '114', '114', '33 kWh', 'Level 2 (240V)', '4-5 hours'),
+  (2, '2018', 'Nissan', 'Leaf', 'https://drivesmartcbus.com/assets/cars/2018_Nissan_Leaf.png',
+      'Battery Electric Vehicle (BEV)', '$29,900 before tax credits', '151', '151', '40 kWh', 'Level 2 (240V)',
+   '8 hours'),
+  (3, '2018', 'Toyota', 'Prius Prime', 'https://drivesmartcbus.com/assets/cars/2018_Toyota_Prius_Prime.png',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$27,100 before tax credits', '25', '640', '8.8 kWh', 'Level 2 (240V)',
+   '2.1 hours'),
+  (4, '2018', 'Honda', 'Clarity', 'https://drivesmartcbus.com/assets/cars/2018_Honda_Clarity.png',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$33,400 before tax credits', '48', '340', '17 kWh', 'Level 2 (240V)',
+   '2-3 hours'),
+  (5, '2018', 'Chevrolet', 'Bolt', 'https://drivesmartcbus.com/assets/cars/2018_Chevrolet_Bolt.png',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$34,095 before tax credits', '53', '420', '18.4 kWh', 'Level 2 (240V)',
+   '4-5 hours'),
+  (6, '2018', 'Mercedes', 'GLE 550e', 'https://drivesmartcbus.com/assets/cars/2018_Mercedes_GLE_550e.png',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$66,700 before tax credits', '10', '460', '3.3 kWh', 'Level 2 (240V)',
+   '2.3 hours');
 
 
 insert into schedule (`id`, `day_of_the_week`, `start_time`, `end_time`, `slot_length_minutes`, `employees_per_slot`)
@@ -695,14 +707,13 @@ values
   (1000777, 1000144, 'Yes', TRUE, 1, null);
 
 insert into car_schedule (`car_id`, `date`, `active`)
-    values
-      (1, '2018-06-01', true),
-      (2, '2018-06-01', true),
-      (3, '2018-06-01', true),
-      (4, '2018-06-01', true),
-      (5, '2018-06-01', false),
-      (6, '2018-06-01', false)
-;
+values
+  (1, '2018-06-01', true),
+  (2, '2018-06-01', true),
+  (3, '2018-06-01', true),
+  (4, '2018-06-01', true),
+  (5, '2018-06-01', false),
+  (6, '2018-06-01', false);
 
 # insert into time_slot (`id`, `date`, `start_time`, `end_time`, `available_count`)
 #     values
@@ -723,3 +734,7 @@ insert into car_schedule (`car_id`, `date`, `active`)
 #       (500001, 4, true),
 #       (500002, 1, false)
 # ;
+
+insert into user (`email`, `first_name`, `last_name`, `phone`, `zipcode`)
+    values ('jarred.128@gmail.com', 'Jarred', 'Olson', 'stuff', '12345')
+;
