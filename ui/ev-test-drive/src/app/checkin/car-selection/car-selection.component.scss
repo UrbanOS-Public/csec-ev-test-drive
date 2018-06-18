@@ -2,7 +2,7 @@
 
 
 .car-selection-screen {
-  background-color: #E9E9E9;
+  background-color: $backgroundGray;
   width: 100vw;
   height: 100vh;
   scroll-behavior: auto;
@@ -149,7 +149,7 @@
       text-align: center;
 
       .cars-pane {
-        background-color: #E9E9E9;
+        background-color: $backgroundGray;
         display: inline-block;
         text-align: center;
         width: 500px;

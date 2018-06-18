@@ -28,7 +28,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   doCancel() {
-    console.log("Cancel clicked!");
+    this.router.navigateByUrl('/checkin');
   }
 
   doSubmit() {
