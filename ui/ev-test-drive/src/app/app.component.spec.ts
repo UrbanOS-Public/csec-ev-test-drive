@@ -14,6 +14,7 @@ import { InfoComponent } from './info/info.component';
 
 import { CheckinWelcomeComponent } from './checkin/checkin-welcome/checkin-welcome.component';
 import { RegistrationComponent } from './checkin/registration/registration.component';
+import { CarSelectionComponent } from './checkin/car-selection/car-selection.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -26,7 +27,8 @@ describe('AppComponent', () => {
         HomeComponent,
         InfoComponent,
         CheckinWelcomeComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        CarSelectionComponent
       ],
       imports: [
         AppRoutingModule
