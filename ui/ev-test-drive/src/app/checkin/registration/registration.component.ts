@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Helpers } from '../../app.helpers';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RegistrationService } from './registration.service';
+import { Router } from '@angular/router';
+import { Helpers } from '../../app.helpers';
+import { EVService } from '../../common/ev.service';
 
 @Component({
   selector: 'app-registration',
@@ -19,13 +20,15 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService) { }
+    private evService: EVService,
+    private router: Router) { }
 
   ngOnInit() {
+    localStorage.clear();
   }
 
   doCancel() {
-    console.log("Cancelled!");
+    console.log("Cancel clicked!");
   }
 
   doSubmit() {
@@ -38,11 +41,22 @@ export class RegistrationComponent implements OnInit {
   private submitApplication() {
     const data = this.applicationForm.value;
 
-    console.log(data);
-
-    this.registrationService.postNewUser(data).subscribe(
-      response => console.log(response),
-      error => console.log(error)
+    this.evService.postNewUser(data).subscribe(
+      response => this.handleResponse(response), 
+      error => this.handleError(error)
     );
+  }
+
+  private handleResponse(response) {
+    if (response && response.message === "Success") {
+      localStorage.setItem('email', this.applicationForm.value.email);
+      this.router.navigateByUrl('/checkin/carSelection');
+    } else {
+      this.handleError(null);
+    }
+  }
+
+  private handleError(error) {
+    this.router.navigateByUrl('/checkin');
   }
 }
