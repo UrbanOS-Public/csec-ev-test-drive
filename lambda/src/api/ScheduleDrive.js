@@ -100,11 +100,10 @@ class ScheduleDrive {
     errorHandler(callback, error) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`ERROR: ${error}`);
-        var errorToSend = 'An error occurred when processing your request.';
         if (error !== undefined && error.toString().indexOf(ALREADY_RESERVED_MESSAGE) === 0) {
-            errorToSend = error;
+            return this.ApiHelpers.httpResponse(callback, 409, {errors: error});
         }
-        this.ApiHelpers.httpResponse(callback, 500, {errors: errorToSend});
+        this.ApiHelpers.httpResponse(callback, 500, {errors: 'An error occurred when processing your request.'});
     }
 }
 
