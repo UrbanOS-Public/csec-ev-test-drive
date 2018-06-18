@@ -13,6 +13,9 @@ import { RegistrationComponent } from './checkin/registration/registration.compo
 import { FormComponent } from './common/form/form.component';
 import { TextFieldComponent } from './common/text-field/text-field.component';
 import { TextBoxComponent } from './common/text-box/text-box.component';
+import { CarSelectionComponent } from './checkin/car-selection/car-selection.component';
+import { CarTileComponent } from './common/car-tile/car-tile.component';
+import { SpinnerComponent } from './common/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { TextBoxComponent } from './common/text-box/text-box.component';
     RegistrationComponent,
     FormComponent,
     TextFieldComponent,
-    TextBoxComponent
+    TextBoxComponent,
+    CarSelectionComponent,
+    CarTileComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

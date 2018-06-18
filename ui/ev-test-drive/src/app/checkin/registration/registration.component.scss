@@ -90,13 +90,21 @@
       .cancel {
         height: 50px;
         width: 165px;
+        margin-top: 15px;
         cursor: pointer;
-        font-size: 17px;
-        font-weight: 500;
-        letter-spacing: -0.46px;
         display: inline-block;
         text-align: center;
         text-transform: uppercase;
+        vertical-align: top;
+
+        p {
+          color: #333333;
+          margin: 0;
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: -0.46px;
+          text-transform: uppercase;
+        }
       }
 
       .submit {
@@ -104,12 +112,25 @@
         height: 50px;
         width: 130px;
         border-radius: 5px;
+        border: none;
         background-color: $pink;
         box-shadow: 4px 4px 0 0 #D5D3D6;
         font-size: 21px;
         font-weight: 500;
         letter-spacing: -0.57px;
         margin-right: 40px;
+        text-align: center;
+        vertical-align: middle;
+
+        img {
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        app-spinner {
+          text-align: center;
+          vertical-align: middle;
+        }
       }
     }
   }
