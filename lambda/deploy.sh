@@ -51,6 +51,7 @@ deployLambdas() {
             'ApiGetPreSurvey'
             'ApiGetPostSurvey'
             'ApiSaveSurvey'
+            'ApiScheduleDrive'
         )
     fi
 
