@@ -17,6 +17,7 @@ import { CarSelectionComponent } from './checkin/car-selection/car-selection.com
 import { CarTileComponent } from './common/car-tile/car-tile.component';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CarReviewComponent } from './checkin/car-review/car-review.component';
+import { SurveyComponent } from './common/survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CarReviewComponent } from './checkin/car-review/car-review.component';
     CarSelectionComponent,
     CarTileComponent,
     SpinnerComponent,
-    CarReviewComponent
+    CarReviewComponent,
+    SurveyComponent
   ],
   imports: [
     BrowserModule,

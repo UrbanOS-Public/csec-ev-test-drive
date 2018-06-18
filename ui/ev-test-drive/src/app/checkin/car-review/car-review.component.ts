@@ -30,7 +30,7 @@ export class CarReviewComponent implements OnInit {
 
   doSubmit() {
     this.evService.getPreSurvey().subscribe(
-      response => console.log(JSON.stringify(response)),
+      response => this.handleResponse(response),
       error => console.log(error)
     ); 
   }
@@ -43,5 +43,11 @@ export class CarReviewComponent implements OnInit {
     localStorage.removeItem('selectedCar');
     localStorage.removeItem('selectedTime');
     this.router.navigateByUrl('/checkin/carSelection');
+  }
+
+  handleResponse(response) {
+    localStorage.setItem('preSurveyQuestions', JSON.stringify(response));
+    this.router.navigateByUrl('/checkin/survey');
+    
   }
 }
