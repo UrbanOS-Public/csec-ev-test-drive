@@ -3,7 +3,7 @@
   <div class="header">
     <img class="scLogo" src="assets/scLogo.svg">
     <p class="title-text">Schedule Your Drive</p>
-    <p class="reset">Clear All</p>
+    <p class="reset" (click)="doReset()">Clear All</p>
   </div>
 
   <div class="times-container">
@@ -49,11 +49,18 @@
 
   <div class="footer">
     <div class="horizontal-rule"></div>
-    <div class="cancel">
+    <div class="cancel" (click)="doCancel()">
       <p>Cancel</p>
     </div>
-    <div class="next">
-      <p>Next -></p>
+    <div
+      class="next"
+      (click)="doSubmit()"
+      [ngClass]="{'disabled': !selectedCar || !selectedTime}">
+      <p>
+        {{ isSubmitting ? "" : "Next "}}
+        <img src="assets/arrow.png" *ngIf="!isSubmitting">
+      </p>
+      <app-spinner *ngIf="isSubmitting"></app-spinner>
     </div>
   </div>
 

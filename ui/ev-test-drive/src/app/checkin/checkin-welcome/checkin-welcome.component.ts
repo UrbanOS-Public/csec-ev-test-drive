@@ -10,6 +10,7 @@ export class CheckinWelcomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    localStorage.clear();
   }
 
 }

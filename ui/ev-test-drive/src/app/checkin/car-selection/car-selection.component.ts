@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
 import { Helpers } from '../../app.helpers';
 
@@ -17,12 +18,19 @@ export class CarSelectionComponent implements OnInit {
   selectedCar: any;
   selectedTime: any;
   formattedDate: string;
+  isSubmitting = false;
 
-  constructor(private evService: EVService) { }
+  constructor(
+    private evService: EVService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.getCars();
-    this.formattedDate = this.formatDate(new Date());
+    if (localStorage.getItem('email')) {
+      this.getCars();
+      this.formattedDate = this.formatDate(new Date());
+    } else {
+      this.router.navigateByUrl('/checkin');
+    }
   }
 
   getCars() {
@@ -55,7 +63,7 @@ export class CarSelectionComponent implements OnInit {
     this.times.forEach(time => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
       time.tileId = this.timeCounter++;
-      if (time.availableCount == 0 || time.formattedTime.substring(0,2) == "10") {
+      if (time.availableCount == 0) {
         time.disabled = true;
       }
       time.cars.forEach(timeCar => {
@@ -69,41 +77,72 @@ export class CarSelectionComponent implements OnInit {
     });
   }
 
+  doReset() {
+    this.doSelectCar(-1);
+    this.doSelectTime(-1);
+  }
+
+  doSubmit() {
+    if (this.selectedCar && this.selectedTime) {
+      this.isSubmitting = true;
+      localStorage.setItem('selectedCar', this.selectedCar);
+      localStorage.setItem('selectedTime', this.selectedTime);
+      
+    }
+  }
+
+  doCancel() {
+    console.log("Cancel clicked!");
+  }
+
   doSelectCar(carTileId) {
     const carList = document.getElementsByClassName("car-tile");
     const selectedTile = carList.item(carTileId);
-    if (selectedTile.classList.contains("disabled")
-       || selectedTile.classList.contains("unavailable")) {
+    if (selectedTile && selectedTile.classList.contains("disabled")
+       || selectedTile && selectedTile.classList.contains("unavailable")) {
       return;
     }
 
+    this.selectedCar = null;
     for (let item of Array.from(carList)) {
       if (item.id == carTileId) {
-        item.classList.toggle("selected");
-        this.selectedCar = this.cars.filter(car => car.tileId === carTileId)[0];
+        if (item.classList.contains("selected")) {
+          item.classList.remove("selected");
+          this.selectedCar = null;
+        } else {
+          item.classList.add("selected");
+          this.selectedCar = this.cars.filter(car => car.tileId === carTileId)[0];
+        }
       } else {
         item.classList.remove("selected");
       }
     }
+    this.markUnavailableTimes(this.selectedCar);
   }
 
   doSelectTime(timeTileId) {
     const timeList = document.getElementsByClassName("time");
     const selectedTile = timeList.item(timeTileId);
-    if (selectedTile.classList.contains("disabled")
-       || selectedTile.classList.contains("unavailable")) {
+    if (selectedTile && selectedTile.classList.contains("disabled")
+       || selectedTile && selectedTile.classList.contains("unavailable")) {
       return;
     }
 
+    this.selectedTime = null;
     for (let item of Array.from(timeList)) {
       if (item.id == timeTileId) {
-        item.classList.toggle("selected");
-        this.selectedTime = this.times.filter(time => time.tileId === timeTileId)[0];
-        this.markUnavailableCars(this.selectedTime);
+        if (item.classList.contains("selected")) {
+          item.classList.remove("selected");
+          this.selectedTime = null;
+        } else {
+          item.classList.add("selected");
+          this.selectedTime = this.times.filter(time => time.tileId === timeTileId)[0];
+        }
       } else {
         item.classList.remove("selected");
       }
     }
+    this.markUnavailableCars(this.selectedTime);
   }
 
   markUnavailableCars(time) {
@@ -113,7 +152,7 @@ export class CarSelectionComponent implements OnInit {
       if (car.active) {
         let carElement = carList.item(car.tileId);
 
-        if (car.times[time.formattedTime].reserved) {
+        if (time && car.times[time.formattedTime].reserved) {
           carElement.classList.add("unavailable");
           carElement.classList.remove("selected");
         } else {
@@ -130,7 +169,7 @@ export class CarSelectionComponent implements OnInit {
       if (time.availableCount > 0) {
         let timeElement = timeList.item(time.tileId);
 
-        if (car.times[time.formattedTime].reserved) {
+        if (car && car.times[time.formattedTime].reserved) {
           timeElement.classList.add("unavailable");
           timeElement.classList.remove("selected");
         } else {
