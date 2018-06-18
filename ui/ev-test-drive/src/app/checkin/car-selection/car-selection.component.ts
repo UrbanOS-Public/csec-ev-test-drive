@@ -63,6 +63,7 @@ export class CarSelectionComponent implements OnInit {
     this.times.forEach(time => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
       time.tileId = this.timeCounter++;
+      time.formattedDate = this.formattedDate;
       if (time.availableCount == 0) {
         time.disabled = true;
       }
@@ -83,16 +84,16 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSubmit() {
-    if (this.selectedCar && this.selectedTime) {
+    if (!this.isSubmitting && this.selectedCar && this.selectedTime) {
       this.isSubmitting = true;
-      localStorage.setItem('selectedCar', this.selectedCar);
-      localStorage.setItem('selectedTime', this.selectedTime);
-      
+      localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
+      localStorage.setItem('selectedTime', JSON.stringify(this.selectedTime));
+      this.router.navigateByUrl('/checkin/carReview');
     }
   }
 
   doCancel() {
-    console.log("Cancel clicked!");
+    this.router.navigateByUrl('/checkin');
   }
 
   doSelectCar(carTileId) {

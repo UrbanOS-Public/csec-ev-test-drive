@@ -7,7 +7,7 @@ import { InfoComponent } from './info/info.component';
 import { CheckinWelcomeComponent } from './checkin/checkin-welcome/checkin-welcome.component';
 import { RegistrationComponent } from './checkin/registration/registration.component';
 import { CarSelectionComponent } from './checkin/car-selection/car-selection.component';
-import { CarTileComponent } from './common/car-tile/car-tile.component';
+import { CarReviewComponent } from './checkin/car-review/car-review.component'; 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'checkin', component: CheckinWelcomeComponent },
   { path: 'checkin/registration', component: RegistrationComponent },
   { path: 'checkin/carSelection', component: CarSelectionComponent },
+  { path: 'checkin/carReview', component: CarReviewComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
  
