@@ -9,16 +9,17 @@ class JobPopulateTimeSlots {
 
     handleEvent(event, context, callback) {
         const yesterday = this.moment().subtract(1, 'days').format("YYYY-MM-DD");
-        const today = this.moment().format("YYYY-MM-DD");
+        console.log(event.date);
+        const todayOrPassedInDate = this.moment(event.date).format("YYYY-MM-DD");
         const dayOfTheWeekStartingSundayZeroBased = this.moment().day();
 
         this.archiveCarSlots(yesterday)
             .then(() => this.deleteCarSlots(yesterday))
             .then(() => this.archiveTimeSlots(yesterday))
             .then(() => this.deleteTimeSlots(yesterday))
-            .then(() => this.getScheduleForToday(today, dayOfTheWeekStartingSundayZeroBased))
-            .then((schedule) => this.createTimeSlotsForDate(schedule, today))
-            .then(() => this.createCarSlotsForDate(today))
+            .then(() => this.getScheduleForToday(todayOrPassedInDate, dayOfTheWeekStartingSundayZeroBased))
+            .then((schedule) => this.createTimeSlotsForDate(schedule, todayOrPassedInDate))
+            .then(() => this.createCarSlotsForDate(todayOrPassedInDate))
             .then((updateResponses) => this.successHandler(callback, updateResponses), (err) => this.errorHandler(callback, err))
         ;
     }
@@ -60,24 +61,23 @@ class JobPopulateTimeSlots {
             });
     }
 
-    createTimeSlotsForDate(schedule, date) {
-        const day = this.moment().format("YYYY-MM-DD");
+    createTimeSlotsForDate(schedule, formattedDate) {
         const dayStartTime = schedule.start_time;
         const dayEndTime = schedule.end_time;
         const available_count = schedule.employees_per_slot;
         const slot_length_minutes = schedule.slot_length_minutes;
 
-        const start = this.moment(`${day} ${dayStartTime}`);
-        const end = this.moment(`${day} ${dayEndTime}`);
+        const start = this.moment(`${formattedDate} ${dayStartTime}`);
+        const end = this.moment(`${formattedDate} ${dayEndTime}`);
         const diffInMilliseconds = end.diff(start);
         const lengthOfDayInMinutes = diffInMilliseconds / 1000 / 60;
         const numberOfSlots = lengthOfDayInMinutes / slot_length_minutes;
 
         let values = [];
         for (var i = 0; i < numberOfSlots; i++) {
-            const row_start_time = this.moment(`${day} ${dayStartTime}`).add(i * slot_length_minutes, 'minutes').format("HH:mm:ss");
-            const row_end_time = this.moment(`${day} ${dayStartTime}`).add((i + 1) * slot_length_minutes, 'minutes').format("HH:mm:ss");
-            const row = [date, row_start_time, row_end_time, available_count];
+            const row_start_time = this.moment(`${formattedDate} ${dayStartTime}`).add(i * slot_length_minutes, 'minutes').format("HH:mm:ss");
+            const row_end_time = this.moment(`${formattedDate} ${dayStartTime}`).add((i + 1) * slot_length_minutes, 'minutes').format("HH:mm:ss");
+            const row = [formattedDate, row_start_time, row_end_time, available_count];
             values.push(row);
         }
 
