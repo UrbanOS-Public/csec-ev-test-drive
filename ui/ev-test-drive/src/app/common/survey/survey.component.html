@@ -2,7 +2,7 @@
 
   <div class="header">
     <img class="scLogo" src="assets/scLogo.svg">
-    <p class="title-text">Schedule Your Drive / Pre-Survey</p>
+    <p class="title-text">Schedule Your Drive / {{ surveyType }}-Survey</p>
   </div>
 
   <div class="survey-pane-container">
@@ -14,11 +14,16 @@
       <p class="question-text" *ngIf="showQuestionText">
         {{ question.text }}
       </p>
-      <div
-        class="question-option"
-        *ngFor="let option of question.surveyQuestionOptions"
-        (click)="doQuestionOptionSelect(option)">
-        <p>{{ option.text }}</p>
+      <div class="question-option-button-pane" *ngIf="question.type === 'MC'">
+        <div
+          class="question-option-button"
+          *ngFor="let option of question.surveyQuestionOptions"
+          (click)="doQuestionOptionSelect(option)">
+          <p>{{ option.text }}</p>
+        </div>
+      </div>
+      <div class="question-option-slider-pane" *ngIf="question.type === 'SCALE'">
+        I AM A SLIDER |====|
       </div>
     </div>
   </div>
@@ -37,8 +42,7 @@
     </div>
 
     <div class="next" (click)="doNext()" *ngIf="nextVisible">
-      <p>Next </p>
-      <img src="assets/arrow.png">
+      <p>Next <img src="assets/arrow.png"></p>
     </div>
   </div>
 

@@ -1,0 +1,180 @@
+@import "../../../colors.scss";
+
+.survey-page {
+  background-color: $backgroundGray;
+  font-family: Gotham, sans-serif;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  .header {
+    background-color: #000000;
+    height: 70px;
+    width: 100vw;
+    position: relative;
+    text-align: center;
+
+    .scLogo {
+      height: 68px;
+      width: 51px;
+      padding-top: 1px;
+      position: absolute;
+      left: 16px;
+    }
+
+    .title-text {
+      color: #FFFFFF;
+      font-weight: 500;
+      font-size: 21px;
+      letter-spacing: -0.43px;
+      text-transform: uppercase;
+      margin: 0;
+      padding-top: 22px;
+    }
+  }
+
+  .survey-pane-container {
+    height: calc(100vh - 160px);
+    text-align: center;
+    
+    .intro-text {
+      display: inline-block;
+      width: 650px;
+      font-weight: 200;
+      font-size: 17px;
+      letter-spacing: -0.82px;
+      line-height: 25px;
+      margin: 0;
+      padding-top: 35px;
+    }
+
+    .question-header {
+      font-weight: 500;
+      font-size: 25px;
+      letter-spacing: -1.21px;
+      line-height: 30px;
+      margin: 0;
+      margin-top: 17px;
+      margin-bottom: 40px;
+    }
+
+    .question-pane {
+      text-align: center;
+      margin: 0 auto;
+      
+      .question-text {
+        display: inline-block;
+      }
+
+      .question-option-button-pane {
+        column-count: 2;
+        column-gap: 0;
+        min-height: 100px;
+        padding: 0;
+
+        .question-option-button {
+          background-color: #FFFFFF;
+          height: 65px;
+          width: 396px;
+          margin-right: 17px;
+          margin-left: 17px;
+          margin-bottom: 25px;
+          padding-left: 18px;
+          text-align: left;
+          vertical-align: middle;
+          border: 1px solid #979797;
+          border-radius: 3px;
+          display: inline-block;
+
+          p {
+            text-align: left;
+            vertical-align: middle;
+            margin: 0;
+            padding-top: 20px;
+            font-weight: 200;
+            font-size: 21px;
+            letter-spacing: -1.02px;
+          }
+        }
+      }
+    }
+  }
+  
+  .footer {
+    height: 90px;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-align: right;
+    float: bottom;
+
+    .question-tracker {
+      display: inline-block;
+      position: absolute;
+      left: 30px;
+      top: 37px;
+
+      p {
+        color: #333333;
+        font-weight: 500;
+        font-size: 17px;
+        letter-spacing: -0.46px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        margin-left: 25px;
+        margin-top: -13px;
+      }
+    }
+
+    .cancel {
+      height: 50px;
+      width: 165px;
+      margin-right: 10px;
+      margin-top: 20px;
+      vertical-align: middle;
+      display: inline-block;
+
+      p {
+        color: #333333;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.46px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+
+    .next {
+      background-color: $pink;
+      border-radius: 5px;
+      height: 50px;
+      width: 130px;
+      margin-right: 40px;
+      margin-top: 20px;
+      text-align: center;
+      vertical-align: middle;
+      box-shadow: 4px 4px 0 0 #D5D3D6;
+      display: inline-block;
+
+      p {
+        color: #FFFFFF;
+        font-size: 21px;
+        font-weight: 500;
+        letter-spacing: -0.57px;
+        margin: 0;
+        padding-top: 12px;
+        text-align: center;
+        vertical-align: middle;
+        text-transform: uppercase;
+
+        img {
+          text-align: center;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
