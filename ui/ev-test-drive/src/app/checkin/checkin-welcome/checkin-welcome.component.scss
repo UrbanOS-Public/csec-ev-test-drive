@@ -48,8 +48,8 @@
         line-height: 32px;
         letter-spacing: -0.93px;
         text-align: center;
-        margin-left: 70px;
-        margin-right: 70px;
+        margin-left: 50px;
+        margin-right: 50px;
       }
 
       .scheduleDriveLink {
@@ -65,7 +65,7 @@
           margin-left: 55px;
           background-color: $pink;
           border-radius: 4px;
-          box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22); 
+          box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22);
 
           .scheduleDriveButtonText {
             color: #FFF;
@@ -87,4 +87,4 @@
     background-color: #000;
     height: 368px;
   }
-} 
+}
