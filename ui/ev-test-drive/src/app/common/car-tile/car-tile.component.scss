@@ -1,8 +1,8 @@
 @import "../../../colors.scss";
 
 .tile {
-  height: 400px;
-  width: 224px;
+  height: 310px;
+  width: 315px;
   font-family: Gotham, sans-serif;
   color: #333333;
   margin: 0;
@@ -10,11 +10,10 @@
 
   .imageDiv {
     height: 100px;
-    width: 200px;
-    padding-left: 28px;
+    width: 315px;
+    text-align: center;
 
     .carImage {
-      display: block;
       padding-top: 15px;
     }
   }
@@ -22,6 +21,8 @@
   p {
     padding-left: 18px;
     padding-right: 18px;
+    word-wrap: word;
+    margin: 0;
   }
 
   .year {
@@ -29,6 +30,7 @@
     font-size: 14px;
     letter-spacing: -0.68px;
     margin: 0;
+    display: block;
   }
 
   .make-model {
@@ -36,24 +38,39 @@
     font-size: 25px;
     letter-spacing: -1.21px;
     margin: 0;
+    display: block;
   }
 
-  .label {
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: -0.73px;
-    margin-bottom: 3px;
-  }
-
-  .value {
-    font-weight: 200;
-    font-size: 14px;
-    letter-spacing: -0.73px;
+  .stat {
+    display: inline-block;
     margin: 0;
-  }
+    vertical-align: top;
+    padding-top: 10px;
 
-  .label.charge {
-    margin-top: 0;
-  }
+    p {
+      padding-left: 18px;
+      padding-right: 18px;
+      width: 116px;
+      word-wrap: word;
+      margin: 0;
+    }
 
+
+    .label {
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: -0.73px;
+      margin-bottom: 3px;
+    }
+
+    .value {
+      font-weight: 200;
+      font-size: 14px;
+      letter-spacing: -0.73px;
+    }
+
+    .label.charge {
+      margin-top: 0;
+    }
+  }
 }

@@ -38,7 +38,7 @@
     margin: 0;
     padding-top: 20px;
     padding-bottom: 8px;
-    height: calc(100vh - 186px);
+    height: calc(100vh - 188px);
     text-align: center;
 
     .review-text {
@@ -46,13 +46,14 @@
       font-size: 17px;
       letter-spacing: -0.82px;
       margin: 0;
-      margin-bottom: 14px;
+      margin-top: 22px;
+      margin-bottom: 20px;
       text-align: center;
     }
 
     .car-pane {
       text-align: center;
-      width: 227px;
+      width: 318px;
       display: inline-block;
       margin: 0;
 
@@ -60,7 +61,7 @@
         background-color: #000000;
         margin: 0;
         height: 64px;
-        width: 227px;
+        width: 318px;
         display: inline-block;
         padding-top: 14px;
         text-align: center;
@@ -81,7 +82,7 @@
         .partial-rule {
           background-color: #555555;
           height: 1px;
-          width: 177px;
+          width: 268px;
           border: none;
           margin-left: 25px;
           margin-top: 8px;
@@ -108,9 +109,8 @@
 
       .edit {
         display: inline-block;
-        display: none;
         height: 48px;
-        width: 223px;
+        width: 314px;
         margin-top: 14px;
         border: 2px solid #000000;
         border-radius: 5px;
@@ -124,7 +124,6 @@
           text-transform: uppercase;
         }
       }
-
     }
   }
 

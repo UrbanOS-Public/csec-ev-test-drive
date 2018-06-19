@@ -19,6 +19,8 @@ import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CarReviewComponent } from './checkin/car-review/car-review.component';
 import { SurveyComponent } from './common/survey/survey.component';
 
+import 'hammerjs';
+
 @NgModule({
   declarations: [
     AppComponent,

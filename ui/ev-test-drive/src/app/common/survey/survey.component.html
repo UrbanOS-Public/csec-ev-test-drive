@@ -1,3 +1,65 @@
-<p>
-  survey works!
-</p>
+<div class="survey-page">
+
+  <div class="header">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <p class="title-text">Schedule Your Drive / Pre-Survey</p>
+  </div>
+
+  <div class="survey-pane-container">
+    <p class="intro-text">By answering the following questions below, you will help us better understand how to share information around electric vehicles with the public.</p>
+
+    <h1 class="question-header">{{ questionHeaderText }}</h1>
+
+    <div class="question-pane" *ngFor="let question of questions">
+      <p class="question-text" *ngIf="showQuestionText">
+        {{ question.text }}
+      </p>
+      <div
+        class="question-option"
+        *ngFor="let option of question.surveyQuestionOptions"
+        (click)="doQuestionOptionSelect(option)">
+        <p>{{ option.text }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="question-tracker">
+      <img
+        class="backArrow"
+        src="assets/backArrow.svg"
+        (click)="doBack()">
+      <p>Question {{pageDisplayId}} / {{totalQuestions}}</p>
+    </div>
+
+    <div class="cancel" (click)="doCancel()">
+      <p>Cancel</p>
+    </div>
+
+    <div class="next" (click)="doNext()" *ngIf="nextVisible">
+      <p>Next </p>
+      <img src="assets/arrow.png">
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+<!--    <mat-slider
+        class=""
+        [disabled]="false"
+        [invert]="false"
+        [max]="7"
+        [min]="1"
+        [step]="1"
+        [thumbLabel]="true"
+        [tickInterval]="1"
+        [(ngModel)]="value"
+        [vertical]="false">
+    </mat-slider>
+-->
