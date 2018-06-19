@@ -46,6 +46,7 @@ deployLambdas() {
             'JobPopulateCarSchedule'
             'JobArchiveCarSchedule'
             'JobPopulateTimeSlots'
+            'JobSendConfirmationEmail'
             'ApiSaveUser'
             'ApiGetCars'
             'ApiGetPreSurvey'

@@ -244,3 +244,10 @@ resource "aws_route53_record" "example_ses_domain_mail_from_txt" {
   ttl     = "600"
   records = ["v=spf1 include:amazonses.com -all"]
 }
+
+resource "aws_ses_template" "ConfirmationTemplate" {
+  name    = "ConfirmationTemplate"
+  subject = "Your EV Test Drive Confirmation"
+  html    = "<h1>Hello {{first_name}} {{last_name}},</h1><p>Your confirmation number is {{confirmation_number}}.</p>"
+  text    = "Hello {{first_name}} {{last_name}},,\r\nYour confirmation number is {{confirmation_number}}."
+}
