@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
 import { Helpers } from '../../app.helpers';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-car-selection',
@@ -27,7 +28,6 @@ export class CarSelectionComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('email')) {
       this.getCars();
-      this.formattedDate = this.formatDate(new Date());
     } else {
       this.router.navigateByUrl('/checkin');
     }
@@ -60,6 +60,7 @@ export class CarSelectionComponent implements OnInit {
 
   initializeTimeslots(timesArray) {
     this.times = timesArray;
+    this.formattedDate = this.formatDate(moment(this.times[0].date).toDate());
     this.times.forEach(time => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
       time.tileId = this.timeCounter++;
