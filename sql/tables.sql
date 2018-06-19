@@ -265,21 +265,21 @@ CREATE TABLE miscellaneous_data (
 insert into car (`id`, `year`, `make`, `model`, `image_url`, `type`, `msrp`, `ev_range`, `total_range`, `battery_size`, `charging_standard`, `charge_time`)
 values
   (1, '2018', 'BMW', 'i3', 'https://drivesmartcbus.com/assets/cars/2018_BMW_i3.png', 'Battery Electric Vehicle (BEV)',
-      '$44,450 before tax credits', '114', '114', '33 kWh', 'Level 2 (240V)', '4-5 hours'),
+      '$44,450', '114', '114', '33 kWh', 'Level 2 (240V)', '4-5 hours'),
   (2, '2018', 'Nissan', 'Leaf', 'https://drivesmartcbus.com/assets/cars/2018_Nissan_Leaf.png',
-      'Battery Electric Vehicle (BEV)', '$29,900 before tax credits', '151', '151', '40 kWh', 'Level 2 (240V)',
+      'Battery Electric Vehicle (BEV)', '$29,900', '151', '151', '40 kWh', 'Level 2 (240V)',
    '8 hours'),
   (3, '2018', 'Toyota', 'Prius Prime', 'https://drivesmartcbus.com/assets/cars/2018_Toyota_Prius_Prime.png',
-      'Plug-In Hybrid Electric Vehicle (PHEV)', '$27,100 before tax credits', '25', '640', '8.8 kWh', 'Level 2 (240V)',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$27,100', '25', '640', '8.8 kWh', 'Level 2 (240V)',
    '2.1 hours'),
   (4, '2018', 'Honda', 'Clarity', 'https://drivesmartcbus.com/assets/cars/2018_Honda_Clarity.png',
-      'Plug-In Hybrid Electric Vehicle (PHEV)', '$33,400 before tax credits', '48', '340', '17 kWh', 'Level 2 (240V)',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$33,400', '48', '340', '17 kWh', 'Level 2 (240V)',
    '2-3 hours'),
   (5, '2018', 'Chevrolet', 'Bolt', 'https://drivesmartcbus.com/assets/cars/2018_Chevrolet_Bolt.png',
-      'Plug-In Hybrid Electric Vehicle (PHEV)', '$34,095 before tax credits', '53', '420', '18.4 kWh', 'Level 2 (240V)',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$34,095', '53', '420', '18.4 kWh', 'Level 2 (240V)',
    '4-5 hours'),
   (6, '2018', 'Mercedes', 'GLE 550e', 'https://drivesmartcbus.com/assets/cars/2018_Mercedes_GLE_550e.png',
-      'Plug-In Hybrid Electric Vehicle (PHEV)', '$66,700 before tax credits', '10', '460', '3.3 kWh', 'Level 2 (240V)',
+      'Plug-In Hybrid Electric Vehicle (PHEV)', '$66,700', '10', '460', '3.3 kWh', 'Level 2 (240V)',
    '2.3 hours');
 
 
