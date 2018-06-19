@@ -10,9 +10,13 @@ class GetTimeSlots {
     }
 
     handleEvent(event, context, callback) {
-        const today = this.moment().format("YYYY-MM-DD");
-        const timeSlotsPromise = this.getTimeSlotsForDate(today);
-        const carSlotsPromise = this.getCarSlotsForDate(today);
+        const july5th = moment('2018-07-05');
+        let date = this.moment().format("YYYY-MM-DD");
+        if(moment().isBefore(july5th)) {
+            date = july5th.format("YYYY-MM-DD");
+        }
+        const timeSlotsPromise = this.getTimeSlotsForDate(date);
+        const carSlotsPromise = this.getCarSlotsForDate(date);
 
         Promise.all([timeSlotsPromise, carSlotsPromise])
             .then((promiseResults) => this.transformData(promiseResults))
@@ -56,7 +60,7 @@ class GetTimeSlots {
                 }
             });
             const object = {
-                date: moment(timeSlot.date).format("YYYY-MM-DD"),
+                date: this.moment(timeSlot.date).format("YYYY-MM-DD"),
                 startTime: timeSlot.start_time,
                 endTime: timeSlot.end_time,
                 availableCount: timeSlot.available_count,
