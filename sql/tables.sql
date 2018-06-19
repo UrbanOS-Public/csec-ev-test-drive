@@ -58,7 +58,8 @@ CREATE TABLE user_drive_map (
   `drive_id`            BIGINT(20)  NOT NULL,
   `role`                VARCHAR(32) NOT NULL,
   `confirmation_number` VARCHAR(32) NOT NULL,
-  `email_sent`          BOOLEAN default FALSE,
+  `email_sent`          BOOLEAN              default FALSE,
+  `email_data`          VARCHAR(10000),
   `date_created`        DATETIME    NOT NULL DEFAULT now(),
   `last_updated`        DATETIME    NOT NULL DEFAULT now() ON UPDATE now(),
   PRIMARY KEY (`user_id`, `drive_id`),
@@ -716,26 +717,3 @@ values
   (4, '2018-06-01', true),
   (5, '2018-06-01', false),
   (6, '2018-06-01', false);
-
-# insert into time_slot (`id`, `date`, `start_time`, `end_time`, `available_count`)
-#     values
-#       (500000, '2018-06-11', '9:00', '9:30', 1),
-#       (500001, '2018-06-11', '9:30', '10:00', 0),
-#       (500002, '2018-06-11', '13:00', '13:30', 2)
-# ;
-#
-# insert into car_slot (`time_slot_id`, `car_id`, `reserved`)
-#     values
-#       (500000, 1, false),
-#       (500000, 2, false),
-#       (500000, 3, true),
-#       (500000, 4, false),
-#       (500001, 1, false),
-#       (500001, 2, false),
-#       (500001, 3, true),
-#       (500001, 4, true),
-#       (500002, 1, false)
-# ;
-
-insert into user (`email`, `first_name`, `last_name`, `phone`, `zipcode`)
-values ('jarred.128@gmail.com', 'Jarred', 'Olson', 'stuff', '12345');
