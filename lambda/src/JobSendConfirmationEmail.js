@@ -1,7 +1,7 @@
 const moment = require('moment');
 const smartExperienceMySQLPool = require('./utils/SmartExperienceMySQLPool');
 const AWS = require('aws-sdk');
-var ses = new AWS.SES();
+const ses = new AWS.SES();
 
 const NO_EMAILS_TO_SEND = 'No emails to send';
 
@@ -22,7 +22,7 @@ class JobSendConfirmationEmail {
     }
 
     getUserToSendEmailTo() {
-        return this.doQuery("select * from user_drive_map udm, user u, drive d where u.id = udm.user_id and udm.drive_id = d.id and udm.email_sent = 0 order by udm.date_created asc limit 1")
+        return this.doQuery("select u.email, u.id as user_id, d.id as drive_id, udm.confirmation_number, d.date, d.scheduled_start_time, c.make, c.model, c.msrp from user_drive_map udm, user u, drive d, car c where u.id = udm.user_id and udm.drive_id = d.id and d.car_id = c.id and udm.email_sent = 0 order by udm.date_created asc limit 1");
     }
 
     extractFirstRow(queryResponse) {
@@ -34,9 +34,10 @@ class JobSendConfirmationEmail {
 
     sendEmail(userAndDriveData) {
         const TemplateData = {
-            first_name: userAndDriveData.first_name,
-            last_name: userAndDriveData.last_name,
-            confirmation_number: userAndDriveData.confirmation_number
+            confirmation_number: userAndDriveData.confirmation_number,
+            formatted_drive_time: this.moment(`${this.moment(userAndDriveData.date).format("YYYY-MM-DD")} ${userAndDriveData.scheduled_start_time}`).format("MMMM D, YYYY h:mma"),
+            vehicle: `${userAndDriveData.make} ${userAndDriveData.model}`,
+            msrp: userAndDriveData.msrp
         };
         const params = {
             Destination: {
@@ -46,6 +47,7 @@ class JobSendConfirmationEmail {
             },
             Source: 'EV Test Drive <no-reply@drivesmartcbus.com>',
             Template: 'ConfirmationTemplate',
+            ConfigurationSetName: 'DefaultConfigurationSet',
             TemplateData: JSON.stringify(TemplateData),
             ReplyToAddresses: [
                 "no-reply@drivesmartcbus.com"
@@ -68,7 +70,6 @@ class JobSendConfirmationEmail {
     }
 
     markAsEmailSent(userAndDriveDataAndEmailStatus) {
-        console.log(`HERE`);
         const userAndDriveData = userAndDriveDataAndEmailStatus[0];
         const emailStatus = userAndDriveDataAndEmailStatus[1];
         var email_data;
@@ -93,10 +94,9 @@ class JobSendConfirmationEmail {
         });
     }
 
-    successHandler(callback, data) {
+    successHandler(callback) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`Done`);
-        console.log(data);
         callback(null);
     }
 

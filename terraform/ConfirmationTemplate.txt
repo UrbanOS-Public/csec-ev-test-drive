@@ -1,0 +1,21 @@
+{{confirmation_number}}
+Your confirmation code used at Check-in
+Status Driver
+Scheduled Drive Time {{formatted_drive_time}}
+Vehicle {{vehicle}} - {{msrp}}*
+*Tax credit (varies in size by vehicle)
+
+As a driver, we want to make sure you have the best Ride and Drive experience possible. In order to do so,
+please review the following regarding what to expect during your experience and other fun details we have in
+store for you!
+
+TIME COMMITMENT
+This is a single driver event that will allow you a one-on-one driving experience guided by your Smart Columbus Product Specialist during a 7 to 10 minute drive on a predetermined route. The whole experience should take approximately 30 minutes. Your experience will start promptly. Please arrive 5 to 10 minutes prior to your designated time in order to ensure an easy check-in process.
+
+THINGS TO BRING
+All you need to bring with you is a valid driver's license.
+
+HOW TO GET THERE
+The event is located at 170 S Civic Center Dr. Columbus, OH 43215
+
+If you have any additional questions before you drive, please reach out to us at rideanddrive@smartcbus.com
