@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="22px" viewBox="0 0 13 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>B3BB30BA-B768-4BF6-8EEB-FEAEF56AD63D</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M16.5977785,731.80931 L24.9044349,740.115967 C25.4769516,740.688483 25.4769516,741.616716 24.9044349,742.189233 C24.3319182,742.76175 23.4036852,742.76175 22.8311685,742.189233 L13.8320196,733.190084 C13.6864525,733.120287 13.5500233,733.025071 13.4293875,732.904435 C13.1282502,732.603298 12.9855077,732.203746 13.0011601,731.80931 C12.9855077,731.414874 13.1282502,731.015323 13.4293875,730.714186 C13.5500233,730.59355 13.6864525,730.498334 13.8320196,730.428536 L22.8311685,721.429388 C23.4036852,720.856871 24.3319182,720.856871 24.9044349,721.429388 C25.4769516,722.001904 25.4769516,722.930137 24.9044349,723.502654 L16.5977785,731.80931 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="4.0-presurvey" transform="translate(-29.000000, -721.000000)">
+            <g id="top-nav" transform="translate(0.000000, -7.000000)">
+                <g id="back-logo-" transform="translate(16.000000, 7.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Mask" fill="#1F1F1F" fill-rule="nonzero" transform="translate(19.166911, 731.809310) scale(1, -1) translate(-19.166911, -731.809310) " xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

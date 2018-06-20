@@ -50,7 +50,7 @@
   }
 
   .times-container {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 156px);
     width: 270px;
     display: inline-block;
     margin: 0;
@@ -137,7 +137,7 @@
   }
 
   .cars-container {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 164px);
     display: inline-block;
     margin: 0;
     overflow: scroll;
@@ -152,7 +152,7 @@
         background-color: $backgroundGray;
         display: inline-block;
         text-align: center;
-        width: 500px;
+        width: 754px;
         height: 1100px;
 
         .cars-header {

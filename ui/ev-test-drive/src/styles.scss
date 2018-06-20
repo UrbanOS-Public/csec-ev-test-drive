@@ -1,3 +1,10 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./colors.scss";
+
+body {
+  background-color: $backgroundGray;
+}
+
 @font-face {
   font-family: 'Gotham';
   font-style: normal;

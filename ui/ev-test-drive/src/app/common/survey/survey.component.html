@@ -1,3 +1,98 @@
-<p>
-  survey works!
-</p>
+<div class="survey-page">
+
+  <div class="header">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <p class="title-text">Schedule Your Drive / {{ surveyType }}-Survey</p>
+  </div>
+
+  <div class="survey-pane-container">
+    <p class="intro-text">By answering the following questions below, you will help us better understand how to share information around electric vehicles with the public.</p>
+
+    <h1 class="question-header">{{ questionHeaderText }}</h1>
+
+    <div class="question-pane" *ngFor="let question of questions">
+      <p class="question-text" *ngIf="showQuestionText">
+        {{ question.text }}
+      </p>
+      <div class="question-option-button-pane" *ngIf="question.type === 'MC'">
+        <div
+          class="question-option-pane"
+          *ngFor="let option of question.surveyQuestionOptions">
+
+          <div
+            class="question-option-button"
+            [ngClass]="{'has-text': option.free_form == 1}"
+            (click)="doQuestionOptionSelect(option)">
+
+            <p>{{ option.text }}</p>
+
+          </div>
+          <div
+            class="question-option-text hidden"
+            *ngIf="option.free_form == 1">
+
+            <textarea
+              id="{{option.id}}"
+              class="text-entry"
+              placeholder="Please specify"
+              rows="1"></textarea>
+
+          </div>
+        </div>
+          
+      </div>
+
+      <div class="question-option-slider-pane" *ngIf="question.type === 'SCALE'">
+        <mat-slider
+          class="question-slider"
+          [disabled]="false"
+          [invert]="false"
+          [max]="7"
+          [min]="1"
+          [step]="1"
+          [thumbLabel]="true"
+          [tickInterval]="1"
+          [(ngModel)]="sliderValues[question.order_index]"
+          [vertical]="false">
+        </mat-slider>
+        <div class="helper-texts">
+        <p class="one">Not at all important</p>
+        <p class="seven">Extremely important</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="horizontal-rule"></div>
+
+    <div class="question-tracker">
+      <img
+        class="backArrow"
+        src="assets/backArrow.svg"
+        (click)="doBack()">
+      <p>Question {{pageDisplayId}} / {{totalQuestions}}</p>
+    </div>
+
+    <div class="cancel" (click)="doCancel()">
+      <p>Cancel</p>
+    </div>
+
+    <div class="next"
+      (click)="doNext(null)"
+      *ngIf="nextVisible"
+      [ngClass]="{'disabled': (!textVisible) && sliderValues.length !== questions.length }">
+
+      <p>Next <img src="assets/arrow.png"></p>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
