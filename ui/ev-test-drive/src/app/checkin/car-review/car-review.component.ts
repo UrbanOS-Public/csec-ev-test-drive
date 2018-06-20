@@ -29,6 +29,7 @@ export class CarReviewComponent implements OnInit {
   }
 
   doSubmit() {
+    this.isSubmitting = true;
     this.evService.getPreSurvey().subscribe(
       response => this.handleResponse(response),
       error => console.log(error)
