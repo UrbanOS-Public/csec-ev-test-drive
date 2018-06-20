@@ -1,0 +1,39 @@
+{{confirmation_number}}
+Your confirmation code used at Check-in
+Status Driver
+Scheduled Drive Time {{formatted_drive_time}}
+Vehicle {{vehicle}} - {{msrp}}*
+*Tax credit (varies in size by vehicle)
+
+As a driver, we want to make sure you have the best Ride and Drive experience possible. In order to do so,
+please review the following regarding what to expect during your experience and other fun details we have in
+store for you!
+
+TIME COMMITMENT
+This is a single driver event that will allow you a one-on-one driving experience guided by your Smart Columbus Product Specialist during a 7 to 10 minute drive on a predetermined route. The whole experience should take approximately 30 minutes. Your experience will start promptly. Please arrive 5 to 10 minutes prior to your designated time in order to ensure an easy check-in process.
+
+THINGS TO BRING
+All you need to bring with you is a valid driver's license.
+
+HOW TO GET THERE
+The event is located at 170 S Civic Center Dr. Columbus, OH 43215
+
+WHAT TO EXPECT
+Start your experience at Registration, located in the main lobby, where you will check in with a Smart Columbus volunteer and be issued your personalized driver badge.
+
+You will be directed to Pre-Drive Education where an event staff member will guide you through a 5 minute session on Smart Columbus and the type of electric vehicles available.
+
+
+At the end of the short presentation, all drivers will be escorted to meet your Product Specialist outside and get ready to Drive.
+
+The Smart Columbus Product Specialist will show each group around their specific class of cars and demonstrate their unique features. Then it's time to drive!
+
+You will engage in a 7 to 10-minute driving experience on a predetermined route.
+
+Each car will have a Right Seat Driver, who will accompany you on your drive in order to answer questions, help navigate the designated route and get you back safely.
+
+Once you arrive back, you will visit Post-Drive where you will complete a short driver survey and receive your free Smart Columbus swag bag!
+
+After completing your Post-Drive survey, you are free to visit the Non-Driving Experience and continue to learn about how Smart Columbus is transporting our city to the future!
+
+If you have any additional questions before you drive, please reach out to us at rideanddrive@smartcbus.com
