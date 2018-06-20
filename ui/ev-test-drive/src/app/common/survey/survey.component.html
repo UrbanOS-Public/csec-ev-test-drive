@@ -16,19 +16,57 @@
       </p>
       <div class="question-option-button-pane" *ngIf="question.type === 'MC'">
         <div
-          class="question-option-button"
-          *ngFor="let option of question.surveyQuestionOptions"
-          (click)="doQuestionOptionSelect(option)">
-          <p>{{ option.text }}</p>
+          class="question-option-pane"
+          *ngFor="let option of question.surveyQuestionOptions">
+
+          <div
+            class="question-option-button"
+            [ngClass]="{'has-text': option.free_form == 1}"
+            (click)="doQuestionOptionSelect(option)">
+
+            <p>{{ option.text }}</p>
+
+          </div>
+          <div
+            class="question-option-text hidden"
+            *ngIf="option.free_form == 1">
+
+            <textarea
+              id="{{option.id}}"
+              class="text-entry"
+              placeholder="Please specify"
+              rows="1"></textarea>
+
+          </div>
+        </div>
+          
+      </div>
+
+      <div class="question-option-slider-pane" *ngIf="question.type === 'SCALE'">
+        <mat-slider
+          class="question-slider"
+          [disabled]="false"
+          [invert]="false"
+          [max]="7"
+          [min]="1"
+          [step]="1"
+          [thumbLabel]="true"
+          [tickInterval]="1"
+          [(ngModel)]="sliderValues[question.order_index]"
+          [vertical]="false">
+        </mat-slider>
+        <div class="helper-texts">
+        <p class="one">Not at all important</p>
+        <p class="seven">Extremely important</p>
         </div>
       </div>
-      <div class="question-option-slider-pane" *ngIf="question.type === 'SCALE'">
-        I AM A SLIDER |====|
-      </div>
+
     </div>
   </div>
 
   <div class="footer">
+    <div class="horizontal-rule"></div>
+
     <div class="question-tracker">
       <img
         class="backArrow"
@@ -41,7 +79,11 @@
       <p>Cancel</p>
     </div>
 
-    <div class="next" (click)="doNext()" *ngIf="nextVisible">
+    <div class="next"
+      (click)="doNext(null)"
+      *ngIf="nextVisible"
+      [ngClass]="{'disabled': (!textVisible) && sliderValues.length !== questions.length }">
+
       <p>Next <img src="assets/arrow.png"></p>
     </div>
   </div>
@@ -54,16 +96,3 @@
 
 
 
-<!--    <mat-slider
-        class=""
-        [disabled]="false"
-        [invert]="false"
-        [max]="7"
-        [min]="1"
-        [step]="1"
-        [thumbLabel]="true"
-        [tickInterval]="1"
-        [(ngModel)]="value"
-        [vertical]="false">
-    </mat-slider>
--->
