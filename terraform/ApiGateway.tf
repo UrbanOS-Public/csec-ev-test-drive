@@ -117,3 +117,15 @@ module "api_post_scheduleDrive" {
   account_number = "${var.account_number}"
   method = "POST"
 }
+
+module "api_get_schedule" {
+  source = "./modules/api/create_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_rest_api.SmartExperienceApi.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "schedule"
+  function_invoke_arn = "${module.ApiGetScheduledDrivesFunction.invoke_arn}"
+  function_arn = "${module.ApiGetScheduledDrivesFunction.arn}"
+  api_key_required = "true"
+  account_number = "${var.account_number}"
+  method = "GET"
+}

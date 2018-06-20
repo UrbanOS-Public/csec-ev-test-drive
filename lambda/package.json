@@ -21,6 +21,7 @@
     "ndc-util": "^1.0.0",
     "aws-sdk": "2.225.1",
     "mocha": "4.0.1",
+    "randomkey": "^1.0.0",
     "sinon-chai": "^3.0.0",
     "sinon": "4.0.1"
   }

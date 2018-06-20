@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div style="margin: auto; width: 95%; font-family: 'Helvetica'; font-weight: 100; max-width: 800px;">
+
+    <img style="max-width: 100%; max-height: 375px; margin-left: auto; margin-right: auto; display: block;" id="banner"
+         src="https://drivesmartcbus.com/assets/email/banner.png"/>
+    <div style="text-align: center;"><h1>{{confirmation_number}}</h1></div>
+    <div style="text-align: center;">Your confirmation code used at Check-in</div>
+    <hr>
+
+    <div>
+        <div style="padding-left: 25px; padding-right:25px;">
+            <table style="width:100%; padding-top: 30px; padding-bottom: 20px; font-size: calc(10px + 1vw)">
+                <thead>
+                <tr>
+                    <td style="font-weight: bold; width: 20%">Status</td>
+                    <td style="font-weight: bold; width: 40%">Scheduled Drive Time</td>
+                    <td style="font-weight: bold; width: 40%">Vehicle</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Driver</td>
+                    <td>{{formatted_drive_time}}</td>
+                    <td>{{vehicle}} - {{msrp}}<span style="color: #ff0000">*</span></td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="font-style: italic; font-size: 13px; padding-bottom: 20px;"><span style="color: #ff0000">*</span>Federal
+                Tax credit (varies in size by vehicle)
+            </div>
+        </div>
+    </div>
+
+
+    <!--<div style="padding-left: 25px; padding-right:25px;">-->
+        <!--<div style="">-->
+            <!--<div style="">-->
+                <!--<div style="float: left;">Status</div>-->
+                <!--<div style="float: left;">Scheduled Drive Time</div>-->
+                <!--<div style="">Vehicle</div>-->
+            <!--</div>-->
+            <!--<div style="">-->
+                <!--<div style="">Driver</div>-->
+                <!--<div style="">{{formatted_drive_time}}</div>-->
+                <!--<div style="">{{vehicle}} - {{msrp}}<span style="color: #ff0000">*</span></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+    <hr>
+
+    <div>
+        <div style="padding-left: 25px; padding-right:25px;">
+        As a driver, we want to make sure you have the best Test Drive experience possible. In order to do so,
+        please review the following regarding what to expect during your experience and other fun details we have in
+        store for you!
+        </div>
+    </div>
+    <div>
+        <div style="padding-left: 25px; padding-right:25px;">
+        <h4>TIME COMMITMENT</h4>
+        <div>
+            This is a single driver event that will allow you a one-on-one driving experience guided by your Smart
+            Columbus Product Specialist during a 7 to 10 minute drive on a predetermined route. The whole experience
+            should take approximately 30 minutes.
+        </div>
+        <div style="padding-top: 20px;">
+            Your experience will start promptly. Please arrive 5 to 10 minutes prior to your designated time in order to
+            ensure an easy check-in process.
+        </div>
+        </div>
+    </div>
+    <div>
+        <div style="padding-left: 25px; padding-right:25px;">
+            <h4>THINGS TO BRING</h4>
+            <div>
+                All you need to bring with you is a valid driver's license.
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="padding-left: 25px; padding-right:25px; padding-bottom:25px;">
+            <h4>HOW TO GET THERE</h4>
+            <div>
+                The event is located at
+                <div>
+                    <a style="color: #e72577; font-weight: 600;"
+                       href="https://www.google.com/maps/place/170+S+Civic+Center+Dr,+Columbus,+OH+43215"
+                       target="_blank">170 S Civic Center Dr. Columbus, OH 43215</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer" style="background: #252525">
+        <div style="color: #ffffff; padding: 25px">If you have any additional questions before you drive, please reach
+            out to us at <a style="color: #e72577" href="mailto:rideanddrive@smartcbus.com" target="_blank">rideanddrive@smartcbus.com</a>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
