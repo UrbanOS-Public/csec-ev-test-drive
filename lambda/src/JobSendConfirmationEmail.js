@@ -1,7 +1,7 @@
 const moment = require('moment');
 const smartExperienceMySQLPool = require('./utils/SmartExperienceMySQLPool');
 const AWS = require('aws-sdk');
-var ses = new AWS.SES();
+const ses = new AWS.SES();
 
 const NO_EMAILS_TO_SEND = 'No emails to send';
 
@@ -33,8 +33,6 @@ class JobSendConfirmationEmail {
     }
 
     sendEmail(userAndDriveData) {
-        console.log(`User and drive data`);
-        console.log(userAndDriveData);
         const TemplateData = {
             confirmation_number: userAndDriveData.confirmation_number,
             formatted_drive_time: this.moment(`${this.moment(userAndDriveData.date).format("YYYY-MM-DD")} ${userAndDriveData.scheduled_start_time}`).format("MMMM D, YYYY h:mma"),
@@ -56,7 +54,6 @@ class JobSendConfirmationEmail {
             ],
             ReturnPath: "no-reply@drivesmartcbus.com"
         };
-        console.log(params);
         return new Promise((resolve) => {
             this.ses.sendTemplatedEmail(params).promise()
                 .then((response) => {
@@ -73,7 +70,6 @@ class JobSendConfirmationEmail {
     }
 
     markAsEmailSent(userAndDriveDataAndEmailStatus) {
-        console.log(`HERE`);
         const userAndDriveData = userAndDriveDataAndEmailStatus[0];
         const emailStatus = userAndDriveDataAndEmailStatus[1];
         var email_data;
@@ -98,10 +94,9 @@ class JobSendConfirmationEmail {
         });
     }
 
-    successHandler(callback, data) {
+    successHandler(callback) {
         smartExperienceMySQLPool.closePool(this.pool);
         console.log(`Done`);
-        console.log(data);
         callback(null);
     }
 
