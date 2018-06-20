@@ -184,8 +184,6 @@ export class SurveyComponent implements OnInit {
       responses: responses
     };
 
-    console.log(surveyData);
-
     this.evService.postSurvey(surveyData).subscribe(
       response => this.handleSurveyPostResponse(response),
       error => console.log(error)
@@ -212,7 +210,8 @@ export class SurveyComponent implements OnInit {
 
   handleScheduleDrivePostResponse(response) {
     if (response.confirmation_number) {
-      console.log(response.confirmation_number);
+      localStorage.setItem('confirmation_number', response.confirmation_number);
+      this.router.navigateByUrl('/checkin/carConfirm');
     } else {
       console.log("no confirmation number!");
     }
