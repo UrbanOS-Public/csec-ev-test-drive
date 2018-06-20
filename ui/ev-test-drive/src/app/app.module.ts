@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { CarReviewComponent } from './checkin/car-review/car-review.component';
 import { SurveyComponent } from './common/survey/survey.component';
 
 import 'hammerjs';
+import { CarConfirmComponent } from './checkin/car-confirm/car-confirm.component';
 
 @NgModule({
   declarations: [
@@ -35,14 +37,16 @@ import 'hammerjs';
     CarTileComponent,
     SpinnerComponent,
     CarReviewComponent,
-    SurveyComponent
+    SurveyComponent,
+    CarConfirmComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,10 @@
 export const api_key = 'mpUwFh2LT5fqmnqelGbTa49aOABQWF81aQoezAJa';
 
-export const apiBaseUrl   = 'https://vvhypuddv8.execute-api.us-east-1.amazonaws.com';
-export const newUserUrl   = apiBaseUrl + '/test/user';
-export const carUrl       = apiBaseUrl + '/test/cars';
-export const timeslotUrl  = apiBaseUrl + '/test/timeSlots';
-export const preSurveyUrl = apiBaseUrl + '/test/preSurvey';
+export const apiBaseUrl       = 'https://api.drivesmartcbus.com';
+export const newUserUrl       = apiBaseUrl + '/user';
+export const carUrl           = apiBaseUrl + '/cars';
+export const timeslotUrl      = apiBaseUrl + '/timeSlots';
+export const preSurveyUrl     = apiBaseUrl + '/preSurvey';
+export const postSurveyUrl    = apiBaseUrl + '/postSurvey';
+export const surveySubmitUrl  = apiBaseUrl + '/survey';
+export const scheduleRideUrl  = apiBaseUrl + '/drive';

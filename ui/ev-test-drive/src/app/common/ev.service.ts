@@ -24,6 +24,20 @@ export class EVService {
       httpOptions);
   }
 
+  postSurvey(data) {
+    return this.http.post(
+      globals.surveySubmitUrl,
+      data,
+      httpOptions);
+  }
+
+  postScheduleDrive(data) {
+    return this.http.post(
+      globals.scheduleRideUrl,
+      data,
+      httpOptions);
+  }
+
   getCars() {
     return this.http.get(globals.carUrl, httpOptions);
   }
@@ -34,5 +48,9 @@ export class EVService {
 
   getPreSurvey() {
     return this.http.get(globals.preSurveyUrl, httpOptions);
+  }
+
+  getPostSurvey() {
+    return "";
   }
 }
