@@ -8,7 +8,7 @@ module "ApiSaveSurveyFunction" {
   function_name = "ApiSaveSurvey"
   handler = "src/api/SaveSurvey.handler"
   role_arn = "${module.ApiSaveSurveyRole.arn}"
-  timeout = "10"
+  timeout = "30"
   description = "Api to save survey"
   vpc_subnet_ids = [
     "${aws_subnet.Subnet1d.id}",

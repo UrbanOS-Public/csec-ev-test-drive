@@ -12,7 +12,10 @@ class SaveSurvey {
     }
 
     handleEvent(event, context, callback) {
+        console.log(`HERE`);
+        console.log(event);
         const body = JSON.parse(event.body);
+        console.log(JSON.stringify(body, null, 4));
         this.getUser(body.email)
             .then((userRows) => this.validateUser(userRows, body.email))
             .then((user) => this.saveUserResponse(user, body))
@@ -42,7 +45,7 @@ class SaveSurvey {
 
     saveUserResponseAnswers(insertForUserResponse, body) {
         const values = body.responses.map((response) => {
-            return [insertForUserResponse.insertId, response.questionId, response.responseId, response.text];
+            return [insertForUserResponse.insertId, response.questionId, response.optionId, response.text];
         });
         return this.doQuery("insert into user_response_answer (`user_response_id`, `survey_question_id`, `survey_question_option_id`, `text`) values ?", [values]);
     }
