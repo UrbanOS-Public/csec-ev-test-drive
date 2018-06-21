@@ -34,7 +34,7 @@ checkFileSize() {
 
 uploadArtifact() {
     checkFileSize $3
-    aws s3 --debug --profile $1 cp $KEY s3://$2/$3
+    aws s3 --profile $1 cp $KEY s3://$2/$3
 }
 
 deployLambdas() {

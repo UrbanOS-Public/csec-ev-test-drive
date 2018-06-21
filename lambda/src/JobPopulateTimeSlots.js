@@ -1,5 +1,5 @@
 const moment = require('moment');
-const smartExperienceMySQLPool = require('./utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('./utils/BetterSmartExperienceMySQLPool');
 
 class JobPopulateTimeSlots {
     constructor(pool, moment) {
@@ -24,30 +24,29 @@ class JobPopulateTimeSlots {
         ;
     }
 
-
     archiveCarSlots(yesterday) {
         const query = `insert into archive_car_slot select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?`;
-        return this.doQuery(query, [yesterday]);
+        return this.pool.doQuery(query, [yesterday]);
     }
 
     deleteCarSlots(yesterday) {
         const query = `delete cs from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?`;
-        return this.doQuery(query, [yesterday]);
+        return this.pool.doQuery(query, [yesterday]);
     }
 
     archiveTimeSlots(yesterday) {
         const query = `insert into archive_time_slot select * from time_slot ts where ts.date = ?`;
-        return this.doQuery(query, [yesterday]);
+        return this.pool.doQuery(query, [yesterday]);
     }
 
     deleteTimeSlots(yesterday) {
         const query = `delete ts from time_slot ts where ts.date = ?`;
-        return this.doQuery(query, [yesterday]);
+        return this.pool.doQuery(query, [yesterday]);
     }
 
     getScheduleForToday(today, dayOfTheWeekStartingSundayZeroBased) {
-        const scheduleExceptionPromise = this.doQuery(`select * from schedule_exception where date = ?`, today);
-        const defaultSchedulePromise = this.doQuery(`select * from schedule where day_of_the_week = ?`, dayOfTheWeekStartingSundayZeroBased);
+        const scheduleExceptionPromise = this.pool.doQuery(`select * from schedule_exception where date = ?`, today);
+        const defaultSchedulePromise = this.pool.doQuery(`select * from schedule where day_of_the_week = ?`, dayOfTheWeekStartingSundayZeroBased);
 
         return Promise.all([scheduleExceptionPromise, defaultSchedulePromise])
             .then((data) => {
@@ -81,12 +80,12 @@ class JobPopulateTimeSlots {
             values.push(row);
         }
 
-        return this.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time)", [values]);
+        return this.pool.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time)", [values]);
     }
 
     createCarSlotsForDate(date) {
-        const timeSlotsPromise = this.doQuery("select * from time_slot where date = ?", [date]);
-        const activeCarsPromise = this.doQuery("select * from car_schedule where date = ? and active = ?", [date, true]);
+        const timeSlotsPromise = this.pool.doQuery("select * from time_slot where date = ?", [date]);
+        const activeCarsPromise = this.pool.doQuery("select * from car_schedule where date = ? and active = ?", [date, true]);
 
         return Promise.all([timeSlotsPromise, activeCarsPromise])
             .then((data) => {
@@ -100,7 +99,7 @@ class JobPopulateTimeSlots {
                         values.push([timeSlot.id, car.car_id, false]);
                     }
                 }
-                return this.doQuery("insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values ?", [values]);
+                return this.pool.doQuery("insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values ?", [values]);
             })
             .catch(err => {
                 console.log(`rejecting`);
@@ -109,26 +108,14 @@ class JobPopulateTimeSlots {
             });
     }
 
-    doQuery(query, params) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
-    }
-
     successHandler(callback) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         callback(null);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`ERROR: ${error}`);
         callback(error);
     }
@@ -136,6 +123,6 @@ class JobPopulateTimeSlots {
 
 exports.JobPopulateTimeSlots = JobPopulateTimeSlots;
 exports.handler = (event, context, callback) => {
-    const jobPopulateTimeSlots = new JobPopulateTimeSlots(smartExperienceMySQLPool.newPool(), moment);
+    const jobPopulateTimeSlots = new JobPopulateTimeSlots(new BetterSmartExperienceMySQLPool(), moment);
     jobPopulateTimeSlots.handleEvent(event, context, callback);
 };

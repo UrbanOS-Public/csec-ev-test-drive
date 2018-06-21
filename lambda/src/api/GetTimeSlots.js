@@ -1,5 +1,5 @@
 const moment = require('moment');
-const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
 
 class GetTimeSlots {
@@ -26,23 +26,11 @@ class GetTimeSlots {
     }
 
     getTimeSlotsForDate(date) {
-        return this.doQuery("select * from time_slot where date = ?", date);
+        return this.pool.doQuery("select * from time_slot where date = ?", date);
     }
 
     getCarSlotsForDate(date) {
-        return this.doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", date);
-    }
-
-    doQuery(query, params) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
+        return this.pool.doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", date);
     }
 
     transformData(promiseResults) {
@@ -73,13 +61,13 @@ class GetTimeSlots {
     }
 
     successHandler(callback, data) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         this.ApiHelpers.httpResponse(callback, 200, data);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`ERROR: ${error}`);
         this.ApiHelpers.httpResponse(callback, 500, {error: 'An error occurred when processing your request.'});
     }
@@ -87,6 +75,6 @@ class GetTimeSlots {
 
 exports.GetTimeSlots = GetTimeSlots;
 exports.handler = (event, context, callback) => {
-    const handler = new GetTimeSlots(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
+    const handler = new GetTimeSlots(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };
