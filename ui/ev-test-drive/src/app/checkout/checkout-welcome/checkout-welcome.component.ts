@@ -72,6 +72,8 @@ export class CheckoutWelcomeComponent implements OnInit {
   }
 
   private handleError(error) {
+    this.formSubmitted = false;
+    document.getElementById('error').classList.remove('hidden');
     this.router.navigateByUrl('/checkout');
   }
 }
