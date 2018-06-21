@@ -10,6 +10,9 @@ import { CarSelectionComponent } from './checkin/car-selection/car-selection.com
 import { CarReviewComponent } from './checkin/car-review/car-review.component'; 
 import { CarConfirmComponent } from './checkin/car-confirm/car-confirm.component';
 
+import { CheckoutWelcomeComponent } from './checkout/checkout-welcome/checkout-welcome.component';
+import { ThankYouComponent } from './checkout/thank-you/thank-you.component';
+
 import { SurveyComponent } from './common/survey/survey.component';
 
 
@@ -24,6 +27,10 @@ const routes: Routes = [
   { path: 'checkin/survey', component: SurveyComponent },
   { path: 'checkin/survey/:questionId', component: SurveyComponent },
   { path: 'checkin/carConfirm', component: CarConfirmComponent },
+  { path: 'checkout', component: CheckoutWelcomeComponent },
+  { path: 'checkout/survey', component: SurveyComponent },
+  { path: 'checkout/survey/:questionId', component: SurveyComponent },
+  { path: 'checkout/thankYou', component: ThankYouComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
  
