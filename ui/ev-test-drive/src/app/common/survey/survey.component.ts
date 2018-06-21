@@ -41,34 +41,40 @@ export class SurveyComponent implements OnInit {
     const surveyObject = JSON.parse(localStorage.getItem(
       this.surveyType + 'SurveyQuestions'));
 
-    this.route.params.subscribe(
-      params => {
-        if ( !params['questionId']) {
-          this.router.navigateByUrl(this.router.url + '/1');
-        } else {
-          this.pageId = Number(params['questionId']) - 1;
-          const questionGroup = surveyObject.question_groups.find(group => {
-            return group.order_index == this.pageId;
-          });
+    if (!surveyObject) {
+      console.log("No survey object found!");
+      this.router.navigateByUrl(this.baseModule);
+    } else {
 
-          if (questionGroup) {
-            this.pageDisplayId = Number(this.pageId) + 1;
-            this.surveyId = surveyObject.id;
-            this.questionGroupId = questionGroup.id;
-            this.questions = questionGroup.surveyQuestions;
-            this.questionHeaderText = questionGroup.text || this.questions[0].text;
-            this.showQuestionText = questionGroup.text ? true : false;
-            this.totalQuestions = surveyObject.question_groups.length;
-
-            const question1 = questionGroup.surveyQuestions[0];
-            this.nextVisible = question1.type !== 'MC';
+      this.route.params.subscribe(
+        params => {
+          if ( !params['questionId']) {
+            this.router.navigateByUrl(this.router.url + '/1');
           } else {
-            console.log("Can't find question group!");
-            this.location.back();
+            this.pageId = Number(params['questionId']) - 1;
+            const questionGroup = surveyObject.question_groups.find(group => {
+              return group.order_index == this.pageId;
+            });
+
+            if (questionGroup) {
+              this.pageDisplayId = Number(this.pageId) + 1;
+              this.surveyId = surveyObject.id;
+              this.questionGroupId = questionGroup.id;
+              this.questions = questionGroup.surveyQuestions;
+              this.questionHeaderText = questionGroup.text || this.questions[0].text;
+              this.showQuestionText = questionGroup.text ? true : false;
+              this.totalQuestions = surveyObject.question_groups.length;
+
+              const question1 = questionGroup.surveyQuestions[0];
+              this.nextVisible = question1.type !== 'MC';
+            } else {
+              console.log("Can't find question group!");
+              this.location.back();
+            }
           }
         }
-      }
-    );
+      );
+    }
   }
 
   doCancel() {
