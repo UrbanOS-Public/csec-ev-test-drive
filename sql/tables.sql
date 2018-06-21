@@ -379,7 +379,7 @@ values
    'If you were able to charge your car at work, would you be more likely to consider purchasing an electric vehicle (EV)?',
    1000516, 'MC', 0),
   (1000142, 'How would you rate your right seat driver’s knowledge and engagement?', 1000517, 'MC', 0),
-  (1000143, 'How would you rate your overall experience at the Ride and Drive?', 1000518, 'MC', 0),
+  (1000143, 'How would you rate your overall experience at the EV Test Drive?', 1000518, 'MC', 0),
   (1000144, 'Anything else you would like to tell us about your experience or viewpoint on electric vehicles?', 1000519,
    'MC', 0);
 
