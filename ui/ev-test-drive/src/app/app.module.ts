@@ -22,6 +22,8 @@ import { SurveyComponent } from './common/survey/survey.component';
 
 import 'hammerjs';
 import { CarConfirmComponent } from './checkin/car-confirm/car-confirm.component';
+import { CheckoutWelcomeComponent } from './checkout/checkout-welcome/checkout-welcome.component';
+import { ThankYouComponent } from './checkout/thank-you/thank-you.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { CarConfirmComponent } from './checkin/car-confirm/car-confirm.component
     SpinnerComponent,
     CarReviewComponent,
     SurveyComponent,
-    CarConfirmComponent
+    CarConfirmComponent,
+    CheckoutWelcomeComponent,
+    ThankYouComponent
   ],
   imports: [
     BrowserModule,

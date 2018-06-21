@@ -22,6 +22,7 @@ export class SurveyComponent implements OnInit {
   pageDisplayId = 0;
   totalQuestions = 0;
   sliderValues: string[] = [];
+  baseModule: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class SurveyComponent implements OnInit {
   determineQuestionFromRoute() {
     const url = this.router.url;
     this.surveyType = url.indexOf('checkin') >= 0 ? 'pre' : 'post';
+    this.baseModule = url.indexOf('checkin') >= 0 ? '/checkin' : '/checkout';
     const surveyObject = JSON.parse(localStorage.getItem(
       this.surveyType + 'SurveyQuestions'));
 
@@ -70,15 +72,15 @@ export class SurveyComponent implements OnInit {
   }
 
   doCancel() {
-    this.router.navigateByUrl('/checkin');
+    this.router.navigateByUrl(this.baseModule);
   }
 
   doBack() {
     if (this.pageDisplayId <= 1) {
-      this.router.navigateByUrl('/checkin/carReview');
+      this.router.navigateByUrl(this.baseModule + '/carReview');
     } else {
       this.resetForm();
-      this.router.navigateByUrl('/checkin/survey/' + (this.pageDisplayId - 1));
+      this.router.navigateByUrl(this.baseModule + '/survey/' + (this.pageDisplayId - 1));
     }
   }
 
@@ -95,7 +97,7 @@ export class SurveyComponent implements OnInit {
       this.submitEverything();
     } else {
       this.resetForm();
-      this.router.navigateByUrl('/checkin/survey/' + (this.pageDisplayId + 1));
+      this.router.navigateByUrl(this.baseModule + '/survey/' + (this.pageDisplayId + 1));
     }
   }
 
@@ -191,27 +193,36 @@ export class SurveyComponent implements OnInit {
   }
 
   handleSurveyPostResponse(response) {
-    const selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
-    const selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
-    const email = localStorage.getItem('email');
+    if (this.baseModule === '/checkout') {
+      this.router.navigateByUrl('/checkout/thankYou');
+    } else {
+      const selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
+      const selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
+      const email = localStorage.getItem('email');
 
-    const carSlotId = selectedCar.times[selectedTime.formattedTime].timeSlotId;
+      const carSlotId = selectedCar.times[selectedTime.formattedTime].timeSlotId;
 
-    const scheduleDriveData = {
-      email: email,
-      carSlotId: carSlotId
-    };
+      const scheduleDriveData = {
+        email: email,
+        carSlotId: carSlotId
+      };
 
-    this.evService.postScheduleDrive(scheduleDriveData).subscribe(
-      response => this.handleScheduleDrivePostResponse(response),
-      error => console.log(error)
-    );
+      this.evService.postScheduleDrive(scheduleDriveData).subscribe(
+        response => this.handleScheduleDrivePostResponse(response),
+        error => console.log(error)
+      );
+
+      }
   }
 
   handleScheduleDrivePostResponse(response) {
     if (response.confirmation_number) {
       localStorage.setItem('confirmation_number', response.confirmation_number);
-      this.router.navigateByUrl('/checkin/carConfirm');
+      if (this.baseModule === '/checkin') {
+        this.router.navigateByUrl('/checkin/carConfirm');
+      } else {
+        this.router.navigateByUrl('/checkout/thankYou');
+      }
     } else {
       console.log("no confirmation number!");
     }
