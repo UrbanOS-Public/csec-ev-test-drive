@@ -51,6 +51,21 @@ export class EVService {
   }
 
   getPostSurvey() {
-    return "";
+    return this.http.get(globals.postSurveyUrl, httpOptions);
+  }
+
+  lookupUser(submitData) {
+    let lookupOptions = httpOptions;
+    let params: any = {};
+
+    if (submitData.email) {
+      params.email = submitData.email;
+    } else {
+      params.confirmationNumber = submitData.confirmationNumber;
+    }
+
+    lookupOptions['params'] = params;
+
+    return this.http.get(globals.lookupUserUrl, lookupOptions);
   }
 }
