@@ -1,6 +1,6 @@
 const moment = require('moment');
-const smartExperienceMySQLPool = require('./utils/SmartExperienceMySQLPool');
-const SQL_PART = `from car_schedule where date < ?`
+const {BetterSmartExperienceMySQLPool} = require('./utils/BetterSmartExperienceMySQLPool');
+const SQL_PART = `from car_schedule where date < ?`;
 
 class JobArchiveCarSchedule {
     constructor(pool, moment) {
@@ -17,39 +17,23 @@ class JobArchiveCarSchedule {
     }
 
     archiveCarSchedules(yesterday) {
-        return new Promise((resolve, reject) => {
-            const query = `insert into archive_car_schedule select * ${SQL_PART}`;
-            this.pool.query(query, [yesterday], function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
+        const query = `insert into archive_car_schedule select * ${SQL_PART}`;
+        return this.pool.doQuery(query, [yesterday]);
     }
 
     deleteCarSchedules(yesterday) {
-        return new Promise((resolve, reject) => {
-            const query = `delete ${SQL_PART}`;
-            this.pool.query(query, [yesterday], function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
+        const query = `delete ${SQL_PART}`;
+        return this.pool.doQuery(query, [yesterday]);
     }
 
     successHandler(callback) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         callback(null);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`ERROR: ${error}`);
         callback(error);
     }
@@ -57,6 +41,6 @@ class JobArchiveCarSchedule {
 
 exports.JobArchiveCarSchedule = JobArchiveCarSchedule;
 exports.handler = (event, context, callback) => {
-    const jobArchiveCarSchedule = new JobArchiveCarSchedule(smartExperienceMySQLPool.newPool(), moment);
+    const jobArchiveCarSchedule = new JobArchiveCarSchedule(new BetterSmartExperienceMySQLPool(), moment);
     jobArchiveCarSchedule.handleEvent(event, context, callback);
 };

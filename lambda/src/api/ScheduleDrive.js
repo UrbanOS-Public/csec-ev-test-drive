@@ -1,5 +1,5 @@
 const moment = require('moment');
-const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
 const extend = require('extend');
 
@@ -25,7 +25,7 @@ class ScheduleDrive {
     }
 
     reserveSlot(car_slot_id) {
-        return this.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1 where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and cs.id = ?", car_slot_id)
+        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1 where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and cs.id = ?", car_slot_id)
     }
 
     validateResponse(updateResponse) {
@@ -36,8 +36,8 @@ class ScheduleDrive {
     }
 
     getUserAndDriveData(email, carSlotId) {
-        const userPromise = this.doQuery("select * from user where email = ?", email);
-        const carSlotPromise = this.doQuery("select cs.car_id, ts.date, ts.start_time, ts.end_time from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and cs.id = ?", carSlotId);
+        const userPromise = this.pool.doQuery("select * from user where email = ?", email);
+        const carSlotPromise = this.pool.doQuery("select cs.car_id, ts.date, ts.start_time, ts.end_time from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and cs.id = ?", carSlotId);
         return Promise.all([userPromise, carSlotPromise]);
     }
 
@@ -56,7 +56,7 @@ class ScheduleDrive {
             scheduled_end_time: end_time
         };
         return new Promise((resolve, reject) => {
-            this.doQuery("insert into drive set ?", driveData)
+            this.pool.doQuery("insert into drive set ?", driveData)
                 .then((insertResponse) => {
                     const drive_id = insertResponse.insertId;
                     const confirmation_number = `${user.first_name.slice(0, 1).toUpperCase()}${user.last_name.slice(0, 1).toUpperCase()}${drive_id}`;
@@ -67,7 +67,7 @@ class ScheduleDrive {
                         confirmation_number: confirmation_number
                     };
                     console.log(userDriveMap);
-                    this.doQuery("insert into user_drive_map set ?", userDriveMap)
+                    this.pool.doQuery("insert into user_drive_map set ?", userDriveMap)
                         .then(() => {
                             resolve({confirmation_number: confirmation_number});
                         })
@@ -78,27 +78,15 @@ class ScheduleDrive {
         });
     }
 
-    doQuery(query, params) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
-    }
-
     successHandler(callback, data) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         const response = extend({message: "Success"}, data);
         this.ApiHelpers.httpResponse(callback, 200, response);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`ERROR: ${error}`);
         if (error !== undefined && error.toString().indexOf(ALREADY_RESERVED_MESSAGE) === 0) {
             return this.ApiHelpers.httpResponse(callback, 409, {errors: error});
@@ -109,6 +97,6 @@ class ScheduleDrive {
 
 exports.ScheduleDrive = ScheduleDrive;
 exports.handler = (event, context, callback) => {
-    const handler = new ScheduleDrive(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
+    const handler = new ScheduleDrive(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };
