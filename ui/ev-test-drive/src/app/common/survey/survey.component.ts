@@ -41,8 +41,6 @@ export class SurveyComponent implements OnInit {
 
     this.route.params.subscribe(
       params => {
-
-
         if ( !params['questionId']) {
           this.router.navigateByUrl(this.router.url + '/1');
         } else {
@@ -113,6 +111,8 @@ export class SurveyComponent implements OnInit {
     this.nextVisible = false;
     this.sliderValues = [];
     this.textVisible = false;
+    const questionPane = document.getElementById('survey-pane-container');
+    questionPane.scrollTo(0,0);
   }
 
   storeResponse(optionId, questionId, textValue) {
