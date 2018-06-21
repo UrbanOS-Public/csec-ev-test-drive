@@ -1,0 +1,102 @@
+@import "../../../colors.scss";
+
+.checkout-welcome-page {
+  width: 100vw;
+  margin: 0;
+  font-family: Gotham, sans-serif;
+
+  .headerImage {
+    background: no-repeat top/100% url("../../../assets/checkout_banner.jpg");
+    background-color: #000;
+    position: relative;
+    overflow: visible;
+    height: 466px;
+
+    .scLogo {
+      left: 36px;
+      top: 36px;
+      display: inline-block;
+      height: 140px;
+      width: 100px;
+      position: absolute;
+    }
+
+    .welcomePane {
+      height: 715px;
+      width: 445px;
+      background-color: #FFFFFF;
+      overflow: visible;
+      display: inline-block;
+      margin-left: calc(50vw - 222px);
+      margin-top: 40px;
+      border: 1px solid #DBDBDB;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.19);
+
+      .titleText {
+        color: #333333;
+        font-size: 45px;
+        font-weight: 500;
+        line-height: 51px;
+        letter-spacing: -0.93px;
+        text-align: center;
+      }
+
+      .getStartedText {
+        color: #333333;
+        font-size: 21px;
+        font-weight: 200;
+        line-height: 32px;
+        letter-spacing: -0.93px;
+        text-align: center;
+        margin-left: 50px;
+        margin-right: 50px;
+      }
+
+      .login-form {
+        margin: 0;
+
+        .questions {
+          width: 360px;
+          margin-left: 30px;
+          text-align: center;
+ 
+          p {
+            display: inline-block;
+            margin: 0;
+            margin-bottom: 15px;
+          }
+
+          text-field {
+            text-align: left;
+            margin: 0;
+            width: 400px;
+            border: none;
+          }
+        }
+      }
+
+      .submit {
+        color: #FFFFFF;
+        height: 72px;
+        width: 335px;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: -0.68px;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        margin-top: 45px;
+        margin-left: 55px;
+        background-color: $pink;
+        border-radius: 4px;
+        box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22);
+      }
+    }
+  }
+  
+
+  .bottomHalf {
+    background-color: #000000;
+    height: 302px;
+  }
+}
