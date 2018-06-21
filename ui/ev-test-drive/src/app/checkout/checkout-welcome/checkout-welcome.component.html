@@ -39,11 +39,12 @@
           </div>
         </div>
 
+        <p id="error" class="error hidden">Sorry, no user was found. Please try again.</p>
 
         <button 
           class="submit" 
           [disabled]="!loginForm.valid || formSubmitted || !formValid()"
-          [ngClass]="{'disabled': !loginForm.valid || formSubmitted}">
+          [ngClass]="{'disabled': !loginForm.valid || formSubmitted || !formValid()}">
             {{ formSubmitted ? '' : 'START' }}
             <app-spinner *ngIf="formSubmitted"></app-spinner>
         </button>
