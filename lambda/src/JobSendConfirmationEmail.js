@@ -1,5 +1,5 @@
 const moment = require('moment');
-const smartExperienceMySQLPool = require('./utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('./utils/BetterSmartExperienceMySQLPool');
 const AWS = require('aws-sdk');
 const ses = new AWS.SES();
 
@@ -22,7 +22,7 @@ class JobSendConfirmationEmail {
     }
 
     getUserToSendEmailTo() {
-        return this.doQuery("select u.email, u.id as user_id, d.id as drive_id, udm.confirmation_number, d.date, d.scheduled_start_time, c.make, c.model, c.msrp from user_drive_map udm, user u, drive d, car c where u.id = udm.user_id and udm.drive_id = d.id and d.car_id = c.id and udm.email_sent = 0 order by udm.date_created asc limit 1");
+        return this.pool.doQuery("select u.email, u.id as user_id, d.id as drive_id, udm.confirmation_number, d.date, d.scheduled_start_time, c.make, c.model, c.msrp from user_drive_map udm, user u, drive d, car c where u.id = udm.user_id and udm.drive_id = d.id and d.car_id = c.id and udm.email_sent = 0 order by udm.date_created asc limit 1");
     }
 
     extractFirstRow(queryResponse) {
@@ -78,30 +78,18 @@ class JobSendConfirmationEmail {
         } else {
             email_data = JSON.stringify(emailStatus).slice(0, 1000);
         }
-        return this.doQuery("update user_drive_map set email_sent = 1, email_data = ? where user_id = ? and drive_id = ?", [email_data, userAndDriveData.user_id, userAndDriveData.drive_id]);
+        return this.pool.doQuery("update user_drive_map set email_sent = 1, email_data = ? where user_id = ? and drive_id = ?", [email_data, userAndDriveData.user_id, userAndDriveData.drive_id]);
     }
 
-
-    doQuery(query, params) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
-    }
 
     successHandler(callback) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         callback(null);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         if (NO_EMAILS_TO_SEND === error) {
             console.log(error);
             return callback(null);
@@ -113,6 +101,6 @@ class JobSendConfirmationEmail {
 
 exports.JobSendConfirmationEmail = JobSendConfirmationEmail;
 exports.handler = (event, context, callback) => {
-    const jobArchiveCarSchedule = new JobSendConfirmationEmail(smartExperienceMySQLPool.newPool(), moment, ses);
+    const jobArchiveCarSchedule = new JobSendConfirmationEmail(new BetterSmartExperienceMySQLPool(), moment, ses);
     jobArchiveCarSchedule.handleEvent(event, context, callback);
 };

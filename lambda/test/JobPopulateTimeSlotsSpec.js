@@ -4,7 +4,7 @@ const expect = chai.expect;
 const {prepare} = require('ndc-util');
 const moment = require('moment');
 
-const SmartExperienceMySQLPool = require('../src/utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('../src/utils/BetterSmartExperienceMySQLPool');
 
 
 describe('JobPopulateTimeSlots', () => {
@@ -20,7 +20,7 @@ describe('JobPopulateTimeSlots', () => {
         process.env.host = 'localhost';
         process.env.user = 'root';
         process.env.password = '';
-        pool = SmartExperienceMySQLPool.newPool();
+        pool = new BetterSmartExperienceMySQLPool();
 
         handler = prepare(new JobPopulateTimeSlots(pool, moment), 'handleEvent')
             .withArgs({}, context);
@@ -29,7 +29,7 @@ describe('JobPopulateTimeSlots', () => {
     after(() => {
         setTimeout(() => {
             console.log(`closing pool`);
-            SmartExperienceMySQLPool.closePool(pool);
+            pool.end();
         }, 1000);
         setTimeout(() => {
             //TODO: IDK why but the test hangs without this.
@@ -45,8 +45,8 @@ describe('JobPopulateTimeSlots', () => {
         return handler
             .assert(() => {
                 return new Promise((resolve) => {
-                    pool = SmartExperienceMySQLPool.newPool();
-                    doQuery("select * from archive_car_slot", [])
+                    pool = new BetterSmartExperienceMySQLPool();
+                    pool.doQuery("select * from archive_car_slot", [])
                         .then((data) => {
                             expect(data[0].time_slot_id).to.equal(500000);
                             resolve(data);
@@ -62,8 +62,8 @@ describe('JobPopulateTimeSlots', () => {
         return handler
             .assert(() => {
                 return new Promise((resolve, reject) => {
-                    pool = SmartExperienceMySQLPool.newPool();
-                    doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", [yesterday])
+                    pool = new BetterSmartExperienceMySQLPool();
+                    pool.doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", [yesterday])
                         .then((data) => {
                             expect(data.length).to.equal(0);
                             resolve(data);
@@ -82,8 +82,8 @@ describe('JobPopulateTimeSlots', () => {
         return handler
             .assert(() => {
                 return new Promise((resolve) => {
-                    pool = SmartExperienceMySQLPool.newPool();
-                    doQuery("select * from archive_time_slot", [])
+                    pool = new BetterSmartExperienceMySQLPool();
+                    pool.doQuery("select * from archive_time_slot", [])
                         .then((data) => {
                             expect(data[0].id).to.equal(500000);
                             resolve(data);
@@ -99,8 +99,8 @@ describe('JobPopulateTimeSlots', () => {
         return handler
             .assert(() => {
                 return new Promise((resolve) => {
-                    pool = SmartExperienceMySQLPool.newPool();
-                    doQuery("select * from time_slot where date = ?", [yesterday])
+                    pool = new BetterSmartExperienceMySQLPool();
+                    pool.doQuery("select * from time_slot where date = ?", [yesterday])
                         .then((data) => {
                             expect(data.length).to.equal(0);
                             resolve(data);
@@ -118,8 +118,8 @@ describe('JobPopulateTimeSlots', () => {
                 return handler
                     .assert(() => {
                         return new Promise((resolve) => {
-                            pool = SmartExperienceMySQLPool.newPool();
-                            doQuery("select * from time_slot where date = ? order by start_time asc", [today])
+                            pool = new BetterSmartExperienceMySQLPool();
+                            pool.doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(20);
                                     expect(data[0].start_time).to.equal("10:00:00");
@@ -144,13 +144,13 @@ describe('JobPopulateTimeSlots', () => {
 
         return Promise.all([p1, p2])
             .then(() => {
-                doQuery("update schedule set end_time = '21:00' where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased);
+                pool.doQuery("update schedule set end_time = '21:00' where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased);
 
                 return handler
                     .assert(() => {
                         return new Promise((resolve) => {
-                            pool = SmartExperienceMySQLPool.newPool();
-                            doQuery("select * from time_slot where date = ? order by start_time asc", [today])
+                            pool = new BetterSmartExperienceMySQLPool();
+                            pool.doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(22);
                                     resolve(data);
@@ -163,15 +163,15 @@ describe('JobPopulateTimeSlots', () => {
     it('should use length', () => {
         const p1 = cleanseDb();
         const p2 = populateDb();
-        const p3 = doQuery("update schedule set slot_length_minutes = 15 where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased);
+        const p3 = pool.doQuery("update schedule set slot_length_minutes = 15 where day_of_the_week = ?", dayOfTheWeekStartingSundayZeroBased);
 
         return Promise.all([p1, p2, p3])
             .then(() => {
                 return handler
                     .assert(() => {
                         return new Promise((resolve) => {
-                            pool = SmartExperienceMySQLPool.newPool();
-                            doQuery("select * from time_slot where date = ? order by start_time asc", [today])
+                            pool = new BetterSmartExperienceMySQLPool();
+                            pool.doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(40);
                                     resolve(data);
@@ -190,8 +190,8 @@ describe('JobPopulateTimeSlots', () => {
                 return handler
                     .assert(() => {
                         return new Promise((resolve) => {
-                            pool = SmartExperienceMySQLPool.newPool();
-                            doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", [today])
+                            pool = new BetterSmartExperienceMySQLPool();
+                            pool.doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(80);
                                     resolve(data);
@@ -207,15 +207,15 @@ describe('JobPopulateTimeSlots', () => {
         const values = [
             [dayOfTheWeekStartingSundayZeroBased, today, '10:00', '11:00', 15, 3]
         ];
-        const p3 = doQuery("insert into schedule_exception (`day_of_the_week`, `date`, `start_time`, `end_time`, `slot_length_minutes`, `employees_per_slot`) values ?", [values]);
+        const p3 = pool.doQuery("insert into schedule_exception (`day_of_the_week`, `date`, `start_time`, `end_time`, `slot_length_minutes`, `employees_per_slot`) values ?", [values]);
 
         return Promise.all([p1, p2, p3])
             .then(() => {
                 return handler
                     .assert(() => {
                         return new Promise((resolve) => {
-                            pool = SmartExperienceMySQLPool.newPool();
-                            doQuery("select * from time_slot where date = ? order by start_time asc", [today])
+                            pool = new BetterSmartExperienceMySQLPool();
+                            pool.doQuery("select * from time_slot where date = ? order by start_time asc", [today])
                                 .then((data) => {
                                     expect(data.length).to.equal(4);
                                     resolve(data);
@@ -248,7 +248,7 @@ describe('JobPopulateTimeSlots', () => {
 
         ];
         const promises = queries.map((queryData) => {
-            return doQuery(queryData[0], queryData[1]);
+            return pool.doQuery(queryData[0], queryData[1]);
         });
         return Promise.all(promises);
     };
@@ -263,21 +263,9 @@ describe('JobPopulateTimeSlots', () => {
             'delete from time_slot',
         ];
         const promises = queries.map((query) => {
-            return doQuery(query, []);
+            return pool.doQuery(query, []);
         });
         return Promise.all(promises);
     };
 
-
-    let doQuery = (query, params) => {
-        return new Promise((resolve, reject) => {
-            pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
-    }
 });

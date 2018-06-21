@@ -1,16 +1,12 @@
 const {GetUser} = require('../../src/api/GetUser');
-const sinon = require('sinon');
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 const expect = chai.expect;
 const {prepare} = require('ndc-util');
 const moment = require('moment');
-var rk = require('randomkey');
 const ApiHelpers = require('../../src/api/ApiHelpers');
-
-const SmartExperienceMySQLPool = require('../../src/utils/SmartExperienceMySQLPool');
-
+const {BetterSmartExperienceMySQLPool} = require('../../src/utils/BetterSmartExperienceMySQLPool');
 
 describe('GetUser', () => {
 
@@ -21,13 +17,13 @@ describe('GetUser', () => {
         process.env.host = 'localhost';
         process.env.user = 'root';
         process.env.password = '';
-        pool = SmartExperienceMySQLPool.newPool();
+        pool = new BetterSmartExperienceMySQLPool();
     });
 
     after(() => {
         setTimeout(() => {
             console.log(`closing pool`);
-            SmartExperienceMySQLPool.closePool(pool);
+            pool.end();
         }, 1000);
         setTimeout(() => {
             //TODO: IDK why but the test hangs without this.
@@ -141,14 +137,6 @@ describe('GetUser', () => {
     };
 
     let doQuery = (query, params) => {
-        return new Promise((resolve, reject) => {
-            pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
+        return pool.doQuery(query, params);
     }
 });

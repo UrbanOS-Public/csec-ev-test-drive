@@ -8,7 +8,7 @@ const {prepare} = require('ndc-util');
 const moment = require('moment');
 var rk = require('randomkey');
 
-const SmartExperienceMySQLPool = require('../src/utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('../src/utils/BetterSmartExperienceMySQLPool');
 
 
 describe('JobSendConfirmationEmail', () => {
@@ -23,7 +23,7 @@ describe('JobSendConfirmationEmail', () => {
         process.env.host = 'localhost';
         process.env.user = 'root';
         process.env.password = '';
-        pool = SmartExperienceMySQLPool.newPool();
+        pool = new BetterSmartExperienceMySQLPool();
         mockedSES = {
             sendTemplatedEmail: sandbox.stub()
         };
@@ -40,7 +40,7 @@ describe('JobSendConfirmationEmail', () => {
     after(() => {
         setTimeout(() => {
             console.log(`closing pool`);
-            SmartExperienceMySQLPool.closePool(pool);
+            pool.end();
         }, 1000);
         setTimeout(() => {
             //TODO: IDK why but the test hangs without this.
@@ -89,8 +89,8 @@ describe('JobSendConfirmationEmail', () => {
                 return handler
                     .assert(() => {
                         return new Promise((resolve) => {
-                            pool = SmartExperienceMySQLPool.newPool();
-                            doQuery("select * from user_drive_map", [])
+                            pool = new BetterSmartExperienceMySQLPool();
+                            pool.doQuery("select * from user_drive_map", [])
                                 .then((data) => {
                                     const row = data[0];
                                     expect(row.email_sent).to.equal(1);
@@ -115,8 +115,8 @@ describe('JobSendConfirmationEmail', () => {
                 return handler
                     .assert(() => {
                         return new Promise((resolve) => {
-                            pool = SmartExperienceMySQLPool.newPool();
-                            doQuery("select * from user_drive_map", [])
+                            pool = new BetterSmartExperienceMySQLPool();
+                            pool.doQuery("select * from user_drive_map", [])
                                 .then((data) => {
                                     const row = data[0];
                                     expect(row.email_sent).to.equal(1);
@@ -147,7 +147,7 @@ describe('JobSendConfirmationEmail', () => {
         promises.push(populateDb());
         if (additionalQueries && additionalQueries.length > 0) {
             const p3 = additionalQueries.map((query) => {
-                return doQuery(query, []);
+                return pool.doQuery(query, []);
             });
             promises.push(p3);
         }
@@ -162,7 +162,7 @@ describe('JobSendConfirmationEmail', () => {
             ["insert ignore into user_drive_map (`user_id`, `drive_id`, `role`, `confirmation_number`) values (99, 10, 'DRIVER', 'JO10')", []]
         ];
         const promises = queries.map((queryData) => {
-            return doQuery(queryData[0], queryData[1]);
+            return pool.doQuery(queryData[0], queryData[1]);
         });
         return Promise.all(promises);
     };
@@ -177,21 +177,8 @@ describe('JobSendConfirmationEmail', () => {
             'delete from user where id = 99',
         ];
         const promises = queries.map((query) => {
-            return doQuery(query, []);
+            return pool.doQuery(query, []);
         });
         return Promise.all(promises);
     };
-
-
-    let doQuery = (query, params) => {
-        return new Promise((resolve, reject) => {
-            pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
-    }
 });
