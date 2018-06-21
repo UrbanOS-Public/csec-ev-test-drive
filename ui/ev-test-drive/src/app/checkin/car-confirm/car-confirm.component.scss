@@ -1,0 +1,147 @@
+@import "../../../colors.scss";
+
+.car-confirm-screen {
+  background-color: $backgroundGray;
+  font-family: Gotham, sans-serif;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  .header {
+    background-color: #000000;
+    height: 70px;
+    width: 100vw;
+    position: relative;
+    text-align: center;
+
+    .scLogo {
+      height: 68px;
+      width: 51px;
+      padding-top: 1px;
+      position: absolute;
+      left: 16px;
+    }
+
+    .title-text {
+      color: #FFFFFF;
+      font-weight: 500;
+      font-size: 21px;
+      letter-spacing: -0.43px;
+      text-transform: uppercase;
+      margin: 0;
+      padding-top: 22px;
+    }
+  }
+
+  .car-confirm-pane {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 8px;
+    height: calc(100vh - 188px);
+    text-align: center;
+
+    .confirm-title-text {
+      font-weight: 500;
+      font-size: 25px;
+      letter-spacing: -1.21px;
+      line-height: 30px;
+      margin: 0;
+      margin-top: 54px;
+    }
+
+    .confirm-text {
+      font-weight: 200;
+      font-size: 17px;
+      letter-spacing: -0.82px;
+      margin: 0;
+      margin-top: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .car-pane {
+      text-align: center;
+      width: 318px;
+      display: inline-block;
+      margin: 0;
+
+      .pane-header {
+        background-color: #000000;
+        margin: 0;
+        height: 64px;
+        width: 318px;
+        display: inline-block;
+        padding-top: 14px;
+        text-align: center;
+
+        p {
+          vertical-align: middle;
+          display: inline-block;
+          margin: 0;
+        }
+
+        img {
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .top {
+          color: #FFFFFF;
+          font-weight: 300;
+          font-size: 14px;
+          letter-spacing: -1.26px;
+          text-align: center;
+          margin-left: 10px;
+        }
+
+        .partial-rule {
+          background-color: #555555;
+          height: 1px;
+          width: 268px;
+          border: none;
+          margin-left: 25px;
+          margin-top: 8px;
+          margin-bottom: 8px;
+        }
+
+        .bottom {
+          color: #FFFFFF;
+          font-weight: 700;
+          font-size: 15px;
+          letter-spacing: -1.11px;
+          text-align: center;
+        }
+      }
+
+      car-tile {
+        background-color: #FFFFFF;
+        display: inline-block;
+        margin: 0;
+        text-align: left;
+        border-radius: 3px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      }
+
+      .close {
+        background-color: $pink;
+        color: #FFFFFF;
+        display: inline-block;
+        height: 48px;
+        width: 314px;
+        margin-top: 14px;
+        border-radius: 5px;
+
+        p {
+          font-weight: 700;
+          font-size: 17px;
+          letter-spacing: -1.26px;
+          margin: 0;
+          margin-top: 14px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
+

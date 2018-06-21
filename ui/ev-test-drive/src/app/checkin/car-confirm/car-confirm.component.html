@@ -1,3 +1,31 @@
-<p>
-  car-confirm works!
-</p>
+<div class="car-confirm-screen">
+
+  <div class="header">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <p class="title-text">Schedule Your Drive</p>
+  </div>
+
+  <div class="car-confirm-pane" *ngIf="selectedCar && selectedTime">
+
+    <h1 class="confirm-title-text">Your Ride has been Scheduled!</h1>
+    <p class="confirm-text">A confirmation email has been sent to the address you have provided.</p>
+
+    <div class="car-pane">
+      <div class="pane-header">
+        <img src="assets/calendarLogo.svg">
+        <p class="top">Scheduled</p>
+        <div class="partial-rule"></div>
+        <p class="bottom">{{ selectedTime.formattedDate }} {{ selectedTime.formattedTime }}</p>
+      </div>
+
+      <car-tile
+        class="car-tile"
+        [car]="selectedCar">
+      </car-tile>
+
+      <div class="close" (click)="doClose()">
+        <p>Close</p>
+      </div>
+    </div>
+  </div>
+</div>
