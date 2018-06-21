@@ -10,6 +10,7 @@ class GetTimeSlots {
     }
 
     handleEvent(event, context, callback) {
+        //TODO: NEED THIS TO HANDLE EST vs UTC
         const july5th = moment('2018-06-20');
         let date = this.moment().format("YYYY-MM-DD");
         if(moment().isBefore(july5th)) {

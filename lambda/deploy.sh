@@ -55,6 +55,7 @@ deployLambdas() {
             'ApiSaveSurvey'
             'ApiScheduleDrive'
             'ApiGetScheduledDrives'
+            'ApiGetUser'
         )
     fi
 
