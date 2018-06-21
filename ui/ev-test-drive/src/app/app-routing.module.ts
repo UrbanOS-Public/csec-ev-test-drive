@@ -15,6 +15,8 @@ import { ThankYouComponent } from './checkout/thank-you/thank-you.component';
 
 import { SurveyComponent } from './common/survey/survey.component';
 
+import { ScheduleComponent } from './admin/schedule/schedule.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'checkout/survey', component: SurveyComponent },
   { path: 'checkout/survey/:questionId', component: SurveyComponent },
   { path: 'checkout/thankYou', component: ThankYouComponent },
+  { path: 'admin/schedule', component: ScheduleComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
  
