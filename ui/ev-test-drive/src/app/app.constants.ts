@@ -12,3 +12,5 @@ export const lookupUserUrl    = apiBaseUrl + '/getUser';
 export const postSurveyUrl    = apiBaseUrl + '/postSurvey';
 
 export const surveySubmitUrl  = apiBaseUrl + '/survey';
+
+export const scheduleUrl      = apiBaseUrl + '/schedule';
