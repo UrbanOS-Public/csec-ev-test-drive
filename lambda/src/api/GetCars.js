@@ -1,5 +1,5 @@
 const moment = require('moment');
-const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
 
 class GetCars {
@@ -17,17 +17,9 @@ class GetCars {
     }
 
     getCars() {
-        return new Promise((resolve, reject) => {
-            const today = this.moment().format("YYYY-MM-DD");
-            const query = `select c.*, ifnull(cs.active, 0) as active from car c left outer join car_schedule cs on cs.car_id = c.id and cs.date = ?`;
-            this.pool.query(query, [today], function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
+        const today = this.moment().format("YYYY-MM-DD");
+        const query = `select c.*, ifnull(cs.active, 0) as active from car c left outer join car_schedule cs on cs.car_id = c.id and cs.date = ?`;
+        return this.pool.doQuery(query, [today])
     }
 
     transformCarData(rows) {
@@ -53,13 +45,13 @@ class GetCars {
     }
 
     successHandler(callback, data) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         this.ApiHelpers.httpResponse(callback, 200, data);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`ERROR: ${error}`);
         this.ApiHelpers.httpResponse(callback, 500, {error: 'An error occurred when processing your request.'});
     }
@@ -67,6 +59,6 @@ class GetCars {
 
 exports.GetCars = GetCars;
 exports.handler = (event, context, callback) => {
-    const handler = new GetCars(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
+    const handler = new GetCars(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };

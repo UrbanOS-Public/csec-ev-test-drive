@@ -1,9 +1,9 @@
 const moment = require('moment');
-const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
 const {GetSurvey} = require('./GetSurvey');
 
 exports.handler = (event, context, callback) => {
-    const handler = new GetSurvey(smartExperienceMySQLPool.newPool(), moment, ApiHelpers, 'PRE');
+    const handler = new GetSurvey(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers, 'PRE');
     handler.handleEvent(event, context, callback);
 };
