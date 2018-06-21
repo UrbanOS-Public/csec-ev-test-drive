@@ -34,3 +34,11 @@ variable "user" {
 variable "password" {
   default = "akdg9le&e82ldKa"
 }
+
+variable "dns_name" {
+  default = "drivesmartcbus.com"
+}
+
+variable "email_send_from_account" {
+  default = "no-reply@drivesmartcbus.com"
+}

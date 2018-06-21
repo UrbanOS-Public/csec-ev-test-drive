@@ -23,6 +23,7 @@ describe('JobSendConfirmationEmail', () => {
         process.env.host = 'localhost';
         process.env.user = 'root';
         process.env.password = '';
+        process.env.email = 'no-reply@drivesmartcbus.com';
         pool = new BetterSmartExperienceMySQLPool();
         mockedSES = {
             sendTemplatedEmail: sandbox.stub()
