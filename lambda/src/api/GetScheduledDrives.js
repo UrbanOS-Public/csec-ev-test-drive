@@ -1,4 +1,4 @@
-const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
+const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const moment = require('moment');
 const ApiHelpers = require('./ApiHelpers');
 
@@ -22,7 +22,7 @@ class GetScheduledDrives {
     }
 
     getData(date) {
-        return this.doQuery("select u.first_name, u.email, d.date, d.scheduled_start_time, udm.confirmation_number, c.make, c.model from drive d, car c, user_drive_map udm, user u where d.car_id = c.id and udm.drive_id = d.id and udm.user_id = u.id and date = ?", [date]);
+        return this.pool.doQuery("select u.first_name, u.email, d.date, d.scheduled_start_time, udm.confirmation_number, c.make, c.model from drive d, car c, user_drive_map udm, user u where d.car_id = c.id and udm.drive_id = d.id and udm.user_id = u.id and date = ?", [date]);
     }
 
     transformData(rows) {
@@ -47,26 +47,14 @@ class GetScheduledDrives {
         return `${firstTwoLetters}${asterisks}${domain}`;
     }
 
-    doQuery(query, params) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
-    }
-
     successHandler(callback, data) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         this.ApiHelpers.httpResponse(callback, 200, data);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`ERROR: ${error}`);
         this.ApiHelpers.httpResponse(callback, 500, {error: 'An error occurred when processing your request.'});
     }
@@ -74,6 +62,6 @@ class GetScheduledDrives {
 
 exports.GetScheduledDrives = GetScheduledDrives;
 exports.handler = (event, context, callback) => {
-    const handler = new GetScheduledDrives(smartExperienceMySQLPool.newPool(), moment, ApiHelpers);
+    const handler = new GetScheduledDrives(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };
