@@ -34,3 +34,11 @@ variable "user" {
 variable "password" {
   default = "***REMOVED***"
 }
+
+variable "dns_name" {
+  default = "drivesmartcbus.com"
+}
+
+variable "email_send_from_account" {
+  default = "no-reply@drivesmartcbus.com"
+}

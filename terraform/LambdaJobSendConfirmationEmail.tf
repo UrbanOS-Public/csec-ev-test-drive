@@ -36,6 +36,7 @@ module "JobSendConfirmationEmailFunction" {
       host = "${aws_db_instance.smartexperience_mysql_db.address}"
       user = "${var.user}"
       password = "${var.password}"
+      email = "${var.email_send_from_account}"
     }
   }
 }

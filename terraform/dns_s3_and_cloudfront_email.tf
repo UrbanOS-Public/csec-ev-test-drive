@@ -1,7 +1,3 @@
-variable "dns_name" {
-  default = "drivesmartcbus.com"
-}
-
 resource "aws_route53_zone" "main" {
   name = "${var.dns_name}"
 }
@@ -21,27 +17,27 @@ resource "aws_route53_record" "ns" {
   ]
 }
 
-resource "aws_route53_record" "cert_domain_verification_1" {
-  zone_id = "${aws_route53_zone.main.zone_id}"
-  name = "_23e0705e6d375e3b1d868773b74af662.drivesmartcbus.com."
-  type = "CNAME"
-  ttl = "30"
-
-  records = [
-    "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
-  ]
-}
-
-resource "aws_route53_record" "cert_domain_verification_2" {
-  zone_id = "${aws_route53_zone.main.zone_id}"
-  name = "_c48f53f5f883a345155a0161f024ac9d.api.drivesmartcbus.com."
-  type = "CNAME"
-  ttl = "30"
-
-  records = [
-    "_96f732a845188a80ba5b7a3c9e2543fc.acm-validations.aws."
-  ]
-}
+//resource "aws_route53_record" "cert_domain_verification_1" {
+//  zone_id = "${aws_route53_zone.main.zone_id}"
+//  name = "_23e0705e6d375e3b1d868773b74af662.drivesmartcbus.com."
+//  type = "CNAME"
+//  ttl = "30"
+//
+//  records = [
+//    "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
+//  ]
+//}
+//
+//resource "aws_route53_record" "cert_domain_verification_2" {
+//  zone_id = "${aws_route53_zone.main.zone_id}"
+//  name = "_c48f53f5f883a345155a0161f024ac9d.api.drivesmartcbus.com."
+//  type = "CNAME"
+//  ttl = "30"
+//
+//  records = [
+//    "_96f732a845188a80ba5b7a3c9e2543fc.acm-validations.aws."
+//  ]
+//}
 
 resource "aws_acm_certificate" "cert1" {
   domain_name = "${var.dns_name}"

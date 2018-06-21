@@ -3,6 +3,7 @@ The Columbus Smart Experience Center - EV Test Drive application allows for sche
 
 - [Time Slots](#time-slots)
 - [Schedule Exceptions](#schedule-exceptions)
+- [Terraform And AWS](#terraform-and-aws)
 
 # Time Slots
 Every night the JobPopulateTimeSlots runs to archive yesterdays schedule and populate today's schedule (since we're only dealing with current day drives).
@@ -36,3 +37,8 @@ These rows would need to be in the database before the nightly job runs to popul
     - How many employees are available per time slot e.g. 3
 
 ** employees_per_slot should not be greater than the number of active cars for the day.
+
+# Terraform And AWS
+[Terraform](https://www.terraform.io/) was used to setup our AWS environment.  Nearly everything done is configured in the scripts except the things listed.
+- Simple Email Service - Verified Email - https://console.aws.amazon.com/ses/home?region=us-east-1#verified-senders-email.  You would need to add the specific accounts based on the domain name.
+-  

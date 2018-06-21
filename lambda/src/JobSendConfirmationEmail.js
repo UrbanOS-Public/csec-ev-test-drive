@@ -45,14 +45,14 @@ class JobSendConfirmationEmail {
                     userAndDriveData.email
                 ]
             },
-            Source: 'EV Test Drive <no-reply@drivesmartcbus.com>',
+            Source: `EV Test Drive <${process.env.email}>`,
             Template: 'ConfirmationTemplate',
             ConfigurationSetName: 'DefaultConfigurationSet',
             TemplateData: JSON.stringify(TemplateData),
             ReplyToAddresses: [
-                "no-reply@drivesmartcbus.com"
+                `${process.env.email}`
             ],
-            ReturnPath: "no-reply@drivesmartcbus.com"
+            ReturnPath: `${process.env.email}`
         };
         return new Promise((resolve) => {
             this.ses.sendTemplatedEmail(params).promise()
