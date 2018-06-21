@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import 'hammerjs';
+
 import { HomeComponent } from './home/home.component';
 import { InfoComponent } from './info/info.component';
 import { CheckinWelcomeComponent } from './checkin/checkin-welcome/checkin-welcome.component';
@@ -19,11 +21,10 @@ import { CarTileComponent } from './common/car-tile/car-tile.component';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CarReviewComponent } from './checkin/car-review/car-review.component';
 import { SurveyComponent } from './common/survey/survey.component';
-
-import 'hammerjs';
 import { CarConfirmComponent } from './checkin/car-confirm/car-confirm.component';
 import { CheckoutWelcomeComponent } from './checkout/checkout-welcome/checkout-welcome.component';
 import { ThankYouComponent } from './checkout/thank-you/thank-you.component';
+import { ScheduleComponent } from './admin/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ThankYouComponent } from './checkout/thank-you/thank-you.component';
     SurveyComponent,
     CarConfirmComponent,
     CheckoutWelcomeComponent,
-    ThankYouComponent
+    ThankYouComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,
