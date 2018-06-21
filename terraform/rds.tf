@@ -37,4 +37,6 @@ resource "aws_db_instance" "smartexperience_mysql_db" {
     "${aws_security_group.smartexperience_db_security_group.id}"]
   publicly_accessible = false
   skip_final_snapshot = false
+  backup_retention_period = 7
+  backup_window = "03:00-05:00"
 }
