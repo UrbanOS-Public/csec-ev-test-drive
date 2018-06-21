@@ -1,5 +1,4 @@
 const extend = require('extend');
-const smartExperienceMySQLPool = require('../utils/SmartExperienceMySQLPool');
 
 class GetSurvey {
     constructor(pool, moment, ApiHelpers, surveyType) {
@@ -19,7 +18,7 @@ class GetSurvey {
     }
 
     getSurvey(date, surveyType) {
-        return this.doQuery("select * from survey where date_active <= ? and type = ? order by date_active desc limit 1", [date, surveyType]);
+        return this.pool.doQuery("select * from survey where date_active <= ? and type = ? order by date_active desc limit 1", [date, surveyType]);
     }
 
     getAllOtherData(survey) {
@@ -31,27 +30,15 @@ class GetSurvey {
     }
 
     getSurveyQuestionGroups(surveyId) {
-        return this.doQuery("select sqg.* from survey_question_group sqg where sqg.survey_id = ? order by sqg.order_index asc", surveyId);
+        return this.pool.doQuery("select sqg.* from survey_question_group sqg where sqg.survey_id = ? order by sqg.order_index asc", surveyId);
     }
 
     getSurveyQuestions(surveyId) {
-        return this.doQuery("select sq.* from survey_question_group sqg, survey_question sq where sqg.id = sq.survey_question_group_id and sqg.survey_id = ?", surveyId);
+        return this.pool.doQuery("select sq.* from survey_question_group sqg, survey_question sq where sqg.id = sq.survey_question_group_id and sqg.survey_id = ?", surveyId);
     }
 
     getSurveyQuestionOptions(surveyId) {
-        return this.doQuery("select sqo.* from survey_question_group sqg, survey_question sq, survey_question_option sqo where sqg.id = sq.survey_question_group_id and sq.id = sqo.survey_question_id and sqg.survey_id = ?", surveyId);
-    }
-
-    doQuery(query, params) {
-        return new Promise((resolve, reject) => {
-            this.pool.query(query, params, function (error, results) {
-                if (error) {
-                    return reject(error);
-                } else {
-                    return resolve(results);
-                }
-            });
-        });
+        return this.pool.doQuery("select sqo.* from survey_question_group sqg, survey_question sq, survey_question_option sqo where sqg.id = sq.survey_question_group_id and sq.id = sqo.survey_question_id and sqg.survey_id = ?", surveyId);
     }
 
     transformData(promiseResults) {
@@ -84,13 +71,13 @@ class GetSurvey {
     }
 
     successHandler(callback, data) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`Done`);
         this.ApiHelpers.httpResponse(callback, 200, data);
     }
 
     errorHandler(callback, error) {
-        smartExperienceMySQLPool.closePool(this.pool);
+        this.pool.end();
         console.log(`ERROR: ${error}`);
         this.ApiHelpers.httpResponse(callback, 500, {error: 'An error occurred when processing your request.'});
     }
