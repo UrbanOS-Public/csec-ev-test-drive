@@ -1,6 +1,7 @@
 const moment = require('moment');
 const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
+const dateUtils = require('../utils/DateUtils');
 
 class GetCars {
     constructor(pool, moment, ApiHelpers) {
@@ -17,7 +18,7 @@ class GetCars {
     }
 
     getCars() {
-        const today = this.moment().format("YYYY-MM-DD");
+        const today = dateUtils.todayInESTFormatted();
         const query = `select c.*, ifnull(cs.active, 0) as active from car c left outer join car_schedule cs on cs.car_id = c.id and cs.date = ?`;
         return this.pool.doQuery(query, [today])
     }
