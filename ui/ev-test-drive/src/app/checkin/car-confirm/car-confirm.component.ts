@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-confirm',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarConfirmComponent implements OnInit {
 
-  constructor() { }
+  selectedCar: any;
+  selectedTime: any;
+
+  constructor(
+    private router: Router) { }
 
   ngOnInit() {
+    this.selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
+    this.selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
+    let confirmationCode = localStorage.getItem('confirmation_number');
+
+     console.log(confirmationCode);
+
+    if (!this.selectedCar || !this.selectedTime || !confirmationCode) {
+      this.router.navigateByUrl('/checkin');
+    }
   }
 
+  doClose() {
+    this.router.navigateByUrl('/checkin');
+  }
 }
