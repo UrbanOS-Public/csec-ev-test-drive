@@ -10,14 +10,6 @@ resource "aws_security_group" "smartexperience_db_security_group" {
     from_port = 3306
     to_port = 3306
     protocol = "TCP"
-    cidr_blocks = [
-      "0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = 3306
-    to_port = 3306
-    protocol = "TCP"
     security_groups = ["${aws_security_group.LambdaSecurityGroup.id}"]
   }
 }
