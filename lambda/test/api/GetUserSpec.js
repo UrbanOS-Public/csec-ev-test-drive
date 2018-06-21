@@ -12,7 +12,7 @@ const ApiHelpers = require('../../src/api/ApiHelpers');
 const SmartExperienceMySQLPool = require('../../src/utils/SmartExperienceMySQLPool');
 
 
-describe('JobSendConfirmationEmail', () => {
+describe('GetUser', () => {
 
     let handler;
     let pool;
