@@ -68,4 +68,17 @@ export class EVService {
 
     return this.http.get(globals.lookupUserUrl, lookupOptions);
   }
+
+  getSchedule(date = null) {
+    let lookupOptions = httpOptions;
+
+    if (date) {
+      let params: any = {};
+      params.date = date;
+
+      lookupOptions['params'] = params;
+    }
+
+    return this.http.get(globals.scheduleUrl, lookupOptions);
+  }
 }

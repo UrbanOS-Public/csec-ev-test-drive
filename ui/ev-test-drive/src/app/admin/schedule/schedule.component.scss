@@ -1,0 +1,123 @@
+@import "../../../colors.scss";
+
+.schedule-screen {
+  background-color: $backgroundGray;
+  font-family: Gotham, sans-serif;
+  margin: 0;
+  width: 100vw;
+  height: 95vh;
+  position: relative;
+
+  .header {
+    background-color: #000000;
+    height: 70px;
+    width: 100vw;
+    position: relative;
+    text-align: center;
+
+    .scLogo {
+      height: 68px;
+      width: 51px;
+      padding-top: 1px;
+      position: absolute;
+      left: 16px;
+    }
+
+    .title-text {
+      color: #FFFFFF;
+      font-weight: 500;
+      font-size: 21px;
+      letter-spacing: -0.43px;
+      text-transform: uppercase;
+      margin: 0;
+      padding-top: 22px;
+    }
+  }
+
+  .schedule-pane {
+    margin: 0;
+    margin-top: 20px;
+    margin-left: 25px;
+    margin-bottom: 25px;
+    margin-right: 25px;
+
+    .time-slot {
+      width: calc(100vw - 51px);
+      height: 77px;
+      margin-bottom: 8px;
+      text-align: left;
+      vertical-align: middle;
+
+      .time {
+        background-color: #000000;
+        width: 140px;
+        height: 77px;
+        display: inline-block;
+        margin: 0;
+        text-align: center;
+        vertical-align: middle;
+
+        p {
+          color: #FFFFFF;
+          font-size: 25px;
+          font-weight: 500;
+          letter-spacing: -1.21px;
+          margin: 0;
+          margin-top: 23px;
+          display: inline-block;
+          text-align: center;
+        }
+      }
+
+      .driver-info {
+        background-color: #FFFFFF;
+        height: 54px;
+        width: calc(100vw - 200px);
+        border: 1px solid #C7C7C7;
+        border-left: none;
+        margin: 0;
+        padding-top: 23px;
+        display: inline-block;
+        vertical-align: middle;
+
+        div {
+          height: 77px;
+          min-width: 135px;
+          margin: 0;
+          margin-left: 30px;
+          text-align: left;
+          display: inline-block;
+
+          p {
+            display: block;
+            margin: 0;
+          }
+
+          .label {
+            font-size: 12px;
+            font-weight: 200;
+            letter-spacing: -0.73px;
+          }
+
+          .value {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: -0.73px;
+          }
+        }
+
+        .name-pane {
+          min-width: 80px;
+        }
+
+        .car-pane {
+          width: 200px;
+        }
+
+        .email-pane {
+          width: 225px;
+        }
+      }
+    }
+  }
+}
