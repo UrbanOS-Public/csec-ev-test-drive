@@ -10,7 +10,7 @@ resource "aws_security_group" "smartexperience_db_security_group" {
     from_port = 3306
     to_port = 3306
     protocol = "TCP"
-    security_groups = ["${aws_security_group.LambdaSecurityGroup.id}"]
+    security_groups = ["${aws_security_group.LambdaSecurityGroup.id}", "${aws_security_group.jumpbox_security_group.id}"]
   }
 }
 
