@@ -75,6 +75,18 @@
         }
       }
 
+      .error {
+        color: $pink;
+        font-size: 17px;
+        font-weight: 200;
+        margin: 0;
+        text-align: center;
+      }
+
+      .error.hidden {
+        display: none;
+      }
+
       .submit {
         color: #FFFFFF;
         height: 72px;
@@ -90,6 +102,10 @@
         background-color: $pink;
         border-radius: 4px;
         box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22);
+      }
+
+      .submit.disabled {
+        opacity: 0.28;
       }
     }
   }
