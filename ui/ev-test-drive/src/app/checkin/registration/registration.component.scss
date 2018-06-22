@@ -132,6 +132,9 @@
           vertical-align: middle;
         }
       }
+      .submit.disabled {
+        opacity: 0.28;
+      }
     }
   }
 }
