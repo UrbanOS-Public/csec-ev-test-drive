@@ -50,10 +50,26 @@ export class RegistrationComponent implements OnInit {
   private handleResponse(response) {
     if (response && response.message === "Success") {
       localStorage.setItem('email', this.applicationForm.value.email);
-      this.router.navigateByUrl('/checkin/carSelection');
+      this.evService.getCars().subscribe(
+        cars => this.initializeCars(cars),
+        error => console.log(error)
+      );
     } else {
       this.handleError(null);
     }
+  }
+
+  private initializeCars(cars) {
+    localStorage.setItem('cars', JSON.stringify(cars));
+    this.evService.getTimeslots().subscribe(
+      times => this.initializeTimeslots(times),
+      error => console.log(error)
+    );
+  }
+
+  private initializeTimeslots(timeslots) {
+    localStorage.setItem('times', JSON.stringify(timeslots));
+    this.router.navigateByUrl('/checkin/carSelection');
   }
 
   private handleError(error) {

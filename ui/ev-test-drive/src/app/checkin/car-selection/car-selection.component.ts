@@ -34,10 +34,7 @@ export class CarSelectionComponent implements OnInit {
   }
 
   getCars() {
-    this.evService.getCars().subscribe(
-      cars => this.initializeCars(cars),
-      error => console.log(error)
-    );
+    this.initializeCars(JSON.parse(localStorage.getItem('cars')));
   }
 
   initializeCars(carArray) {
@@ -52,10 +49,7 @@ export class CarSelectionComponent implements OnInit {
   }
 
   getTimes() {
-    this.evService.getTimeslots().subscribe(
-      times => this.initializeTimeslots(times),
-      error => console.log(error)
-    );
+    this.initializeTimeslots(JSON.parse(localStorage.getItem('times')));
   }
 
   initializeTimeslots(timesArray) {
