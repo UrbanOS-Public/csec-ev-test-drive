@@ -1,0 +1,34 @@
+<div class="schedule-screen">
+  <div class="header">
+    <img class="scLogo" src="assets/scLogo.svg">
+    <p class="title-text">{{ formattedDate }}</p>
+  </div>
+
+  <div class="schedule-pane">
+    <div class="time-slot" *ngFor="let slot of schedule">
+      <div class="time">
+        <p>{{ slot.formattedTime }}</p>
+      </div>
+
+      <div class="driver-info">
+        <div class="name-pane">
+          <p class="label">Name</p>
+          <p class="value">{{slot.first_name}}</p>
+        </div>
+        <div class="email-pane">
+          <p class="label">Email</p>
+          <p class="value">{{slot.email}}</p>
+        </div>
+        <div class="confirmation-pane">
+          <p class="label">Confirmation Number</p>
+          <p class="value">{{slot.confirmation_number}}</p>
+        </div>
+        <div class="car-pane">
+          <p class="label">Driving</p>
+          <p class="value">{{slot.year}} {{slot.make}} {{slot.model}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
