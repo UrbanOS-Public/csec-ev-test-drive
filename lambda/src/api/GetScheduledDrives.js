@@ -1,6 +1,7 @@
 const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const moment = require('moment');
 const ApiHelpers = require('./ApiHelpers');
+const dateUtils = require('../utils/DateUtils');
 
 class GetScheduledDrives {
     constructor(pool, moment, ApiHelpers) {
@@ -11,12 +12,18 @@ class GetScheduledDrives {
     }
 
     handleEvent(event, context, callback) {
-        let date = this.moment().format("YYYY-MM-DD");
+        const july5th = moment('2018-07-05');
+        const todayInEST = dateUtils.todayInEST();
+        let date = dateUtils.todayInESTFormatted();
+        if (todayInEST.isBefore(july5th)) {
+            date = july5th.format("YYYY-MM-DD");
+        }
+
         if (event.queryStringParameters !== null) {
             date = this.moment(event.queryStringParameters.date).format("YYYY-MM-DD");
         }
         this.getData(date)
-            .then((rows) => this.transformData(rows))
+            .then((rows) => this.transformData(rows, date))
             .then((transformedData) => this.successHandler(callback, transformedData), (error) => this.errorHandler(callback, error))
         ;
     }
@@ -25,8 +32,8 @@ class GetScheduledDrives {
         return this.pool.doQuery("select u.first_name, u.email, d.date, d.scheduled_start_time, udm.confirmation_number, c.year, c.make, c.model from drive d, car c, user_drive_map udm, user u where d.car_id = c.id and udm.drive_id = d.id and udm.user_id = u.id and date = ?", [date]);
     }
 
-    transformData(rows) {
-        return rows.map((row) => {
+    transformData(rows, date) {
+        const schedules = rows.map((row) => {
             return {
                 first_name: row.first_name,
                 confirmation_number: row.confirmation_number,
@@ -38,6 +45,10 @@ class GetScheduledDrives {
                 email: this.maskEmail(row.email)
             }
         });
+        return {
+            date: date,
+            schedules: schedules
+        }
     }
 
     maskEmail(email) {
