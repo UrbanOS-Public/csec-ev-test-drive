@@ -1,6 +1,7 @@
 const moment = require('moment');
 const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperienceMySQLPool');
 const ApiHelpers = require('./ApiHelpers');
+const dateUtils = require('../utils/DateUtils');
 
 class GetTimeSlots {
     constructor(pool, moment, ApiHelpers) {
@@ -10,10 +11,10 @@ class GetTimeSlots {
     }
 
     handleEvent(event, context, callback) {
-        //TODO: NEED THIS TO HANDLE EST vs UTC
-        const july5th = moment('2018-06-20');
-        let date = this.moment().format("YYYY-MM-DD");
-        if(moment().isBefore(july5th)) {
+        const july5th = moment('2018-07-05');
+        const todayInEST = dateUtils.todayInEST();
+        let date = dateUtils.todayInESTFormatted();
+        if (todayInEST.isBefore(july5th)) {
             date = july5th.format("YYYY-MM-DD");
         }
         const timeSlotsPromise = this.getTimeSlotsForDate(date);
