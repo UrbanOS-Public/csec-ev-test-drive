@@ -7,10 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CarTileComponent implements OnInit {
   @Input() car: any = { specs: {} };
+  totalRangeText: string = "";
 
   constructor() { }
 
   ngOnInit() {
+    if (this.car.type.indexOf("BEV") == -1) {
+      this.totalRangeText = "(" + this.car.specs.totalRange + " total with gas)";
+    }
   }
 
 }
