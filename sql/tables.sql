@@ -170,12 +170,14 @@ CREATE TABLE survey (
 
 
 CREATE TABLE survey_question_group (
-  `id`           BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `survey_id`    BIGINT(20) NOT NULL,
-  `text`         VARCHAR(4096),
-  `order_index`  SMALLINT   NOT NULL,
-  `date_created` DATETIME   NOT NULL DEFAULT now(),
-  `last_updated` DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
+  `id`              BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `survey_id`       BIGINT(20) NOT NULL,
+  `text`            VARCHAR(4096),
+  `order_index`     SMALLINT   NOT NULL,
+  `scale_text_low`  VARCHAR(128),
+  `scale_text_high` VARCHAR(128),
+  `date_created`    DATETIME   NOT NULL DEFAULT now(),
+  `last_updated`    DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
   PRIMARY KEY (`id`),
   CONSTRAINT FOREIGN KEY (`survey_id`) REFERENCES `survey` (`id`)
 )
@@ -301,30 +303,27 @@ values
   (1000001, 'POST', 'Initial Pre Test', '2018-06-01');
 
 
-insert into survey_question_group (`id`, `text`, `survey_id`, `order_index`)
+insert into survey_question_group (`id`, `text`, `survey_id`, `order_index`, `scale_text_low`, `scale_text_high`)
 values
-  (1000500, null, 1000000, 0),
-  (1000501, null, 1000000, 1),
-  (1000502, null, 1000000, 2),
-  (1000503, null, 1000000, 3),
-  (1000504, null, 1000000, 4),
-  (1000505, null, 1000000, 5),
-  (1000506, 'On a scale of 1 - 7 (1 = not at all important, 7 = extremely important), please indicate the importance of each of the following vehicle features in your next vehicle', 1000000, 6),
-  (1000507, 'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs): ', 1000000, 7),
-  (1000508, null, 1000000, 8),
-  (1000509, null, 1000000, 9),
-  (1000510, null, 1000000, 10),
-  (1000511, null, 1000001, 0),
-  (1000512, null, 1000001, 1),
-  (1000513, null, 1000001, 2),
-  (1000514, null, 1000001, 3),
-  (1000515,
-   'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs)',
-   1000001, 4),
-  (1000516, null, 1000001, 5),
-  (1000517, null, 1000001, 6),
-  (1000518, null, 1000001, 7),
-  (1000519, null, 1000001, 8);
+  (1000500, null, 1000000, 0, null, null),
+  (1000501, null, 1000000, 1, null, null),
+  (1000502, null, 1000000, 2, null, null),
+  (1000503, null, 1000000, 3, null, null),
+  (1000504, null, 1000000, 4, null, null),
+  (1000505, null, 1000000, 5, null, null),
+  (1000506, 'On a scale of 1 - 7 (1 = not at all important, 7 = extremely important), please indicate the importance of each of the following vehicle features in your next vehicle', 1000000, 6, 'Not At All Important', 'Extremely Important'),
+  (1000507, 'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs): ', 1000000, 7, 'Strongly Disagree', 'Strongly Agree'),
+  (1000508, null, 1000000, 8, null, null),
+  (1000509, null, 1000000, 9, null, null),
+  (1000510, null, 1000000, 10, null, null),
+  (1000511, null, 1000001, 0, null, null),
+  (1000512, null, 1000001, 1, null, null),
+  (1000513, null, 1000001, 2, null, null),
+  (1000514, null, 1000001, 3, null, null),
+  (1000515, 'On a scale of 1 - 7 (1 = strongly disagree, 7 = strongly agree), please indicate how strongly you agree or disagree with the following statements about electric vehicles (EVs)', 1000001, 4, 'Strongly Disagree', 'Strongly Agree'),
+  (1000516, null, 1000001, 5, null, null),
+  (1000517, 'On a scale of 1 - 5 (1 = needs improvement, 5 = excellent) please rate the following aspects of your EV Test Drive experience', 1000001, 6, 'Needs Improvement', 'Excellent'),
+  (1000518, null, 1000001, 7, null, null);
 
 
 insert into survey_question (`id`, `text`, `survey_question_group_id`, `type`, `order_index`)
@@ -378,9 +377,11 @@ values
   (1000141,
    'If you were able to charge your car at work, would you be more likely to consider purchasing an electric vehicle (EV)?',
    1000516, 'MC', 0),
-  (1000142, 'How would you rate your right seat driver’s knowledge and engagement?', 1000517, 'MC', 0),
-  (1000143, 'How would you rate your overall experience at the EV Test Drive?', 1000518, 'MC', 0),
-  (1000144, 'Anything else you would like to tell us about your experience or viewpoint on electric vehicles?', 1000519,
+
+  (1000142, 'Your right seat driver’s knowledge and engagement?', 1000517, 'SCALE', 0),
+  (1000143, 'Your overall experience at the EV Test Drive?', 1000517, 'SCALE', 1),
+
+  (1000144, 'Anything else you would like to tell us about your experience or viewpoint on electric vehicles?', 1000518,
    'MC', 0);
 
 
@@ -583,21 +584,6 @@ values
   (1000667, 1000127, 'Nadia Ayad', FALSE, 2, null),
   (1000668, 1000127, 'McKinzie Harper', FALSE, 3, null),
   (1000669, 1000127, 'I don\'t remember', FALSE, 4, null),
-#   (1000670, 1000127, 'Joe', FALSE, 5, null),
-#   (1000671, 1000127, 'Joe', FALSE, 6, null),
-#   (1000672, 1000127, 'Joe', FALSE, 7, null),
-#   (1000673, 1000127, 'Joe', FALSE, 8, null),
-#   (1000674, 1000127, 'Joe', FALSE, 9, null),
-#   (1000675, 1000127, 'Joe', FALSE, 10, null),
-#   (1000676, 1000127, 'Joe', FALSE, 11, null),
-#   (1000677, 1000127, 'Joe', FALSE, 12, null),
-#   (1000678, 1000127, 'Joe', FALSE, 13, null),
-#   (1000679, 1000127, 'Joe', FALSE, 14, null),
-#   (1000680, 1000127, 'Joe', FALSE, 15, null),
-#   (1000681, 1000127, 'Joe', FALSE, 16, null),
-#   (1000682, 1000127, 'Joe', FALSE, 17, null),
-#   (1000683, 1000127, 'Joe', FALSE, 18, null),
-#   (1000684, 1000127, 'Joe', FALSE, 19, null),
 
   (1000685, 1000128, 'Very Likely', FALSE, 0, null),
   (1000686, 1000128, 'Likely', FALSE, 1, null),
@@ -701,13 +687,14 @@ values
   (1000770, 1000142, '4', FALSE, 3, null),
   (1000771, 1000142, '5', FALSE, 4, null),
 
-  (1000772, 1000143, 'Excellent', FALSE, 0, null),
-  (1000773, 1000143, 'Very Good', FALSE, 1, null),
-  (1000774, 1000143, 'Good', FALSE, 2, null),
-  (1000775, 1000143, 'Poor', FALSE, 3, null),
+  (1000772, 1000143, '1', FALSE, 0, null),
+  (1000773, 1000143, '2', FALSE, 1, null),
+  (1000774, 1000143, '3', FALSE, 2, null),
+  (1000775, 1000143, '4', FALSE, 3, null),
+  (1000776, 1000143, '5', FALSE, 4, null),
 
-  (1000776, 1000144, 'No', FALSE, 0, null),
-  (1000777, 1000144, 'Yes', TRUE, 1, null);
+  (1000777, 1000144, 'No', FALSE, 0, null),
+  (1000778, 1000144, 'Yes', TRUE, 1, null);
 
 insert into car_schedule (`car_id`, `date`, `active`)
 values
