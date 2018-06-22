@@ -64,7 +64,7 @@
       display: inline-block;
       text-align: center;
       width: 270px;
-      height: 1100px;
+      padding-bottom: 25px;
       scroll-behavior: auto;
       overflow-y: scroll;
       overflow-x: hidden;
@@ -144,8 +144,8 @@
     scroll-behavior: auto;
 
     .cars-pane-container {
-      height: 1100px;
       width: 754px;
+      padding-bottom: 25px;
       text-align: center;
 
       .cars-pane {
@@ -153,7 +153,6 @@
         display: inline-block;
         text-align: center;
         width: 754px;
-        height: 1100px;
 
         .cars-header {
           display: block;
