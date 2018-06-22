@@ -9,8 +9,8 @@
     <p class="value msrp">{{ car.specs.msrp }}<br>before tax credits</p>
   </div>
   <div class="stat">
-    <p class="label range">Range (miles)</p>
-    <p class="value range">{{ car.specs.evRange }} EV miles<br>({{ car.specs.totalRange }} total)</p>
+    <p class="label range">Range</p>
+    <p class="value range">{{ car.specs.evRange }} EV miles<br>{{ totalRangeText }}</p>
   </div>
   <div class="stat">
     <p class="label battery">Battery Size</p>
