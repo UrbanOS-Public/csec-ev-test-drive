@@ -41,4 +41,9 @@ These rows would need to be in the database before the nightly job runs to popul
 # Terraform And AWS
 [Terraform](https://www.terraform.io/) was used to setup our AWS environment.  Nearly everything done is configured in the scripts except the things listed.
 - Simple Email Service - Verified Email - https://console.aws.amazon.com/ses/home?region=us-east-1#verified-senders-email.  You would need to add the specific accounts based on the domain name.
--  
+- DNS Domain Verification - This is done via terraform but the verification records are commented out.
+- The DNS registration was done outside of AWS.  This is just because the client already owned their DNS with bluehost.com.  To configure this I logged into that account and pointed to the AWS Name Server records for our setup.
+
+
+# Database
+The database is using a hosted
