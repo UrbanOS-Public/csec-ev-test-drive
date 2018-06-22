@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
 import { Helpers } from '../../app.helpers';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-schedule',
@@ -20,15 +21,14 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.evService.getSchedule().subscribe(
-      schedule => this.handleSchedule(schedule),
+      response => this.handleSchedule(response),
       error => this.handleError(error)
     );
-
-    this.formattedDate = this.formatDate(new Date());
   }
 
-  handleSchedule(schedule) {
-    this.schedule = schedule.sort((a, b) => {
+  handleSchedule(response) {
+    this.formattedDate = this.formatDate(moment(response.date).toDate());
+    this.schedule = response.schedules.sort((a, b) => {
       let aNum = Number(a.scheduled_start_time.substring(0,2)
                         + a.scheduled_start_time.substring(3,5));
       let bNum = Number(b.scheduled_start_time.substring(0,2)
