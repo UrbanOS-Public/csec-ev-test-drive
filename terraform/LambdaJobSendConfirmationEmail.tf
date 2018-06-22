@@ -44,7 +44,7 @@ module "JobSendConfirmationEmailFunction" {
 module "JobSendConfirmationEmailTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
   name = "JobSendConfirmationEmailSchedule"
-  schedule_expression = "rate(3 minutes)"
-  schedule_description = "Runs every 3 minutes"
+  schedule_expression = "rate(1 minute)"
+  schedule_description = "Runs every minute"
   lambda_function_arn = "${module.JobSendConfirmationEmailFunction.arn}"
 }
