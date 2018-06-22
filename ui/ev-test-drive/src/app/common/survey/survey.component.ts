@@ -22,6 +22,8 @@ export class SurveyComponent implements OnInit {
   pageDisplayId = 0;
   totalQuestions = 0;
   sliderValues: string[] = [];
+  sliderTextLow: string;
+  sliderTextHigh: string;
   baseModule: string;
 
   constructor(
@@ -64,6 +66,8 @@ export class SurveyComponent implements OnInit {
               this.questionHeaderText = questionGroup.text || this.questions[0].text;
               this.showQuestionText = questionGroup.text ? true : false;
               this.totalQuestions = surveyObject.question_groups.length;
+              this.sliderTextLow = questionGroup.scale_text_low;
+              this.sliderTextHigh = questionGroup.scale_text_high;
 
               const question1 = questionGroup.surveyQuestions[0];
               this.nextVisible = question1.type !== 'MC';
