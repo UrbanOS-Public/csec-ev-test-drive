@@ -79,9 +79,10 @@
         padding-top: 23px;
         display: inline-block;
         vertical-align: middle;
+        position: relative;
 
-        div {
-          height: 77px;
+        .stat-pane {
+          height: 54px;
           min-width: 135px;
           margin: 0;
           margin-left: 30px;
@@ -106,6 +107,10 @@
           }
         }
 
+        .stat-pane.hidden {
+          display: none;
+        }
+
         .name-pane {
           min-width: 80px;
         }
@@ -116,6 +121,39 @@
 
         .email-pane {
           width: 225px;
+        }
+
+        .pin-pane {
+          .pin {
+            border-radius: 3px;
+            border: 1px solid #333333;
+          }
+        }
+
+        .cancel-button {
+          background-color: #FFFFFF;
+          height: 45px;
+          width: 100px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          text-align: center;
+          padding-top: 32px;
+
+          .cancel-text {
+            color: #FFFFFF;
+            font-size: 14px;
+            letter-spacing: -0.73px;
+            margin: 0;
+            text-align: center;
+            vertical-align: middle;
+          }
+          .cancel-text.hidden {
+            display: none;
+          }
+        }
+        .cancel-button.visible {
+          background-color: $pink;
         }
       }
     }

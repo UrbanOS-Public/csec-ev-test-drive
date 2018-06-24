@@ -10,22 +10,33 @@
         <p>{{ slot.formattedTime }}</p>
       </div>
 
-      <div class="driver-info">
-        <div class="name-pane">
+      <div class="driver-info" id="{{slot.confirmation_number}}">
+        <div class="name-pane stat-pane">
           <p class="label">Name</p>
           <p class="value">{{slot.first_name}}</p>
         </div>
-        <div class="email-pane">
+        <div class="email-pane stat-pane">
           <p class="label">Email</p>
           <p class="value">{{slot.email}}</p>
         </div>
-        <div class="confirmation-pane">
+        <div class="confirmation-pane stat-pane">
           <p class="label">Confirmation Number</p>
           <p class="value">{{slot.confirmation_number}}</p>
         </div>
-        <div class="car-pane">
+        <div class="car-pane stat-pane">
           <p class="label">Driving</p>
           <p class="value">{{slot.year}} {{slot.make}} {{slot.model}}</p>
+        </div>
+        <div class="pin-pane stat-pane hidden">
+          <p class="label">PIN</p>
+          <input
+            type="password"
+            id="pin_{{slot.confirmation_number}}"
+            class="pin">
+        </div>
+
+        <div class="cancel-button" (click)="doCancel(slot.confirmation_number)">
+          <p class="cancel-text hidden">Cancel Ride</p>
         </div>
       </div>
     </div>

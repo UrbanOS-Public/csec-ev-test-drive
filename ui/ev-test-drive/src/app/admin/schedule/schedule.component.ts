@@ -50,6 +50,30 @@ export class ScheduleComponent implements OnInit {
     console.log(error);
   }
 
+  doCancel(confirmationNumber) {
+    const driverInfoPane = document.getElementById(confirmationNumber);
+    const emailPane = driverInfoPane.getElementsByClassName('email-pane').item(0);
+    const cancelButton = driverInfoPane.getElementsByClassName('cancel-button').item(0);
+    const cancelText = driverInfoPane.getElementsByClassName('cancel-text').item(0);
+    const pinPane = driverInfoPane.getElementsByClassName('pin-pane').item(0);
+    const pinField = pinPane.getElementsByClassName('pin').item(0);
+
+    if (pinPane.classList.contains('hidden') {
+      emailPane.classList.add('hidden');
+      cancelText.classList.remove('hidden');
+      pinPane.classList.remove('hidden');
+      cancelButton.classList.add('visible');
+    } else if (pinField.value) {
+      console.log('Submitting cancellation!');
+      console.log(pinField.value);
+    } else {
+      emailPane.classList.remove('hidden');
+      cancelText.classList.add('hidden');
+      pinPane.classList.add('hidden');
+      cancelButton.classList.remove('visible');
+    }
+  }
+
   formatDate(date: Date) {
     const today = new Date();
     const months = ['January', 'February', 'March', 'April',
