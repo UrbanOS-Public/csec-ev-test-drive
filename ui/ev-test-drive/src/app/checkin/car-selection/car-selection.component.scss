@@ -144,7 +144,7 @@
     scroll-behavior: auto;
 
     .cars-pane-container {
-      width: 754px;
+      width: calc(100vw - 270px);
       padding-bottom: 25px;
       text-align: center;
 
@@ -152,7 +152,6 @@
         background-color: $backgroundGray;
         display: inline-block;
         text-align: center;
-        width: 754px;
 
         .cars-header {
           display: block;

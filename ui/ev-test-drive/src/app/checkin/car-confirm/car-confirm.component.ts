@@ -17,9 +17,7 @@ export class CarConfirmComponent implements OnInit {
   ngOnInit() {
     this.selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
     this.selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
-    let confirmationCode = localStorage.getItem('confirmation_number');
-
-     console.log(confirmationCode);
+    const confirmationCode = localStorage.getItem('confirmation_number');
 
     if (!this.selectedCar || !this.selectedTime || !confirmationCode) {
       this.router.navigateByUrl('/checkin');

@@ -47,7 +47,7 @@
           class="question-slider"
           [disabled]="false"
           [invert]="false"
-          [max]="7"
+          [max]="question.surveyQuestionOptions.length"
           [min]="1"
           [step]="1"
           [thumbLabel]="true"
@@ -55,9 +55,10 @@
           [(ngModel)]="sliderValues[question.order_index]"
           [vertical]="false">
         </mat-slider>
+        <br>
         <div class="helper-texts">
-        <p class="one">{{ sliderTextLow }}</p>
-        <p class="seven">{{ sliderTextHigh }}</p>
+          <p class="one">{{ sliderTextLow }}</p>
+          <p class="seven">{{ sliderTextHigh }}</p>
         </div>
       </div>
 
@@ -87,7 +88,6 @@
       <p>Next <img src="assets/arrow.png"></p>
     </div>
   </div>
-
 </div>
 
 
