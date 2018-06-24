@@ -149,7 +149,7 @@ export class SurveyComponent implements OnInit {
       question = this.questions.find(question => question.order_index == i);
 
       if (question) {
-        value = this.sliderValues[question.order_index];
+        value = this.sliderValues[question.order_index] || "1";
         option = question.surveyQuestionOptions.find(option => option.order_index + 1 == value);
         this.storeResponse(option.id, question.id, null);
       } else {

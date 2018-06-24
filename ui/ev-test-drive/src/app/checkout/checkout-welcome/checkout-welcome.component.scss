@@ -2,6 +2,8 @@
 
 .checkout-welcome-page {
   width: 100vw;
+  height: 100vh;
+  background-color: #000000;
   margin: 0;
   font-family: Gotham, sans-serif;
 
@@ -110,11 +112,5 @@
         opacity: 0.28;
       }
     }
-  }
-  
-
-  .bottomHalf {
-    background-color: #000000;
-    height: 302px;
   }
 }

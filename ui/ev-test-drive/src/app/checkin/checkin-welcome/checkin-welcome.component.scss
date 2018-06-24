@@ -2,6 +2,8 @@
 
 .welcomeScreen {
   width: 100vw;
+  height: 100vh;
+  background-color: #000000;
   margin: 0;
   font-family: Gotham, sans-serif;
 
@@ -81,10 +83,5 @@
         }
       }
     }
-  }
-
-  .bottomHalf {
-    background-color: #000;
-    height: 368px;
   }
 }
