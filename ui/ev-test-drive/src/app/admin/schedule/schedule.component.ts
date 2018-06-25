@@ -56,9 +56,9 @@ export class ScheduleComponent implements OnInit {
     const cancelButton = driverInfoPane.getElementsByClassName('cancel-button').item(0);
     const cancelText = driverInfoPane.getElementsByClassName('cancel-text').item(0);
     const pinPane = driverInfoPane.getElementsByClassName('pin-pane').item(0);
-    const pinField = pinPane.getElementsByClassName('pin').item(0);
+    const pinField = <HTMLInputElement>(pinPane.getElementsByClassName('pin').item(0));
 
-    if (pinPane.classList.contains('hidden') {
+    if (pinPane.classList.contains('hidden')) {
       emailPane.classList.add('hidden');
       cancelText.classList.remove('hidden');
       pinPane.classList.remove('hidden');
