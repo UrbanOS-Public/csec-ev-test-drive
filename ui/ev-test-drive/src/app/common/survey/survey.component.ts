@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { EVService } from '../../common/ev.service';
+import { ModalService } from '../../common/modal.service';
 
 @Component({
   selector: 'app-survey',
@@ -30,7 +31,8 @@ export class SurveyComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private evService: EVService) { }
+    private evService: EVService,
+    private modalService: ModalService) { }
 
   ngOnInit() {
     this.determineQuestionFromRoute();
@@ -81,7 +83,19 @@ export class SurveyComponent implements OnInit {
     }
   }
 
+  openModal(id) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.modalService.close(id);
+  }
+
   doCancel() {
+    this.modalService.open('cancel-modal');
+  }
+
+  doCancelConfirm() {
     this.router.navigateByUrl(this.baseModule);
   }
 
