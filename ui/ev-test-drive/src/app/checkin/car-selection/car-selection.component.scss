@@ -63,6 +63,7 @@
       color: #333333;
       display: inline-block;
       text-align: center;
+      min-height: calc(100vh - 185px);
       width: 270px;
       padding-bottom: 25px;
       scroll-behavior: auto;
@@ -93,6 +94,7 @@
         }
       }
 
+      .no-rides,
       .date {
         color: #333333;
         font-weight: 500;
@@ -100,6 +102,12 @@
         letter-spacing: -1.21px;
         text-align: center;
       }
+
+      .no-rides.hidden,
+      .date.hidden {
+        display: none;
+      }
+
 
       .time {
         font-size: 17px;

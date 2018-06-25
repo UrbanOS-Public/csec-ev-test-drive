@@ -17,6 +17,10 @@
         <p>{{ formattedDate }}</p>
       </div>
 
+      <div class="no-rides hidden">
+        <p>Sorry, there are no rides available for this date.</p>
+      </div>
+
       <div
         class="time" 
         *ngFor="let time of times"
