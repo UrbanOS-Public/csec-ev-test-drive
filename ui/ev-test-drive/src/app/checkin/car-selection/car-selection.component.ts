@@ -33,11 +33,23 @@ export class CarSelectionComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    if (this.selectedCar && this.selectedTime) {
+
+      // Select asynchronously to avoid conflicts with change detection
+      setTimeout(() => {
+        this.doSelectCar(this.selectedCar.tileId);
+        this.doSelectTime(this.selectedTime.tileId);
+      });
+    }
+  }
+
   getCars() {
     this.initializeCars(JSON.parse(localStorage.getItem('cars')));
   }
 
   initializeCars(carArray) {
+    this.carCounter = 0;
     carArray.forEach(car => {
       if (car.active) {
         car.tileId = this.carCounter++;
@@ -54,6 +66,7 @@ export class CarSelectionComponent implements OnInit {
 
   initializeTimeslots(timesArray) {
     this.times = timesArray;
+    this.timeCounter = 0;
 
     this.toggleDateDisplay();
 
@@ -73,6 +86,8 @@ export class CarSelectionComponent implements OnInit {
         };
       });
     });
+
+    this.preSelectCarAndTime();
   }
 
   toggleDateDisplay() {
@@ -94,6 +109,16 @@ export class CarSelectionComponent implements OnInit {
         noRidesElement.classList.add('hidden');
       }
       this.formattedDate = this.formatDate(moment(this.times[0].date).toDate());
+    }
+  }
+
+  preSelectCarAndTime() {
+    const carStr = localStorage.getItem('selectedCar');
+    const timeStr = localStorage.getItem('selectedTime');
+
+    if (carStr && timeStr) {
+      this.selectedCar = JSON.parse(carStr);
+      this.selectedTime = JSON.parse(timeStr);
     }
   }
 
