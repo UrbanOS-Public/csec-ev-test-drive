@@ -30,12 +30,13 @@ export class InfoComponent implements OnInit {
 
         if (infoPage) {
           this.pageId = infoPage.pageId;
-          this.backgroundStyle = `no-repeat top/100% url('../../assets/info/${infoPage.id}.jpg')`;
+          this.backgroundStyle = `no-repeat top/100% url('../../assets/info/${infoPage.pageId}.jpg')`;
           this.titleText = infoPage.title;
           this.introText = infoPage.text;
           this.bullets = infoPage.bullets;
 
           this.toggleNavigationButtons();
+          this.scrollToTop();
         }
       }
     );
@@ -56,6 +57,15 @@ export class InfoComponent implements OnInit {
     } else {
       nextButton.classList.add('hidden');
     }
+  }
+
+  scrollToTop() {
+    const infoPane = document.getElementsByClassName('info').item(0);
+
+    setTimeout(() => {
+      infoPane.scrollTo(0,0);
+      window.scrollTo(0,0);
+    });
   }
 
   doNext() {
