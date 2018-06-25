@@ -56,6 +56,7 @@ deployLambdas() {
             'ApiScheduleDrive'
             'ApiGetScheduledDrives'
             'ApiGetUser'
+            'ApiCancelDrive'
         )
     fi
 

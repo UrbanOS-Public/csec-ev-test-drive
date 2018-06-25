@@ -141,3 +141,15 @@ module "api_get_user" {
   account_number = "${var.account_number}"
   method = "GET"
 }
+
+module "api_cancel_drive" {
+  source = "./modules/api/create_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_rest_api.SmartExperienceApi.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "cancelDrive"
+  function_invoke_arn = "${module.ApiCancelDriveFunction.invoke_arn}"
+  function_arn = "${module.ApiCancelDriveFunction.arn}"
+  api_key_required = "true"
+  account_number = "${var.account_number}"
+  method = "DELETE"
+}
