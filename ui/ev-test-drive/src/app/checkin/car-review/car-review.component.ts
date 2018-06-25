@@ -41,8 +41,6 @@ export class CarReviewComponent implements OnInit {
   }
 
   doEdit() {
-    localStorage.removeItem('selectedCar');
-    localStorage.removeItem('selectedTime');
     this.router.navigateByUrl('/checkin/carSelection');
   }
 
