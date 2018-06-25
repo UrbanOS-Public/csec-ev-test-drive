@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 .info {
   font-family: Gotham, sans-serif;
   width: 100vw;
@@ -36,13 +38,48 @@
 
   .bulletPoints {
     padding: 25px;
-    background-color: #E7E7E7;
+    background-color: $backgroundGray;
 
     p {
       font-size: 16px;
       font-weight: 200;
       line-height: 29px;
       letter-spacing: -0.71px;
+    }
+  }
+
+  .next,
+  .previous {
+    display: inline-block;
+    margin: 0;
+    margin-top: 20px;
+    height: 60px;
+    width: calc(50vw - 1px);
+    text-align: center;
+    border-top: 1px solid #979797;
+
+    p {
+      margin: 0;
+      padding-top: 20px;
+    }
+  }
+
+  .next {
+    border-left: 1px solid #979797;
+  }
+
+  .previous {
+    border-right: 1px solid #979797;
+  }
+
+  .next.hidden {
+    display: none;
+  }
+
+  .previous.hidden {
+    border: none;
+    p {
+      display: none;
     }
   }
 
