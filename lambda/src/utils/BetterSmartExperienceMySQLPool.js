@@ -36,6 +36,18 @@ class BetterSmartExperienceMySQLPool {
             });
         });
     }
+
+    doQueryFirstRow(query, params) {
+        return new Promise((resolve, reject) => {
+            this.pool.query(query, params, function (error, results) {
+                if (error) {
+                    return reject(error);
+                } else {
+                    return resolve(results[0]);
+                }
+            });
+        });
+    }
 }
 
 

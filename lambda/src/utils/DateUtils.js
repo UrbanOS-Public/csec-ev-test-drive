@@ -12,3 +12,7 @@ module.exports.todayInEST = () => {
 module.exports.todayInESTFormatted = () => {
     return this.todayInEST().format("YYYY-MM-DD");
 };
+
+module.exports.yearMonthDayFormat = (dateString) => {
+    return moment(dateString).format("YYYY-MM-DD");
+};
