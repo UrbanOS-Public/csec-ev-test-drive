@@ -51,7 +51,7 @@
 
   .times-container {
     height: calc(100vh - 156px);
-    width: 270px;
+    width: 300px;
     display: inline-block;
     margin: 0;
     overflow: scroll;
@@ -64,7 +64,7 @@
       display: inline-block;
       text-align: center;
       min-height: calc(100vh - 185px);
-      width: 270px;
+      width: 300px;
       padding-bottom: 25px;
       scroll-behavior: auto;
       overflow-y: scroll;
@@ -152,7 +152,7 @@
     scroll-behavior: auto;
 
     .cars-pane-container {
-      width: calc(100vw - 270px);
+      width: calc(100vw - 330px);
       padding-bottom: 25px;
       text-align: center;
 
