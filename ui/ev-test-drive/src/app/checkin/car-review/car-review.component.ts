@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
+import { ModalService } from '../../common/modal.service';
 
 @Component({
   selector: 'app-car-review',
@@ -16,7 +17,8 @@ export class CarReviewComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private evService: EVService) { }
+    private evService: EVService,
+    private modalService: ModalService) { }
 
   ngOnInit() {
     this.selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
@@ -33,10 +35,22 @@ export class CarReviewComponent implements OnInit {
     this.evService.getPreSurvey().subscribe(
       response => this.handleResponse(response),
       error => console.log(error)
-    ); 
+    );
+  }
+
+  openModal(id) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.modalService.close(id);
   }
 
   doCancel() {
+    this.modalService.open('cancel-modal');
+  }
+
+  doCancelConfirm() {
     this.router.navigateByUrl('/checkin');
   }
 

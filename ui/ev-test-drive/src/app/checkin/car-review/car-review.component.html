@@ -1,3 +1,18 @@
+
+<jw-modal id="cancel-modal">
+  <div id="cancel-pane" class="cancel-pane">
+    <h1 class="header-text">Are you sure you want to cancel your ride?</h1>
+  
+    <div class="no" (click)="closeModal('cancel-modal')">
+      <p>No, do not cancel my ride</p>
+    </div>
+    
+    <div class="yes" (click)="doCancelConfirm()">
+      <p>Yes, cancel my ride</p>
+    </div>
+  </div>
+</jw-modal>
+
 <div class="car-review-screen">
 
   <div class="header">
