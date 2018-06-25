@@ -54,7 +54,9 @@ export class CarSelectionComponent implements OnInit {
 
   initializeTimeslots(timesArray) {
     this.times = timesArray;
-    this.formattedDate = this.formatDate(moment(this.times[0].date).toDate());
+
+    this.toggleDateDisplay();
+
     this.times.forEach(time => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
       time.tileId = this.timeCounter++;
@@ -71,6 +73,28 @@ export class CarSelectionComponent implements OnInit {
         };
       });
     });
+  }
+
+  toggleDateDisplay() {
+    const dateElement = document.getElementsByClassName('date').item(0);
+    const noRidesElement = document.getElementsByClassName('no-rides').item(0);
+
+    if (this.times.length === 0) {
+      if (dateElement) {
+        dateElement.classList.add('hidden');
+      }
+      if (noRidesElement) {
+        noRidesElement.classList.remove('hidden');
+      }
+    } else {
+      if (dateElement) {
+        dateElement.classList.remove('hidden');
+      }
+      if (noRidesElement) {
+        noRidesElement.classList.add('hidden');
+      }
+      this.formattedDate = this.formatDate(moment(this.times[0].date).toDate());
+    }
   }
 
   doReset() {
