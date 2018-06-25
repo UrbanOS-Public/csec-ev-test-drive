@@ -25,6 +25,8 @@ import { CarConfirmComponent } from './checkin/car-confirm/car-confirm.component
 import { CheckoutWelcomeComponent } from './checkout/checkout-welcome/checkout-welcome.component';
 import { ThankYouComponent } from './checkout/thank-you/thank-you.component';
 import { ScheduleComponent } from './admin/schedule/schedule.component';
+import { ModalComponent } from './common/directives/modal.component';
+import { ModalService } from './common/modal.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { ScheduleComponent } from './admin/schedule/schedule.component';
     CarConfirmComponent,
     CheckoutWelcomeComponent,
     ThankYouComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ import { ScheduleComponent } from './admin/schedule/schedule.component';
     HttpClientModule,
     MatSliderModule
   ],
-  providers: [],
+  providers: [ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

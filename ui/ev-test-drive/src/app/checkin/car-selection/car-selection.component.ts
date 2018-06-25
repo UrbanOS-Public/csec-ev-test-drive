@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
+import { ModalService } from '../../common/modal.service';
 import { Helpers } from '../../app.helpers';
 import * as moment from 'moment';
 
@@ -23,7 +24,8 @@ export class CarSelectionComponent implements OnInit {
 
   constructor(
     private evService: EVService,
-    private router: Router) { }
+    private router: Router,
+    private modalService: ModalService) { }
 
   ngOnInit() {
     if (localStorage.getItem('email')) {
@@ -136,7 +138,19 @@ export class CarSelectionComponent implements OnInit {
     }
   }
 
+  openModal(id) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.modalService.close(id);
+  }
+
   doCancel() {
+    this.modalService.open('cancel-modal');
+  }
+
+  doCancelConfirm() {
     this.router.navigateByUrl('/checkin');
   }
 

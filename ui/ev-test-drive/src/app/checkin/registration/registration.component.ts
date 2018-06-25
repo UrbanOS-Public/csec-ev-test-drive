@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Helpers } from '../../app.helpers';
 import { EVService } from '../../common/ev.service';
+import { ModalService } from '../../common/modal.service';
 
 @Component({
   selector: 'app-registration',
@@ -21,13 +22,26 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private evService: EVService,
-    private router: Router) { }
+    private router: Router,
+    private modalService: ModalService) { }
 
   ngOnInit() {
     localStorage.clear();
   }
 
+  closeModal(id) {
+    this.modalService.close(id);
+  }
+
+  openModal(id) {
+    this.modalService.open(id);
+  }
+
   doCancel() {
+    this.openModal('cancel-modal');
+  }
+
+  doCancelConfirm() {
     this.router.navigateByUrl('/checkin');
   }
 
