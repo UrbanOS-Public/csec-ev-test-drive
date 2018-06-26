@@ -192,6 +192,7 @@ export class SurveyComponent implements OnInit {
 
   submitEverything() {
     const email = localStorage.getItem('email');
+    const confirmationNumber = localStorage.getItem('confirmationNumber');
 
     const responseKeys = Object.keys(localStorage);
     let i, key;
@@ -210,9 +211,13 @@ export class SurveyComponent implements OnInit {
       responses: responses
     };
 
+    if (confirmationNumber) {
+      surveyData['confirmationNumber'] = confirmationNumber;
+    }
+
     this.evService.postSurvey(surveyData).subscribe(
       response => this.handleSurveyPostResponse(response),
-      error => console.log(error)
+      error => {} //no-op
     );
   }
 
@@ -233,7 +238,7 @@ export class SurveyComponent implements OnInit {
 
       this.evService.postScheduleDrive(scheduleDriveData).subscribe(
         response => this.handleScheduleDrivePostResponse(response),
-        error => console.log(error)
+        error => {} //no-op
       );
 
       }
@@ -241,7 +246,7 @@ export class SurveyComponent implements OnInit {
 
   handleScheduleDrivePostResponse(response) {
     if (response.confirmation_number) {
-      localStorage.setItem('confirmation_number', response.confirmation_number);
+      localStorage.setItem('confirmationNumber', response.confirmation_number);
       if (this.baseModule === '/checkin') {
         this.router.navigateByUrl('/checkin/carConfirm');
       } else {
