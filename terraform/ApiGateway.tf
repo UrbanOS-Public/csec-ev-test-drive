@@ -151,5 +151,5 @@ module "api_cancel_drive" {
   function_arn = "${module.ApiCancelDriveFunction.arn}"
   api_key_required = "true"
   account_number = "${var.account_number}"
-  method = "DELETE"
+  method = "POST"
 }
