@@ -30,7 +30,8 @@ class SaveUser {
         }
 
         this.saveUser(body)
-            .then(() => this.successHandler(callback), (err) => this.errorHandler(callback, err))
+            .then(() => this.getUserInfo(body.email))
+            .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err))
         ;
     }
 
@@ -46,10 +47,26 @@ class SaveUser {
         return this.pool.doQuery(query, user);
     }
 
-    successHandler(callback) {
+    getUserInfo(email) {
+        const query = `
+            select
+                u.id as user_id,
+                u.email as email,
+                if(ur.id is NULL, 'false', 'true') as pre_survey_taken
+            from
+                user u
+                left outer join user_response ur on u.id = ur.user_id
+                left outer join survey s on s.id = ur.survey_id and s.type = 'PRE'
+            where
+                    u.email = ?
+        `;
+        return this.pool.doQueryFirstRow(query, [email]);
+    }
+
+    successHandler(callback, data) {
         this.pool.end();
         console.log(`Done`);
-        this.ApiHelpers.httpResponse(callback, 200, {message: "Success"});
+        this.ApiHelpers.httpResponse(callback, 200, data);
     }
 
     errorHandler(callback, error) {
