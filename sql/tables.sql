@@ -219,11 +219,12 @@ CREATE TABLE survey_question_option (
 
 
 CREATE TABLE user_response (
-  `id`           BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `user_id`      BIGINT(20) NOT NULL,
-  `survey_id`    BIGINT(20) NOT NULL,
-  `date_created` DATETIME   NOT NULL DEFAULT now(),
-  `last_updated` DATETIME   NOT NULL DEFAULT now() ON UPDATE now(),
+  `id`                  BIGINT(20)  NOT NULL AUTO_INCREMENT,
+  `user_id`             BIGINT(20)  NOT NULL,
+  `survey_id`           BIGINT(20)  NOT NULL,
+  `confirmation_number` VARCHAR(20) ,
+  `date_created`        DATETIME    NOT NULL DEFAULT now(),
+  `last_updated`        DATETIME    NOT NULL DEFAULT now() ON UPDATE now(),
   PRIMARY KEY (`id`),
   CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT FOREIGN KEY (`survey_id`) REFERENCES `survey` (`id`)
