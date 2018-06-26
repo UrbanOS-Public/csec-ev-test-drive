@@ -34,8 +34,23 @@
             class="pin">
         </div>
 
-        <div class="cancel-button" (click)="doCancel(slot.confirmation_number)">
-          <p class="cancel-text hidden">Cancel Ride</p>
+        <div class="more-pane">
+          <div class="spacer"></div>
+          <div class="more-button" (click)="toggleMorePane(slot.confirmation_number)">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="checkout-button"
+               (click)="doCheckout(slot.confirmation_number)"
+               (disabled)="isSubmitting">
+            <p *ngIf="!isSubmitting">Checkout</p>
+            <app-spinner *ngIf="isSubmitting"></app-spinner>
+          </div>
+          <div class="horizontal-rule"></div>
+          <div class="cancel-button">
+            <p>Cancel</p>
+          </div>
         </div>
       </div>
     </div>

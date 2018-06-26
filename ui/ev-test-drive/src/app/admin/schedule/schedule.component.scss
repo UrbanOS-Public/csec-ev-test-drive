@@ -130,30 +130,86 @@
           }
         }
 
-        .cancel-button {
-          background-color: #FFFFFF;
-          height: 45px;
-          width: 100px;
+        .more-pane {
           position: absolute;
-          right: 0;
-          top: 0;
-          text-align: center;
-          padding-top: 32px;
+          right: 20px;
+          top: 24px;
 
-          .cancel-text {
-            color: #FFFFFF;
-            font-size: 14px;
-            letter-spacing: -0.73px;
-            margin: 0;
-            text-align: center;
-            vertical-align: middle;
+          .spacer {
+            display: none;
           }
-          .cancel-text.hidden {
+
+          .more-button {
+            height: 29px;
+            width: 54px;
+            text-align: center;
+
+            .dot {
+              background-color: $pink;
+              height: 5px;
+              width: 5px;
+              border-radius: 50%;
+              margin-right: 5px;
+              display: inline-block;
+            }
+            .dot:last-child {
+              margin: 0;
+            }
+          }
+          .checkout-button,
+          .cancel-button {
             display: none;
           }
         }
-        .cancel-button.visible {
-          background-color: $pink;
+        .more-pane.open {
+          background-color: #transparent;
+          text-align: right;
+          z-index: 1;
+
+          .spacer {
+            display: inline-block;
+            width: 116px;
+          }
+          
+          .more-button {
+            display: inline-block;
+            background-color: #252525;
+
+            .dot {
+              background-color: #FFFFFF;
+            }
+          }
+
+          .horizontal-rule {
+            background-color: #4A4A4A;
+            display: block;
+            width: 170px;
+            height: 1px;
+          }
+
+          .checkout-button,
+          .cancel-button {
+            background-color: #252525;
+            height: 62px;
+            width: 170px;
+            margin: 0;
+            display: block;
+            text-align: center;
+
+            p {
+              color: #FFFFFF;
+              font-size: 17px;
+              margin: 0;
+              padding-top: 21px;
+              padding-left: 20px;
+              text-align: left;
+            }
+
+            app-spinner {
+              padding-top: 20px;
+              display: inline-block;
+            }
+          }
         }
       }
     }
