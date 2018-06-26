@@ -1,3 +1,22 @@
+
+<jw-modal id="pin-modal">
+  <div class="pin-pane">
+    <p>Please enter your PIN</p>
+    <input type="password" class="pin">
+    <br>
+    <p class="pin-error" *ngIf="showPinError">
+      Incorrect PIN, please try again.
+    </p>
+    <div class="close-button" (click)="closeModal('pin-modal')">
+      <p>Close</p>
+    </div>
+    <div class="confirm-button" (click)="doCancelRide()">
+      <p *ngIf="!isSubmitting">Cancel Ride</p>
+      <app-spinner *ngIf="isSubmitting"></app-spinner>
+    </div>
+  </div>
+</jw-modal>
+
 <div class="schedule-screen">
   <div class="header">
     <img class="scLogo" src="assets/scLogo.svg">
@@ -27,12 +46,6 @@
           <p class="label">Driving</p>
           <p class="value">{{slot.year}} {{slot.make}} {{slot.model}}</p>
         </div>
-        <div class="pin-pane stat-pane hidden">
-          <p class="label">PIN</p>
-          <input
-            type="password"
-            class="pin">
-        </div>
 
         <div class="more-pane">
           <div class="spacer"></div>
@@ -48,7 +61,7 @@
             <app-spinner *ngIf="isSubmitting"></app-spinner>
           </div>
           <div class="horizontal-rule"></div>
-          <div class="cancel-button">
+          <div class="cancel-button" (click)="doCancel(slot.confirmation_number)" (disabled)="isSubmitting">
             <p>Cancel</p>
           </div>
         </div>

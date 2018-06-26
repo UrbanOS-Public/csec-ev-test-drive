@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
+import { ModalService } from '../../common/modal.service';
 import { Helpers } from '../../app.helpers';
 import * as moment from 'moment';
 
@@ -15,12 +16,19 @@ export class ScheduleComponent implements OnInit {
   formattedDate: string;
   helpers = new Helpers();
   isSubmitting = false;
+  showPinError = false;
 
   constructor(
     private router: Router,
-    private evService: EVService) { }
+    private evService: EVService,
+    private modalService: ModalService) { }
 
   ngOnInit() {
+    this.loadSchedule();
+  }
+
+  loadSchedule() {
+    this.isSubmitting = true;
     this.evService.getSchedule().subscribe(
       response => this.handleSchedule(response),
       error => this.handleError(error)
@@ -45,6 +53,8 @@ export class ScheduleComponent implements OnInit {
     this.schedule.forEach(slot => {
       slot.formattedTime = this.helpers.formatAMPM(slot.scheduled_start_time);
     });
+    this.isSubmitting = false;
+    this.closeModal('pin-modal');
   }
 
   handleLookupResponse(response) {
@@ -65,32 +75,52 @@ export class ScheduleComponent implements OnInit {
     this.router.navigateByUrl('/checkout/survey');
   }
 
+  handleCancelRideResponse(response) {
+    this.loadSchedule(); 
+  }
+
   handleError(error) {
     this.isSubmitting = false;
     console.log(error);
   }
 
-  doCancel(confirmationNumber) {
-    const driverInfoPane = document.getElementById(confirmationNumber);
-    const emailPane = driverInfoPane.getElementsByClassName('email-pane').item(0);
-    const cancelButton = driverInfoPane.getElementsByClassName('cancel-button').item(0);
-    const cancelText = driverInfoPane.getElementsByClassName('cancel-text').item(0);
-    const pinPane = driverInfoPane.getElementsByClassName('pin-pane').item(0);
-    const pinField = <HTMLInputElement>(pinPane.getElementsByClassName('pin').item(0));
+  handlePinError(error) {
+    this.showPinError = true;
+    this.isSubmitting = false;
+  }
 
-    if (pinPane.classList.contains('hidden')) {
-      emailPane.classList.add('hidden');
-      cancelText.classList.remove('hidden');
-      pinPane.classList.remove('hidden');
-      cancelButton.classList.add('visible');
-    } else if (pinField.value) {
-      console.log('Submitting cancellation!');
-      console.log(pinField.value);
-    } else {
-      emailPane.classList.remove('hidden');
-      cancelText.classList.add('hidden');
-      pinPane.classList.add('hidden');
-      cancelButton.classList.remove('visible');
+  openModal(id) {
+    this.showPinError = false;
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.showPinError = false;
+    this.modalService.close(id);
+  }
+
+  doCancel(confirmationNumber) {
+    localStorage.setItem('cancelConfirmationNumber', confirmationNumber);
+    this.toggleMorePane(confirmationNumber);
+    this.openModal('pin-modal');
+  }
+
+  doCancelRide() {
+    const confirmationNumber = localStorage.getItem('cancelConfirmationNumber');
+    const pinPane = document.getElementsByClassName('pin-pane').item(0);
+    const pinInput = <HTMLInputElement>(pinPane.getElementsByClassName('pin').item(0));
+    const pin = (pinInput ? pinInput.value : 0) || 0;
+
+    this.isSubmitting = true;
+    if (pinInput) {
+      pinInput.value = "";
+    }
+
+    if (confirmationNumber) {
+      this.evService.cancelRide(confirmationNumber, pin).subscribe(
+        response => this.handleCancelRideResponse(response),
+        error => this.handlePinError(error)
+      );
     }
   }
 
