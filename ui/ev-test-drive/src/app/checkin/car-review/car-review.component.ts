@@ -32,10 +32,24 @@ export class CarReviewComponent implements OnInit {
 
   doSubmit() {
     this.isSubmitting = true;
-    this.evService.getPreSurvey().subscribe(
-      response => this.handleResponse(response),
-      error => console.log(error)
-    );
+    if (localStorage.getItem('skipPreSurvey') === 'true') {
+      const carSlotId = this.selectedCar.times[this.selectedTime.formattedTime].timeSlotId;
+
+      const scheduleDriveData = {
+        email: this.userEmail,
+        carSlotId: carSlotId
+      };
+
+      this.evService.postScheduleDrive(scheduleDriveData).subscribe(
+        response => this.handleScheduleDrivePostResponse(response),
+        error => {} //no-op
+      );
+    } else {
+      this.evService.getPreSurvey().subscribe(
+        response => this.handleSurveyResponse(response),
+        error => console.log(error)
+      );
+    }
   }
 
   openModal(id) {
@@ -58,9 +72,17 @@ export class CarReviewComponent implements OnInit {
     this.router.navigateByUrl('/checkin/carSelection');
   }
 
-  handleResponse(response) {
+  handleSurveyResponse(response) {
     localStorage.setItem('preSurveyQuestions', JSON.stringify(response));
     this.router.navigateByUrl('/checkin/survey');
-    
+  }
+
+  handleScheduleDrivePostResponse(response) {
+    if (response.confirmation_number) {
+      localStorage.setItem('confirmationNumber', response.confirmation_number);
+      this.router.navigateByUrl('/checkin/carConfirm');
+    } else {
+      console.log("no confirmation number!");
+    }
   }
 }

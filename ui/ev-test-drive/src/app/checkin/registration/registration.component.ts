@@ -62,8 +62,13 @@ export class RegistrationComponent implements OnInit {
   }
 
   private handleResponse(response) {
-    if (response && response.message === "Success") {
+    if (response && response.email) {
       localStorage.setItem('email', this.applicationForm.value.email);
+
+      if (response.pre_survey_taken) {
+        localStorage.setItem('skipPreSurvey', response.pre_survey_taken);
+      }
+
       this.evService.getCars().subscribe(
         cars => this.initializeCars(cars),
         error => console.log(error)
