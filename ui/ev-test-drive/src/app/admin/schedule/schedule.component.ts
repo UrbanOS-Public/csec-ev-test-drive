@@ -14,6 +14,7 @@ export class ScheduleComponent implements OnInit {
   schedule: any[] = [];
   formattedDate: string;
   helpers = new Helpers();
+  isSubmitting = false;
 
   constructor(
     private router: Router,
@@ -46,7 +47,26 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
+  handleLookupResponse(response) {
+    if (response && response.email) {
+      localStorage.setItem('email', response.email);
+      this.evService.getPostSurvey().subscribe(
+        surveyResponse => this.handleSurveyResponse(surveyResponse),
+        error => this.handleError(error)
+      );
+    } else {
+      this.handleError(null);
+    }
+  }
+
+  handleSurveyResponse(response) {
+    localStorage.setItem('postSurveyQuestions', JSON.stringify(response));
+    this.isSubmitting = false;
+    this.router.navigateByUrl('/checkout/survey');
+  }
+
   handleError(error) {
+    this.isSubmitting = false;
     console.log(error);
   }
 
@@ -71,6 +91,26 @@ export class ScheduleComponent implements OnInit {
       cancelText.classList.add('hidden');
       pinPane.classList.add('hidden');
       cancelButton.classList.remove('visible');
+    }
+  }
+
+  doCheckout(confirmationNumber) {
+    const lookupData = { confirmationNumber: confirmationNumber };
+    localStorage.setItem('confirmationNumber', confirmationNumber);
+    this.isSubmitting = true;
+
+    this.evService.lookupUser(lookupData).subscribe(
+      response => this.handleLookupResponse(response),
+      error => this.handleError(error)
+    );
+  }
+
+  toggleMorePane(confirmationNumber) {
+    const driverInfoPane = document.getElementById(confirmationNumber);
+    const morePane = driverInfoPane.getElementsByClassName('more-pane').item(0);
+
+    if (morePane) {
+      morePane.classList.toggle('open');
     }
   }
 
