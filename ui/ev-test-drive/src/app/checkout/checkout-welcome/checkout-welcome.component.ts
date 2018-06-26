@@ -26,11 +26,6 @@ export class CheckoutWelcomeComponent implements OnInit {
     localStorage.clear();
   }
 
-  formValid() {
-    return this.loginForm.valid && 
-      (this.loginForm.value.email || this.loginForm.value.confirmationNumber);
-  }
-
   doSubmit() {
     this.formSubmitted = true;
     if (this.loginForm.valid) {
@@ -42,11 +37,9 @@ export class CheckoutWelcomeComponent implements OnInit {
     const data = this.loginForm.value;
 
     let submitData: any = {};
-    if (data.email) {
-      submitData.email = data.email;
-    } else {
-      submitData.confirmationNumber = data.confirmationNumber;
-    }
+    submitData.confirmationNumber = data.confirmationNumber;
+
+    localStorage.setItem('confirmationNumber', data.confirmationNumber);
 
     this.evService.lookupUser(submitData).subscribe(
       response => this.handleResponse(response), 

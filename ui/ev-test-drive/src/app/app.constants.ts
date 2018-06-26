@@ -14,3 +14,4 @@ export const postSurveyUrl    = apiBaseUrl + '/postSurvey';
 export const surveySubmitUrl  = apiBaseUrl + '/survey';
 
 export const scheduleUrl      = apiBaseUrl + '/schedule';
+export const cancelDriveUrl   = apiBaseUrl + '/cancelDrive';

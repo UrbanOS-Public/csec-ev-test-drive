@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
+import { ModalService } from '../../common/modal.service';
 import { Helpers } from '../../app.helpers';
 import * as moment from 'moment';
 
@@ -14,12 +15,20 @@ export class ScheduleComponent implements OnInit {
   schedule: any[] = [];
   formattedDate: string;
   helpers = new Helpers();
+  isSubmitting = false;
+  showPinError = false;
 
   constructor(
     private router: Router,
-    private evService: EVService) { }
+    private evService: EVService,
+    private modalService: ModalService) { }
 
   ngOnInit() {
+    this.loadSchedule();
+  }
+
+  loadSchedule() {
+    this.isSubmitting = true;
     this.evService.getSchedule().subscribe(
       response => this.handleSchedule(response),
       error => this.handleError(error)
@@ -44,10 +53,95 @@ export class ScheduleComponent implements OnInit {
     this.schedule.forEach(slot => {
       slot.formattedTime = this.helpers.formatAMPM(slot.scheduled_start_time);
     });
+    this.isSubmitting = false;
+    this.closeModal('pin-modal');
+  }
+
+  handleLookupResponse(response) {
+    if (response && response.email) {
+      localStorage.setItem('email', response.email);
+      this.evService.getPostSurvey().subscribe(
+        surveyResponse => this.handleSurveyResponse(surveyResponse),
+        error => this.handleError(error)
+      );
+    } else {
+      this.handleError(null);
+    }
+  }
+
+  handleSurveyResponse(response) {
+    localStorage.setItem('postSurveyQuestions', JSON.stringify(response));
+    this.isSubmitting = false;
+    this.router.navigateByUrl('/checkout/survey');
+  }
+
+  handleCancelRideResponse(response) {
+    this.loadSchedule(); 
   }
 
   handleError(error) {
+    this.isSubmitting = false;
     console.log(error);
+  }
+
+  handlePinError(error) {
+    this.showPinError = true;
+    this.isSubmitting = false;
+  }
+
+  openModal(id) {
+    this.showPinError = false;
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.showPinError = false;
+    this.modalService.close(id);
+  }
+
+  doCancel(confirmationNumber) {
+    localStorage.setItem('cancelConfirmationNumber', confirmationNumber);
+    this.toggleMorePane(confirmationNumber);
+    this.openModal('pin-modal');
+  }
+
+  doCancelRide() {
+    const confirmationNumber = localStorage.getItem('cancelConfirmationNumber');
+    const pinPane = document.getElementsByClassName('pin-pane').item(0);
+    const pinInput = <HTMLInputElement>(pinPane.getElementsByClassName('pin').item(0));
+    const pin = (pinInput ? pinInput.value : 0) || 0;
+
+    this.isSubmitting = true;
+    if (pinInput) {
+      pinInput.value = "";
+    }
+
+    if (confirmationNumber) {
+      this.evService.cancelRide(confirmationNumber, pin).subscribe(
+        response => this.handleCancelRideResponse(response),
+        error => this.handlePinError(error)
+      );
+    }
+  }
+
+  doCheckout(confirmationNumber) {
+    const lookupData = { confirmationNumber: confirmationNumber };
+    localStorage.setItem('confirmationNumber', confirmationNumber);
+    this.isSubmitting = true;
+
+    this.evService.lookupUser(lookupData).subscribe(
+      response => this.handleLookupResponse(response),
+      error => this.handleError(error)
+    );
+  }
+
+  toggleMorePane(confirmationNumber) {
+    const driverInfoPane = document.getElementById(confirmationNumber);
+    const morePane = driverInfoPane.getElementsByClassName('more-pane').item(0);
+
+    if (morePane) {
+      morePane.classList.toggle('open');
+    }
   }
 
   formatDate(date: Date) {
