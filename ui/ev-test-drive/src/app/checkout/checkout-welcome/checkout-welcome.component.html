@@ -3,7 +3,7 @@
     <img class="scLogo" src="assets/scLogoLarge.svg">
     <div class="welcomePane">
       <h1 class="titleText">Welcome back<br>from your ride.</h1>
-      <p class="getStartedText">Enter your email or confirmation number below to answer a few questions before you go.</p>
+      <p class="getStartedText">Enter your confirmation code below to answer a few questions before you go.</p>
 
       <form
         autocomplete="off"
@@ -15,23 +15,11 @@
           <div class="questions">
 
             <text-field
-              class="email"
-              [questionId]="'email'"
-              [type]="'email'"
-              [question]="'Email'"
-              [required]="false"
-              [group]="loginForm"
-              [formSubmitted]="formSubmitted">
-            </text-field>
-
-            <p>OR</p>
-
-            <text-field
               class="confirmation-number"
               [questionId]="'confirmationNumber'"
               [type]="'text'"
-              [question]="'Confirmation Number'"
-              [required]="false"
+              [question]="'Confirmation Code'"
+              [required]="true"
               [group]="loginForm"
               [formSubmitted]="formSubmitted">
             </text-field>
@@ -43,8 +31,8 @@
 
         <button 
           class="submit" 
-          [disabled]="!loginForm.valid || formSubmitted || !formValid()"
-          [ngClass]="{'disabled': !loginForm.valid || formSubmitted || !formValid()}">
+          [disabled]="!loginForm.valid || formSubmitted"
+          [ngClass]="{'disabled': !loginForm.valid || formSubmitted}">
             {{ formSubmitted ? '' : 'START' }}
             <app-spinner *ngIf="formSubmitted"></app-spinner>
         </button>

@@ -81,4 +81,13 @@ export class EVService {
 
     return this.http.get(globals.scheduleUrl, lookupOptions);
   }
+
+  cancelRide(confirmationNumber, pin) {
+    const params = {
+      pin: pin,
+      confirmationNumber: confirmationNumber
+    };
+
+    return this.http.post(globals.cancelDriveUrl, params, httpOptions);
+  }
 }
