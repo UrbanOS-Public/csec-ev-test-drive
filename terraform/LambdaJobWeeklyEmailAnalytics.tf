@@ -41,10 +41,10 @@ module "JobWeeklyEmailAnalyticsFunction" {
   }
 }
 
-//module "JobWeeklyEmailAnalyticsTimer" {
-//  source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-//  name = "JobWeeklyEmailAnalyticsSchedule"
-//  schedule_expression = "rate(1 minute)"
-//  schedule_description = "Runs every minute"
-//  lambda_function_arn = "${module.JobWeeklyEmailAnalyticsFunction.arn}"
-//}
+module "JobWeeklyEmailAnalyticsTimer" {
+  source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
+  name = "JobWeeklyEmailAnalyticsSchedule"
+  schedule_expression = "cron(0 7 ? * FRI *)"
+  schedule_description = "Runs every Friday at 700 UTC"
+  lambda_function_arn = "${module.JobWeeklyEmailAnalyticsFunction.arn}"
+}
