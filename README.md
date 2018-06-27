@@ -4,6 +4,7 @@ The Columbus Smart Experience Center - EV Test Drive application allows for sche
 - [Time Slots](#time-slots)
 - [Schedule Exceptions](#schedule-exceptions)
 - [Terraform And AWS](#terraform-and-aws)
+- [Jobs](#Jobs)
 
 # Time Slots
 Every night the JobPopulateTimeSlots runs to archive yesterdays schedule and populate today's schedule (since we're only dealing with current day drives).
@@ -46,4 +47,20 @@ These rows would need to be in the database before the nightly job runs to popul
 
 
 # Database
-The database is using a hosted
+The database is using a hosted MySQL RDS instance.  This instance is not publicly available so you need to be inside of the Virtual Private Cloud (VPC) to be able to connect to the database.  
+If you need to do this to make data changes then you would need to:
+1. Turn on the [Jumpbox EC2 instance](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:search=Jumpbox;sort=instanceType). Turning on this instance will assign it a new IP address.
+2. ssh to the server with a command like this: `ssh -i ~/.ssh/PillarSmartExperienceKey.pem ec2-user@54.209.254.201`
+3. Once on the server you can connect to the database with the following command: `mysql smart_experience -h smartexperience.ccpbmhkikhpm.us-east-1.rds.amazonaws.com -usmrt -p'<PASSWORD>'`
+
+# Jobs
+There are several background jobs that run to setup data, archive data, and to send out emails.
+
+- Archive Car Schedule - Copies yesterday's data from the `car_schedule` table to the `archive_car_schedule`.  This ensures that the data in the `car_schedule` table is small and only the current live data.
+- Populate Car Schedule - Creates rows in the `car_schedule` table up to 180 days out. **This needs to run before Populate Time Slots**
+- Populate Time Slots - This job does a lot and could be broken down.  It copies yesterday's data from `time_slot` to `archive_time_slot` and `car_slot` to `archive_car_slot`.
+Again, this ensures that the data in this table is the current live data and keeps the table small.  Then it populates the `car_slot` and `time_slot` data based on the folowing logic.
+For the current day it will look at the `car_schedule` table to determine what cars are 'active'.  
+Then to determine what hours, how long, and how many employees should be in each slot if there is an entry in the `schedule_exception` table for the current day, then it will use those settings to populate.  If there is no `schedule_exception` for the current day then the value for the current day's day of the week will be used from `schedule`
+- Send Confirmation Email - This runs every minute and looks for a `user_drive_map` entry that has the `email_sent` field equal to false.  When one is found it sends a confirmation email to the user so they have their confirmation number and details about how to get to the experience center.
+- Weekly Email Analytics - This email is sent to the experience center employee(s) with the raw data for the past week's drives.  This will execute on Friday morning sending Thursday to Thursday data.
