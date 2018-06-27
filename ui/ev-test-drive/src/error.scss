@@ -1,0 +1,44 @@
+.error-pane {
+  background-color: #FFFFFF;
+  font-family: Gotham, sans-serif;
+  height: 220px;
+  width: 580px;
+  display: inline-block;
+  text-align: center;
+
+  h1 {
+    color: #333333;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -1.21px;
+    line-height: 34px;
+    margin: 0;
+    margin-top: 35px;
+    margin-bottom: 65px;
+    padding-left: 80px;
+    padding-right: 80px;
+    text-align: center;
+    display: inline-block;
+  }
+
+  div {
+    background-color: #252525;
+    color: #FFFFFF;
+    display: inline-block;
+    height: 52px;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0 0 rgba(63, 63, 64, 0.22);
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    p {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.46px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+}

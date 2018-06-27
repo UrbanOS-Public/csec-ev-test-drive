@@ -81,7 +81,7 @@ export class ScheduleComponent implements OnInit {
 
   handleError(error) {
     this.isSubmitting = false;
-    console.log(error);
+    this.openModal('error-modal');
   }
 
   handlePinError(error) {
