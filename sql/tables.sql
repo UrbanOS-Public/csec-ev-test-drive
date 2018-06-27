@@ -699,8 +699,8 @@ values
 
 insert into car_schedule (`car_id`, `date`, `active`)
 values
-  (1, '2018-06-01', false),
-  (2, '2018-06-01', true),
+  (1, '2018-06-01', true),
+  (2, '2018-06-01', false),
   (3, '2018-06-01', true),
   (4, '2018-06-01', false),
   (5, '2018-06-01', true),
