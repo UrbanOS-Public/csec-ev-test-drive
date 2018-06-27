@@ -28,8 +28,8 @@ class JobWeeklyEmailAnalytics {
         console.log(oneWeekAgo);
         console.log(yesterday);
 
-        const surveyDataPromise = this.getSurveyDataForThisWeek(oneWeekAgo, today);
         const driveDataPromise = this.getTransformedDriveDataForThisWeek(oneWeekAgo, today);
+        const surveyDataPromise = this.getSurveyDataForThisWeek(oneWeekAgo, today);
         const carCountPromise = this.getCarCountsForTheWeek(oneWeekAgo, today);
         const dayOfTheWeekPromise = this.getDayOfTheWeekCountsForTheWeek(oneWeekAgo, today);
         const timeSlotPromise = this.getTimeSlotCountsForTheWeek(oneWeekAgo, today);
@@ -59,6 +59,7 @@ class JobWeeklyEmailAnalytics {
                     start_time_24_hr: row.scheduled_start_time,
                     first_name: row.first_name,
                     last_name: row.last_name,
+                    email: row.email,
                     phone: row.phone,
                     zipcode: row.zipcode,
                     make: row.make,
@@ -288,7 +289,22 @@ class JobWeeklyEmailAnalytics {
         const carCounts = promiseResults[2];
         const dayOfTheWeek = promiseResults[3];
         const timeSlot = promiseResults[4];
-        var promises = [];
+        let promises = [];
+
+        const dealerContacts = surveyData.filter((survey) => {
+            return survey['POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?'] ==='Yes, and I give you permission to share my contact information for this purpose';
+        }).map((dealerContact) => {
+           return {
+               first_name: dealerContact.first_name,
+               last_name: dealerContact.last_name,
+               email: dealerContact.email,
+               phone: dealerContact.phone,
+               zipcode: dealerContact.zipcode,
+               make: dealerContact.make,
+               model: dealerContact.model
+           }
+        });
+
         if(driveData.length > 0) {
             promises.push(this.writeCSV(driveData, "/tmp/reports", "drive.csv"))
         }
@@ -304,6 +320,9 @@ class JobWeeklyEmailAnalytics {
         if(timeSlot.length > 0) {
             promises.push(this.writeCSV(timeSlot, "/tmp/reports", "timeSlot.csv"));
         }
+        if(dealerContacts.length > 0) {
+            promises.push(this.writeCSV(dealerContacts, "/tmp/reports", "dealerContacts.csv"));
+        }
 
         return new Promise((resolve, reject) => {
             Promise.all(promises)
@@ -317,7 +336,7 @@ class JobWeeklyEmailAnalytics {
                     })
                 })
                 .catch(err => {
-                    console.log(err);
+                    reject(err);
                 });
         });
     }
