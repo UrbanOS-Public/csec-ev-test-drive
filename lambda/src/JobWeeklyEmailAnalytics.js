@@ -19,8 +19,7 @@ class JobWeeklyEmailAnalytics {
 
     handleEvent(event, context, callback) {
         console.log(`starting`);
-        // const today = this.moment(this.dateUtils.todayInESTFormatted()).format("YYYY-MM-DD");
-        const today = this.moment("2018-07-06").format("YYYY-MM-DD");
+        const today = this.moment(this.dateUtils.todayInESTFormatted()).format("YYYY-MM-DD");
         const oneWeekAgo = this.moment(today).subtract(7, "days").format("YYYY-MM-DD");
         const yesterday = this.moment(today).subtract(1, "days").format("YYYY-MM-DD");
         console.log(`Dates...`);
@@ -292,36 +291,36 @@ class JobWeeklyEmailAnalytics {
         let promises = [];
 
         const dealerContacts = surveyData.filter((survey) => {
-            return survey['POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?'] ==='Yes, and I give you permission to share my contact information for this purpose';
+            return survey['POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?'] === 'Yes, and I give you permission to share my contact information for this purpose';
         }).map((dealerContact) => {
-           return {
-               date: date.format("YYYY-MM-DD"),
-               first_name: dealerContact.first_name,
-               last_name: dealerContact.last_name,
-               email: dealerContact.email,
-               phone: dealerContact.phone,
-               zipcode: dealerContact.zipcode,
-               make: dealerContact.make,
-               model: dealerContact.model
-           }
+            return {
+                date: date.format("YYYY-MM-DD"),
+                first_name: dealerContact.first_name,
+                last_name: dealerContact.last_name,
+                email: dealerContact.email,
+                phone: dealerContact.phone,
+                zipcode: dealerContact.zipcode,
+                make: dealerContact.make,
+                model: dealerContact.model
+            }
         });
 
-        if(driveData.length > 0) {
+        if (driveData.length > 0) {
             promises.push(this.writeCSV(driveData, "/tmp/reports", "drive.csv"))
         }
-        if(surveyData.length > 0) {
+        if (surveyData.length > 0) {
             promises.push(this.writeCSV(surveyData, "/tmp/reports", "survey.csv"))
         }
-        if(carCounts.length > 0) {
+        if (carCounts.length > 0) {
             promises.push(this.writeCSV(carCounts, "/tmp/reports", "cars.csv"));
         }
-        if(dayOfTheWeek.length > 0) {
+        if (dayOfTheWeek.length > 0) {
             promises.push(this.writeCSV(dayOfTheWeek, "/tmp/reports", "dayOfTheWeek.csv"));
         }
-        if(timeSlot.length > 0) {
+        if (timeSlot.length > 0) {
             promises.push(this.writeCSV(timeSlot, "/tmp/reports", "timeSlot.csv"));
         }
-        if(dealerContacts.length > 0) {
+        if (dealerContacts.length > 0) {
             promises.push(this.writeCSV(dealerContacts, "/tmp/reports", "dealerContacts.csv"));
         }
 
