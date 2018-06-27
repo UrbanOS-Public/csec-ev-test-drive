@@ -172,7 +172,7 @@ export class SurveyComponent implements OnInit {
         option = question.surveyQuestionOptions.find(option => option.order_index + 1 == value);
         this.storeResponse(option.id, question.id, null);
       } else {
-        console.log("Can't find question for order_index " + i);
+        this.handleError("Can't find question for order_index " + i);
       }
     }
   }
@@ -224,7 +224,7 @@ export class SurveyComponent implements OnInit {
 
     this.evService.postSurvey(surveyData).subscribe(
       response => this.handleSurveyPostResponse(response),
-      error => this.handleSubmitError(error)
+      error => this.handleError(error)
     );
   }
 
@@ -247,9 +247,8 @@ export class SurveyComponent implements OnInit {
 
       this.evService.postScheduleDrive(scheduleDriveData).subscribe(
         response => this.handleScheduleDrivePostResponse(response),
-        error => this.handleSubmitError(error)
+        error => this.handleError(error)
       );
-
     }
   }
 
@@ -264,12 +263,13 @@ export class SurveyComponent implements OnInit {
         this.router.navigateByUrl('/checkout/thankYou');
       }
     } else {
-      console.log("no confirmation number!");
+      this.handleError("no confirmation number!");
     }
   }
 
-  handleSubmitError(error) {
+  handleError(error) {
     this.isSubmitting = false;
     this.closeModal('loading-modal');
+    this.openModal('error-modal');
   }
 }

@@ -42,12 +42,12 @@ export class CarReviewComponent implements OnInit {
 
       this.evService.postScheduleDrive(scheduleDriveData).subscribe(
         response => this.handleScheduleDrivePostResponse(response),
-        error => {} //no-op
+        error => this.handleError(error)
       );
     } else {
       this.evService.getPreSurvey().subscribe(
         response => this.handleSurveyResponse(response),
-        error => console.log(error)
+        error => this.handleError(error)
       );
     }
   }
@@ -82,7 +82,12 @@ export class CarReviewComponent implements OnInit {
       localStorage.setItem('confirmationNumber', response.confirmation_number);
       this.router.navigateByUrl('/checkin/carConfirm');
     } else {
-      console.log("no confirmation number!");
+      this.handleError("no confirmation number!");
     }
+  }
+
+  handleError(error) {
+    this.isSubmitting = false;
+    this.openModal('error-modal');
   }
 }
