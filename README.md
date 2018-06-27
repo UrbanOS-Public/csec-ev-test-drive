@@ -4,6 +4,7 @@ The Columbus Smart Experience Center - EV Test Drive application allows for sche
 - [Time Slots](#time-slots)
 - [Schedule Exceptions](#schedule-exceptions)
 - [Terraform And AWS](#terraform-and-aws)
+- [Deploy Lambdas](#deploy-lambdas)
 - [Jobs](#Jobs)
 
 # Time Slots
@@ -45,6 +46,10 @@ These rows would need to be in the database before the nightly job runs to popul
 - DNS Domain Verification - This is done via terraform but the verification records are commented out.
 - The DNS registration was done outside of AWS.  This is just because the client already owned their DNS with bluehost.com.  To configure this I logged into that account and pointed to the AWS Name Server records for our setup.
 
+To apply changes to terraform you can execute the `deploy.sh` script that is in the root of the terraform/ directory.  It assumes you have a `~/.aws/smart-experience.tvfars` with the appropriate values.
+
+# Deploy Lambdas
+To deploy/update the lambdas you can run the `deploy.sh` script that is in the root of the lambda/ directory.  It does an NPM install, zips up everything, uploads it to S3, then uses the [AWS CLI](https://aws.amazon.com/cli/) to update all of the functions.
 
 # Database
 The database is using a hosted MySQL RDS instance.  This instance is not publicly available so you need to be inside of the Virtual Private Cloud (VPC) to be able to connect to the database.  
