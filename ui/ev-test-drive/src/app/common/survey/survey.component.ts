@@ -26,6 +26,7 @@ export class SurveyComponent implements OnInit {
   sliderTextLow: string;
   sliderTextHigh: string;
   baseModule: string;
+  isSubmitting = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -195,6 +196,8 @@ export class SurveyComponent implements OnInit {
   }
 
   submitEverything() {
+    this.isSubmitting = true;
+    this.openModal('loading-modal');
     const email = localStorage.getItem('email');
     const confirmationNumber = localStorage.getItem('confirmationNumber');
 
@@ -221,12 +224,14 @@ export class SurveyComponent implements OnInit {
 
     this.evService.postSurvey(surveyData).subscribe(
       response => this.handleSurveyPostResponse(response),
-      error => {} //no-op
+      error => this.handleSubmitError(error)
     );
   }
 
   handleSurveyPostResponse(response) {
     if (this.baseModule === '/checkout') {
+      this.closeModal('loading-modal');
+      this.isSubmitting = false;
       this.router.navigateByUrl('/checkout/thankYou');
     } else {
       const selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
@@ -242,13 +247,15 @@ export class SurveyComponent implements OnInit {
 
       this.evService.postScheduleDrive(scheduleDriveData).subscribe(
         response => this.handleScheduleDrivePostResponse(response),
-        error => {} //no-op
+        error => this.handleSubmitError(error)
       );
 
-      }
+    }
   }
 
   handleScheduleDrivePostResponse(response) {
+    this.isSubmitting = false;
+    this.closeModal('loading-modal');
     if (response.confirmation_number) {
       localStorage.setItem('confirmationNumber', response.confirmation_number);
       if (this.baseModule === '/checkin') {
@@ -259,5 +266,10 @@ export class SurveyComponent implements OnInit {
     } else {
       console.log("no confirmation number!");
     }
+  }
+
+  handleSubmitError(error) {
+    this.isSubmitting = false;
+    this.closeModal('loading-modal');
   }
 }

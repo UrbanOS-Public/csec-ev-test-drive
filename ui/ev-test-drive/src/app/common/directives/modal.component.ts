@@ -34,11 +34,13 @@ export class ModalComponent implements OnInit, OnDestroy {
         document.body.appendChild(this.element);
 
         // close modal on background click
-        this.element.addEventListener('click', function (e: any) {
-            if (e.target.className === 'jw-modal') {
-                modal.close();
-            }
-        });
+        if (this.id !== 'loading-modal') {
+            this.element.addEventListener('click', function (e: any) {
+                if (e.target.className === 'jw-modal') {
+                    modal.close();
+                }
+            });
+        }
 
         // add self (this modal instance) to the modal service so it's accessible from controllers
         this.modalService.add(this);

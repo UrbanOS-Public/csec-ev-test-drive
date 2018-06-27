@@ -1,6 +1,12 @@
 @import "../../../colors.scss";
 @import "../../../cancel.scss";
 
+#loading-modal {
+  background-color: transparent;
+  height: 50px;
+  width: 50px;
+}
+
 .survey-page {
   background-color: $backgroundGray;
   font-family: Gotham, sans-serif;
