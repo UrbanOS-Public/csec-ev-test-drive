@@ -18,17 +18,25 @@ class JobWeeklyEmailAnalytics {
     }
 
     handleEvent(event, context, callback) {
-        // const today = this.moment(this.dateUtils.todayInESTFormatted());
         console.log(`starting`);
+        // const today = this.moment(this.dateUtils.todayInESTFormatted()).format("YYYY-MM-DD");
         const today = this.moment("2018-07-06").format("YYYY-MM-DD");
         const oneWeekAgo = this.moment(today).subtract(7, "days").format("YYYY-MM-DD");
+        const yesterday = this.moment(today).subtract(1, "days").format("YYYY-MM-DD");
+        console.log(`Dates...`);
+        console.log(today);
+        console.log(oneWeekAgo);
+        console.log(yesterday);
 
         const surveyDataPromise = this.getSurveyDataForThisWeek(oneWeekAgo, today);
         const driveDataPromise = this.getTransformedDriveDataForThisWeek(oneWeekAgo, today);
+        const carCountPromise = this.getCarCountsForTheWeek(oneWeekAgo, today);
+        const dayOfTheWeekPromise = this.getDayOfTheWeekCountsForTheWeek(oneWeekAgo, today);
+        const timeSlotPromise = this.getTimeSlotCountsForTheWeek(oneWeekAgo, today);
 
-        Promise.all([driveDataPromise, surveyDataPromise])
-            .then(([driveData, surveyData]) => this.saveCSVs(surveyData, driveData))
-            .then((archivePath) => this.sendEmail(archivePath))
+        Promise.all([driveDataPromise, surveyDataPromise, carCountPromise, dayOfTheWeekPromise, timeSlotPromise])
+            .then((promiseResults) => this.saveCSVs(promiseResults))
+            .then((archivePath) => this.sendEmail(archivePath, oneWeekAgo, yesterday))
             .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err))
     }
 
@@ -179,6 +187,85 @@ class JobWeeklyEmailAnalytics {
         return this.pool.doQuery(query, [oneWeekAgo, today]);
     }
 
+    getCarCountsForTheWeek(oneWeekAgo, today) {
+        const query = `
+            select 
+                c.make,
+                c.model, 
+                count(d.id) as number_of_scheduled_drives 
+            from 
+                car c 
+                left outer join drive d on c.id = d.car_id and d.date >= ? and d.date < ? 
+            group by c.make, c.model
+        `;
+        return this.pool.doQuery(query, [oneWeekAgo, today])
+            .then((data) => this.transformCarCountData(data));
+    }
+
+    transformCarCountData(data) {
+        return data.map((row) => {
+            return {
+                make: row.make,
+                model: row.model,
+                number_of_scheduled_drives: row.number_of_scheduled_drives
+            }
+        });
+    }
+
+    getDayOfTheWeekCountsForTheWeek(oneWeekAgo, today) {
+        const query = `
+            select 
+                d.date, 
+                count(d.id) as number_of_scheduled_drives 
+            from 
+                drive d 
+            where 
+                    d.date >= ? 
+                and d.date < ?
+            group by d.date 
+            order by d.date asc
+        `;
+
+        return this.pool.doQuery(query, [oneWeekAgo, today])
+            .then((data) => this.transformDayOfTheWeekData(data));
+    }
+
+    transformDayOfTheWeekData(data) {
+        return data.map((row) => {
+            return {
+                date: this.moment(row.date).format("YYYY-MM-DD"),
+                day_of_the_week: this.moment(row.date).format("dddd"),
+                number_of_scheduled_drives: row.number_of_scheduled_drives
+            }
+        });
+    }
+
+    getTimeSlotCountsForTheWeek(oneWeekAgo, today) {
+        const query = `
+            select 
+                d.scheduled_start_time, 
+                count(d.id) as number_of_scheduled_drives
+            from drive d 
+            where 
+                    d.date >= ? 
+                and d.date < ?
+            group by d.scheduled_start_time
+            order by d.scheduled_start_time asc
+        `;
+
+        return this.pool.doQuery(query, [oneWeekAgo, today])
+            .then((data) => this.transformTimeSlotData(data));
+    }
+
+    transformTimeSlotData(data) {
+        return data.map((row) => {
+            return {
+                scheduled_start_time: row.scheduled_start_time,
+                number_of_scheduled_drives: row.number_of_scheduled_drives
+            }
+        });
+    }
+
     transformDriveData(driveAndSurveyData) {
         return driveAndSurveyData.map((row) => {
             const date = this.moment(row.date);
@@ -195,19 +282,35 @@ class JobWeeklyEmailAnalytics {
         });
     }
 
-    saveCSVs(surveyData, driveData) {
-        const p1 = this.writeCSV(surveyData, "/tmp/reports", "survey.csv");
-        const p2 = this.writeCSV(driveData, "/tmp/reports", "drive.csv");
-        console.log('Data...');
-        console.log(surveyData);
-        console.log(driveData);
+    saveCSVs(promiseResults) {
+        const driveData = promiseResults[0];
+        const surveyData = promiseResults[1];
+        const carCounts = promiseResults[2];
+        const dayOfTheWeek = promiseResults[3];
+        const timeSlot = promiseResults[4];
+        var promises = [];
+        if(driveData.length > 0) {
+            promises.push(this.writeCSV(driveData, "/tmp/reports", "drive.csv"))
+        }
+        if(surveyData.length > 0) {
+            promises.push(this.writeCSV(surveyData, "/tmp/reports", "survey.csv"))
+        }
+        if(carCounts.length > 0) {
+            promises.push(this.writeCSV(carCounts, "/tmp/reports", "cars.csv"));
+        }
+        if(dayOfTheWeek.length > 0) {
+            promises.push(this.writeCSV(dayOfTheWeek, "/tmp/reports", "dayOfTheWeek.csv"));
+        }
+        if(timeSlot.length > 0) {
+            promises.push(this.writeCSV(timeSlot, "/tmp/reports", "timeSlot.csv"));
+        }
 
         return new Promise((resolve, reject) => {
-            Promise.all([p1, p2])
-                .then((data) => {
+            Promise.all(promises)
+                .then(() => {
                     const archivePath = '/tmp/archive.zip';
-                    childProcess.exec(`src/utils/zip -r -j -P ***REMOVED*** ${archivePath} /tmp/reports`, (err, stout, stderr) => {
-                        if(err) {
+                    childProcess.exec(`src/utils/zip -r -j -P ***REMOVED*** ${archivePath} /tmp/reports`, (err) => {
+                        if (err) {
                             return reject(err);
                         }
                         resolve(archivePath);
@@ -237,15 +340,15 @@ class JobWeeklyEmailAnalytics {
         });
     }
 
-    sendEmail(archivePath) {
+    sendEmail(archivePath, oneWeekAgo, yesterday) {
         return new Promise((resolve, reject) => {
             const mailOptions = {
                 from: `EV Test Drive <${process.env.email}>`,
                 sender: process.env.email,
                 to: ['jolson@pillartechnology.com'],
                 replyTo: process.env.email,
-                subject: "weekly email",
-                text: "Weekly analytics",
+                subject: `EV Test Drive Weekly Analytics`,
+                text: `Attached are the analytics for ${oneWeekAgo} through ${yesterday}`,
                 attachments: [
                     {path: archivePath}
                 ]

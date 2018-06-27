@@ -29,7 +29,6 @@ describe('JobSendConfirmationEmail', () => {
             sendTemplatedEmail: sandbox.stub()
         };
 
-
         mockedSES.sendTemplatedEmail.returns({
             promise: () => Promise.resolve(sesResponseJson)
         });
