@@ -295,6 +295,7 @@ class JobWeeklyEmailAnalytics {
             return survey['POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?'] ==='Yes, and I give you permission to share my contact information for this purpose';
         }).map((dealerContact) => {
            return {
+               date: date.format("YYYY-MM-DD"),
                first_name: dealerContact.first_name,
                last_name: dealerContact.last_name,
                email: dealerContact.email,
