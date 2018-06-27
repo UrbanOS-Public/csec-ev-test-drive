@@ -71,7 +71,7 @@ export class RegistrationComponent implements OnInit {
 
       this.evService.getCars().subscribe(
         cars => this.initializeCars(cars),
-        error => console.log(error)
+        error => this.handleError(error)
       );
     } else {
       this.handleError(null);
@@ -82,7 +82,7 @@ export class RegistrationComponent implements OnInit {
     localStorage.setItem('cars', JSON.stringify(cars));
     this.evService.getTimeslots().subscribe(
       times => this.initializeTimeslots(times),
-      error => console.log(error)
+      error => this.handleError(error)
     );
   }
 
@@ -92,6 +92,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   private handleError(error) {
-    this.router.navigateByUrl('/checkin');
+    this.formSubmitted = false;
+    this.openModal('error-modal');
   }
 }

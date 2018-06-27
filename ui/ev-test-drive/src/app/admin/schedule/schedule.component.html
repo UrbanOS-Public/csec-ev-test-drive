@@ -17,6 +17,16 @@
   </div>
 </jw-modal>
 
+<jw-modal id="error-modal">
+  <div id="error-pane" class="error-pane">
+    <h1 class="header-text">An error occurred, please try again.</h1>
+
+    <div class="ok" (click)="closeModal('error-modal')">
+      <p>OK</p>
+    </div>
+  </div>
+</jw-modal>
+
 <div class="schedule-screen">
   <div class="header">
     <img class="scLogo" src="assets/scLogo.svg">
