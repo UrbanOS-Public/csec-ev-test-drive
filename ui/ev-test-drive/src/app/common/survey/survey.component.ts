@@ -101,7 +101,11 @@ export class SurveyComponent implements OnInit {
 
   doBack() {
     if (this.pageDisplayId <= 1) {
-      this.router.navigateByUrl(this.baseModule + '/carReview');
+      if (this.baseModule === '/checkin') {
+        this.router.navigateByUrl(this.baseModule + '/carReview');
+      } else {
+        this.router.navigateByUrl(this.baseModule);
+      }
     } else {
       this.resetForm();
       this.router.navigateByUrl(this.baseModule + '/survey/' + (this.pageDisplayId - 1));
