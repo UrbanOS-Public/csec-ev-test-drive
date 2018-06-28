@@ -34,7 +34,7 @@ class JobWeeklyEmailAnalytics {
         const timeSlotPromise = this.getTimeSlotCountsForTheWeek(oneWeekAgo, today);
 
         Promise.all([driveDataPromise, surveyDataPromise, carCountPromise, dayOfTheWeekPromise, timeSlotPromise])
-            .then((promiseResults) => this.saveCSVs(promiseResults))
+            .then((promiseResults) => this.saveCSVs(promiseResults, oneWeekAgo, yesterday))
             .then((archivePath) => this.sendEmail(archivePath, oneWeekAgo, yesterday))
             .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err))
     }
@@ -282,7 +282,7 @@ class JobWeeklyEmailAnalytics {
         });
     }
 
-    saveCSVs(promiseResults) {
+    saveCSVs(promiseResults, oneWeekAgo, yesterday) {
         const driveData = promiseResults[0];
         const surveyData = promiseResults[1];
         const carCounts = promiseResults[2];
@@ -327,8 +327,9 @@ class JobWeeklyEmailAnalytics {
         return new Promise((resolve, reject) => {
             Promise.all(promises)
                 .then(() => {
-                    const archivePath = '/tmp/archive.zip';
-                    childProcess.exec(`src/utils/zip -r -j -P 17043215 ${archivePath} /tmp/reports`, (err) => {
+                    const archivePath = `/tmp/weekly_report_${oneWeekAgo}_${yesterday}.zip`;
+                    // childProcess.exec(`src/utils/zip -r -j -P 17043215 ${archivePath} /tmp/reports`, (err) => {
+                    childProcess.exec(`zip -r -j -P 17043215 ${archivePath} /tmp/reports`, (err) => {
                         if (err) {
                             return reject(err);
                         }
