@@ -46,7 +46,14 @@ These rows would need to be in the database before the nightly job runs to popul
 - DNS Domain Verification - This is done via terraform but the verification records are commented out.
 - The DNS registration was done outside of AWS.  This is just because the client already owned their DNS with bluehost.com.  To configure this I logged into that account and pointed to the AWS Name Server records for our setup.
 
-To apply changes to terraform you can execute the `deploy.sh` script that is in the root of the terraform/ directory.  It assumes you have a `~/.aws/smart-experience.tvfars` with the appropriate values.
+To apply changes to terraform you can execute the `deploy.sh` script that is in the root of the terraform/ directory.  It assumes you have a `~/.aws/smart-experience.tvfars` with the appropriate values.  
+The only values you would need would be the access key and secret key for a service account.  If you do not have the access key and secret key you should be able to create one through the [AWS Console in the IAM section](https://console.aws.amazon.com/iam/home?#/home)
+This user would need to be added to the `CSECEVTestDriveAdmins` group.
+~~~~ 
+access_key = "AKI______________ZOA"
+secret_key = "VjUn________________________________+0ed"
+~~~~
+
 
 # Deploy Lambdas
 To deploy/update the lambdas you can run the `deploy.sh` script that is in the root of the lambda/ directory.  It does an NPM install, zips up everything, uploads it to S3, then uses the [AWS CLI](https://aws.amazon.com/cli/) to update all of the functions.
@@ -57,6 +64,9 @@ If you need to do this to make data changes then you would need to:
 1. Turn on the [Jumpbox EC2 instance](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:search=Jumpbox;sort=instanceType). Turning on this instance will assign it a new IP address.
 2. ssh to the server with a command like this: `ssh -i ~/.ssh/PillarSmartExperienceKey.pem ec2-user@54.209.254.201`
 3. Once on the server you can connect to the database with the following command: `mysql smart_experience -h smartexperience.ccpbmhkikhpm.us-east-1.rds.amazonaws.com -usmrt -p'<PASSWORD>'`
+
+If you don't have access to the mentioned private key you can create a new EC2 Instance uses the Amazon Linux AMI, and add the `Jumpbox Security Group` to it's list of Security Groups.  This Security Group allows access via a restricted range of IP address.  
+If you are trying to ssh to the server and cannot you may want to ensure that your IP address is in the ingress list of IP Addresses.
 
 # Jobs
 There are several background jobs that run to setup data, archive data, and to send out emails.
