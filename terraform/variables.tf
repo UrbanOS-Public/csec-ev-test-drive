@@ -9,8 +9,10 @@ variable "access_key" {
 variable "secret_key" {
 }
 variable "accountName" {
+  default = "SmartExperience"
 }
 variable "account_number" {
+  default = "***REMOVED***"
 }
 variable "region" {
   default = "us-east-1"

@@ -153,3 +153,24 @@ module "api_cancel_drive" {
   account_number = "${var.account_number}"
   method = "POST"
 }
+
+
+resource "aws_api_gateway_authorizer" "SmartExperience" {
+  name = "SmartExperienceAuthorizer"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  type = "COGNITO_USER_POOLS"
+  provider_arns = [
+    "${aws_cognito_user_pool.smart_experience.arn}"]
+}
+
+module "api_test_auth" {
+  source = "./modules/api/create_authenticated_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_rest_api.SmartExperienceApi.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "testAuth"
+  function_invoke_arn = "${module.ApiTestingAuthFunction.invoke_arn}"
+  function_arn = "${module.ApiTestingAuthFunction.arn}"
+  aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
+  account_number = "${var.account_number}"
+  method = "GET"
+}
