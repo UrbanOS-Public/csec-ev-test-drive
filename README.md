@@ -1,5 +1,9 @@
 # csec-ev-test-drive
 The Columbus Smart Experience Center - EV Test Drive application allows for scheduling of test drives and capturing of survey information.
+This application was developed over the course of 2.5 weeks.  That being said the current workflow is extremely slimmed down and some "best practices" like TDD were not necessarily followed.  
+Using the best judgment of the original developers (Jarred Olson, Kyle Engan, and a little support from Michael Cibulskis) we chose to test drive things that were more complex.  
+For example Jarred did not TDD the `GetCars.js` file because it simply does a query against the database and transforms the data to send back to the caller.  
+When originally written there were 2 paths through that code, so if it works it works, if it didn't it would be pretty obvious.
 
 - [Time Slots](#time-slots)
 - [Schedule Exceptions](#schedule-exceptions)
