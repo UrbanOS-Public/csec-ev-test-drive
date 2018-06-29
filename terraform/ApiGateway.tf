@@ -174,3 +174,45 @@ module "api_test_auth" {
   account_number = "${var.account_number}"
   method = "GET"
 }
+
+resource "aws_api_gateway_resource" "admin_resource" {
+  path_part = "admin"
+  parent_id = "${aws_api_gateway_rest_api.SmartExperienceApi.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+}
+
+module "api_admin_get_schedule" {
+  source = "./modules/api/create_authenticated_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_resource.admin_resource.id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "schedule"
+  function_invoke_arn = "${module.ApiGetScheduleFunction.invoke_arn}"
+  function_arn = "${module.ApiGetScheduleFunction.arn}"
+  aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
+  account_number = "${var.account_number}"
+  method = "GET"
+}
+
+module "api_admin_get_scheduled_drives" {
+  source = "./modules/api/create_authenticated_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_resource.admin_resource.id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "drives"
+  function_invoke_arn = "${module.ApiGetScheduledDrivesFunction.invoke_arn}"
+  function_arn = "${module.ApiGetScheduledDrivesFunction.arn}"
+  aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
+  account_number = "${var.account_number}"
+  method = "GET"
+}
+
+module "api_admin_cancel_drive" {
+  source = "./modules/api/create_authenticated_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_resource.admin_resource.id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "cancelDrive"
+  function_invoke_arn = "${module.ApiCancelDriveFunction.invoke_arn}"
+  function_arn = "${module.ApiCancelDriveFunction.arn}"
+  aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
+  account_number = "${var.account_number}"
+  method = "POST"
+}
