@@ -89,7 +89,6 @@ CREATE TABLE schedule (
 
 CREATE TABLE schedule_exception (
   `id`                  BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `day_of_the_week`     TINYINT    NOT NULL,
   `date`                DATE       NOT NULL,
   `start_time`          TIME       NOT NULL,
   `end_time`            TIME       NOT NULL,
@@ -334,7 +333,7 @@ values
   (1000102, 'Gender', 1000502, 'MC', 0),
   (1000103, 'Do you currently drive an electric vehicle (EV)?', 1000503, 'MC', 0),
   (1000104, 'How many miles do you drive a day?', 1000504, 'MC', 0),
-  (1000105, 'Do you plan to purchase or lease a vehicle in the next….?', 1000505, 'MC', 0),
+  (1000105, 'I plan to purchase or lease a vehicle in the next…', 1000505, 'MC', 0),
   (1000106, 'Acceleration', 1000506, 'SCALE', 0),
   (1000107, 'Handling', 1000506, 'SCALE', 1),
   (1000108, 'All-wheel drive', 1000506, 'SCALE', 2),
