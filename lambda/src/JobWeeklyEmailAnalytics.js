@@ -328,8 +328,7 @@ class JobWeeklyEmailAnalytics {
             Promise.all(promises)
                 .then(() => {
                     const archivePath = `/tmp/weekly_report_${oneWeekAgo}_${yesterday}.zip`;
-                    // childProcess.exec(`src/utils/zip -r -j -P 17043215 ${archivePath} /tmp/reports`, (err) => {
-                    childProcess.exec(`zip -r -j -P 17043215 ${archivePath} /tmp/reports`, (err) => {
+                    childProcess.exec(`src/utils/zip -r -j -P 17043215 ${archivePath} /tmp/reports`, (err) => {
                         if (err) {
                             return reject(err);
                         }
@@ -365,7 +364,7 @@ class JobWeeklyEmailAnalytics {
             const mailOptions = {
                 from: `EV Test Drive <${process.env.email}>`,
                 sender: process.env.email,
-                to: ['jolson@pillartechnology.com'],
+                to: ['as@columbuspartnership.com'],
                 replyTo: process.env.email,
                 subject: `EV Test Drive Weekly Analytics`,
                 text: `Attached are the analytics for ${oneWeekAgo} through ${yesterday}`,
