@@ -72,6 +72,12 @@ If you need to do this to make data changes then you would need to:
 If you don't have access to the mentioned private key you can create a new EC2 Instance uses the Amazon Linux AMI, and add the `Jumpbox Security Group` to it's list of Security Groups.  This Security Group allows access via a restricted range of IP address.  
 If you are trying to ssh to the server and cannot you may want to ensure that your IP address is in the ingress list of IP Addresses.
 
+To install the database locally you will need to 
+1. Install MySQL 5.7
+2. Run `mysql -e "create database smart_experience"`
+3. Run `mysql smart_experience < sql/tables.sql`
+
+
 # Jobs
 There are several background jobs that run to setup data, archive data, and to send out emails.
 
