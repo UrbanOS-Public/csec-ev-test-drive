@@ -62,8 +62,11 @@ describe('JobSendConfirmationEmail', () => {
                             };
                             const expectedParams = {
                                 Destination: {
-                                    ToAddresses: [
-                                        "jolson@pillartechnology.com"
+                                    BccAddresses: [
+                                        "jolson@pillartechnology.com",
+                                        "ba@columbuspartnership.com",
+                                        "mkh@columbuspartnership.com",
+                                        "***REMOVED***"
                                     ]
                                 },
                                 Source: 'EV Test Drive <no-reply@drivesmartcbus.com>',
