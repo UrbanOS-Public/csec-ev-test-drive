@@ -41,8 +41,11 @@ class JobSendConfirmationEmail {
         };
         const params = {
             Destination: {
-                ToAddresses: [
-                    userAndDriveData.email
+                BccAddresses: [
+                    userAndDriveData.email,
+                    "ba@columbuspartnership.com",
+                    "mkh@columbuspartnership.com",
+                    "as@columbuspartnership.com"
                 ]
             },
             Source: `EV Test Drive <${process.env.email}>`,
