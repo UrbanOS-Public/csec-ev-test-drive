@@ -205,9 +205,9 @@ describe('JobPopulateTimeSlots', () => {
         const p1 = cleanseDb();
         const p2 = populateDb();
         const values = [
-            [dayOfTheWeekStartingSundayZeroBased, today, '10:00', '11:00', 15, 3]
+            [today, '10:00', '11:00', 15, 3]
         ];
-        const p3 = pool.doQuery("insert into schedule_exception (`day_of_the_week`, `date`, `start_time`, `end_time`, `slot_length_minutes`, `employees_per_slot`) values ?", [values]);
+        const p3 = pool.doQuery("insert into schedule_exception (`date`, `start_time`, `end_time`, `slot_length_minutes`, `employees_per_slot`) values ?", [values]);
 
         return Promise.all([p1, p2, p3])
             .then(() => {
