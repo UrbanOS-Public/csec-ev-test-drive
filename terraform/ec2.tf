@@ -65,7 +65,7 @@ resource "aws_instance" "jumpbox" {
   }
   key_name = "PillarSmartExperienceKey"
   vpc_security_group_ids = ["${aws_security_group.jumpbox_security_group.id}"]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
 }
 
 resource "aws_security_group" "jumpbox_security_group" {
