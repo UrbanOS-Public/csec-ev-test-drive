@@ -17,7 +17,7 @@ resource "aws_security_group" "LambdaSecurityGroup" {
 resource "aws_subnet" "Subnet1a" {
   vpc_id     = "${var.vpc_id}"
   cidr_block = "172.31.80.0/20"
-  availability_zone = "us-east-1a"
+  availability_zone = "${var.region}a"
   map_public_ip_on_launch = true
   tags {
     Name = "Subnet1a"
@@ -27,7 +27,7 @@ resource "aws_subnet" "Subnet1a" {
 resource "aws_subnet" "Subnet1b" {
   vpc_id     = "${var.vpc_id}"
   cidr_block = "172.31.16.0/20"
-  availability_zone = "us-east-1b"
+  availability_zone = "${var.region}b"
   map_public_ip_on_launch = true
   tags {
     Name = "Subnet1b"
@@ -37,7 +37,7 @@ resource "aws_subnet" "Subnet1b" {
 resource "aws_subnet" "Subnet1c" {
   vpc_id     = "${var.vpc_id}"
   cidr_block = "172.31.32.0/20"
-  availability_zone = "us-east-1c"
+  availability_zone = "${var.region}c"
   map_public_ip_on_launch = true
   tags {
     Name = "Subnet1c"
@@ -47,7 +47,7 @@ resource "aws_subnet" "Subnet1c" {
 resource "aws_subnet" "Subnet1d" {
   vpc_id     = "${var.vpc_id}"
   cidr_block = "172.31.0.0/20"
-  availability_zone = "us-east-1d"
+  availability_zone = "${var.region}d"
   map_public_ip_on_launch = true
   tags {
     Name = "Subnet1d"
@@ -57,7 +57,7 @@ resource "aws_subnet" "Subnet1d" {
 resource "aws_subnet" "Subnet1f" {
   vpc_id     = "${var.vpc_id}"
   cidr_block = "172.31.64.0/20"
-  availability_zone = "us-east-1f"
+  availability_zone = "${var.region}f"
   map_public_ip_on_launch = true
   tags {
     Name = "Subnet1f"
