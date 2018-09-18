@@ -1,0 +1,5 @@
+dns_name = "drivesmartcbus.com"
+password = "***REMOVED***"
+vpc_id = "***REMOVED***"
+region = "us-east-1"
+subnet_1 = "***REMOVED***"

@@ -15,18 +15,12 @@ variable "account_number" {
   default = "***REMOVED***"
 }
 variable "region" {
-  default = "us-east-1"
 }
 
 variable "vpc_id" {
-  default = "***REMOVED***"
-}
-variable "subnet-us-east-1-a" {
-  default = "***REMOVED***"
 }
 
-variable "subnet-us-east-1-b" {
-  default = "subnet-91a933db"
+variable "subnet_1" {
 }
 
 variable "user" {
@@ -34,11 +28,9 @@ variable "user" {
 }
 
 variable "password" {
-  default = "***REMOVED***"
 }
 
 variable "dns_name" {
-  default = "drivesmartcbus.com"
 }
 
 variable "email_send_from_account" {

@@ -59,7 +59,7 @@
 resource "aws_instance" "jumpbox" {
   ami = "***REMOVED***"
   instance_type = "t2.micro"
-  subnet_id = "${var.subnet-us-east-1-a}"
+  subnet_id = "${var.subnet_1}"
   tags {
     Name = "Jumpbox"
   }
