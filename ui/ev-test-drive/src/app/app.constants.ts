@@ -1,6 +1,8 @@
+import {environment} from '../environments/environment';
+
 export const api_key = 'mpUwFh2LT5fqmnqelGbTa49aOABQWF81aQoezAJa';
 
-export const apiBaseUrl       = 'https://api.drivesmartcbus.com';
+export const apiBaseUrl       = environment.apiBaseUrl;
 
 export const newUserUrl       = apiBaseUrl + '/user';
 export const carUrl           = apiBaseUrl + '/cars';
