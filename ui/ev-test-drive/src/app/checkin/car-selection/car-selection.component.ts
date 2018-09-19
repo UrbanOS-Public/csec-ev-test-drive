@@ -31,7 +31,7 @@ export class CarSelectionComponent implements OnInit {
     if (localStorage.getItem('email')) {
       this.getCars();
     } else {
-      this.router.navigateByUrl('/checkin');
+      // this.router.navigateByUrl('/checkin');
     }
   }
 

@@ -255,8 +255,8 @@ export class SurveyComponent implements OnInit {
   handleScheduleDrivePostResponse(response) {
     this.isSubmitting = false;
     this.closeModal('loading-modal');
-    if (response.confirmation_number) {
-      localStorage.setItem('confirmationNumber', response.confirmation_number);
+    if (true) { //TODO: Don't do this
+      localStorage.setItem('confirmationNumber', "R1"); //TODO: Make this not hardcoded
       if (this.baseModule === '/checkin') {
         this.router.navigateByUrl('/checkin/carConfirm');
       } else {
@@ -268,6 +268,7 @@ export class SurveyComponent implements OnInit {
   }
 
   handleError(error) {
+    console.log(error);
     this.isSubmitting = false;
     this.closeModal('loading-modal');
     this.openModal('error-modal');
