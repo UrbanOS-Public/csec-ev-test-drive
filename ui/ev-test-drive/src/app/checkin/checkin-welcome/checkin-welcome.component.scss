@@ -1,5 +1,5 @@
 @import "../../../colors.scss";
-
+$break-small: 445px;
 .welcomeScreen {
   width: 100vw;
   height: 100vh;
@@ -26,7 +26,7 @@
     .welcomePane {
       height: 405px;
 
-      @media screen and (max-width : 445px){
+      @media screen and (max-width : $break-small){
         width: 90%;
         margin-left: 5%;
         margin-right: 5%;
@@ -44,7 +44,7 @@
 
       .titleText {
         color: #333;
-        @media screen and (max-width : 445px){
+        @media screen and (max-width : $break-small){
           font-size: 32px;
           line-height: 40px;
         }
@@ -85,11 +85,8 @@
           .scheduleDriveButtonText {
             color: #FFF;
             margin: 0;
-            @media screen and (max-width : 445px){
+            @media screen and (max-width : $break-small){
               font-size: 18px;
-            }
-            @media screen and (min-width: 1200px) {
-              font-size: 24px;
             }
             font-size: 24px;
             font-weight: 500;
