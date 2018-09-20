@@ -37,6 +37,7 @@ module "JobMonthlyEmailAnalyticsFunction" {
       user = "${var.user}"
       password = "${var.password}"
       email = "${var.email_send_from_account}"
+      send_to_email = "${var.send_to_email}"
     }
   }
 }
