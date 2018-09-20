@@ -17,7 +17,7 @@
     }
 
     .title-text {
-      color: #FFFFFF;
+      color: $white;
       font-weight: 500;
       font-size: 21px;
       letter-spacing: -0.43px;
@@ -80,7 +80,7 @@
         }
 
         .top {
-          color: #FFFFFF;
+          color: $white;
           font-weight: 300;
           font-size: 14px;
           letter-spacing: -1.26px;
@@ -99,7 +99,7 @@
         }
 
         .bottom {
-          color: #FFFFFF;
+          color: $white;
           font-weight: 700;
           font-size: 15px;
           letter-spacing: -1.11px;
@@ -108,7 +108,7 @@
       }
 
       car-tile {
-        background-color: #FFFFFF;
+        background-color: $white;
         display: inline-block;
         margin: 0;
         text-align: left;
@@ -118,7 +118,7 @@
 
       .close {
         background-color: $pink;
-        color: #FFFFFF;
+        color: $white;
         display: inline-block;
         height: 48px;
         width: 314px;
