@@ -1,6 +1,7 @@
 @import "../../../colors.scss";
 @import "../../../cancel.scss";
 @import "../../../error.scss";
+@import "../../../mixins.scss";
 
 #loading-modal {
   background-color: transparent;
@@ -17,11 +18,7 @@
   position: relative;
 
   .header {
-    background-color: #000000;
-    height: 70px;
-    width: 100vw;
-    position: relative;
-    text-align: center;
+    @include header-for-tablet;
 
     .scLogo {
       height: 68px;
