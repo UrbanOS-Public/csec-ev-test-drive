@@ -1,5 +1,6 @@
 @import "../../../colors.scss";
 @import "../../../error.scss";
+@import "../../../mixins.scss";
 
 .pin-pane {
   background-color: #FFFFFF;
@@ -74,11 +75,7 @@
   position: relative;
 
   .header {
-    background-color: #000000;
-    height: 70px;
-    width: 100vw;
-    position: relative;
-    text-align: center;
+    @include header-for-tablet;
 
     .scLogo {
       height: 68px;
