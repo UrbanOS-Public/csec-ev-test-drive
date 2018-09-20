@@ -6,7 +6,6 @@
 
 .registrationForm {
   background-color: #F6F6F6;
-  margin: 0;
   font-family: Gotham, sans-serif;
   width: 100vw;
   height: calc(100vh - 70px);
@@ -22,7 +21,7 @@
       text-align: center;
 
       h1 {
-        color: #FFFFFF;
+        color: $white;
         font-size: 21px;
         font-weight: 500;
         line-height: 51px;
@@ -32,8 +31,6 @@
       }
     }
   }
-
-  
 
   form {
     .registrationForm {

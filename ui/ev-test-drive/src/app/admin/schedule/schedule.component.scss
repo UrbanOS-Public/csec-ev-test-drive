@@ -3,7 +3,7 @@
 @import "../../../mixins.scss";
 
 .pin-pane {
-  background-color: #FFFFFF;
+  background-color: $white;
   text-align: center;
   font-family: Gotham, sans-serif;
   margin: 0;
@@ -49,7 +49,7 @@
     vertical-align: middle;
 
     p {
-      color: #FFFFFF;
+      color: $white;
       display: inline-block;
       margin: 0;
       padding-top: 15px;
@@ -82,7 +82,7 @@
     }
 
     .title-text {
-      color: #FFFFFF;
+      color: $white;
       font-weight: 500;
       font-size: 21px;
       letter-spacing: -0.43px;
@@ -116,7 +116,7 @@
         vertical-align: middle;
 
         p {
-          color: #FFFFFF;
+          color: $white;
           font-size: 25px;
           font-weight: 500;
           letter-spacing: -1.21px;
@@ -128,7 +128,7 @@
       }
 
       .driver-info {
-        background-color: #FFFFFF;
+        background-color: $white;
         height: 54px;
         width: calc(100vw - 200px);
         border: 1px solid #C7C7C7;
@@ -234,7 +234,7 @@
             background-color: #252525;
 
             .dot {
-              background-color: #FFFFFF;
+              background-color: $white;
             }
           }
 
@@ -256,7 +256,7 @@
             cursor: pointer;
 
             p {
-              color: #FFFFFF;
+              color: $white;
               font-size: 17px;
               margin: 0;
               padding-top: 21px;
