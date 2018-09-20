@@ -1,5 +1,5 @@
 @import "../../../colors.scss";
-
+$break-small: 445px;
 .car-confirm-screen {
   background-color: $backgroundGray;
   font-family: Gotham, sans-serif;
@@ -7,6 +7,7 @@
   width: 100vw;
   height: 100vh;
   position: relative;
+  overflow:scroll;
 
   .header {
     background-color: #000000;
@@ -47,6 +48,9 @@
       letter-spacing: -1.21px;
       line-height: 30px;
       margin: 0;
+      @media screen and (max-width : $break-small){
+        margin-top:0px;
+      }
       margin-top: 54px;
     }
 
