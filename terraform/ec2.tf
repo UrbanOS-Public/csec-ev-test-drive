@@ -59,13 +59,13 @@
 resource "aws_instance" "jumpbox" {
   ami = "***REMOVED***"
   instance_type = "t2.micro"
-  subnet_id = "${var.subnet_1}"
+  subnet_id = "${aws_subnet.Subnet1.id}"
   tags {
     Name = "Jumpbox"
   }
   key_name = "PillarSmartExperienceKey"
   vpc_security_group_ids = ["${aws_security_group.jumpbox_security_group.id}"]
-  associate_public_ip_address = false
+  associate_public_ip_address = true
 }
 
 resource "aws_security_group" "jumpbox_security_group" {
