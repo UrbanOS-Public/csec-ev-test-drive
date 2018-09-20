@@ -11,12 +11,7 @@ class GetTimeSlots {
     }
 
     handleEvent(event, context, callback) {
-        const july5th = moment('2018-07-05');
-        const todayInEST = dateUtils.todayInEST();
         let date = dateUtils.todayInESTFormatted();
-        if (todayInEST.isBefore(july5th)) {
-            date = july5th.format("YYYY-MM-DD");
-        }
         const timeSlotsPromise = this.getTimeSlotsForDate(date);
         const carSlotsPromise = this.getCarSlotsForDate(date);
 
