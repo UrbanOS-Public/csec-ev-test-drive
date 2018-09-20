@@ -44,6 +44,7 @@ module "api_post_user" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "POST"
+  region = "${var.region}"
 }
 
 module "api_get_cars" {
@@ -56,6 +57,7 @@ module "api_get_cars" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_get_timeSlots" {
@@ -68,6 +70,7 @@ module "api_get_timeSlots" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_get_preSurvey" {
@@ -80,6 +83,7 @@ module "api_get_preSurvey" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_get_postSurvey" {
@@ -92,6 +96,7 @@ module "api_get_postSurvey" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_post_saveSurvey" {
@@ -104,6 +109,7 @@ module "api_post_saveSurvey" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "POST"
+  region = "${var.region}"
 }
 
 module "api_post_scheduleDrive" {
@@ -116,6 +122,7 @@ module "api_post_scheduleDrive" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "POST"
+  region = "${var.region}"
 }
 
 module "api_get_schedule" {
@@ -128,6 +135,7 @@ module "api_get_schedule" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_get_user" {
@@ -140,6 +148,7 @@ module "api_get_user" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_cancel_drive" {
@@ -152,6 +161,7 @@ module "api_cancel_drive" {
   api_key_required = "true"
   account_number = "${var.account_number}"
   method = "POST"
+  region = "${var.region}"
 }
 
 
@@ -173,6 +183,7 @@ module "api_test_auth" {
   aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 resource "aws_api_gateway_resource" "admin_resource" {
@@ -191,6 +202,7 @@ module "api_admin_get_schedule" {
   aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_admin_get_scheduled_drives" {
@@ -203,6 +215,7 @@ module "api_admin_get_scheduled_drives" {
   aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
   account_number = "${var.account_number}"
   method = "GET"
+  region = "${var.region}"
 }
 
 module "api_admin_cancel_drive" {
@@ -215,4 +228,5 @@ module "api_admin_cancel_drive" {
   aws_api_gateway_authorizer_id = "${aws_api_gateway_authorizer.SmartExperience.id}"
   account_number = "${var.account_number}"
   method = "POST"
+  region = "${var.region}"
 }

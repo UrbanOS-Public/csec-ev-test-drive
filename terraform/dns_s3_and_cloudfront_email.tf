@@ -236,7 +236,7 @@ resource "aws_route53_record" "example_ses_domain_mail_from_mx" {
   name    = "${aws_ses_domain_mail_from.mail_drivesmartcbus.mail_from_domain}"
   type    = "MX"
   ttl     = "600"
-  records = ["1 inbound-smtp.us-east-1.amazonaws.com", "10 feedback-smtp.us-east-1.amazonses.com"]
+  records = ["1 inbound-smtp.${var.region}.amazonaws.com", "10 feedback-smtp.${var.region}.amazonses.com"]
 }
 
 resource "aws_route53_record" "drivesmartcbus_email_inbound_mx" {
@@ -244,7 +244,7 @@ resource "aws_route53_record" "drivesmartcbus_email_inbound_mx" {
   name    = "${var.dns_name}"
   type    = "MX"
   ttl     = "600"
-  records = ["1 inbound-smtp.us-east-1.amazonaws.com"]
+  records = ["1 inbound-smtp.${var.region}.amazonaws.com"]
 }
 
 
