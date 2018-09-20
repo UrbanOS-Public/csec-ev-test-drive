@@ -10,7 +10,9 @@ module "JobArchiveCarScheduleFunction" {
   role_arn = "${module.JobArchiveCarScheduleRole.arn}"
   timeout = "300"
   description = "Runs nightly to archive Car Schedules in the past"
-  vpc_subnet_ids = [ "${aws_subnet.Subnet1d.id}", "${aws_subnet.Subnet1b.id}" ]
+  vpc_subnet_ids = [
+    "${aws_subnet.Subnet2.id}",
+    "${aws_subnet.Subnet3.id}"]
   vpc_security_group_ids = [ "${aws_security_group.LambdaSecurityGroup.id}" ]
   environment = {
     variables = {

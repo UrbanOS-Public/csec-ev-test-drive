@@ -29,7 +29,9 @@ module "JobWeeklyEmailAnalyticsFunction" {
   role_arn = "${module.JobWeeklyEmailAnalyticsRole.arn}"
   timeout = "300"
   description = "Runs job to send email based on the user_drive_map table"
-  vpc_subnet_ids = [ "${aws_subnet.Subnet1d.id}", "${aws_subnet.Subnet1b.id}" ]
+  vpc_subnet_ids = [
+    "${aws_subnet.Subnet2.id}",
+    "${aws_subnet.Subnet3.id}"]
   vpc_security_group_ids = [ "${aws_security_group.LambdaSecurityGroup.id}" ]
   environment = {
     variables = {
