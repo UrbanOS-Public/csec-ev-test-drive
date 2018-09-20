@@ -8,13 +8,14 @@
   background-color: #F6F6F6;
   font-family: Gotham, sans-serif;
   width: 100vw;
-  height: calc(100vh - 70px);
+  max-width: 100%;
+  margin: auto;
 
   .header {
     @include header-for-tablet;
 
     .scLogo {
-      @include sc-logo-for-tablet;
+        @include sc-logo-for-tablet;
     }
 
     .pageTitle {
@@ -22,7 +23,6 @@
 
       h1 {
         color: $white;
-        font-size: 21px;
         font-weight: 500;
         line-height: 51px;
         letter-spacing: -0.43px;
@@ -38,39 +38,8 @@
         padding-top: 45px;
         text-align: center;
       }
-
-      .questions {
-        padding-top: 65px;
-        text-align: center;
-
-        text-field {
-          text-align: left;
-          display: inline-block;
-          min-height: 150px;
-        }
-        .first-name {
-          width: 288px;
-        }
-        .last-name {
-          width: 288px;
-          margin-left: 50px;
-        }
-        .zip {
-          width: 144px;
-          margin-left: 50px;
-        }
-        .email {
-          width: 385px;
-        }
-        .phone {
-          width: 385px;
-          margin-left: 50px;
-        }
-      }
     }
-
     .footer {
-      position: absolute;
       bottom: 0;
       text-align: right;
       min-height: 80px;
@@ -129,6 +98,80 @@
       }
       .submit.disabled {
         opacity: 0.28;
+      }
+    }
+  }
+
+  @include for-phone-only {
+    .pageTitle {
+      h1 {
+        @include title-font-phone-only;
+      }
+    }
+
+    form {
+      .registrationForm {
+        .questions {
+          padding-top: 25px;
+          margin: 25px;          
+
+          text-field {
+            text-align: left;
+            display: inline-block;
+            min-height: 100px;            
+          }
+          .first-name, .last-name, .zip, .email, .phone  {
+            width: 80vw;
+            padding-left: 1px !important; 
+          }
+        }
+      }      
+    }
+  }
+
+  @include for-tablet-landscape-up {    
+    height: calc(100vh - 70px);
+
+    .pageTitle {
+      h1 {
+        @include title-font-tablet-landscape-up;
+      }
+    }
+
+    form {
+      .registrationForm {
+        .questions {
+          padding-top: 65px;
+          text-align: center;
+
+          text-field {
+            text-align: left;
+            display: inline-block;
+            min-height: 150px;
+          }
+          .first-name {
+            width: 288px;
+          }
+          .last-name {
+            width: 288px;
+            margin-left: 50px;
+          }
+          .zip {
+            width: 144px;
+            margin-left: 50px;
+          }
+          .email {
+            width: 385px;
+          }
+          .phone {
+            width: 385px;
+            margin-left: 50px;
+          }
+        }
+      }
+
+      .footer {
+        position: absolute;
       }
     }
   }
