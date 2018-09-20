@@ -14,11 +14,7 @@
     @include header-for-tablet;
 
     .scLogo {
-      height: 68px;
-      width: 51px;
-      padding-top: 1px;
-      position: absolute;
-      left: 16px;
+      @include sc-logo-for-tablet;
     }
 
     .title-text {
