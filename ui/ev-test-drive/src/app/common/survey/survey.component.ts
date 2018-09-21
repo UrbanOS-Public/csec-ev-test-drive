@@ -255,7 +255,7 @@ export class SurveyComponent implements OnInit {
   handleScheduleDrivePostResponse(response) {
     this.isSubmitting = false;
     this.closeModal('loading-modal');
-    if (true) { //TODO: Don't do this
+    if (response) { //TODO: Don't do this
       localStorage.setItem('confirmationNumber', "R1"); //TODO: Make this not hardcoded
       if (this.baseModule === '/checkin') {
         this.router.navigateByUrl('/checkin/carConfirm');
