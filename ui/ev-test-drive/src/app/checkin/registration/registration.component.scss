@@ -188,20 +188,12 @@ form.questionnaire {
     }
 
     @include for-phone-only {
-      padding-top: 25px;
-      margin: 25px;          
-
-      text-field {
-        text-align: left;
-        display: inline-block;
-        min-height: 100px;            
-      }
-      .first-name, .last-name, .zip, .email, .phone  {
-        width: 80vw;
-        padding-left: 1px !important; 
-      }
+      @include small-scale-input;
     }
-    
+
+    @include for-tablet-portrait-up {
+      @include small-scale-input;
+    }
   }
 }
 
