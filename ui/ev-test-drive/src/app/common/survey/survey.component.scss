@@ -1,6 +1,7 @@
 @import "../../../colors.scss";
 @import "../../../cancel.scss";
 @import "../../../error.scss";
+
 @import "../../../mixins.scss";
 
 #loading-modal {
@@ -42,7 +43,12 @@
     
     .intro-text {
       display: inline-block;
-      width: 650px;
+      @media screen and (max-width : $break-small){
+        column-count: 1;
+        font-size: 15px;
+        line-height: 18px;
+      }
+      width: 75vw;
       font-weight: 200;
       font-size: 17px;
       letter-spacing: -0.82px;
@@ -53,6 +59,10 @@
 
     .question-header {
       font-weight: 500;
+      @media screen and (max-width : $break-small){
+        font-size: 18px;
+        line-height: 23px;
+      }
       font-size: 25px;
       letter-spacing: -1.21px;
       line-height: 30px;
@@ -75,6 +85,9 @@
       }
 
       .question-option-button-pane {
+        @media screen and (max-width : $break-small){
+          column-count: 1;
+        }
         column-count: 2;
         column-gap: 0;
         min-height: 100px;
@@ -85,9 +98,9 @@
           .question-option-button {
             background-color: $white;
             min-height: 25px;
-            width: 378px;
-            margin-right: 17px;
-            margin-left: 17px;
+            width: 75%;
+            margin-right: auto;
+            margin-left: auto;
             margin-bottom: 25px;
             padding-left: 18px;
             padding-right: 18px;
@@ -117,7 +130,7 @@
           .question-option-text {
             background-color: $white;
             min-height: 25px;
-            width: 378px;
+            width: 75%;
             margin-right: 17px;
             margin-left: 17px;
             margin-bottom: 25px;
@@ -157,20 +170,23 @@
 
         .question-slider {
           height: 48px;
-          width: 600px;
+          width: 75%;
           margin: 0;
         }
         
         .helper-texts {
           position: relative;
           display: inline-block;
-          width: 700px;
+          width: 75%;
           height: 20px;
           margin: 0;
           margin-top: -8px;
 
           p {
             color: #333333;
+            @media screen and (max-width : $break-small){
+              font-size: 10px;
+            }
             font-size: 12px;
             font-weight: 200;
             position: absolute;
@@ -196,7 +212,7 @@
     margin: 0;
     padding: 0;
     position: relative;
-    text-align: right;
+    text-align: center;
     float: bottom;
 
     .horizontal-rule {
@@ -206,14 +222,19 @@
     }
 
     .question-tracker {
-      display: inline-block;
-      position: absolute;
-      left: 30px;
-      top: 37px;
-
+      // display: inline-block;
+      // float:center;
+      margin-top:21px;
+      margin-bottom: -10px;
+      img {
+        height: 90%;
+      }
       p {
         color: #333333;
         font-weight: 500;
+        @media screen and (max-width : $break-small){
+          font-size: 12px;
+        }
         font-size: 17px;
         letter-spacing: -0.46px;
         display: inline-block;
@@ -225,20 +246,29 @@
     }
 
     .cancel {
+      border-radius: 5px;
       height: 50px;
-      width: 165px;
-      margin-right: 10px;
-      margin-top: 20px;
+      width: 33.3%;
+      margin: 20px;
+      text-align: center;
       vertical-align: middle;
-      display: inline-block;
+      float:left;
 
       p {
         color: #333333;
-        font-size: 17px;
+        font-size: 21px;
         font-weight: 500;
-        letter-spacing: -0.46px;
+        letter-spacing: -0.57px;
+        margin: 0;
+        padding-top: 12px;
         text-align: center;
+        vertical-align: middle;
         text-transform: uppercase;
+
+        img {
+          text-align: center;
+          vertical-align: middle;
+        }
       }
     }
 
@@ -246,13 +276,12 @@
       background-color: $pink;
       border-radius: 5px;
       height: 50px;
-      width: 130px;
-      margin-right: 40px;
-      margin-top: 20px;
+      width: 33.3%;
+      margin: 20px;
       text-align: center;
       vertical-align: middle;
       box-shadow: 4px 4px 0 0 #D5D3D6;
-      display: inline-block;
+      float: right;
 
       p {
         color: $white;
@@ -269,6 +298,11 @@
           text-align: center;
           vertical-align: middle;
         }
+
+      }
+      app-spinner {
+        text-align: center;
+        vertical-align: middle;
       }
     }
 

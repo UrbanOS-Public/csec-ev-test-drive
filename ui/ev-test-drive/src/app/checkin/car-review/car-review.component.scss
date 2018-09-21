@@ -35,6 +35,7 @@
     padding-top: 20px;
     padding-bottom: 8px;
     height: calc(100vh - 188px);
+    overflow: scroll;
     text-align: center;
 
     .review-text {
@@ -128,9 +129,10 @@
     width: 100vw;
     margin: 0;
     padding: 0;
-    position: relative;
+    position: fixed;
     text-align: right;
     float: bottom;
+    background-color: #E9E9E9;
 
     .horizontal-rule {
       height: 1px;
@@ -140,20 +142,29 @@
     }
 
     .cancel {
+      border-radius: 5px;
       height: 50px;
-      width: 165px;
-      margin-right: 10px;
-      margin-top: 20px;
+      width: 33.3%;
+      margin: 20px;
+      text-align: center;
       vertical-align: middle;
-      display: inline-block;
+      float:left;
 
       p {
         color: #333333;
-        font-size: 17px;
+        font-size: 21px;
         font-weight: 500;
-        letter-spacing: -0.46px;
+        letter-spacing: -0.57px;
+        margin: 0;
+        padding-top: 12px;
         text-align: center;
+        vertical-align: middle;
         text-transform: uppercase;
+
+        img {
+          text-align: center;
+          vertical-align: middle;
+        }
       }
     }
 
@@ -161,13 +172,12 @@
       background-color: $pink;
       border-radius: 5px;
       height: 50px;
-      width: 130px;
-      margin-right: 40px;
-      margin-top: 20px;
+      width: 33.3%;
+      margin: 20px;
       text-align: center;
       vertical-align: middle;
       box-shadow: 4px 4px 0 0 #D5D3D6;
-      display: inline-block;
+      float: right;
 
       p {
         color: $white;
