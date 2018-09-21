@@ -1,5 +1,6 @@
 @import "../../../colors.scss";
 @import "../../../cancel.scss";
+@import "../../../mixins.scss";
 
 .car-selection-screen {
   background-color: $backgroundGray;
@@ -13,22 +14,14 @@
   position: relative;
  
   .header {
-    background-color: #000000;
-    height: 70px;
-    width: 100vw;
-    position: relative;
-    text-align: center;
+    @include header-for-tablet;
 
     .scLogo {
-      height: 68px;
-      width: 51px;
-      padding-top: 1px;
-      position: absolute;
-      left: 16px;
+      @include sc-logo-for-tablet;
     }
 
     .title-text {
-      color: #FFFFFF;
+      color: $white;
       font-weight: 500;
       font-size: 21px;
       letter-spacing: -0.43px;
@@ -38,7 +31,7 @@
     }
 
     .reset {
-      color: #FFFFFF;
+      color: $white;
       font-weight: 500;
       font-size: 17px;
       letter-spacing: -0.46px;
@@ -59,7 +52,7 @@
     
 
     .times-pane {
-      background-color: #FFFFFF;
+      background-color: $white;
       color: #333333;
       display: inline-block;
       text-align: center;
@@ -137,7 +130,7 @@
       }
 
       .time.selected {
-        color: #FFFFFF;
+        color: $white;
         background-color: $pink;
         border: 2px solid $pink;
       }
@@ -185,7 +178,7 @@
         }
 
         .car-tile {
-          background-color: #FFFFFF;
+          background-color: $white;
           display: inline-block;
           margin-left: 8px;
           margin-right: 7px;
@@ -213,7 +206,7 @@
   }
 
   .footer {
-    background-color: #FFFFFF;
+    background-color: $white;
     height: 90px;
     width: 100vw;
     margin: 0;
@@ -260,7 +253,7 @@
       display: inline-block;
 
       p {
-        color: #FFFFFF;
+        color: $white;
         font-size: 21px;
         font-weight: 500;
         letter-spacing: -0.57px;
