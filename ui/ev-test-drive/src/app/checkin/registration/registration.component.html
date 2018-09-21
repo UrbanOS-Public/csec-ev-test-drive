@@ -23,7 +23,7 @@
   </div>
 </jw-modal>
 
-<div class="registrationForm">
+<div class="screen">
 
 
   <div class="header">
@@ -39,7 +39,7 @@
     (ngSubmit)="doSubmit()"
     class="questionnaire">
 
-    <div class="registrationForm">
+    <div class="content">
 
       <div class="formHeader">
         <img class="carLogo" src="assets/carLogo.svg">
@@ -113,11 +113,11 @@
       </div>
 
       <button 
-        class="submit" 
+        class="next" 
         [disabled]="!applicationForm.valid || formSubmitted"
         [ngClass]="{'disabled': !applicationForm.valid || formSubmitted}">
-          {{ formSubmitted ? '' : 'NEXT ' }}
-          <img src="assets/arrow.png" *ngIf="!formSubmitted">
+          <p>{{ formSubmitted ? '' : 'NEXT ' }}<img src="assets/arrow.png" *ngIf="!formSubmitted"></p>
+          
           <app-spinner *ngIf="formSubmitted"></app-spinner>
       </button>
     </div>

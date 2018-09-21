@@ -43,7 +43,7 @@
     
     .intro-text {
       display: inline-block;
-      @media screen and (max-width : $break-small){
+      @include for-phone-only {
         column-count: 1;
         font-size: 15px;
         line-height: 18px;
@@ -59,7 +59,7 @@
 
     .question-header {
       font-weight: 500;
-      @media screen and (max-width : $break-small){
+      @include for-phone-only {
         font-size: 18px;
         line-height: 23px;
       }
@@ -85,7 +85,7 @@
       }
 
       .question-option-button-pane {
-        @media screen and (max-width : $break-small){
+        @include for-phone-only {
           column-count: 1;
         }
         column-count: 2;
@@ -184,7 +184,7 @@
 
           p {
             color: #333333;
-            @media screen and (max-width : $break-small){
+            @include for-phone-only {
               font-size: 10px;
             }
             font-size: 12px;
@@ -232,7 +232,7 @@
       p {
         color: #333333;
         font-weight: 500;
-        @media screen and (max-width : $break-small){
+        @include for-phone-only {
           font-size: 12px;
         }
         font-size: 17px;

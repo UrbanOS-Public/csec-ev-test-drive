@@ -2,177 +2,206 @@
 @import "../../../cancel.scss";
 @import "../../../error.scss";
 @import "../../../mixins.scss";
+@import "../../../colors.scss";
 
-
-.registrationForm {
-  background-color: #F6F6F6;
+.screen {
+  background-color: $backgroundGray;
   font-family: Gotham, sans-serif;
+  margin: 0;
   width: 100vw;
-  max-width: 100%;
-  margin: auto;
+  height: 100vh;
+  position: relative;
 
   .header {
     @include header-for-tablet;
 
     .scLogo {
-        @include sc-logo-for-tablet;
+      @include sc-logo-for-tablet;
     }
 
-    .pageTitle {
-      text-align: center;
-
-      h1 {
-        color: $white;
-        font-weight: 500;
-        line-height: 51px;
-        letter-spacing: -0.43px;
-        text-transform: uppercase;
-        display: inline-block;
-      }
+    .title-text {
+      color: $white;
+      font-weight: 500;
+      font-size: 21px;
+      letter-spacing: -0.43px;
+      text-transform: uppercase;
+      margin: 0;
+      padding-top: 22px;
     }
   }
 
-  form {
-    .registrationForm {
-      .formHeader {
-        padding-top: 45px;
-        text-align: center;
-      }
+  .content {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 8px;
+    height: calc(100vh - 210px);
+    overflow: scroll;
+    text-align: center;
+
+    .review-text {
+      font-weight: 200;
+      font-size: 17px;
+      letter-spacing: -0.82px;
+      margin: 0;
+      margin-top: 22px;
+      margin-bottom: 20px;
+      text-align: center;
     }
-    .footer {
-      bottom: 0;
-      text-align: right;
-      min-height: 80px;
 
-      .horizontal-rule {
-        width: 100vw;
-        height: 1px;
-        background-color: #CECECE;
-        margin-bottom: 15px;
-      }
+    .car-pane {
+      text-align: center;
+      width: 318px;
+      display: inline-block;
+      margin: 0;
 
-      .cancel {
-        height: 50px;
-        width: 165px;
-        margin-top: 15px;
-        cursor: pointer;
+      .pane-header {
+        background-color: #000000;
+        margin: 0;
+        height: 64px;
+        width: 318px;
         display: inline-block;
+        padding-top: 14px;
         text-align: center;
-        text-transform: uppercase;
-        vertical-align: top;
 
         p {
-          color: #333333;
+          vertical-align: middle;
           margin: 0;
+        }
+
+        .top {
+          color: $white;
+          font-weight: 300;
+          font-size: 14px;
+          letter-spacing: -1.26px;
+          text-align: center;
+        }
+
+        .partial-rule {
+          background-color: #555555;
+          height: 1px;
+          width: 268px;
+          border: none;
+          margin-left: 25px;
+          margin-top: 8px;
+          margin-bottom: 8px;
+        }
+
+        .bottom {
+          color: $white;
+          font-weight: 700;
+          font-size: 15px;
+          letter-spacing: -1.11px;
+          text-align: center;
+        }
+      }
+
+      car-tile {
+        background-color: $white;
+        display: inline-block;
+        margin: 0;
+        text-align: left;
+        border-radius: 3px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      }
+
+      .edit {
+        display: inline-block;
+        height: 48px;
+        width: 314px;
+        margin-top: 14px;
+        border: 2px solid #000000;
+        border-radius: 5px;
+
+        p {
+          font-weight: 700;
           font-size: 17px;
-          font-weight: 500;
-          letter-spacing: -0.46px;
+          letter-spacing: -1.26px;
+          margin: 0;
+          margin-top: 14px;
           text-transform: uppercase;
         }
       }
-
-      .submit {
-        color: #FFF;
-        height: 50px;
-        width: 130px;
-        border-radius: 5px;
-        border: none;
-        background-color: $pink;
-        box-shadow: 4px 4px 0 0 #D5D3D6;
-        font-size: 21px;
-        font-weight: 500;
-        letter-spacing: -0.57px;
-        margin-right: 40px;
-        text-align: center;
-        vertical-align: middle;
-
-        img {
-          text-align: center;
-          vertical-align: middle;
-        }
-
-        app-spinner {
-          text-align: center;
-          vertical-align: middle;
-        }
-      }
-      .submit.disabled {
-        opacity: 0.28;
-      }
     }
   }
 
-  @include for-phone-only {
-    .pageTitle {
-      h1 {
-        @include title-font-phone-only;
-      }
+  .footer {
+    height: 90px;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    text-align: right;
+    float: bottom;
+    background-color: #E9E9E9;
+
+    .horizontal-rule {
+      height: 1px;
+      width: 100vw;
+      margin: 0;
+      background-color: #CECECE;
     }
 
-    form {
-      .registrationForm {
-        .questions {
-          padding-top: 25px;
-          margin: 25px;          
+    @include cancel;
 
-          text-field {
-            text-align: left;
-            display: inline-block;
-            min-height: 100px;            
-          }
-          .first-name, .last-name, .zip, .email, .phone  {
-            width: 80vw;
-            padding-left: 1px !important; 
-          }
-        }
-      }      
-    }
-  }
+    @include next;
 
-  @include for-tablet-landscape-up {    
-    height: calc(100vh - 70px);
-
-    .pageTitle {
-      h1 {
-        @include title-font-tablet-landscape-up;
-      }
+    .next p {
+      padding-top: 0px;
     }
 
-    form {
-      .registrationForm {
-        .questions {
-          padding-top: 65px;
-          text-align: center;
-
-          text-field {
-            text-align: left;
-            display: inline-block;
-            min-height: 150px;
-          }
-          .first-name {
-            width: 288px;
-          }
-          .last-name {
-            width: 288px;
-            margin-left: 50px;
-          }
-          .zip {
-            width: 144px;
-            margin-left: 50px;
-          }
-          .email {
-            width: 385px;
-          }
-          .phone {
-            width: 385px;
-            margin-left: 50px;
-          }
-        }
-      }
-
-      .footer {
-        position: absolute;
-      }
+    .next.disabled {
+      opacity: 0.28;
     }
   }
 }
+
+form.questionnaire {
+  .questions {
+    
+    @include for-tablet-landscape-up {
+      padding-top: 65px;
+      text-align: center;
+
+      text-field {
+        text-align: left;
+        display: inline-block;
+        min-height: 150px;
+      }
+      .first-name {
+        width: 288px;
+      }
+      .last-name {
+        width: 288px;
+        margin-left: 50px;
+      }
+      .zip {
+        width: 144px;
+        margin-left: 50px;
+      }
+      .email {
+        width: 385px;
+      }
+      .phone {
+        width: 385px;
+        margin-left: 50px;
+      }
+    }
+
+    @include for-phone-only {
+      padding-top: 25px;
+      margin: 25px;          
+
+      text-field {
+        text-align: left;
+        display: inline-block;
+        min-height: 100px;            
+      }
+      .first-name, .last-name, .zip, .email, .phone  {
+        width: 80vw;
+        padding-left: 1px !important; 
+      }
+    }
+    
+  }
+}
+

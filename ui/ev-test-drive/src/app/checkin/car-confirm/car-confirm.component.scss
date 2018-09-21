@@ -41,7 +41,7 @@
       letter-spacing: -1.21px;
       line-height: 30px;
       margin: 0;
-      @media screen and (max-width : $break-small){
+      @include for-phone-only {
         margin-top:0px;
       }
       margin-top: 54px;
