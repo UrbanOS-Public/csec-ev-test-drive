@@ -1,7 +1,9 @@
 @import "../../../colors.scss";
 @import "../../../cancel.scss";
 @import "../../../error.scss";
-$break-small: 445px;
+
+@import "../../../mixins.scss";
+
 #loading-modal {
   background-color: transparent;
   height: 50px;
@@ -17,22 +19,14 @@ $break-small: 445px;
   position: relative;
 
   .header {
-    background-color: #000000;
-    height: 70px;
-    width: 100vw;
-    position: relative;
-    text-align: center;
+    @include header-for-tablet;
 
     .scLogo {
-      height: 68px;
-      width: 51px;
-      padding-top: 1px;
-      position: absolute;
-      left: 16px;
+      @include sc-logo-for-tablet;
     }
 
     .title-text {
-      color: #FFFFFF;
+      color: $white;
       font-weight: 500;
       font-size: 21px;
       letter-spacing: -0.43px;
@@ -102,7 +96,7 @@ $break-small: 445px;
         .question-option-pane {
 
           .question-option-button {
-            background-color: #FFFFFF;
+            background-color: $white;
             min-height: 25px;
             width: 75%;
             margin-right: auto;
@@ -134,7 +128,7 @@ $break-small: 445px;
           }
 
           .question-option-text {
-            background-color: #FFFFFF;
+            background-color: $white;
             min-height: 25px;
             width: 75%;
             margin-right: 17px;
@@ -290,7 +284,7 @@ $break-small: 445px;
       float: right;
 
       p {
-        color: #FFFFFF;
+        color: $white;
         font-size: 21px;
         font-weight: 500;
         letter-spacing: -0.57px;
