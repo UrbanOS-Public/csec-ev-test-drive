@@ -1,6 +1,6 @@
 module "ApiGetPostSurveyRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiGetPostSurveyRole"
+  lambda_role_name = "${var.environment}ApiGetPostSurveyRole"
 }
 
 module "ApiGetPostSurveyFunction" {

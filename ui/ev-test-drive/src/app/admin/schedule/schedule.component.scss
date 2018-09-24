@@ -1,8 +1,9 @@
 @import "../../../colors.scss";
 @import "../../../error.scss";
+@import "../../../mixins.scss";
 
 .pin-pane {
-  background-color: #FFFFFF;
+  background-color: $white;
   text-align: center;
   font-family: Gotham, sans-serif;
   margin: 0;
@@ -48,7 +49,7 @@
     vertical-align: middle;
 
     p {
-      color: #FFFFFF;
+      color: $white;
       display: inline-block;
       margin: 0;
       padding-top: 15px;
@@ -74,22 +75,14 @@
   position: relative;
 
   .header {
-    background-color: #000000;
-    height: 70px;
-    width: 100vw;
-    position: relative;
-    text-align: center;
+    @include header-for-tablet;
 
     .scLogo {
-      height: 68px;
-      width: 51px;
-      padding-top: 1px;
-      position: absolute;
-      left: 16px;
+      @include sc-logo-for-tablet;
     }
 
     .title-text {
-      color: #FFFFFF;
+      color: $white;
       font-weight: 500;
       font-size: 21px;
       letter-spacing: -0.43px;
@@ -123,7 +116,7 @@
         vertical-align: middle;
 
         p {
-          color: #FFFFFF;
+          color: $white;
           font-size: 25px;
           font-weight: 500;
           letter-spacing: -1.21px;
@@ -135,7 +128,7 @@
       }
 
       .driver-info {
-        background-color: #FFFFFF;
+        background-color: $white;
         height: 54px;
         width: calc(100vw - 200px);
         border: 1px solid #C7C7C7;
@@ -241,7 +234,7 @@
             background-color: #252525;
 
             .dot {
-              background-color: #FFFFFF;
+              background-color: $white;
             }
           }
 
@@ -263,7 +256,7 @@
             cursor: pointer;
 
             p {
-              color: #FFFFFF;
+              color: $white;
               font-size: 17px;
               margin: 0;
               padding-top: 21px;

@@ -1,6 +1,6 @@
 module "ApiGetScheduledDrivesRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiGetScheduledDrivesRole"
+  lambda_role_name = "${var.environment}ApiGetScheduledDrivesRole"
 }
 
 module "ApiGetScheduledDrivesFunction" {

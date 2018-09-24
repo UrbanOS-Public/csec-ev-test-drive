@@ -1,6 +1,6 @@
 module "ApiCancelDriveRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiCancelDriveRole"
+  lambda_role_name = "${var.environment}ApiCancelDriveRole"
 }
 
 module "ApiCancelDriveFunction" {

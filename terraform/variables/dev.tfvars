@@ -5,3 +5,4 @@ region = "us-west-2"
 subnet_1 = "subnet-7378140a"
 send_to_email = "none@none.com"
 skip_final_snapshot = true
+environment = "_dev"
