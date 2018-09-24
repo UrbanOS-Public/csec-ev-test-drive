@@ -49,3 +49,7 @@ variable "send_to_email" {
 variable "skip_final_snapshot" {
   default = false
 }
+
+variable "ami_id" {
+
+}
