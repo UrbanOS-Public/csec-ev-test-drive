@@ -79,3 +79,45 @@ resource "aws_route_table" "public_route_table" {
     Name = "Public"
   }
 }
+
+
+
+resource "aws_eip" "nat_gateway_ip" {
+  vpc      = true
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = "${aws_eip.nat_gateway_ip.id}"
+  subnet_id     = "${aws_subnet.Subnet4.id}"
+
+  tags {
+    Name = "gw NAT"
+  }
+}
+
+resource "aws_route_table_association" "subnet1f_to_public" {
+  subnet_id      = "${aws_subnet.Subnet4.id}"
+  route_table_id = "${aws_route_table.public_route_table.id}"
+}
+
+resource "aws_route_table" "private_route_table" {
+  vpc_id = "${var.vpc_id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = "${aws_nat_gateway.nat.id}"
+  }
+
+  tags {
+    Name = "Private"
+  }
+}
+
+resource "aws_route_table_association" "subnet1d_to_private" {
+  subnet_id      = "${aws_subnet.Subnet3.id}"
+  route_table_id = "${aws_route_table.private_route_table.id}"
+}
+resource "aws_route_table_association" "subnet1b_to_private" {
+  subnet_id      = "${aws_subnet.Subnet2.id}"
+  route_table_id = "${aws_route_table.private_route_table.id}"
+}
