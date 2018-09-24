@@ -12,7 +12,7 @@
   margin: 0;
   padding: 0;
   position: relative;
- 
+
   .header {
     @include header-for-tablet;
 
@@ -49,7 +49,7 @@
     margin: 0;
     overflow: scroll;
     float: left;
-    
+
 
     .times-pane {
       background-color: $white;
@@ -68,7 +68,7 @@
         display: block;
         vertical-align: middle;
         margin-top: 32px;
-        
+
         .calendarLogo {
           height: 39px;
           width: 41px;
@@ -101,6 +101,13 @@
         display: none;
       }
 
+      .time-box {
+        @include for-phone-only {
+          white-space: nowrap;
+          overflow: auto;
+          width: auto;
+        }
+      }
 
       .time {
         font-size: 17px;

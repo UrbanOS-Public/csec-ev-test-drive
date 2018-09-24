@@ -2,11 +2,11 @@
 <jw-modal id="cancel-modal">
   <div id="cancel-pane" class="cancel-pane">
     <h1 class="header-text">Are you sure you want to cancel your ride?</h1>
-  
+
     <div class="no" (click)="closeModal('cancel-modal')">
       <p>No, do not cancel my ride</p>
     </div>
-    
+
     <div class="yes" (click)="doCancelConfirm()">
       <p>Yes, cancel my ride</p>
     </div>
@@ -35,15 +35,16 @@
       <div class="no-rides hidden">
         <p>Sorry, there are no rides available for this date.</p>
       </div>
+      <div class="time-box">
+        <div
+          class="time"
+          *ngFor="let time of times"
+          id="{{ time.tileId }}"
+          [ngClass]="{'disabled': time.disabled}"
+          (click)="doSelectTime(time.tileId)">
 
-      <div
-        class="time" 
-        *ngFor="let time of times"
-        id="{{ time.tileId }}"
-        [ngClass]="{'disabled': time.disabled}"
-        (click)="doSelectTime(time.tileId)">
-
-        <p>{{ time.formattedTime }}</p> 
+          <p>{{ time.formattedTime }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -55,7 +56,7 @@
           <img class="carLogo" src="assets/carLogo.svg">
           <p class="header-text">Select a Car</p>
         </div>
-        <car-tile 
+        <car-tile
           id="{{ car.tileId }}"
           class="car-tile"
           *ngFor="let car of cars"
