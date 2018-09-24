@@ -14,16 +14,19 @@
 </jw-modal>
 
 <div class="car-selection-screen">
-
+    <p class="reset phone-invisible" (click)="doReset()">Clear All</p>
   <div class="header">
     <img class="scLogo" src="assets/scLogo.svg">
     <p class="title-text">Schedule Your Drive</p>
-    <p class="reset" (click)="doReset()">Clear All</p>
+
   </div>
 
   <div class="times-container">
     <div class="times-pane">
       <div class="times-header">
+          <div class="clear tablet-up-invisible" (click)="doReset()">
+              <p class="clear-mobile">Clear</p>
+          </div>
         <img class="calendarLogo" src="assets/calendarLogoBlack.svg">
         <p class="header-text">Select a Time</p>
       </div>
@@ -72,6 +75,7 @@
     <div class="cancel" (click)="doCancel()">
       <p>Cancel</p>
     </div>
+
     <div
       class="next"
       (click)="doSubmit()"
