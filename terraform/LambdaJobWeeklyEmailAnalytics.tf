@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "JobWeeklyEmailAnalytics_policy" {
 module "JobWeeklyEmailAnalytics_policy_attachment" {
   source = "./modules/roles/create_permission_attached_to_role"
   role_name = "${module.JobWeeklyEmailAnalyticsRole.name}"
-  policy_name = "JobWeeklyEmailAnalytics_Policy"
+  policy_name = "${var.environment}JobWeeklyEmailAnalytics_Policy"
   policy_json = "${data.aws_iam_policy_document.JobWeeklyEmailAnalytics_policy.json}"
 }
 

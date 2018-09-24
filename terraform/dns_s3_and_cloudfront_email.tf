@@ -192,7 +192,7 @@ data "aws_iam_policy_document" "bucket_policy_for_emails" {
 }
 
 resource "aws_ses_receipt_rule_set" "main" {
-  rule_set_name = "primary-rules"
+  rule_set_name = "${var.environment}primary-rules"
 }
 
 resource "aws_ses_active_receipt_rule_set" "main" {
@@ -257,14 +257,14 @@ resource "aws_route53_record" "example_ses_domain_mail_from_txt" {
 }
 
 resource "aws_ses_template" "ConfirmationTemplate" {
-  name    = "ConfirmationTemplate"
+  name    = "${var.environment}ConfirmationTemplate"
   subject = "Your EV Test Drive Confirmation"
   html    = "${file("ConfirmationTemplate.html")}"
   text    = "${file("ConfirmationTemplate.txt")}"
 }
 
 resource "aws_ses_configuration_set" "DefaultConfigurationSet" {
-  name = "DefaultConfigurationSet"
+  name = "${var.environment}DefaultConfigurationSet"
 }
 
 resource "aws_ses_event_destination" "cloudwatch" {

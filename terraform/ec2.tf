@@ -69,7 +69,7 @@ resource "aws_instance" "jumpbox" {
 }
 
 resource "aws_security_group" "jumpbox_security_group" {
-  name = "Jumpbox Security Group"
+  name = "${var.environment}Jumpbox Security Group"
   tags {
     Name = "Jumpbox Security Group"
   }
