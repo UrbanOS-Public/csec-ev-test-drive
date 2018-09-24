@@ -157,7 +157,14 @@
 
 form.questionnaire {
   .questions {
-    
+    @include for-phone-only {
+      @include small-scale-input;
+    }
+
+    @include for-tablet-portrait-up {
+      @include small-scale-input;
+    }
+
     @include for-tablet-landscape-up {
       padding-top: 65px;
       text-align: center;
@@ -185,14 +192,6 @@ form.questionnaire {
         width: 385px;
         margin-left: 50px;
       }
-    }
-
-    @include for-phone-only {
-      @include small-scale-input;
-    }
-
-    @include for-tablet-portrait-up {
-      @include small-scale-input;
     }
   }
 }
