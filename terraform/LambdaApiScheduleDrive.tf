@@ -1,6 +1,6 @@
 module "ApiScheduleDriveRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiScheduleDriveRole"
+  lambda_role_name = "${var.environment}ApiScheduleDriveRole"
 }
 
 module "ApiScheduleDriveFunction" {

@@ -1,6 +1,6 @@
 module "JobMonthlyEmailAnalyticsRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "JobMonthlyEmailAnalyticsRole"
+  lambda_role_name = "${var.environment}JobMonthlyEmailAnalyticsRole"
 }
 
 data "aws_iam_policy_document" "JobMonthlyEmailAnalytics_policy" {

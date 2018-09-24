@@ -1,6 +1,6 @@
 module "ApiGetPreSurveyRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiGetPreSurveyRole"
+  lambda_role_name = "${var.environment}ApiGetPreSurveyRole"
 }
 
 module "ApiGetPreSurveyFunction" {
