@@ -24,7 +24,7 @@ module "JobSendConfirmationEmail_policy_attachment" {
 
 module "JobSendConfirmationEmailFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "JobSendConfirmationEmail"
+  function_name = "${var.environment}JobSendConfirmationEmail"
   handler = "src/JobSendConfirmationEmail.handler"
   role_arn = "${module.JobSendConfirmationEmailRole.arn}"
   timeout = "300"
@@ -45,7 +45,7 @@ module "JobSendConfirmationEmailFunction" {
 
 module "JobSendConfirmationEmailTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-  name = "JobSendConfirmationEmailSchedule"
+  name = "${var.environment}JobSendConfirmationEmailSchedule"
   schedule_expression = "rate(1 minute)"
   schedule_description = "Runs every minute"
   lambda_function_arn = "${module.JobSendConfirmationEmailFunction.arn}"

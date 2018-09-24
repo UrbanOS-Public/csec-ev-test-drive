@@ -5,7 +5,7 @@ module "ApiGetUserRole" {
 
 module "ApiGetUserFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetUser"
+  function_name = "${var.environment}ApiGetUser"
   handler = "src/api/GetUser.handler"
   role_arn = "${module.ApiGetUserRole.arn}"
   timeout = "10"

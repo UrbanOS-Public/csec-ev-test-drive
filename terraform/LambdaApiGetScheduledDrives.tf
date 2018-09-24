@@ -5,7 +5,7 @@ module "ApiGetScheduledDrivesRole" {
 
 module "ApiGetScheduledDrivesFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetScheduledDrives"
+  function_name = "${var.environment}ApiGetScheduledDrives"
   handler = "src/api/GetScheduledDrives.handler"
   role_arn = "${module.ApiGetScheduledDrivesRole.arn}"
   timeout = "10"

@@ -24,7 +24,7 @@ module "JobMonthlyEmailAnalytics_policy_attachment" {
 
 module "JobMonthlyEmailAnalyticsFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "JobMonthlyEmailAnalytics"
+  function_name = "${var.environment}JobMonthlyEmailAnalytics"
   handler = "src/JobMonthlyEmailAnalytics.handler"
   role_arn = "${module.JobMonthlyEmailAnalyticsRole.arn}"
   timeout = "300"
@@ -46,7 +46,7 @@ module "JobMonthlyEmailAnalyticsFunction" {
 
 module "JobMonthlyEmailAnalyticsTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-  name = "JobMonthlyEmailAnalyticsSchedule"
+  name = "${var.environment}JobMonthlyEmailAnalyticsSchedule"
   schedule_expression = "cron(0 7 1 * ? *)"
   schedule_description = "Runs 1st of the month at 700 UTC"
   lambda_function_arn = "${module.JobMonthlyEmailAnalyticsFunction.arn}"

@@ -5,7 +5,7 @@ module "ApiGetScheduleRole" {
 
 module "ApiGetScheduleFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetSchedule"
+  function_name = "${var.environment}ApiGetSchedule"
   handler = "src/api/admin/GetSchedule.handler"
   role_arn = "${module.ApiGetScheduleRole.arn}"
   timeout = "10"
