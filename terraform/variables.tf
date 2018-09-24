@@ -6,6 +6,9 @@ provider "aws" {
 
 variable "access_key" {
 }
+variable "environment" {
+  default = ""
+}
 variable "secret_key" {
 }
 variable "accountName" {

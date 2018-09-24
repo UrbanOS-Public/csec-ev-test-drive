@@ -5,7 +5,7 @@ module "ApiGetCarsRole" {
 
 module "ApiGetCarsFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetCars"
+  function_name = "${var.environment}ApiGetCars"
   handler = "src/api/GetCars.handler"
   role_arn = "${module.ApiGetCarsRole.arn}"
   timeout = "10"

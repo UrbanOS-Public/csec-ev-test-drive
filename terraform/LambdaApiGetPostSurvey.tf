@@ -5,7 +5,7 @@ module "ApiGetPostSurveyRole" {
 
 module "ApiGetPostSurveyFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetPostSurvey"
+  function_name = "${var.environment}ApiGetPostSurvey"
   handler = "src/api/GetPostSurvey.handler"
   role_arn = "${module.ApiGetPostSurveyRole.arn}"
   timeout = "10"

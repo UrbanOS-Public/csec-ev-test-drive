@@ -5,7 +5,7 @@ module "ApiGetTimeSlotsRole" {
 
 module "ApiGetTimeSlotsFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetTimeSlots"
+  function_name = "${var.environment}ApiGetTimeSlots"
   handler = "src/api/GetTimeSlots.handler"
   role_arn = "${module.ApiGetTimeSlotsRole.arn}"
   timeout = "10"

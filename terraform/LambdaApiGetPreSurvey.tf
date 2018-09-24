@@ -5,7 +5,7 @@ module "ApiGetPreSurveyRole" {
 
 module "ApiGetPreSurveyFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetPreSurvey"
+  function_name = "${var.environment}ApiGetPreSurvey"
   handler = "src/api/GetPreSurvey.handler"
   role_arn = "${module.ApiGetPreSurveyRole.arn}"
   timeout = "10"

@@ -5,7 +5,7 @@ module "ApiTestingAuthRole" {
 
 module "ApiTestingAuthFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiTestingAuth"
+  function_name = "${var.environment}ApiTestingAuth"
   handler = "src/api/TestingAuth.handler"
   role_arn = "${module.ApiTestingAuthRole.arn}"
   timeout = "10"

@@ -5,7 +5,7 @@ module "ApiCancelDriveRole" {
 
 module "ApiCancelDriveFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiCancelDrive"
+  function_name = "${var.environment}ApiCancelDrive"
   handler = "src/api/CancelDrive.handler"
   role_arn = "${module.ApiCancelDriveRole.arn}"
   timeout = "10"
