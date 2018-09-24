@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://api.dev.drivesmartcbus.com'
+  apiBaseUrl: 'http://localhost:3000'
 };
 
 /*

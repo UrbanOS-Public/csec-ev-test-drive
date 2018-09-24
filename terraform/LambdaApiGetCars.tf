@@ -1,6 +1,6 @@
 module "ApiGetCarsRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiGetCarsRole"
+  lambda_role_name = "${var.environment}ApiGetCarsRole"
 }
 
 module "ApiGetCarsFunction" {

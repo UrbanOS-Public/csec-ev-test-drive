@@ -1,4 +1,5 @@
 @import "../../../colors.scss";
+@import "../../../mixins.scss";
 
 .thank-you-screen {
   background: no-repeat center/110% url("../../../assets/thankyou_banner.jpg");
@@ -10,22 +11,14 @@
   position: relative;
 
   .header {
-    background-color: #000000;
-    height: 70px;
-    width: 100vw;
-    position: relative;
-    text-align: center;
+    @include header-for-tablet;
 
     .scLogo {
-      height: 68px;
-      width: 51px;
-      padding-top: 1px;
-      position: absolute;
-      left: 16px;
+      @include sc-logo-for-tablet;
     }
 
     .title-text {
-      color: #FFFFFF;
+      color: $white;
       font-weight: 500;
       font-size: 21px;
       letter-spacing: -0.43px;
@@ -40,7 +33,7 @@
     margin-top: calc(40vh - 120px);
     
     .thank-you {
-      color: #FFFFFF;
+      color: $white;
       font-size: 45px;
       font-weight: 500;
       line-height: 54px;
@@ -48,7 +41,7 @@
     }
 
     .outro-text {
-      color: #FFFFFF;
+      color: $white;
       font-size: 32px;
       font-weight: 500;
       line-height: 39px;
@@ -66,7 +59,7 @@
     text-align: center;
 
     p {
-      color: #FFFFFF;
+      color: $white;
       font-size: 17px;
       font-weight: 500;
       letter-spacing: -0.46px;

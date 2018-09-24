@@ -1,0 +1,121 @@
+@import "./colors.scss";
+
+@mixin for-phone-only {
+    @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+    @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+    @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+    @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+    @media (min-width: 1800px) { @content; }
+}
+
+@mixin header-for-tablet {
+    background-color: $backgroundBlack;
+    height: 70px;
+    width: 100vw;
+    position: relative;
+    text-align: center;
+}
+
+@mixin sc-logo-for-tablet {
+    height: 68px;
+    width: 51px;
+    padding-top: 1px;
+    position: absolute;
+    left: 16px;
+}
+
+@mixin title-font-phone-only {
+    font-size: 16px;
+}
+
+@mixin title-font-tablet-landscape-up {
+    font-size: 21px;
+}
+
+@mixin next {
+    .next {
+        background-color: $pink;
+        border-radius: 5px;
+        height: 50px;
+        width: 33.3%;
+        margin: 20px;
+        text-align: center;
+        vertical-align: middle;
+        box-shadow: 4px 4px 0 0 #D5D3D6;
+        float: right;
+
+        p {
+            color: $white;
+            font-size: 21px;
+            font-weight: 500;
+            letter-spacing: -0.57px;
+            margin: 0;
+            padding-top: 12px;
+            text-align: center;
+            vertical-align: middle;
+            text-transform: uppercase;
+
+            img {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+        }
+        app-spinner {
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+}
+
+@mixin cancel {
+    .cancel {
+        border-radius: 5px;
+        height: 50px;
+        width: 33.3%;
+        margin: 20px;
+        text-align: center;
+        vertical-align: middle;
+        float:left;
+
+        p {
+            color: #333333;
+            font-size: 21px;
+            font-weight: 500;
+            letter-spacing: -0.57px;
+            margin: 0;
+            padding-top: 12px;
+            text-align: center;
+            vertical-align: middle;
+            text-transform: uppercase;
+
+            img {
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+@mixin small-scale-input {
+    padding-top: 25px;
+      margin: 25px;          
+
+      text-field {
+        text-align: left;
+        display: inline-block;
+        min-height: 100px;            
+      }
+      .first-name, .last-name, .zip, .email, .phone  {
+        width: 80vw;
+        padding-left: 1px !important; 
+      }
+}
