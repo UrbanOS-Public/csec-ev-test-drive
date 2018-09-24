@@ -9,6 +9,9 @@ variable "access_key" {
 variable "environment" {
   default = ""
 }
+variable "domain_prefix" {
+  default = ""
+}
 variable "secret_key" {
 }
 variable "accountName" {

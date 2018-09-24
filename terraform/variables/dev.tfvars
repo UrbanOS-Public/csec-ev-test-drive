@@ -6,3 +6,4 @@ subnet_1 = "***REMOVED***"
 send_to_email = "none@none.com"
 skip_final_snapshot = true
 environment = "dev_"
+domain_prefix = "dev-"

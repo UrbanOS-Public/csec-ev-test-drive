@@ -1,5 +1,5 @@
 resource "aws_security_group" "LambdaSecurityGroup" {
-  name = "LambdaSecurityGroup"
+  name = "${var.environment}LambdaSecurityGroup"
   tags {
     Name = "LambdaSecurityGroup"
   }

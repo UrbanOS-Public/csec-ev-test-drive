@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "JobSendConfirmationEmail_policy" {
 module "JobSendConfirmationEmail_policy_attachment" {
   source = "./modules/roles/create_permission_attached_to_role"
   role_name = "${module.JobSendConfirmationEmailRole.name}"
-  policy_name = "JobSendConfirmationEmail_Policy"
+  policy_name = "${var.environment}JobSendConfirmationEmail_Policy"
   policy_json = "${data.aws_iam_policy_document.JobSendConfirmationEmail_policy.json}"
 }
 
