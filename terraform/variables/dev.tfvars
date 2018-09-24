@@ -7,3 +7,4 @@ send_to_email = "none@none.com"
 skip_final_snapshot = true
 environment = "dev_"
 domain_prefix = "dev-"
+ami_id = "***REMOVED***"
