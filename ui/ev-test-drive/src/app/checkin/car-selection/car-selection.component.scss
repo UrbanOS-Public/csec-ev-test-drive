@@ -43,21 +43,29 @@
   }
 
   .times-container {
-    height: calc(100vh - 156px);
-    width: 300px;
-    display: inline-block;
+    @include for-tablet-portrait-up {
+      height: calc(100vh - 156px);
+      width: 300px;
+      display: inline-block;
+      float: left;
+    }
     margin: 0;
     overflow: scroll;
-    float: left;
-
 
     .times-pane {
+      @include for-phone-only {
+        width: 100vw;
+      }
+      @include for-tablet-portrait-up {
+        min-height: calc(100vh - 185px);
+      }
+
+      width: 300px;
       background-color: $white;
       color: #333333;
       display: inline-block;
       text-align: center;
-      min-height: calc(100vh - 185px);
-      width: 300px;
+
       padding-bottom: 25px;
       scroll-behavior: auto;
       overflow-y: scroll;
@@ -145,14 +153,22 @@
   }
 
   .cars-container {
-    height: calc(100vh - 164px);
+    @include for-tablet-portrait-up {
+      height: calc(100vh - 164px);
+    }
+
     display: inline-block;
     margin: 0;
     overflow: scroll;
     scroll-behavior: auto;
 
     .cars-pane-container {
-      width: calc(100vw - 330px);
+      @include for-tablet-portrait-up {
+        width: calc(100vw - 330px);
+      }
+      @include for-phone-only {
+        width: 100vw;
+      }
       padding-bottom: 25px;
       text-align: center;
 
