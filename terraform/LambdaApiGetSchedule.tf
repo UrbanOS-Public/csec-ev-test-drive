@@ -1,6 +1,6 @@
 module "ApiGetScheduleRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiGetScheduleRole"
+  lambda_role_name = "${var.environment}ApiGetScheduleRole"
 }
 
 module "ApiGetScheduleFunction" {

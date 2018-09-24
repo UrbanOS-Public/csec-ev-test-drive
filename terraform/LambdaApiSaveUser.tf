@@ -1,6 +1,6 @@
 module "ApiSaveUserRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiSaveUserRole"
+  lambda_role_name = "${var.environment}ApiSaveUserRole"
 }
 
 module "ApiSaveUserFunction" {

@@ -1,6 +1,6 @@
 module "JobSendConfirmationEmailRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "JobSendConfirmationEmailRole"
+  lambda_role_name = "${var.environment}JobSendConfirmationEmailRole"
 }
 
 data "aws_iam_policy_document" "JobSendConfirmationEmail_policy" {

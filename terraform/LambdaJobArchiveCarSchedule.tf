@@ -1,6 +1,6 @@
 module "JobArchiveCarScheduleRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "JobArchiveCarScheduleRole"
+  lambda_role_name = "${var.environment}JobArchiveCarScheduleRole"
 }
 
 module "JobArchiveCarScheduleFunction" {

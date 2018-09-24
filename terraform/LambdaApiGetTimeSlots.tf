@@ -1,6 +1,6 @@
 module "ApiGetTimeSlotsRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiGetTimeSlotsRole"
+  lambda_role_name = "${var.environment}ApiGetTimeSlotsRole"
 }
 
 module "ApiGetTimeSlotsFunction" {

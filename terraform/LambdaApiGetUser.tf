@@ -1,6 +1,6 @@
 module "ApiGetUserRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiGetUserRole"
+  lambda_role_name = "${var.environment}ApiGetUserRole"
 }
 
 module "ApiGetUserFunction" {

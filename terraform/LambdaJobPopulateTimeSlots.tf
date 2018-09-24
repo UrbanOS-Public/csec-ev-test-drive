@@ -1,6 +1,6 @@
 module "JobPopulateTimeSlotsRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "JobPopulateTimeSlotsRole"
+  lambda_role_name = "${var.environment}JobPopulateTimeSlotsRole"
 }
 
 module "JobPopulateTimeSlotsFunction" {

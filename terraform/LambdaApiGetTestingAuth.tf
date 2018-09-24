@@ -1,6 +1,6 @@
 module "ApiTestingAuthRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "ApiTestingAuthRole"
+  lambda_role_name = "${var.environment}ApiTestingAuthRole"
 }
 
 module "ApiTestingAuthFunction" {
