@@ -74,203 +74,207 @@
   height: 95vh;
   position: relative;
 
-  .header {
-    @include header-for-tablet;
 
-    .scLogo {
-      @include sc-logo-for-tablet;
-    }
+  @include for-tablet-portrait-up {
+    .header {
+      @include header-for-tablet;
 
-    .title-text {
-      color: $white;
-      font-weight: 500;
-      font-size: 21px;
-      letter-spacing: -0.43px;
-      text-transform: uppercase;
-      margin: 0;
-      padding-top: 22px;
+      .scLogo {
+        @include sc-logo-for-tablet;
+      }
+
+      .title-text {
+        color: $white;
+        font-weight: 500;
+        font-size: 21px;
+        letter-spacing: -0.43px;
+        text-transform: uppercase;
+        margin: 0;
+        padding-top: 22px;
+      }
     }
   }
 
   .schedule-pane {
+    margin: 20px 25px 25px 25px;
+  }
+
+  table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
     margin: 0;
-    margin-top: 20px;
-    margin-left: 25px;
-    margin-bottom: 25px;
-    margin-right: 25px;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
 
-    .time-slot {
-      width: calc(100vw - 51px);
-      height: 77px;
-      margin-bottom: 8px;
-      text-align: left;
-      vertical-align: middle;
+  table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+    text-align: center;
+  }
 
-      .time {
-        background-color: #000000;
-        width: 140px;
-        height: 77px;
+  table th {
+    padding: .625em;
+    text-align: center;
+  }
+
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .more-pane {
+
+    .spacer {
+      display: none;
+    }
+
+    .more-button {
+      text-align: center;
+
+      .dot {
+        background-color: $pink;
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+        margin-right: 5px;
         display: inline-block;
+      }
+      .dot:last-child {
         margin: 0;
-        text-align: center;
-        vertical-align: middle;
+      }
+    }
+    .checkout-button,
+    .cancel-button {
+      display: none;
+    }
+  }
+  .more-pane.open {
+    z-index: 1;
+    width: 7vw;
+    height: 10vh;
 
-        p {
-          color: $white;
-          font-size: 25px;
-          font-weight: 500;
-          letter-spacing: -1.21px;
-          margin: 0;
-          margin-top: 23px;
-          display: inline-block;
-          text-align: center;
-        }
+    .more-button {
+      display: block;
+      background-color: #252525;
+
+      .dot {
+        background-color: $white;
+      }
+    }
+
+    .checkout-button,
+    .cancel-button {
+      width: 150px;
+      display: inline-block;
+      background-color: #252525;
+      margin: 0;
+      text-align: center;
+      cursor: pointer;
+
+      p {
+        color: $white;
+        font-size: 17px;
+        margin: 0;
+        padding-top: 21px;
+        padding-left: 20px;
+        text-align: left;
       }
 
-      .driver-info {
-        background-color: $white;
-        height: 54px;
-        width: calc(100vw - 200px);
-        border: 1px solid #C7C7C7;
-        border-left: none;
-        margin: 0;
-        padding-top: 23px;
+      app-spinner {
+        padding-top: 20px;
         display: inline-block;
-        vertical-align: middle;
-        position: relative;
-
-        .stat-pane {
-          height: 54px;
-          min-width: 135px;
-          margin: 0;
-          margin-left: 30px;
-          text-align: left;
-          display: inline-block;
-
-          p {
-            display: block;
-            margin: 0;
-          }
-
-          .label {
-            font-size: 12px;
-            font-weight: 200;
-            letter-spacing: -0.73px;
-          }
-
-          .value {
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: -0.73px;
-          }
-        }
-
-        .stat-pane.hidden {
-          display: none;
-        }
-
-        .name-pane {
-          min-width: 80px;
-        }
-
-        .car-pane {
-          width: 200px;
-        }
-
-        .email-pane {
-          width: 225px;
-        }
-
-        .pin-pane {
-          .pin {
-            border-radius: 3px;
-            border: 1px solid #333333;
-          }
-        }
-
-        .more-pane {
-          position: absolute;
-          right: 20px;
-          top: 24px;
-
-          .spacer {
-            display: none;
-          }
-
-          .more-button {
-            height: 29px;
-            width: 54px;
-            text-align: center;
-
-            .dot {
-              background-color: $pink;
-              height: 5px;
-              width: 5px;
-              border-radius: 50%;
-              margin-right: 5px;
-              display: inline-block;
-            }
-            .dot:last-child {
-              margin: 0;
-            }
-          }
-          .checkout-button,
-          .cancel-button {
-            display: none;
-          }
-        }
-        .more-pane.open {
-          background-color: #transparent;
-          text-align: right;
-          z-index: 1;
-
-          .spacer {
-            display: inline-block;
-            width: 116px;
-          }
-          
-          .more-button {
-            display: inline-block;
-            background-color: #252525;
-
-            .dot {
-              background-color: $white;
-            }
-          }
-
-          .horizontal-rule {
-            background-color: #4A4A4A;
-            display: block;
-            width: 170px;
-            height: 1px;
-          }
-
-          .checkout-button,
-          .cancel-button {
-            background-color: #252525;
-            height: 62px;
-            width: 170px;
-            margin: 0;
-            display: block;
-            text-align: center;
-            cursor: pointer;
-
-            p {
-              color: $white;
-              font-size: 17px;
-              margin: 0;
-              padding-top: 21px;
-              padding-left: 20px;
-              text-align: left;
-            }
-
-            app-spinner {
-              padding-top: 20px;
-              display: inline-block;
-            }
-          }
-        }
       }
     }
   }
+
+
+  @media screen and (max-width: 600px) {
+    .header {
+      @include header-for-tablet;
+
+      .scLogo {
+        @include sc-logo-for-tablet;
+      }
+    }
+
+    table {
+      border: 0;
+    }
+
+    table caption {
+      font-size: 1.3em;
+    }
+
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+
+    table td .time p {
+      display: block;
+      text-align: center;
+    }
+
+    table td::before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    table td:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .time {
+    background-color: #000000;
+    width: 140px;
+    height: 77px;
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
+
+    p {
+      color: $white;
+      font-size: 25px;
+      font-weight: 500;
+      letter-spacing: -1.21px;
+      margin: 0;
+      margin-top: 23px;
+      display: inline-block;
+      text-align: center;
+    }
+  }
 }
+
+
+
