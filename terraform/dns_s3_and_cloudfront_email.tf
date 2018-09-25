@@ -40,6 +40,7 @@ resource "aws_route53_record" "ns" {
 //}
 
 resource "aws_acm_certificate" "cert1" {
+  provider = "aws.east1"
   domain_name = "${var.dns_name}"
   validation_method = "DNS"
   subject_alternative_names = [
