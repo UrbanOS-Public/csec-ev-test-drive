@@ -61,7 +61,7 @@ resource "aws_route53_record" "www" {
 }
 
 resource "aws_s3_bucket" "smart_experience_web" {
-  bucket = "smart-experience-web"
+  bucket = "${var.domain_prefix}smart-experience-web"
   acl    = "public-read"
   policy = "${data.aws_iam_policy_document.bucket_policy.json}"
 
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "bucket_policy" {
       identifiers = ["arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.origin_access_identity.id}"]
     }
     actions = ["s3:GetObject"]
-    resources = ["arn:aws:s3:::smart-experience-web/*"]
+    resources = ["arn:aws:s3:::${var.domain_prefix}smart-experience-web/*"]
   }
 }
 
@@ -168,7 +168,7 @@ resource "aws_route53_record" "drivesmart_email_amazonses_dkim_record" {
 
 
 resource "aws_s3_bucket" "received_emails" {
-  bucket = "smart-experience-emails"
+  bucket = "${var.domain_prefix}smart-experience-emails"
   acl    = "private"
   policy = "${data.aws_iam_policy_document.bucket_policy_for_emails.json}"
 }
@@ -182,7 +182,7 @@ data "aws_iam_policy_document" "bucket_policy_for_emails" {
       identifiers = ["ses.amazonaws.com"]
     }
     actions = ["s3:PutObject"]
-    resources = ["arn:aws:s3:::smart-experience-emails/*"]
+    resources = ["arn:aws:s3:::${var.domain_prefix}smart-experience-emails/*"]
     condition {
       test = "StringEquals"
       variable = "aws:Referer"
