@@ -5,6 +5,7 @@ module "ApiGetPostSurveyRole" {
 
 module "ApiGetPostSurveyFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
+  lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
   function_name = "${var.environment}ApiGetPostSurvey"
   handler = "src/api/GetPostSurvey.handler"
   role_arn = "${module.ApiGetPostSurveyRole.arn}"
