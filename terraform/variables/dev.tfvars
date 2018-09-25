@@ -1,4 +1,4 @@
-dns_name = "dev.drivesmartcbus.com"
+dns_name = "devdrivesmartcbus.com"
 password = "***REMOVED***"
 vpc_id = "***REMOVED***"
 region = "us-west-2"
