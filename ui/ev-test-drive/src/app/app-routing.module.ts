@@ -19,7 +19,7 @@ import { ScheduleComponent } from './admin/schedule/schedule.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/checkin', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'info/:pageId', component: InfoComponent },
   { path: 'checkin', component: CheckinWelcomeComponent },
