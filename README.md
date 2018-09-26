@@ -1,3 +1,12 @@
+# Running the app Locally
+The ui can be run locally in one of three ways by running one of the following commands from `ui/ev-test-drive`:
+ - `ng serve`
+    - This will run the ui using the `db.json` stub database. This stub will need to be running, using the command `json-server --watch db.json`. **Note**: This method does *not* use the actual backend. Behavior may be different.
+ - `ng serve --configuration=dev`
+    - This will run the ui and hit the AWS dev instance of the app.
+ - `ng serve --configuration=production`
+    - This will run the ui and hit the AWS prod instance instead. ***Don't Do This***
+
 # csec-ev-test-drive
 The Columbus Smart Experience Center - EV Test Drive application allows for scheduling of test drives and capturing of survey information.
 This application was developed over the course of 2.5 weeks.  That being said the current workflow is extremely slimmed down and some "best practices" like TDD were not necessarily followed.  
