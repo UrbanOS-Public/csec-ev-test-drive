@@ -73,25 +73,21 @@
   width: 100vw;
   height: 95vh;
   position: relative;
+  .header {
+    @include header-for-tablet;
 
+    .scLogo {
+      @include sc-logo-for-tablet;
+    }
 
-  @include for-tablet-portrait-up {
-    .header {
-      @include header-for-tablet;
-
-      .scLogo {
-        @include sc-logo-for-tablet;
-      }
-
-      .title-text {
-        color: $white;
-        font-weight: 500;
-        font-size: 21px;
-        letter-spacing: -0.43px;
-        text-transform: uppercase;
-        margin: 0;
-        padding-top: 22px;
-      }
+    .title-text {
+      color: $white;
+      font-weight: 500;
+      font-size: 21px;
+      letter-spacing: -0.43px;
+      text-transform: uppercase;
+      margin: 0;
+      padding-top: 22px;
     }
   }
 
@@ -185,6 +181,10 @@
       font-size: 1.3em;
     }
 
+    td.top-cell {
+      text-align: left;
+    }
+
     table thead {
       border: none;
       clip: rect(0 0 0 0);
@@ -230,9 +230,12 @@
     }
   }
 
-  .time {
+  .time, .name {
     background-color: #000000;
-    width: 140px;
+    @include for-tablet-portrait-up {
+      width: 100%;
+    }
+    width: 40%;
     height: 77px;
     display: inline-block;
     margin: 0;
@@ -249,6 +252,17 @@
       text-align: center;
     }
   }
+  .name {
+    @include for-tablet-portrait-up {
+      display: none;
+    }
+    background-color: white;
+    width: 60%;
+
+    p {
+      color: black;
+    }
+  }
 }
 
 .checkout-button,
@@ -258,8 +272,6 @@
   text-align: center;
   cursor: pointer;
   color: white;
-
-  
 }
 
 .button-bar {
@@ -280,5 +292,6 @@
   
 }
 
-
-
+.top-cell {
+  text-align:left;
+}

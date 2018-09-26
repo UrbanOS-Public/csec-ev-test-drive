@@ -47,9 +47,12 @@
           </thead>
         <tbody>
           <tr *ngFor="let slot of schedule">
-            <td data-label="Time" class="time"><p class="timeText">{{ slot.formattedTime }}</p></td>
-
-              <td data-label="Driver Name">{{ slot.first_name }}</td>
+            <!-- <td data-label="Time" class="time"><p class="timeText">{{ slot.formattedTime }}</p></td> -->
+            <td class="top-cell">
+              <div class="time"><p class="timeText">{{ slot.formattedTime }}</p></div>
+              <div class="name tablet-up-invisible" ><p>{{slot.first_name}}</p></div>
+            </td>
+              <td data-label="Driver Name" class="phone-invisible">{{ slot.first_name }}</td>
               <td data-label="Driver Email">{{ slot.email }}</td>
               <td data-label="Confirmation Number">{{ slot.confirmation_number }}</td>
               <td data-label="Vehicle Info">{{slot.year}} {{slot.make}} {{slot.model}}</td>
