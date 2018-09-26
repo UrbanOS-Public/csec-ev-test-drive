@@ -154,7 +154,7 @@ export class ScheduleComponent implements OnInit {
     if (today.getMonth() === date.getMonth()
      && today.getDate() === date.getDate()
      && today.getFullYear() === date.getFullYear()) {
-      dateStr += 'Today, ';
+      dateStr;
     }
 
     dateStr += `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
