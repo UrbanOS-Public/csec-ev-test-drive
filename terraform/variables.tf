@@ -50,6 +50,10 @@ variable "email_send_from_account" {
   default = "no-reply@drivesmartcbus.com"
 }
 
+variable "environment" {
+
+}
+
 variable "send_to_email" {
 }
 
