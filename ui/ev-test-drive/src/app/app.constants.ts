@@ -1,6 +1,6 @@
 import {environment} from '../environments/environment';
 
-export const api_key = 'mpUwFh2LT5fqmnqelGbTa49aOABQWF81aQoezAJa';
+export const api_key = environment.apiKey;
 
 export const apiBaseUrl       = environment.apiBaseUrl;
 
