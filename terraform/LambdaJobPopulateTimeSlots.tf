@@ -5,7 +5,8 @@ module "JobPopulateTimeSlotsRole" {
 
 module "JobPopulateTimeSlotsFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "JobPopulateTimeSlots"
+  lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
+  function_name = "${var.environment}JobPopulateTimeSlots"
   handler = "src/JobPopulateTimeSlots.handler"
   role_arn = "${module.JobPopulateTimeSlotsRole.arn}"
   timeout = "300"
@@ -25,7 +26,7 @@ module "JobPopulateTimeSlotsFunction" {
 
 module "JobPopulateTimeSlotsTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-  name = "JobPopulateTimeSlotsSchedule"
+  name = "${var.environment}JobPopulateTimeSlotsSchedule"
   schedule_expression = "cron(30 1 * * ? *)"
   schedule_description = "Runs everyday at 0115 UTC"
   lambda_function_arn = "${module.JobPopulateTimeSlotsFunction.arn}"

@@ -18,13 +18,14 @@ data "aws_iam_policy_document" "JobWeeklyEmailAnalytics_policy" {
 module "JobWeeklyEmailAnalytics_policy_attachment" {
   source = "./modules/roles/create_permission_attached_to_role"
   role_name = "${module.JobWeeklyEmailAnalyticsRole.name}"
-  policy_name = "JobWeeklyEmailAnalytics_Policy"
+  policy_name = "${var.environment}JobWeeklyEmailAnalytics_Policy"
   policy_json = "${data.aws_iam_policy_document.JobWeeklyEmailAnalytics_policy.json}"
 }
 
 module "JobWeeklyEmailAnalyticsFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "JobWeeklyEmailAnalytics"
+  lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
+  function_name = "${var.environment}JobWeeklyEmailAnalytics"
   handler = "src/JobWeeklyEmailAnalytics.handler"
   role_arn = "${module.JobWeeklyEmailAnalyticsRole.arn}"
   timeout = "300"
@@ -46,7 +47,7 @@ module "JobWeeklyEmailAnalyticsFunction" {
 
 module "JobWeeklyEmailAnalyticsTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-  name = "JobWeeklyEmailAnalyticsSchedule"
+  name = "${var.environment}JobWeeklyEmailAnalyticsSchedule"
   schedule_expression = "cron(0 7 ? * FRI *)"
   schedule_description = "Runs every Friday at 700 UTC"
   lambda_function_arn = "${module.JobWeeklyEmailAnalyticsFunction.arn}"

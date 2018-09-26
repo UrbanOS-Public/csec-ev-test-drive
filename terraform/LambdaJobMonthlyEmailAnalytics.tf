@@ -18,13 +18,14 @@ data "aws_iam_policy_document" "JobMonthlyEmailAnalytics_policy" {
 module "JobMonthlyEmailAnalytics_policy_attachment" {
   source = "./modules/roles/create_permission_attached_to_role"
   role_name = "${module.JobMonthlyEmailAnalyticsRole.name}"
-  policy_name = "JobMonthlyEmailAnalytics_Policy"
+  policy_name = "${var.environment}JobMonthlyEmailAnalytics_Policy"
   policy_json = "${data.aws_iam_policy_document.JobMonthlyEmailAnalytics_policy.json}"
 }
 
 module "JobMonthlyEmailAnalyticsFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "JobMonthlyEmailAnalytics"
+  lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
+  function_name = "${var.environment}JobMonthlyEmailAnalytics"
   handler = "src/JobMonthlyEmailAnalytics.handler"
   role_arn = "${module.JobMonthlyEmailAnalyticsRole.arn}"
   timeout = "300"
@@ -46,7 +47,7 @@ module "JobMonthlyEmailAnalyticsFunction" {
 
 module "JobMonthlyEmailAnalyticsTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-  name = "JobMonthlyEmailAnalyticsSchedule"
+  name = "${var.environment}JobMonthlyEmailAnalyticsSchedule"
   schedule_expression = "cron(0 7 1 * ? *)"
   schedule_description = "Runs 1st of the month at 700 UTC"
   lambda_function_arn = "${module.JobMonthlyEmailAnalyticsFunction.arn}"
