@@ -1,5 +1,5 @@
 resource "aws_security_group" "smartexperience_db_security_group" {
-  name = "Smart Experience Security Group"
+  name = "${var.environment}Smart Experience Security Group"
   tags {
     Name = "Smart Experience Security Group"
   }

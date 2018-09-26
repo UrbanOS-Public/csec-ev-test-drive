@@ -1,5 +1,5 @@
 resource "aws_security_group" "LambdaSecurityGroup" {
-  name = "LambdaSecurityGroup"
+  name = "${var.environment}LambdaSecurityGroup"
   tags {
     Name = "LambdaSecurityGroup"
   }
@@ -14,15 +14,15 @@ resource "aws_security_group" "LambdaSecurityGroup" {
   }
 }
 
-resource "aws_subnet" "Subnet1b" {
-  vpc_id     = "${var.vpc_id}"
-  cidr_block = "172.31.16.0/20"
-  availability_zone = "${var.region}b"
-  map_public_ip_on_launch = true
-  tags {
-    Name = "Subnet1b"
-  }
-}
+//resource "aws_subnet" "Subnet1b" {
+//  vpc_id     = "${var.vpc_id}"
+//  cidr_block = "172.31.16.0/20"
+//  availability_zone = "${var.region}b"
+//  map_public_ip_on_launch = true
+//  tags {
+//    Name = "Subnet1b"
+//  }
+//}
 
 resource "aws_subnet" "Subnet1" {
   vpc_id     = "${var.vpc_id}"

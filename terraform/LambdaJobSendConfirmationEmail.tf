@@ -18,13 +18,14 @@ data "aws_iam_policy_document" "JobSendConfirmationEmail_policy" {
 module "JobSendConfirmationEmail_policy_attachment" {
   source = "./modules/roles/create_permission_attached_to_role"
   role_name = "${module.JobSendConfirmationEmailRole.name}"
-  policy_name = "JobSendConfirmationEmail_Policy"
+  policy_name = "${var.environment}JobSendConfirmationEmail_Policy"
   policy_json = "${data.aws_iam_policy_document.JobSendConfirmationEmail_policy.json}"
 }
 
 module "JobSendConfirmationEmailFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "JobSendConfirmationEmail"
+  lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
+  function_name = "${var.environment}JobSendConfirmationEmail"
   handler = "src/JobSendConfirmationEmail.handler"
   role_arn = "${module.JobSendConfirmationEmailRole.arn}"
   timeout = "300"
@@ -45,7 +46,7 @@ module "JobSendConfirmationEmailFunction" {
 
 module "JobSendConfirmationEmailTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-  name = "JobSendConfirmationEmailSchedule"
+  name = "${var.environment}JobSendConfirmationEmailSchedule"
   schedule_expression = "rate(1 minute)"
   schedule_description = "Runs every minute"
   lambda_function_arn = "${module.JobSendConfirmationEmailFunction.arn}"

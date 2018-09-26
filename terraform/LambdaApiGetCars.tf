@@ -5,7 +5,8 @@ module "ApiGetCarsRole" {
 
 module "ApiGetCarsFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "ApiGetCars"
+  lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
+  function_name = "${var.environment}ApiGetCars"
   handler = "src/api/GetCars.handler"
   role_arn = "${module.ApiGetCarsRole.arn}"
   timeout = "10"

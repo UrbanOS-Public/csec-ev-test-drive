@@ -57,7 +57,7 @@
 
 
 resource "aws_instance" "jumpbox" {
-  ami = "ami-14c5486b"
+  ami = "${var.ami_id}"
   instance_type = "t2.micro"
   subnet_id = "${aws_subnet.Subnet1.id}"
   tags {
@@ -69,7 +69,7 @@ resource "aws_instance" "jumpbox" {
 }
 
 resource "aws_security_group" "jumpbox_security_group" {
-  name = "Jumpbox Security Group"
+  name = "${var.environment}Jumpbox Security Group"
   tags {
     Name = "Jumpbox Security Group"
   }

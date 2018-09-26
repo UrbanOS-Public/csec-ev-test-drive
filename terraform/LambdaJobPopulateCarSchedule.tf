@@ -5,7 +5,8 @@ module "JobPopulateCarScheduleRole" {
 
 module "JobPopulateCarScheduleFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
-  function_name = "JobPopulateCarSchedule"
+  lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
+  function_name = "${var.environment}JobPopulateCarSchedule"
   handler = "src/JobPopulateCarSchedule.handler"
   role_arn = "${module.JobPopulateCarScheduleRole.arn}"
   timeout = "300"
@@ -25,7 +26,7 @@ module "JobPopulateCarScheduleFunction" {
 
 module "JobPopulateCarScheduleTimer" {
   source = "./modules/lambda/add_cloudwatch_timer_to_lambda"
-  name = "JobPopulateCarScheduleSchedule"
+  name = "${var.environment}JobPopulateCarScheduleSchedule"
   schedule_expression = "cron(0 1 * * ? *)"
   schedule_description = "Runs everyday at 0100 UTC"
   lambda_function_arn = "${module.JobPopulateCarScheduleFunction.arn}"
