@@ -37,7 +37,7 @@
   }
 
   .survey-pane-container {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 180px);
     text-align: center;
     overflow: scroll;
     
@@ -207,7 +207,7 @@
   }
   
   .footer {
-    height: 90px;
+    height: 100px;
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -222,9 +222,7 @@
     }
 
     .question-tracker {
-      // display: inline-block;
-      // float:center;
-      margin-top:21px;
+      margin-top:15px;
       margin-bottom: -10px;
       img {
         height: 90%;
