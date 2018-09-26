@@ -1,8 +1,14 @@
+@import "mixins.scss";
 .cancel-pane {
   background-color: #FFFFFF;
   font-family: Gotham, sans-serif;
+  @include for-phone-only {
+    height:50vh;
+  }
+
   height: 248px;
   width: 664px;
+  max-width: 90vw;
   display: inline-block;
   text-align: center;
 
@@ -12,11 +18,10 @@
     font-weight: 700;
     letter-spacing: -1.21px;
     line-height: 34px;
-    margin: 0;
+    margin: 5px;
     margin-top: 35px;
     margin-bottom: 65px;
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: auto;
     text-align: center;
     display: inline-block;
   }
@@ -26,6 +31,9 @@
     color: #FFFFFF;
     display: inline-block;
     height: 52px;
+    @include for-phone-only {
+      margin:5px;
+    }
     border-radius: 5px;
     box-shadow: 5px 5px 0 0 rgba(63, 63, 64, 0.22);
     cursor: pointer;
@@ -42,10 +50,9 @@
   }
 
   .no {
-    margin-right: 35px;
-  }
-
-  .yes {
-
+    @include for-tablet-portrait-up {
+      margin-right: 35px;
+    }
+    
   }
 }
