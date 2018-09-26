@@ -12,7 +12,7 @@
   margin: 0;
   padding: 0;
   position: relative;
- 
+
   .header {
     @include header-for-tablet;
 
@@ -43,21 +43,32 @@
   }
 
   .times-container {
-    height: calc(100vh - 156px);
-    width: 300px;
-    display: inline-block;
+    @include for-tablet-portrait-up {
+      height: calc(100vh - 156px);
+      width: 300px;
+      display: inline-block;
+      float: left;
+    }
     margin: 0;
     overflow: scroll;
-    float: left;
-    
 
     .times-pane {
+      @include for-phone-only {
+        width: 100vw;
+        .clear-mobile {
+          margin: 0px;
+        }
+      }
+      @include for-tablet-portrait-up {
+        min-height: calc(100vh - 185px);
+      }
+
+      width: 300px;
       background-color: $white;
       color: #333333;
       display: inline-block;
       text-align: center;
-      min-height: calc(100vh - 185px);
-      width: 300px;
+
       padding-bottom: 25px;
       scroll-behavior: auto;
       overflow-y: scroll;
@@ -66,9 +77,8 @@
 
       .times-header {
         display: block;
-        vertical-align: middle;
         margin-top: 32px;
-        
+
         .calendarLogo {
           height: 39px;
           width: 41px;
@@ -101,6 +111,13 @@
         display: none;
       }
 
+      .time-box {
+        @include for-phone-only {
+          white-space: nowrap;
+          overflow: auto;
+          width: auto;
+        }
+      }
 
       .time {
         font-size: 17px;
@@ -138,14 +155,22 @@
   }
 
   .cars-container {
-    height: calc(100vh - 164px);
+    @include for-tablet-portrait-up {
+      height: calc(100vh - 164px);
+    }
+
     display: inline-block;
     margin: 0;
     overflow: scroll;
     scroll-behavior: auto;
 
     .cars-pane-container {
-      width: calc(100vw - 330px);
+      @include for-tablet-portrait-up {
+        width: calc(100vw - 330px);
+      }
+      @include for-phone-only {
+        width: 100vw;
+      }
       padding-bottom: 25px;
       text-align: center;
 
@@ -206,14 +231,14 @@
   }
 
   .footer {
-    background-color: $white;
     height: 90px;
     width: 100vw;
     margin: 0;
     padding: 0;
-    position: relative;
+    // position: fixed;
     text-align: right;
     float: bottom;
+    background-color: #E9E9E9;
 
     .horizontal-rule {
       height: 1px;
@@ -222,60 +247,30 @@
       background-color: #CECECE;
     }
 
-    .cancel {
-      height: 50px;
-      width: 165px;
-      margin-right: 10px;
-      margin-top: 20px;
-      vertical-align: middle;
-      display: inline-block;
+    @include cancel;
 
-      p {
-        color: #333333;
-        font-size: 17px;
-        font-weight: 500;
-        letter-spacing: -0.46px;
-        text-align: center;
-        text-transform: uppercase;
-      }
-    }
+    @include next;
 
-    .next {
-      background-color: $pink;
-      border-radius: 5px;
-      height: 50px;
-      width: 130px;
-      margin-right: 40px;
-      margin-top: 20px;
-      text-align: center;
-      vertical-align: middle;
-      box-shadow: 4px 4px 0 0 #D5D3D6;
-      display: inline-block;
-
-      p {
-        color: $white;
-        font-size: 21px;
-        font-weight: 500;
-        letter-spacing: -0.57px;
-        margin: 0;
-        padding-top: 12px;
-        text-align: center;
-        vertical-align: middle;
-        text-transform: uppercase;
-
-        img {
-          text-align: center;
-          vertical-align: middle;
-        }
-
-      }
-      app-spinner {
-        text-align: center;
-        vertical-align: middle;
-      }
-    }
     .next.disabled {
       opacity: 0.28;
+    }
+  }
+
+  .clear {
+    color:$pink;
+    float:right;
+    margin-right: 10px;
+  }
+
+  .tablet-up-invisible {
+    @include for-tablet-portrait-up {
+      display: none;
+    }
+  }
+
+  .phone-invisible {
+    @include for-phone-only {
+      display: none;
     }
   }
 }
