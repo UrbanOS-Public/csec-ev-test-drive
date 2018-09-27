@@ -8,7 +8,7 @@ input {
   height: 50px;
   border: solid 2px #000000;
   background-color: $white;
-  width: 100%;
+  width: calc(100% - 19px);
   border-radius: 0;
   font-size: 18px;
   font-weight: 200;

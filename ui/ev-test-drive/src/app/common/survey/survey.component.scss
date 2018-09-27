@@ -18,26 +18,8 @@
   height: 100vh;
   position: relative;
 
-  .header {
-    @include header-for-tablet;
-
-    .scLogo {
-      @include sc-logo-for-tablet;
-    }
-
-    .title-text {
-      color: $white;
-      font-weight: 500;
-      font-size: 21px;
-      letter-spacing: -0.43px;
-      text-transform: uppercase;
-      margin: 0;
-      padding-top: 22px;
-    }
-  }
-
   .survey-pane-container {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 180px);
     text-align: center;
     overflow: scroll;
     
@@ -185,7 +167,8 @@
           p {
             color: #333333;
             @include for-phone-only {
-              font-size: 10px;
+              font-size: 12px;
+              font-weight: bold;
             }
             font-size: 12px;
             font-weight: 200;
@@ -207,7 +190,7 @@
   }
   
   .footer {
-    height: 90px;
+    height: 100px;
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -222,9 +205,7 @@
     }
 
     .question-tracker {
-      // display: inline-block;
-      // float:center;
-      margin-top:21px;
+      margin-top:15px;
       margin-bottom: -10px;
       img {
         height: 90%;
