@@ -82,24 +82,7 @@
   width: 100vw;
   height: 95vh;
   position: relative;
-  .header {
-    @include header-for-tablet;
-
-    .scLogo {
-      @include sc-logo-for-tablet;
-    }
-
-    .title-text {
-      color: $white;
-      font-weight: 500;
-      font-size: 21px;
-      letter-spacing: -0.43px;
-      text-transform: uppercase;
-      margin: 0;
-      padding-top: 22px;
-    }
-  }
-
+  
   .schedule-pane {
     margin: 20px 25px 25px 25px;
   }
@@ -132,13 +115,6 @@
   }
 
   @media screen and (max-width: 600px) {
-    .header {
-      @include header-for-tablet;
-
-      .scLogo {
-        @include sc-logo-for-tablet;
-      }
-    }
 
     table {
       border: 0;

@@ -13,33 +13,15 @@
   padding: 0;
   position: relative;
 
-  .header {
-    @include header-for-tablet;
-
-    .scLogo {
-      @include sc-logo-for-tablet;
-    }
-
-    .title-text {
-      color: $white;
-      font-weight: 500;
-      font-size: 21px;
-      letter-spacing: -0.43px;
-      text-transform: uppercase;
-      margin: 0;
-      padding-top: 22px;
-    }
-
-    .reset {
-      color: $white;
-      font-weight: 500;
-      font-size: 17px;
-      letter-spacing: -0.46px;
-      margin: 0;
-      position: absolute;
-      right: 48px;
-      top: 25px;
-    }
+  .reset {
+    color: $white;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: -0.46px;
+    margin: 0;
+    position: absolute;
+    right: 48px;
+    top: 25px;
   }
 
   .times-container {

@@ -18,24 +18,6 @@
   height: 100vh;
   position: relative;
 
-  .header {
-    @include header-for-tablet;
-
-    .scLogo {
-      @include sc-logo-for-tablet;
-    }
-
-    .title-text {
-      color: $white;
-      font-weight: 500;
-      font-size: 21px;
-      letter-spacing: -0.43px;
-      text-transform: uppercase;
-      margin: 0;
-      padding-top: 22px;
-    }
-  }
-
   .survey-pane-container {
     height: calc(100vh - 180px);
     text-align: center;
@@ -185,7 +167,8 @@
           p {
             color: #333333;
             @include for-phone-only {
-              font-size: 10px;
+              font-size: 12px;
+              font-weight: bold;
             }
             font-size: 12px;
             font-weight: 200;
