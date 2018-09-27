@@ -27,6 +27,7 @@ import { ThankYouComponent } from './checkout/thank-you/thank-you.component';
 import { ScheduleComponent } from './admin/schedule/schedule.component';
 import { ModalComponent } from './common/directives/modal.component';
 import { ModalService } from './common/modal.service';
+import { HeaderComponent } from './common/header/header.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ModalService } from './common/modal.service';
     CheckoutWelcomeComponent,
     ThankYouComponent,
     ScheduleComponent,
-    ModalComponent
+    ModalComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 @import "../../../colors.scss";
+@import "../../../mixins.scss";
 
 .checkout-welcome-page {
   width: 100vw;
@@ -8,7 +9,7 @@
   font-family: Gotham, sans-serif;
 
   .headerImage {
-    background: no-repeat top/100% url("../../../assets/checkout_banner.jpg");
+    background: no-repeat top/100% url("../../../assets/top_banner.jpg");
     background-color: #000;
     position: relative;
     overflow: visible;
@@ -22,26 +23,39 @@
       width: 100px;
       position: absolute;
     }
+    
 
     .welcomePane {
-      height: 510px;
-      width: 445px;
-      background-color: $white;
+      padding-bottom: 20px;
+      @include for-phone-only {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+      @include for-tablet-portrait-up {
+        width: 50%;
+        margin-left: 25%;
+        margin-right: 25%;
+      }
+      background-color: #FFF;
       overflow: visible;
       display: inline-block;
       margin-left: calc(50vw - 222px);
-      margin-top: 110px;
+      margin-top: 164px;
       border: 1px solid #DBDBDB;
       box-shadow: 0 2px 4px 0 rgba(0,0,0,0.19);
 
       .titleText {
-        color: #333333;
-        font-size: 39px;
+        color: #333;
+        @include for-phone-only {
+          font-size: 32px;
+          line-height: 40px;
+        }
+        font-size: 45px;
         font-weight: 500;
-        line-height: 45px;
+        line-height: 51px;
         letter-spacing: -0.93px;
         text-align: center;
-        margin-bottom: 15px;
       }
 
       .getStartedText {
@@ -60,8 +74,8 @@
         margin: 0;
 
         .questions {
-          width: 360px;
-          margin-left: 30px;
+          width: 70%;
+          margin-left: 15%;
           text-align: center;
  
           p {
@@ -73,7 +87,7 @@
           text-field {
             text-align: left;
             margin: 0;
-            width: 400px;
+            width: 90%;
             border: none;
           }
         }
@@ -91,26 +105,48 @@
         display: none;
       }
 
-      .submit {
-        color: $white;
-        height: 72px;
-        width: 335px;
-        font-size: 24px;
-        font-weight: 500;
-        letter-spacing: -0.68px;
-        text-align: center;
-        text-transform: uppercase;
-        margin: 0;
-        margin-top: 15px;
-        margin-left: 55px;
-        background-color: $pink;
-        border-radius: 4px;
-        box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22);
-      }
-
       .submit.disabled {
         opacity: 0.28;
       }
+
+      .submit {
+        margin-left: 5%;
+        margin-top: 5px;
+        color: #FFF;
+        text-decoration: none;
+        cursor: pointer;
+        @include for-phone-only {
+          width: 90%;
+        }
+        width: 90%;
+        background-color: $pink;
+        border-radius: 4px;
+        box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22);
+        color: #FFF;
+        @include for-phone-only {
+          font-size: 18px;
+        }
+        font-size: 24px;
+        font-weight: 500;
+        // line-height: 42px;
+        letter-spacing: -0.68px;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 14px;
+          
+        
+      }
     }
   }
+}
+
+.returnElement {
+  text-align: center; 
+  margin-top: 4vh;
+  color:white;
+}
+
+.returnLink {
+  cursor: pointer;
+  color: white; 
 }
