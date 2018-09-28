@@ -32,8 +32,8 @@ export class CarReviewComponent implements OnInit {
 
   doSubmit() {
     this.isSubmitting = true;
+    const carSlotId = this.selectedCar.times[this.selectedTime.formattedTime].timeSlotId;
     if (localStorage.getItem('skipPreSurvey') === 'true') {
-      const carSlotId = this.selectedCar.times[this.selectedTime.formattedTime].timeSlotId;
 
       const scheduleDriveData = {
         email: this.userEmail,
@@ -45,6 +45,10 @@ export class CarReviewComponent implements OnInit {
         error => this.handleError(error)
       );
     } else {
+      this.evService.postReserveSlot({carSlotId:carSlotId, email: this.userEmail }).subscribe(
+        response => this.handleScheduleDrivePostResponse(response),
+        error => this.handleError(error)
+      );
       this.evService.getPreSurvey().subscribe(
         response => this.handleSurveyResponse(response),
         error => this.handleError(error)

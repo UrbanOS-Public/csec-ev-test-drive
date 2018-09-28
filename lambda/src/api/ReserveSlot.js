@@ -15,7 +15,8 @@ class ReserveSlot {
     handleEvent(event, context, callback) {
         const body = JSON.parse(event.body);
         const carSlotId = body.carSlotId;
-        this.reserveSlot(carSlotId)
+        const email = body.email;
+        this.reserveSlot(email, carSlotId)
             // .then((updateResponse) => this.validateResponse(updateResponse))
             // .then(() => this.getUserAndDriveData(email, carSlotId))
             // .then((userAndDriveData) => this.insertDrive(userAndDriveData))
@@ -23,8 +24,8 @@ class ReserveSlot {
         ;
     }
 
-    reserveSlot(car_slot_id) {
-        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1 where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and cs.id = ?", car_slot_id)
+    reserveSlot(email, car_slot_id) {
+        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1, cs.reserved_by = ? where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and cs.id = ?", [email, car_slot_id])
     }
 
     validateResponse(updateResponse) {

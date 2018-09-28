@@ -38,6 +38,13 @@ export class EVService {
       httpOptions);
   }
 
+  postReserveSlot(data) {
+    return this.http.post(
+      globals.reserveSlotUrl,
+      data,
+      httpOptions);
+  }
+
   getCars() {
     return this.http.get(globals.carUrl, httpOptions);
   }
