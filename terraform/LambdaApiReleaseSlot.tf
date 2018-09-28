@@ -1,16 +1,16 @@
-module "ApiReserveSlotRole" {
+module "ApiReleaseSlotRole" {
   source = "./modules/roles/create_lambda_role"
   lambda_role_name = "${var.environment}ApiReserveSlotRole"
 }
 
-module "ApiReserveSlotFunction" {
+module "ApiReleaseSlotFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
   lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
-  function_name = "${var.environment}ApiReserveSlot"
-  handler = "src/api/ReserveSlot.handler"
-  role_arn = "${module.ApiReserveSlotRole.arn}"
+  function_name = "${var.environment}ApiReleaseSlot"
+  handler = "src/api/ReleaseSlot.handler"
+  role_arn = "${module.ApiReleaseSlotRole.arn}"
   timeout = "10"
-  description = "Api to reserve slot"
+  description = "Api to Release slot"
   vpc_subnet_ids = [
     "${aws_subnet.Subnet2.id}",
     "${aws_subnet.Subnet3.id}"]

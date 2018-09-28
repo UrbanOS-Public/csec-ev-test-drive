@@ -3,9 +3,7 @@ const {BetterSmartExperienceMySQLPool} = require('../utils/BetterSmartExperience
 const ApiHelpers = require('./ApiHelpers');
 const extend = require('extend');
 
-const ALREADY_RESERVED_MESSAGE = "Sorry that time slot has been reserved by someone else, please select another car/time combination.";
-
-class ReserveSlot {
+class ReleaseSlot {
     constructor(pool, moment, ApiHelpers) {
         this.moment = moment;
         this.pool = pool;
@@ -34,15 +32,12 @@ class ReserveSlot {
     errorHandler(callback, error) {
         this.pool.end();
         console.log(`ERROR: ${error}`);
-        if (error !== undefined && error.toString().indexOf(ALREADY_RESERVED_MESSAGE) === 0) {
-            return this.ApiHelpers.httpResponse(callback, 409, {errors: error});
-        }
         this.ApiHelpers.httpResponse(callback, 500, {errors: 'An error occurred when processing your request.'});
     }
 }
 
-exports.ReserveSlot = ReserveSlot;
+exports.ReleaseSlot = ReleaseSlot;
 exports.handler = (event, context, callback) => {
-    const handler = new ReserveSlot(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
+    const handler = new ReleaseSlot(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };
