@@ -124,6 +124,18 @@ module "api_post_scheduleDrive" {
   method = "POST"
   region = "${var.region}"
 }
+module "api_patch_reserveSlot" {
+  source = "./modules/api/create_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_rest_api.SmartExperienceApi.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "reserve"
+  function_invoke_arn = "${module.ApiReserveSlotFunction.invoke_arn}"
+  function_arn = "${module.ApiReserveSlotFunction.arn}"
+  api_key_required = "true"
+  account_number = "${var.account_number}"
+  method = "PATCH"
+  region = "${var.region}"
+}
 
 module "api_get_schedule" {
   source = "./modules/api/create_gateway_method_for_lambda"
