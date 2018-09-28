@@ -15,7 +15,6 @@ class ReserveSlot {
     handleEvent(event, context, callback) {
         const body = JSON.parse(event.body);
         const carSlotId = body.carSlotId;
-        const email = body.email;
         this.releaseSlot(carSlotId)
             .then((data) => this.successHandler(callback, data), (error) => this.errorHandler(callback, error))
         ;
