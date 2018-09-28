@@ -16,20 +16,21 @@ class ScheduleDrive {
         const body = JSON.parse(event.body);
         const carSlotId = body.carSlotId;
         const email = body.email;
-        this.reserveSlot(carSlotId)
-            .then((updateResponse) => this.validateResponse(updateResponse))
+        this.verifySlot(carSlotId)
+            .then((updateResponse) => this.validateResponse(email, updateResponse))
             .then(() => this.getUserAndDriveData(email, carSlotId))
             .then((userAndDriveData) => this.insertDrive(userAndDriveData))
             .then((data) => this.successHandler(callback, data), (error) => this.errorHandler(callback, error))
         ;
     }
 
-    reserveSlot(car_slot_id) {
-        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1 where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and cs.id = ?", car_slot_id)
+    verifySlot(car_slot_id) {
+        return this.pool.doQuery("select reserved_by from car_slot where id = ?", car_slot_id);
     }
 
-    validateResponse(updateResponse) {
-        if (updateResponse.changedRows !== 2) {
+    validateResponse(email, verifyResponse) {
+        console.log(verifyResponse);
+        if (verifyResponse[0].reserved_by !== email) {
             return Promise.reject(ALREADY_RESERVED_MESSAGE);
         }
         return {};
