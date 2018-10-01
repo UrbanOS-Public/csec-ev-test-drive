@@ -49,7 +49,7 @@ export class CarReviewComponent implements OnInit {
       );
     } else {
       this.evService.postReserveSlot({carSlotId:this.carSlotId, email: this.userEmail }).subscribe(
-        response => this.handleScheduleDrivePostResponse(response),
+        response => {},
         error => this.handleError(error)
       );
       this.evService.getPreSurvey().subscribe(
