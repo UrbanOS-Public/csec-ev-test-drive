@@ -27,6 +27,7 @@ export class SurveyComponent implements OnInit {
   sliderTextHigh: string;
   baseModule: string;
   isSubmitting = false;
+  carSlotId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -97,7 +98,10 @@ export class SurveyComponent implements OnInit {
   }
 
   doCancelConfirm() {
-    this.router.navigateByUrl(this.baseModule);
+    this.evService.postReleaseSlot({carSlotId:this.carSlotId}).subscribe(
+      response => this.router.navigateByUrl('/checkin'),
+      error => this.handleError(console.log("Couldn't cancel the reservation. This is usually not critical"))
+    );
   }
 
   doBack() {
