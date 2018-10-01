@@ -14,6 +14,7 @@ export class CarReviewComponent implements OnInit {
   selectedTime: any;
   userEmail: string;
   isSubmitting = false;
+  carSlotId: number;
 
   constructor(
     private router: Router,
@@ -25,6 +26,8 @@ export class CarReviewComponent implements OnInit {
     this.selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
     this.userEmail = localStorage.getItem('email');
 
+    this.carSlotId = this.selectedCar.times[this.selectedTime.formattedTime].timeSlotId;
+
     if (!this.selectedCar || !this.selectedTime || !this.userEmail) {
       this.router.navigateByUrl('/checkin');
     }
@@ -32,12 +35,12 @@ export class CarReviewComponent implements OnInit {
 
   doSubmit() {
     this.isSubmitting = true;
-    const carSlotId = this.selectedCar.times[this.selectedTime.formattedTime].timeSlotId;
+    
     if (localStorage.getItem('skipPreSurvey') === 'true') {
 
       const scheduleDriveData = {
         email: this.userEmail,
-        carSlotId: carSlotId
+        carSlotId: this.carSlotId
       };
 
       this.evService.postScheduleDrive(scheduleDriveData).subscribe(
@@ -45,7 +48,7 @@ export class CarReviewComponent implements OnInit {
         error => this.handleError(error)
       );
     } else {
-      this.evService.postReserveSlot({carSlotId:carSlotId, email: this.userEmail }).subscribe(
+      this.evService.postReserveSlot({carSlotId:this.carSlotId, email: this.userEmail }).subscribe(
         response => this.handleScheduleDrivePostResponse(response),
         error => this.handleError(error)
       );
@@ -69,7 +72,11 @@ export class CarReviewComponent implements OnInit {
   }
 
   doCancelConfirm() {
-    this.router.navigateByUrl('/checkin');
+    console.log("Confirmed!");
+    this.evService.postReleaseSlot({carSlotId:this.carSlotId}).subscribe(
+      response => this.router.navigateByUrl('/checkin'),
+      error => this.handleError(console.log(error))
+    );
   }
 
   doEdit() {
