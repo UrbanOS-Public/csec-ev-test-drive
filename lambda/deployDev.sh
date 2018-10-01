@@ -60,6 +60,8 @@ deployLambdas() {
             'dev_ApiGetUser'
             'dev_ApiCancelDrive'
             'dev_ApiGetSchedule'
+            'dev_ApiReserveSlot'
+            'dev_ApiReleaseSlot'
         )
     fi
 
