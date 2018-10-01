@@ -98,10 +98,9 @@ export class SurveyComponent implements OnInit {
   }
 
   doCancelConfirm() {
-    console.log("Confirmed!");
     this.evService.postReleaseSlot({carSlotId:this.carSlotId}).subscribe(
       response => this.router.navigateByUrl('/checkin'),
-      error => this.handleError(console.log(error))
+      error => this.handleError(console.log("Couldn't cancel the reservation. This is usually not critical"))
     );
   }
 
