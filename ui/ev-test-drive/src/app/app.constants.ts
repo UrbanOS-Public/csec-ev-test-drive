@@ -10,6 +10,7 @@ export const timeslotUrl      = apiBaseUrl + '/timeSlots';
 export const preSurveyUrl     = apiBaseUrl + '/preSurvey';
 export const scheduleRideUrl  = apiBaseUrl + '/drive';
 export const reserveSlotUrl  = apiBaseUrl + '/reserve';
+export const releaseSlotUrl  = apiBaseUrl + '/release';
 
 export const lookupUserUrl    = apiBaseUrl + '/getUser';
 export const postSurveyUrl    = apiBaseUrl + '/postSurvey';

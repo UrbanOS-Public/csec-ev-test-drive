@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { ActivatedRoute, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
@@ -27,6 +27,7 @@ export class SurveyComponent implements OnInit {
   sliderTextHigh: string;
   baseModule: string;
   isSubmitting = false;
+  carSlotId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -97,7 +98,11 @@ export class SurveyComponent implements OnInit {
   }
 
   doCancelConfirm() {
-    this.router.navigateByUrl(this.baseModule);
+    console.log("Confirmed!");
+    this.evService.postReleaseSlot({carSlotId:this.carSlotId}).subscribe(
+      response => this.router.navigateByUrl('/checkin'),
+      error => this.handleError(console.log(error))
+    );
   }
 
   doBack() {

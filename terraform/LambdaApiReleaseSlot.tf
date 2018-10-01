@@ -1,6 +1,6 @@
 module "ApiReleaseSlotRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "${var.environment}ApiReserveSlotRole"
+  lambda_role_name = "${var.environment}ApiReleaseSlotRole"
 }
 
 module "ApiReleaseSlotFunction" {
