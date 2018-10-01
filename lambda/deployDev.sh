@@ -49,6 +49,7 @@ deployLambdas() {
             'dev_JobSendConfirmationEmail'
             'dev_JobWeeklyEmailAnalytics'
             'dev_JobMonthlyEmailAnalytics'
+            'dev_JobReleaseTimeSlots'
             'dev_ApiSaveUser'
             'dev_ApiGetTimeSlots'
             'dev_ApiGetCars'
