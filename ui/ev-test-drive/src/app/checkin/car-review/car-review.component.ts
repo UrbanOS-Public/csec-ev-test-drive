@@ -25,8 +25,7 @@ export class CarReviewComponent implements OnInit {
     this.selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
     this.selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
     this.userEmail = localStorage.getItem('email');
-
-    this.carSlotId = this.selectedCar.times[this.selectedTime.formattedTime].timeSlotId;
+    this.carSlotId = JSON.parse(localStorage.getItem('carSlotId'));
 
     if (!this.selectedCar || !this.selectedTime || !this.userEmail) {
       this.router.navigateByUrl('/checkin');
