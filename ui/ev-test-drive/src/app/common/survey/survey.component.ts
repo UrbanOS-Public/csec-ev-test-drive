@@ -28,6 +28,7 @@ export class SurveyComponent implements OnInit {
   baseModule: string;
   isSubmitting = false;
   carSlotId: number;
+  dirtySliders: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
