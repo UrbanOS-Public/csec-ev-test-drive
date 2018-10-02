@@ -4,9 +4,16 @@
   height: 310px;
   width: 315px;
   font-family: Gotham, sans-serif;
-  color: #333333;
-  margin: 0;
+  background-color: $white;
+  display: inline-block;
+  margin-left: 8px;
+  margin-right: 7px;
+  margin-bottom: 20px;
+  border: 2px solid #000000;
+  border-radius: 3px;
   vertical-align: top;
+  text-align: left;
+  color: #333333;
 
   .imageDiv {
     height: 100px;
@@ -72,4 +79,12 @@
       margin-top: 0;
     }
   }
+}
+
+.unavailable {
+  opacity: 0.28;
+}
+
+.selected {
+  border: 2px solid $pink;
 }
