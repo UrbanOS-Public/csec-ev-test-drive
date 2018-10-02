@@ -9,17 +9,17 @@ class JobPopulateTimeSlots {
 
     handleEvent(event, context, callback) {
         const yesterday = this.moment().subtract(1, 'days').format("YYYY-MM-DD");
-        console.log(event.date);
-        const todayOrPassedInDate = this.moment(event.date).format("YYYY-MM-DD");
+        const today = this.moment(event.date);
+        const endOfPeriod = this.moment(event.date).add(14, 'days');
         const dayOfTheWeekStartingSundayZeroBased = this.moment().day();
 
         this.archiveCarSlots(yesterday)
             .then(() => this.deleteCarSlots(yesterday))
             .then(() => this.archiveTimeSlots(yesterday))
             .then(() => this.deleteTimeSlots(yesterday))
-            .then(() => this.getScheduleForToday(todayOrPassedInDate, dayOfTheWeekStartingSundayZeroBased))
-            .then((schedule) => this.createTimeSlotsForDate(schedule, todayOrPassedInDate))
-            .then(() => this.createCarSlotsForDate(todayOrPassedInDate))
+            .then(() => this.getScheduleForToday(today.format("YYYY-MM-DD"), dayOfTheWeekStartingSundayZeroBased))
+            .then((schedule) => this.createTimeSlotsForPeriod(schedule, today, endOfPeriod))
+            .then(() => this.createCarSlotsForPeriod(today, endOfPeriod))
             .then((updateResponses) => this.successHandler(callback, updateResponses), (err) => this.errorHandler(callback, err))
         ;
     }
@@ -30,7 +30,7 @@ class JobPopulateTimeSlots {
     }
 
     deleteCarSlots(yesterday) {
-        const query = `delete cs from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?`;
+        const query = `delete cs from car_slot cs, time_slot ts where cs.time_slot_id = ts.id`;
         return this.pool.doQuery(query, [yesterday]);
     }
 
@@ -40,7 +40,7 @@ class JobPopulateTimeSlots {
     }
 
     deleteTimeSlots(yesterday) {
-        const query = `delete ts from time_slot ts where ts.date = ?`;
+        const query = `delete ts from time_slot ts`;
         return this.pool.doQuery(query, [yesterday]);
     }
 
@@ -58,6 +58,26 @@ class JobPopulateTimeSlots {
                     return defaultSchedule;
                 }
             });
+    }
+
+    createTimeSlotsForPeriod(schedule, start, end) {
+        var timePromises = [];
+        const days = end.diff(start, 'days');
+        for (var i = 0; i < days; i++) {
+            const formattedDate = moment(start).add(i, 'days').format(("YYYY-MM-DD"));
+            timePromises.push(this.createTimeSlotsForDate(schedule, formattedDate));
+        }
+        return Promise.all(timePromises);
+    }
+
+    createCarSlotsForPeriod(start, end) {
+        var carPromises = [];
+        const days = end.diff(start, 'days');
+        for (var i = 0; i < days; i++) {
+            const formattedDate = moment(start).add(i, 'days').format(("YYYY-MM-DD"));
+            carPromises.push(this.createCarSlotsForDate(formattedDate));
+        }
+        return Promise.all(carPromises);
     }
 
     createTimeSlotsForDate(schedule, formattedDate) {
@@ -79,7 +99,6 @@ class JobPopulateTimeSlots {
             const row = [formattedDate, row_start_time, row_end_time, available_count];
             values.push(row);
         }
-
         return this.pool.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time)", [values]);
     }
 
@@ -99,6 +118,7 @@ class JobPopulateTimeSlots {
                         values.push([timeSlot.id, car.car_id, false]);
                     }
                 }
+                
                 return this.pool.doQuery("insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values ?", [values]);
             })
             .catch(err => {
