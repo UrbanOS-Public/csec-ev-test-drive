@@ -34,6 +34,7 @@ export class CarSelectionComponent implements OnInit {
     if (localStorage.getItem('email')) {
       this.getCars();
       this.getTimes();
+      this.preSelectCarAndTime();
     } else {
       // this.router.navigateByUrl('/checkin');
     }
@@ -61,7 +62,18 @@ export class CarSelectionComponent implements OnInit {
     });
   }
 
+  preSelectCarAndTime() {
+    const carStr = localStorage.getItem('selectedCar');
+    const timeStr = localStorage.getItem('selectedTime');
+  
+    if (carStr && timeStr) {
+      this.doSelectTime(JSON.parse(timeStr));
+      this.doSelectCar(JSON.parse(carStr));
+    }
+  }
+
   doSelectTime(selectedTime) {
+    console.log('doSelectTime', selectedTime);
     const timeState = !selectedTime.selected;
     if (this.selectedTime != selectedTime) {
       this.selectedTime = selectedTime;
@@ -72,11 +84,12 @@ export class CarSelectionComponent implements OnInit {
     this.times.forEach((time) => {
       time.selected = false;
     });
-    selectedTime.selected = timeState;
+    this.selectedTime.selected = timeState;
     this.updateCarStatesForTime(this.selectedTime);
   }
 
   doSelectCar(selectedCar) {
+    console.log('doSelectCar ', selectedCar);
     if (selectedCar.unavailable) {
       return;
     }
