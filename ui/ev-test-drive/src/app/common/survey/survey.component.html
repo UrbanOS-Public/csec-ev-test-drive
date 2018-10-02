@@ -79,7 +79,8 @@
           [thumbLabel]="true"
           [tickInterval]="1"
           [(ngModel)]="sliderValues[question.order_index]"
-          [vertical]="false">
+          [vertical]="false"
+          (click)="dirtySliders = true">
         </mat-slider>
         <br>
         <div class="helper-texts">
