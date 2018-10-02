@@ -22,7 +22,7 @@ class GetTimeSlots {
     }
 
     getTimeSlotsForDate(date) {
-        return this.pool.doQuery("select * from time_slot where date <= ? and date >= ?", [date, dateUtils.todayInESTFormatted()]);
+        return this.pool.doQuery("select * from time_slot where date <= ? and date >= ? order by date asc;", [date, dateUtils.todayInESTFormatted()]);
     }
 
     getCarSlotsForDate(date) {
