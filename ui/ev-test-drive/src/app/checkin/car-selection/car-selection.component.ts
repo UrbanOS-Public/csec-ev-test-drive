@@ -61,21 +61,49 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSelectTime(selectedTime) {
-    this.selectedTime = selectedTime;
     const timeState = !selectedTime.selected;
+    if (this.selectedTime != selectedTime) {
+      this.selectedTime = selectedTime;
+    } else {
+      this.selectedTime = null;
+    }
+    
     this.times.forEach((time) => {
       time.selected = false;
     });
     selectedTime.selected = timeState;
+    this.updateCarStatesForTime(this.selectedTime);
   }
 
   doSelectCar(selectedCar) {
+    if (selectedCar.unavailable) {
+      return;
+    }
     this.selectedCar = selectedCar;
     const carState = !selectedCar.selected;
     this.cars.forEach((car) => {
       car.selected = false;
     });
     selectedCar.selected = carState;
+  }
+
+  updateCarStatesForTime(time) {
+    this.clearCarStates();
+    if (time) {
+      time.cars.forEach(carSlot => {
+        var carInSlot = this.cars.find((car) => {
+          return car.id == carSlot.carId;
+        });
+        carInSlot.unavailable = carSlot.reserved;
+      });
+    }
+  }
+
+  clearCarStates(){
+    this.cars.forEach((car) => {
+      car.unavailable = false;
+      car.selected = false;
+    });
   }
 
   formatDate(date: Date) {
