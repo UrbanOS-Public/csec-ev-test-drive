@@ -17,10 +17,12 @@ export class CarSelectionComponent implements OnInit {
   timeCounter = 0;
   cars: any[] = [];
   times: any[] = [];
+  allTimes: any[] = [];
   selectedCar: any;
   selectedTime: any;
   formattedDate: string;
   isSubmitting = false;
+  day: any = moment().format('YYYY-MM-DD');
 
   constructor(
     private evService: EVService,
@@ -67,12 +69,12 @@ export class CarSelectionComponent implements OnInit {
   }
 
   initializeTimeslots(timesArray) {
-    this.times = timesArray;
+    this.allTimes = timesArray;
     this.timeCounter = 0;
 
-    this.toggleDateDisplay();
+    
 
-    this.times.forEach(time => {
+    this.allTimes.forEach(time => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
       time.tileId = this.timeCounter++;
       time.formattedDate = this.formattedDate;
@@ -88,8 +90,15 @@ export class CarSelectionComponent implements OnInit {
         };
       });
     });
-
+    this.onSelectDay();
     this.preSelectCarAndTime();
+  }
+
+  onSelectDay() {
+    this.times = this.allTimes.filter((time) => {
+      return time.date === this.day;
+    })
+    this.toggleDateDisplay();
   }
 
   toggleDateDisplay() {
