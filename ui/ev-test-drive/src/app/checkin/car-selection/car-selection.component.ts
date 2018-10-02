@@ -67,7 +67,7 @@ export class CarSelectionComponent implements OnInit {
     } else {
       this.selectedTime = null;
     }
-    
+
     this.times.forEach((time) => {
       time.selected = false;
     });
@@ -104,6 +104,19 @@ export class CarSelectionComponent implements OnInit {
       car.unavailable = false;
       car.selected = false;
     });
+  }
+
+  clearTimeStates(){
+    this.times.forEach((time) => {
+      time.selected = false;
+    });
+  }
+
+  doReset(){
+    this.clearCarStates();
+    this.clearTimeStates();
+    this.selectedCar = null;
+    this.selectedTime = null;
   }
 
   formatDate(date: Date) {
