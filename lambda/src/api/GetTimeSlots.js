@@ -11,7 +11,7 @@ class GetTimeSlots {
     }
 
     handleEvent(event, context, callback) {
-        let date = dateUtils.todayInESTFormatted();
+        let date = dateUtils.todayInEST().add(14, 'days').format("YYYY-MM-DD");
         const timeSlotsPromise = this.getTimeSlotsForDate(date);
         const carSlotsPromise = this.getCarSlotsForDate(date);
 
@@ -22,11 +22,11 @@ class GetTimeSlots {
     }
 
     getTimeSlotsForDate(date) {
-        return this.pool.doQuery("select * from time_slot where date = ?", date);
+        return this.pool.doQuery("select * from time_slot where date <= ? and date >= ?", [date, dateUtils.todayInESTFormatted()]);
     }
 
     getCarSlotsForDate(date) {
-        return this.pool.doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date = ?", date);
+        return this.pool.doQuery("select cs.* from car_slot cs, time_slot ts where cs.time_slot_id = ts.id and ts.date <= ? and date >= ?", [date, dateUtils.todayInESTFormatted()]);
     }
 
     transformData(promiseResults) {

@@ -8,6 +8,7 @@
     "deploy": "./deploy.sh"
   },
   "dependencies": {
+    "chai-spies": "^1.0.0",
     "email-validator": "^2.0.4",
     "extend": "^3.0.1",
     "json2csv": "^4.1.4",
@@ -19,12 +20,12 @@
   "author": "Step It Up (http://getstepitup.com/)",
   "license": "ISC",
   "devDependencies": {
-    "chai": "4.1.2",
-    "ndc-util": "^1.0.0",
     "aws-sdk": "2.225.1",
-    "mocha": "4.0.1",
+    "chai": "4.1.2",
+    "mocha": "^4.0.1",
+    "ndc-util": "^1.0.0",
     "randomkey": "^1.0.0",
-    "sinon-chai": "^3.0.0",
-    "sinon": "4.0.1"
+    "sinon": "4.0.1",
+    "sinon-chai": "^3.0.0"
   }
 }
