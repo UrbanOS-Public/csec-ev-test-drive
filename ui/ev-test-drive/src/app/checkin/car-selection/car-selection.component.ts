@@ -22,6 +22,7 @@ export class CarSelectionComponent implements OnInit {
   selectedTime: any;
   formattedDate: string;
   isSubmitting = false;
+  carSlotId;
   day: any = moment().format('YYYY-MM-DD');
 
   constructor(
@@ -85,6 +86,7 @@ export class CarSelectionComponent implements OnInit {
       car.selected = false;
     });
     selectedCar.selected = carState;
+    this.updateCarSlotId(this.selectedTime, selectedCar);
   }
 
   updateCarStatesForTime(time) {
@@ -95,6 +97,16 @@ export class CarSelectionComponent implements OnInit {
           return car.id == carSlot.carId;
         });
         carInSlot.unavailable = carSlot.reserved;
+      });
+    }
+  }
+
+  updateCarSlotId(time, car) {
+    if(time){
+      time.cars.forEach(carSlot => {
+        if (carSlot.carId == car.id) {
+          this.carSlotId = carSlot.carSlotId;
+        }
       });
     }
   }
@@ -135,5 +147,15 @@ export class CarSelectionComponent implements OnInit {
     dateStr += `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 
     return dateStr;
+  }
+
+  doSubmit() {
+    if (!this.isSubmitting && this.selectedCar && this.selectedTime) {
+      this.isSubmitting = true;
+      localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
+      localStorage.setItem('selectedTime', JSON.stringify(this.selectedTime));
+      localStorage.setItem('carSlotId', JSON.stringify(this.carSlotId));
+      this.router.navigateByUrl('/checkin/carReview');
+    }
   }
 }
