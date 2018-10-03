@@ -215,4 +215,20 @@ export class CarSelectionComponent implements OnInit {
       this.router.navigateByUrl('/checkin/carReview');
     }
   }
+
+  openModal(id) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.modalService.close(id);
+  }
+
+  doCancel() {
+    this.modalService.open('cancel-modal');
+  }
+
+  doCancelConfirm() {
+    this.router.navigateByUrl('/checkin');
+  }
 }
