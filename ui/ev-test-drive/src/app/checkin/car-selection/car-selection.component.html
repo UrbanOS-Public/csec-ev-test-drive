@@ -28,7 +28,7 @@
           </div>
           <div class="datePick">
             <img class="calendarLogo tablet-up-invisible" src="assets/calendarLogoBlack.svg">
-            <select [(ngModel)]="selectedDay" class="dateSelect">
+            <select [(ngModel)]="selectedDay" class="dateSelect" (change)="doDaySelect()">
               <option *ngFor="let day of days" [ngValue]="day">{{formatDate(day)}}</option>
             </select>
           </div>
