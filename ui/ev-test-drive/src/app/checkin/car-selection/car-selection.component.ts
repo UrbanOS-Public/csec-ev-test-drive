@@ -73,6 +73,9 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSelectTime(selectedTime) {
+    if (!selectedTime || selectedTime.unavailable) {
+      return;
+    }
     const timeState = !selectedTime.selected;
     this.times.forEach((time) => {
       time.selected = false;
@@ -104,18 +107,37 @@ export class CarSelectionComponent implements OnInit {
   }
 
   updateCarStatesForTime(time) {
-    this.clearCarStates();
     if (time) {
       time.cars.forEach(carSlot => {
         var carInSlot = this.cars.find((car) => {
           return car.id == carSlot.carId;
         });
         carInSlot.unavailable = carSlot.reserved;
+        if (carSlot.reserved) {
+          carInSlot.selected = false;
+          if (carInSlot == this.selectedCar){
+            this.selectedCar = null;
+          }
+        }
+      });
+    } else {
+      this.clearCarStates();
+    }
+  }
+
+  updateTimeStatesForCar(car) {
+    this.clearTimeStates();
+    if (car) {
+      this.times.forEach(time => {
+        var carForSlot = time.cars.find((carSlot) => carSlot.carId == car.id);
+        if (carForSlot && carForSlot.reserved) {
+          time.unavailable = true;
+        }
       });
     }
-    var selectedCar = this.selectedCar;
-    this.selectedCar = null;
-    this.doSelectCar(selectedCar);
+    var selectedTime = this.selectedTime;
+    this.selectedTime = null;
+    this.doSelectTime(selectedTime);
   }
 
   updateCarSlotId(time, car) {
@@ -131,7 +153,6 @@ export class CarSelectionComponent implements OnInit {
   clearCarStates(){
     this.cars.forEach((car) => {
       car.unavailable = false;
-      car.selected = false;
     });
   }
 
