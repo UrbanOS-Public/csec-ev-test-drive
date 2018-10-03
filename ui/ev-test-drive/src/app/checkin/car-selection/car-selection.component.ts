@@ -107,7 +107,8 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSelectTime(selectedTime) {
-    if (!selectedTime || selectedTime.unavailable) {
+    console.log(selectedTime);
+    if (!selectedTime || selectedTime.disabled || selectedTime.availableCount <= 0) {
       return;
     }
     const timeState = !selectedTime.selected;
@@ -232,7 +233,7 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSubmit() {
-    if (!this.isSubmitting && this.selectedCar && this.selectedTime) {
+    if (!this.isSubmitting && this.selectedCar && this.selectedTime && this.carSlotId) {
       this.isSubmitting = true;
       this.selectedTime.formattedDate = this.formatDate(this.selectedTime.date);
       localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
