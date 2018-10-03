@@ -142,6 +142,8 @@ form.questionnaire {
   .questions {
     @include for-phone-only {
       @include small-scale-input;
+
+      height: 75vh;
     }
 
     @include for-tablet-portrait-up {

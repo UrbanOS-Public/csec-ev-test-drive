@@ -53,17 +53,6 @@ export class CarSelectionComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
-    if (this.selectedCar && this.selectedTime) {
-
-      // Select asynchronously to avoid conflicts with change detection
-      setTimeout(() => {
-        // this.doSelectCar(this.selectedCar.tileId);
-        // this.doSelectTime(this.selectedTime.tileId);
-      });
-    }
-  }
-
   getCars() {
     this.cars = JSON.parse(localStorage.getItem('cars'));
   }
@@ -107,7 +96,6 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSelectTime(selectedTime) {
-    console.log(selectedTime);
     if (!selectedTime || selectedTime.disabled || selectedTime.availableCount <= 0) {
       return;
     }
