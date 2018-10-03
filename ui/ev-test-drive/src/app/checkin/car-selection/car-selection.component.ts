@@ -86,6 +86,11 @@ export class CarSelectionComponent implements OnInit {
     });
   }
 
+  doDaySelect() {
+    this.showTimesForDay(this.selectedDay);
+    this.doReset();
+  }
+
   preSelectCarAndTime() {
     const preSelectCar = JSON.parse(localStorage.getItem('selectedCar'));
     const preSelectTime = JSON.parse(localStorage.getItem('selectedTime'));
