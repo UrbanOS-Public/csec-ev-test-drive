@@ -19,13 +19,19 @@
   <div class="times-container">
     <div class="times-pane">
       <div class="times-header">
-          <div class="clear tablet-up-invisible" (click)="doReset()">
-              <div class="clear-mobile">Clear</div>
+          <div class="titleContainer">
+            <img class="calendarLogo phone-invisible" src="assets/calendarLogoBlack.svg">
+            <div class="header-text">Select a Time</div>
+            <div class="clear tablet-up-invisible" (click)="doReset()">
+                <div class="clear-mobile">Clear</div>
+            </div>
           </div>
-        <div>
-          <img class="calendarLogo" src="assets/calendarLogoBlack.svg">
-          <p class="header-text">Select a Time</p>
-        </div>
+          <div class="datePick">
+            <img class="calendarLogo tablet-up-invisible" src="assets/calendarLogoBlack.svg">
+            <select [(ngModel)]="selectedDay" class="dateSelect" (change)="doDaySelect()">
+              <option *ngFor="let day of days" [ngValue]="day">{{formatDate(day)}}</option>
+            </select>
+          </div>
       </div>
 
       <div class="date">
@@ -40,8 +46,8 @@
           class="time"
           *ngFor="let time of times"
           id="{{ time.tileId }}"
-          [ngClass]="{'disabled': time.disabled}"
-          (click)="doSelectTime(time.tileId)">
+          [ngClass]="{'disabled': time.availableCount <= 0 || time.disabled, 'selected': time.selected}"
+          (click)="doSelectTime(time)">
 
           <p>{{ time.formattedTime }}</p>
         </div>
@@ -58,17 +64,16 @@
         </div>
         <car-tile
           id="{{ car.tileId }}"
-          class="car-tile"
           *ngFor="let car of cars"
           [car]="car"
-          (click)='doSelectCar(car.tileId)'>
+          (click)='doSelectCar(car)'
+          [collapsed]='collapseCarTiles'>
         </car-tile>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    <div class="horizontal-rule"></div>
     <div class="cancel" (click)="doCancel()">
       <p>Cancel</p>
     </div>
@@ -76,7 +81,7 @@
     <div
       class="next"
       (click)="doSubmit()"
-      [ngClass]="{'disabled': !selectedCar || !selectedTime}">
+      [ngClass]="{'disabled': !selectedCar || !selectedTime || !carSlotId}">
       <p>
         {{ isSubmitting ? "" : "Next "}}
         <img src="assets/arrow.png" *ngIf="!isSubmitting">

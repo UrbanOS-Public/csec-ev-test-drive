@@ -1,24 +1,29 @@
-<div class="tile">
+<div class="tile" [ngClass]="{'selected': car.selected, 'unavailable': car.unavailable}" *ngIf="car.active">
   <div class="imageDiv">
-    <img class="carImage" src="{{ car.imageUrl }}">
+    <img class="carImage" src="{{ car.imageUrl }}" (click)="onCollapse()">
   </div>
-  <p class="year">{{ car.year }}</p>
-  <p class="make-model">{{ car.make }} {{ car.model }}</p>
-  <div class="stat">
-    <p class="label msrp">MSRP</p>
-    <p class="value msrp">{{ car.specs.msrp }}<br>before tax credits</p>
-  </div>
-  <div class="stat">
-    <p class="label range">Range</p>
-    <p class="value range">{{ car.specs.evRange }} EV miles<br>{{ totalRangeText }}</p>
-  </div>
-  <div class="stat">
-    <p class="label battery">Battery Size</p>
-    <p class="value battery">{{ car.specs.battery }}</p>
-  </div>
-  <div class="stat">
-    <p class="label charge-standard">{{ car.specs.chargingStandard}}</p>
-    <p class="label charge">Charge Time</p>
-    <p class="value charge">{{ car.specs.chargeTime }}</p>
+  <div class="make-model-container">
+      <p class="year">{{ car.year }}</p>
+      <p class="make-model">{{ car.make }} {{ car.model }}</p>
+      <p class="value msrp" *ngIf="collapsed">{{ car.specs.msrp }}<br>before tax credits</p>
+    </div>
+    <div *ngIf="!collapsed">
+    <div class="stat">
+      <p class="label msrp">MSRP</p>
+      <p class="value msrp">{{ car.specs.msrp }}<br>before tax credits</p>
+    </div>
+    <div class="stat">
+      <p class="label range">Range</p>
+      <p class="value range">{{ car.specs.evRange }} EV miles<br>{{ totalRangeText }}</p>
+    </div>
+    <div class="stat">
+      <p class="label battery">Battery Size</p>
+      <p class="value battery">{{ car.specs.battery }}</p>
+    </div>
+    <div class="stat">
+      <p class="label charge-standard">{{ car.specs.chargingStandard}}</p>
+      <p class="label charge">Charge Time</p>
+      <p class="value charge">{{ car.specs.chargeTime }}</p>
+    </div>
   </div>
 </div>

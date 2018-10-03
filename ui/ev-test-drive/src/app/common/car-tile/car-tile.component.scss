@@ -1,26 +1,57 @@
 @import "../../../colors.scss";
+@import "../../../mixins.scss";
 
 .tile {
-  height: 310px;
+  height: auto;
+  padding-bottom: 9px;
+  padding-top: 9px;
   width: 315px;
   font-family: Gotham, sans-serif;
-  color: #333333;
-  margin: 0;
+  background-color: $white;
+  display: inline-block;
+  margin-bottom: 20px;
+  border: 2px solid #000000;
+  border-radius: 3px;
   vertical-align: top;
+  text-align: left;
+  color: #333333;
+  margin-left: 10px;
+  margin-right: 10px;
+  @include for-tablet-portrait-up {
+    min-height: 320px;
+  }
 
   .imageDiv {
     height: 100px;
-    width: 315px;
-    text-align: center;
+    width: 50%;
+    text-align: left;
+
+    @include for-tablet-portrait-up {
+      width: 315px;
+      text-align: center;
+    }
+    
+    display: inline-block;
 
     .carImage {
       padding-top: 15px;
     }
   }
 
+  .make-model-container {
+    vertical-align: top;
+    width: 50%;
+    display: inline-block;
+     .value {
+      margin-top: 18px;
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+
   p {
+    width:calc(100% - 18px);
     padding-left: 18px;
-    padding-right: 18px;
     word-wrap: word;
     margin: 0;
   }
@@ -30,15 +61,24 @@
     font-size: 14px;
     letter-spacing: -0.68px;
     margin: 0;
-    display: block;
+    display: inline-block;
   }
 
   .make-model {
     font-weight: 700;
-    font-size: 25px;
+    font-size: 16px;
     letter-spacing: -1.21px;
     margin: 0;
-    display: block;
+    display: inline-block;
+  }
+
+  @include for-tablet-portrait-up {
+    .year {
+      display: block;
+    }
+    .make-model {
+      font-size: 25px; 
+    }
   }
 
   .stat {
@@ -72,4 +112,12 @@
       margin-top: 0;
     }
   }
+}
+
+.unavailable {
+  opacity: 0.28;
+}
+
+.selected {
+  border: 2px solid $pink;
 }

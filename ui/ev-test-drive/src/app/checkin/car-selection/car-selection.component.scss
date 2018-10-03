@@ -2,6 +2,18 @@
 @import "../../../cancel.scss";
 @import "../../../mixins.scss";
 
+.tablet-up-invisible {
+  @include for-tablet-portrait-up {
+    display: none !important;
+  }
+}
+
+.phone-invisible {
+  @include for-phone-only {
+    display: none !important;
+  }
+}
+
 .car-selection-screen {
   background-color: $backgroundGray;
   width: 100vw;
@@ -44,8 +56,7 @@
       @include for-tablet-portrait-up {
         min-height: calc(100vh - 185px);
       }
-
-      width: 300px;
+      
       background-color: $white;
       color: #333333;
       display: inline-block;
@@ -59,21 +70,18 @@
 
       .times-header {
         display: block;
-        margin-top: 32px;
 
         .calendarLogo {
           height: 39px;
           width: 41px;
           display: inline-block;
+          vertical-align: middle;
+          margin-right: 10px;
         }
 
         .header-text {
           font-weight: 500;
-          font-size: 17px;
           letter-spacing: -0.82px;
-          margin: 0;
-          margin-top: -31px;
-          margin-left: 7px;
           display: inline-block;
           vertical-align: middle;
         }
@@ -138,7 +146,7 @@
 
   .cars-container {
     @include for-tablet-portrait-up {
-      height: calc(100vh - 164px);
+      height: calc(100vh - 160px);
     }
 
     display: inline-block;
@@ -148,7 +156,7 @@
 
     .cars-pane-container {
       @include for-tablet-portrait-up {
-        width: calc(100vw - 330px);
+        width: calc(100vw - 300px);
       }
       @include for-phone-only {
         width: 100vw;
@@ -215,11 +223,9 @@
   .footer {
     height: 90px;
     width: 100vw;
-    margin: 0;
-    padding: 0;
-    // position: fixed;
-    text-align: right;
-    float: bottom;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
     background-color: #E9E9E9;
 
     .horizontal-rule {
@@ -240,21 +246,44 @@
 
   .clear {
     color:$pink;
-    position: absolute;
-    top: auto;
-    right: 0;
-    margin-right: 32px;
   }
 
-  .tablet-up-invisible {
-    @include for-tablet-portrait-up {
-      display: none;
+  .dateSelect {
+    font-size: 25px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding: 10px;
+    background-color: white;
+
+    option {
+      width: auto;
+      font-size: 20px;
     }
   }
 
-  .phone-invisible {
-    @include for-phone-only {
-      display: none;
+  .titleContainer {
+    display: flex;
+    align-content: space-between;
+    flex-direction: row;
+    @include for-tablet-portrait-up {
+      justify-content: center;
+    }
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .datePick {
+    padding:10px;
+    display: flex;
+    flex-direction: row;
+
+    .calendarLogo {
+      margin-top: 10px;
+    }
+    .dateSelect {
+      flex-grow: 1;
     }
   }
 }
