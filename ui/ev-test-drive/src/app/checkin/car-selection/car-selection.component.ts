@@ -63,28 +63,28 @@ export class CarSelectionComponent implements OnInit {
   }
 
   preSelectCarAndTime() {
-    const carStr = localStorage.getItem('selectedCar');
-    const timeStr = localStorage.getItem('selectedTime');
+    const preSelectCar = JSON.parse(localStorage.getItem('selectedCar'));
+    const preSelectTime = JSON.parse(localStorage.getItem('selectedTime'));
   
-    if (carStr && timeStr) {
-      this.doSelectTime(JSON.parse(timeStr));
-      this.doSelectCar(JSON.parse(carStr));
+    if (preSelectCar && preSelectTime) {
+      this.doSelectTime(this.times.find((time) => time.date == preSelectTime.date && time.startTime == preSelectTime.startTime));
+      this.doSelectCar(this.cars.find((car) => car.id == preSelectCar.id));
     }
   }
 
   doSelectTime(selectedTime) {
     console.log('doSelectTime', selectedTime);
     const timeState = !selectedTime.selected;
-    if (this.selectedTime != selectedTime) {
-      this.selectedTime = selectedTime;
-    } else {
-      this.selectedTime = null;
-    }
-
     this.times.forEach((time) => {
       time.selected = false;
     });
-    this.selectedTime.selected = timeState;
+    if (this.selectedTime != selectedTime) {
+      console.log('selecting a time', this.selectedTime)
+      this.selectedTime = selectedTime;
+      this.selectedTime.selected = timeState;
+    } else {
+      this.selectedTime = null;
+    }
     this.updateCarStatesForTime(this.selectedTime);
   }
 
