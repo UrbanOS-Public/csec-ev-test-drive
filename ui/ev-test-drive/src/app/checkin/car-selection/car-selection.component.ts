@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
@@ -17,23 +17,39 @@ export class CarSelectionComponent implements OnInit {
   timeCounter = 0;
   cars: any[] = [];
   times: any[] = [];
-  allTimes: any[] = [];
+  days: any[] = [];
+  allTimes: any;
   selectedCar: any;
   selectedTime: any;
+  selectedDay: any;
   formattedDate: string;
   isSubmitting = false;
+  collapseCarTiles = false;
+  carSlotId;
   day: any = moment().format('YYYY-MM-DD');
 
   constructor(
     private evService: EVService,
     private router: Router,
-    private modalService: ModalService) { }
+    private modalService: ModalService) {
+      this.onResize();
+    }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.collapseCarTiles = window.innerWidth <= 599;
+  }
 
   ngOnInit() {
     if (localStorage.getItem('email')) {
       this.getCars();
+      this.getTimes();
+      this.preSelectCarAndTime();
+      if (!this.cars || !this.times) {
+        this.router.navigateByUrl('/checkin');
+      }
     } else {
-      // this.router.navigateByUrl('/checkin');
+      this.router.navigateByUrl('/checkin');
     }
   }
 
@@ -42,107 +58,184 @@ export class CarSelectionComponent implements OnInit {
 
       // Select asynchronously to avoid conflicts with change detection
       setTimeout(() => {
-        this.doSelectCar(this.selectedCar.tileId);
-        this.doSelectTime(this.selectedTime.tileId);
+        // this.doSelectCar(this.selectedCar.tileId);
+        // this.doSelectTime(this.selectedTime.tileId);
       });
     }
   }
 
   getCars() {
-    this.initializeCars(JSON.parse(localStorage.getItem('cars')));
-  }
-
-  initializeCars(carArray) {
-    this.carCounter = 0;
-    carArray.forEach(car => {
-      if (car.active) {
-        car.tileId = this.carCounter++;
-        car.times = {};
-        this.cars.push(car);
-      }
-    });
-    this.getTimes();
+    this.cars = JSON.parse(localStorage.getItem('cars'));
   }
 
   getTimes() {
-    this.initializeTimeslots(JSON.parse(localStorage.getItem('times')));
-  }
-
-  initializeTimeslots(timesArray) {
-    this.allTimes = timesArray;
-    this.timeCounter = 0;
-
-    
-
-    this.allTimes.forEach(time => {
+    this.allTimes = JSON.parse(localStorage.getItem('times'));
+    this.allTimes.forEach((time) => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
-      time.tileId = this.timeCounter++;
-      time.formattedDate = this.formattedDate;
-      if (time.availableCount == 0) {
-        time.disabled = true;
-      }
-      time.cars.forEach(timeCar => {
-        let car = this.cars.filter(c => c.id == timeCar.carId)[0];
-        car.times[time.formattedTime] = {
-          timeSlotId: timeCar.carSlotId,
-          timeTileId: time.tileId,
-          reserved: timeCar.reserved
-        };
-      });
     });
-    this.onSelectDay();
-    this.preSelectCarAndTime();
+    this.getDays();
+    this.selectedDay = this.days[0];
+    this.showTimesForDay(this.selectedDay)
+  }
+  
+  getDays() {
+    const unique = new Set(this.allTimes.map(item => item.date));
+    this.days = Array.from(unique);
   }
 
-  onSelectDay() {
+  showTimesForDay(day) {
     this.times = this.allTimes.filter((time) => {
-      return time.date === this.day;
-    })
-    this.toggleDateDisplay();
+      return time.date == day;
+    });
   }
 
-  toggleDateDisplay() {
-    const dateElement = document.getElementsByClassName('date').item(0);
-    const noRidesElement = document.getElementsByClassName('no-rides').item(0);
-
-    if (this.times.length === 0) {
-      if (dateElement) {
-        dateElement.classList.add('hidden');
-      }
-      if (noRidesElement) {
-        noRidesElement.classList.remove('hidden');
-      }
-    } else {
-      if (dateElement) {
-        dateElement.classList.remove('hidden');
-      }
-      if (noRidesElement) {
-        noRidesElement.classList.add('hidden');
-      }
-      this.formattedDate = this.formatDate(moment(this.times[0].date).toDate());
-    }
+  doDaySelect() {
+    this.showTimesForDay(this.selectedDay);
+    this.doReset();
   }
 
   preSelectCarAndTime() {
-    const carStr = localStorage.getItem('selectedCar');
-    const timeStr = localStorage.getItem('selectedTime');
-
-    if (carStr && timeStr) {
-      this.selectedCar = JSON.parse(carStr);
-      this.selectedTime = JSON.parse(timeStr);
+    const preSelectCar = JSON.parse(localStorage.getItem('selectedCar'));
+    const preSelectTime = JSON.parse(localStorage.getItem('selectedTime'));
+  
+    if (preSelectCar && preSelectTime) {
+      this.doSelectTime(this.times.find((time) => time.date == preSelectTime.date && time.startTime == preSelectTime.startTime));
+      this.doSelectCar(this.cars.find((car) => car.id == preSelectCar.id));
     }
   }
 
-  doReset() {
-    this.doSelectCar(-1);
-    this.doSelectTime(-1);
+  doSelectTime(selectedTime) {
+    if (!selectedTime || selectedTime.unavailable) {
+      return;
+    }
+    const timeState = !selectedTime.selected;
+    this.times.forEach((time) => {
+      time.selected = false;
+    });
+    if (this.selectedTime != selectedTime) {
+      this.selectedTime = selectedTime;
+      this.selectedTime.selected = timeState;
+    } else {
+      this.selectedTime = null;
+    }
+    this.updateCarStatesForTime(this.selectedTime);
+  }
+
+  doSelectCar(selectedCar) {
+    if (!selectedCar || selectedCar.unavailable) {
+      return;
+    }
+    const carState = !selectedCar.selected;
+    this.cars.forEach((car) => {
+      car.selected = false;
+    });
+    if (this.selectedCar != selectedCar) {
+      this.selectedCar = selectedCar;
+      this.selectedCar.selected = carState;
+    } else {
+      this.selectedCar = null;
+    }
+    this.updateTimeStatesForCar(this.selectedCar);
+    this.updateCarSlotId(this.selectedTime, selectedCar);
+  }
+
+  updateCarStatesForTime(time) {
+    if (time) {
+      time.cars.forEach(carSlot => {
+        var carInSlot = this.cars.find((car) => {
+          return car.id == carSlot.carId;
+        });
+        carInSlot.unavailable = carSlot.reserved;
+        if (carSlot.reserved) {
+          carInSlot.selected = false;
+          if (carInSlot == this.selectedCar){
+            this.selectedCar = null;
+          }
+        }
+      });
+    } else {
+      this.clearCarAvailableStates();
+    }
+  }
+
+  updateTimeStatesForCar(car) {
+    this.clearTimeAvailableStates();
+    if (car) {
+      this.times.forEach(time => {
+        var carForSlot = time.cars.find((carSlot) => carSlot.carId == car.id);
+        if (carForSlot && carForSlot.reserved) {
+          time.disabled = true;
+          time.selected = false;
+          if (time == this.selectedTime) {
+            this.selectedTime = null;
+          }
+        }
+      });
+    }
+  }
+
+  updateCarSlotId(time, car) {
+    if(time){
+      time.cars.forEach(carSlot => {
+        if (carSlot.carId == car.id) {
+          this.carSlotId = carSlot.carSlotId;
+        }
+      });
+    }
+  }
+
+  clearCarAvailableStates(){
+    this.cars.forEach((car) => {
+      car.unavailable = false;
+    });
+  }
+
+  clearSelectedStates(list){
+    list.forEach((thing) => {
+      thing.selected = false;
+    });
+  }
+
+  clearTimeAvailableStates(){
+    this.times.forEach((time) => {
+      time.disabled = false;
+    });
+  }
+
+  doReset(){
+    this.clearCarAvailableStates();
+    this.clearTimeAvailableStates();
+    this.clearSelectedStates(this.cars);
+    this.clearSelectedStates(this.times);
+    this.selectedCar = null;
+    this.selectedTime = null;
+  }
+
+  formatDate(date: any) {
+    date = moment(date);
+    const today = moment();
+    let dateStr = '';
+    
+    if (today.month() === date.month()
+     && today.date() === date.date()
+     && today.year() === date.year()) {
+      dateStr += 'Today, ';
+    } else {
+      dateStr += `${date.format('ddd')}, `;
+    }
+
+    dateStr += `${date.format('MMM')} ${date.date()}, ${date.year()}`;
+
+    return dateStr;
   }
 
   doSubmit() {
     if (!this.isSubmitting && this.selectedCar && this.selectedTime) {
       this.isSubmitting = true;
+      this.selectedTime.formattedDate = this.formatDate(this.selectedTime.date);
       localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
       localStorage.setItem('selectedTime', JSON.stringify(this.selectedTime));
+      localStorage.setItem('carSlotId', JSON.stringify(this.carSlotId));
       this.router.navigateByUrl('/checkin/carReview');
     }
   }
@@ -161,107 +254,5 @@ export class CarSelectionComponent implements OnInit {
 
   doCancelConfirm() {
     this.router.navigateByUrl('/checkin');
-  }
-
-  doSelectCar(carTileId) {
-    const carList = document.getElementsByClassName("car-tile");
-    const selectedTile = carList.item(carTileId);
-    if (selectedTile && selectedTile.classList.contains("disabled")
-       || selectedTile && selectedTile.classList.contains("unavailable")) {
-      return;
-    }
-
-    this.selectedCar = null;
-    for (let item of Array.from(carList)) {
-      if (item.id == carTileId) {
-        if (item.classList.contains("selected")) {
-          item.classList.remove("selected");
-          this.selectedCar = null;
-        } else {
-          item.classList.add("selected");
-          this.selectedCar = this.cars.filter(car => car.tileId === carTileId)[0];
-        }
-      } else {
-        item.classList.remove("selected");
-      }
-    }
-    this.markUnavailableTimes(this.selectedCar);
-  }
-
-  doSelectTime(timeTileId) {
-    const timeList = document.getElementsByClassName("time");
-    const selectedTile = timeList.item(timeTileId);
-    if (selectedTile && selectedTile.classList.contains("disabled")
-       || selectedTile && selectedTile.classList.contains("unavailable")) {
-      return;
-    }
-
-    this.selectedTime = null;
-    for (let item of Array.from(timeList)) {
-      if (item.id == timeTileId) {
-        if (item.classList.contains("selected")) {
-          item.classList.remove("selected");
-          this.selectedTime = null;
-        } else {
-          item.classList.add("selected");
-          this.selectedTime = this.times.filter(time => time.tileId === timeTileId)[0];
-        }
-      } else {
-        item.classList.remove("selected");
-      }
-    }
-    this.markUnavailableCars(this.selectedTime);
-  }
-
-  markUnavailableCars(time) {
-    const carList = document.getElementsByClassName("car-tile");
-
-    this.cars.forEach(car => {
-      if (car.active) {
-        let carElement = carList.item(car.tileId);
-
-        if (time && car.times[time.formattedTime].reserved) {
-          carElement.classList.add("unavailable");
-          carElement.classList.remove("selected");
-        } else {
-          carElement.classList.remove("unavailable");
-        }
-      } 
-    });
-  }
-
-  markUnavailableTimes(car) {
-    const timeList = document.getElementsByClassName("time");
-
-    this.times.forEach(time => {
-      if (time.availableCount > 0) {
-        let timeElement = timeList.item(time.tileId);
-
-        if (car && car.times[time.formattedTime].reserved) {
-          timeElement.classList.add("unavailable");
-          timeElement.classList.remove("selected");
-        } else {
-          timeElement.classList.remove("unavailable");
-        }
-      } 
-    });
-  }
-
-  formatDate(date: Date) {
-    const today = new Date();
-    const months = ['January', 'February', 'March', 'April',
-                    'May', 'June', 'July', 'August', 'September',
-                    'October', 'November', 'December'];
-    let dateStr = '';
-    
-    if (today.getMonth() === date.getMonth()
-     && today.getDate() === date.getDate()
-     && today.getFullYear() === date.getFullYear()) {
-      dateStr += 'Today, ';
-    }
-
-    dateStr += `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-
-    return dateStr;
   }
 }

@@ -25,8 +25,7 @@ export class CarReviewComponent implements OnInit {
     this.selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
     this.selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
     this.userEmail = localStorage.getItem('email');
-
-    this.carSlotId = this.selectedCar.times[this.selectedTime.formattedTime].timeSlotId;
+    this.carSlotId = JSON.parse(localStorage.getItem('carSlotId'));
 
     if (!this.selectedCar || !this.selectedTime || !this.userEmail) {
       this.router.navigateByUrl('/checkin');
@@ -43,10 +42,16 @@ export class CarReviewComponent implements OnInit {
         carSlotId: this.carSlotId
       };
 
-      this.evService.postScheduleDrive(scheduleDriveData).subscribe(
-        response => this.handleScheduleDrivePostResponse(response),
+      this.evService.postReserveSlot({carSlotId:this.carSlotId, email: this.userEmail }).subscribe(
+        response => {
+          this.evService.postScheduleDrive(scheduleDriveData).subscribe(
+            response => this.handleScheduleDrivePostResponse(response),
+            error => this.handleError(error)
+          );
+        },
         error => this.handleError(error)
       );
+      
     } else {
       this.evService.postReserveSlot({carSlotId:this.carSlotId, email: this.userEmail }).subscribe(
         response => {},
