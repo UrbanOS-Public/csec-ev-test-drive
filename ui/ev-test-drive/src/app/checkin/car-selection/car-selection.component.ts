@@ -103,6 +103,7 @@ export class CarSelectionComponent implements OnInit {
     } else {
       this.selectedCar = null;
     }
+    this.updateTimeStatesForCar(this.selectedCar);
     this.updateCarSlotId(this.selectedTime, selectedCar);
   }
 
@@ -121,23 +122,25 @@ export class CarSelectionComponent implements OnInit {
         }
       });
     } else {
-      this.clearCarStates();
+      this.clearCarAvailableStates();
     }
   }
 
   updateTimeStatesForCar(car) {
-    this.clearTimeStates();
     if (car) {
       this.times.forEach(time => {
         var carForSlot = time.cars.find((carSlot) => carSlot.carId == car.id);
         if (carForSlot && carForSlot.reserved) {
-          time.unavailable = true;
+          time.disabled = true;
+          time.selected = false;
+          if (time == this.selectedTime) {
+            this.selectedTime = null;
+          }
         }
       });
+    } else {
+      this.clearTimeAvailableStates();
     }
-    var selectedTime = this.selectedTime;
-    this.selectedTime = null;
-    this.doSelectTime(selectedTime);
   }
 
   updateCarSlotId(time, car) {
@@ -150,21 +153,29 @@ export class CarSelectionComponent implements OnInit {
     }
   }
 
-  clearCarStates(){
+  clearCarAvailableStates(){
     this.cars.forEach((car) => {
       car.unavailable = false;
     });
   }
 
-  clearTimeStates(){
+  clearSelectedStates(list){
+    list.forEach((thing) => {
+      thing.selected = false;
+    });
+  }
+
+  clearTimeAvailableStates(){
     this.times.forEach((time) => {
-      time.selected = false;
+      time.disabled = false;
     });
   }
 
   doReset(){
-    this.clearCarStates();
-    this.clearTimeStates();
+    this.clearCarAvailableStates();
+    this.clearTimeAvailableStates();
+    this.clearSelectedStates(this.cars);
+    this.clearSelectedStates(this.times);
     this.selectedCar = null;
     this.selectedTime = null;
   }
