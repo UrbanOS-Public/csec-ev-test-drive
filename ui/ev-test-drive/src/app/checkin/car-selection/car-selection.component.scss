@@ -146,7 +146,7 @@
 
   .cars-container {
     @include for-tablet-portrait-up {
-      height: calc(100vh - 164px);
+      height: calc(100vh - 160px);
     }
 
     display: inline-block;
@@ -156,7 +156,7 @@
 
     .cars-pane-container {
       @include for-tablet-portrait-up {
-        width: calc(100vw - 330px);
+        width: calc(100vw - 300px);
       }
       @include for-phone-only {
         width: 100vw;
@@ -223,11 +223,9 @@
   .footer {
     height: 90px;
     width: 100vw;
-    margin: 0;
-    padding: 0;
-    // position: fixed;
-    text-align: right;
-    float: bottom;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
     background-color: #E9E9E9;
 
     .horizontal-rule {
