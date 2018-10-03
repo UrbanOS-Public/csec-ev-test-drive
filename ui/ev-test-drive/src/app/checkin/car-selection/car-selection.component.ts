@@ -87,15 +87,19 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSelectCar(selectedCar) {
-    if (selectedCar.unavailable) {
+    if (!selectedCar || selectedCar.unavailable) {
       return;
     }
-    this.selectedCar = selectedCar;
     const carState = !selectedCar.selected;
     this.cars.forEach((car) => {
       car.selected = false;
     });
-    selectedCar.selected = carState;
+    if (this.selectedCar != selectedCar) {
+      this.selectedCar = selectedCar;
+      this.selectedCar.selected = carState;
+    } else {
+      this.selectedCar = null;
+    }
     this.updateCarSlotId(this.selectedTime, selectedCar);
   }
 
@@ -109,6 +113,9 @@ export class CarSelectionComponent implements OnInit {
         carInSlot.unavailable = carSlot.reserved;
       });
     }
+    var selectedCar = this.selectedCar;
+    this.selectedCar = null;
+    this.doSelectCar(selectedCar);
   }
 
   updateCarSlotId(time, car) {
