@@ -60,7 +60,8 @@
           id="{{ car.tileId }}"
           *ngFor="let car of cars"
           [car]="car"
-          (click)='doSelectCar(car)'>
+          (click)='doSelectCar(car)'
+          [collapsed]='collapseCarTiles'>
         </car-tile>
       </div>
     </div>

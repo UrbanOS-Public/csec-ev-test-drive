@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
@@ -22,13 +22,21 @@ export class CarSelectionComponent implements OnInit {
   selectedTime: any;
   formattedDate: string;
   isSubmitting = false;
+  collapseCarTiles = false;
   carSlotId;
   day: any = moment().format('YYYY-MM-DD');
 
   constructor(
     private evService: EVService,
     private router: Router,
-    private modalService: ModalService) { }
+    private modalService: ModalService) {
+      this.onResize();
+    }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.collapseCarTiles = window.innerWidth <= 599;
+  }
 
   ngOnInit() {
     if (localStorage.getItem('email')) {
