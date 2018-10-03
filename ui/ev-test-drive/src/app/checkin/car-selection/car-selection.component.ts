@@ -73,13 +73,11 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSelectTime(selectedTime) {
-    console.log('doSelectTime', selectedTime);
     const timeState = !selectedTime.selected;
     this.times.forEach((time) => {
       time.selected = false;
     });
     if (this.selectedTime != selectedTime) {
-      console.log('selecting a time', this.selectedTime)
       this.selectedTime = selectedTime;
       this.selectedTime.selected = timeState;
     } else {
@@ -89,7 +87,6 @@ export class CarSelectionComponent implements OnInit {
   }
 
   doSelectCar(selectedCar) {
-    console.log('doSelectCar ', selectedCar);
     if (selectedCar.unavailable) {
       return;
     }
