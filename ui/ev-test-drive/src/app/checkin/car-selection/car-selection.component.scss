@@ -59,21 +59,19 @@
 
       .times-header {
         display: block;
-        margin-top: 32px;
 
         .calendarLogo {
           height: 39px;
           width: 41px;
           display: inline-block;
+          vertical-align: middle;
+          margin-right: 10px;
         }
 
         .header-text {
           font-weight: 500;
           font-size: 17px;
           letter-spacing: -0.82px;
-          margin: 0;
-          margin-top: -31px;
-          margin-left: 7px;
           display: inline-block;
           vertical-align: middle;
         }
@@ -240,10 +238,6 @@
 
   .clear {
     color:$pink;
-    position: absolute;
-    top: auto;
-    right: 0;
-    margin-right: 32px;
   }
 
   .tablet-up-invisible {
@@ -255,6 +249,41 @@
   .phone-invisible {
     @include for-phone-only {
       display: none;
+    }
+  }
+
+  .dateSelect {
+    font-size: 25px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding: 10px;
+    background-color: white;
+
+    option {
+      width: auto;
+      font-size: 20px;
+    }
+  }
+
+  .titleContainer {
+    display: flex;
+    align-content: space-between;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .datePick {
+    padding:10px;
+    display: flex;
+    flex-direction: row;
+
+    .calendarLogo {
+      margin-top: 10px;
+    }
+    .dateSelect {
+      flex-grow: 1;
     }
   }
 }
