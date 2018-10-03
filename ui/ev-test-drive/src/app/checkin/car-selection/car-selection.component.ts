@@ -204,20 +204,20 @@ export class CarSelectionComponent implements OnInit {
     this.selectedTime = null;
   }
 
-  formatDate(date: Date) {
-    const today = new Date();
-    const months = ['January', 'February', 'March', 'April',
-                    'May', 'June', 'July', 'August', 'September',
-                    'October', 'November', 'December'];
+  formatDate(date: any) {
+    date = moment(date);
+    const today = moment();
     let dateStr = '';
     
-    if (today.getMonth() === date.getMonth()
-     && today.getDate() === date.getDate()
-     && today.getFullYear() === date.getFullYear()) {
+    if (today.month() === date.month()
+     && today.date() === date.date()
+     && today.year() === date.year()) {
       dateStr += 'Today, ';
+    } else {
+      dateStr += `${date.format('ddd')}, `;
     }
 
-    dateStr += `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    dateStr += `${date.format('MMM')} ${date.date()}, ${date.year()}`;
 
     return dateStr;
   }
