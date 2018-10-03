@@ -2,6 +2,18 @@
 @import "../../../cancel.scss";
 @import "../../../mixins.scss";
 
+.tablet-up-invisible {
+  @include for-tablet-portrait-up {
+    display: none !important;
+  }
+}
+
+.phone-invisible {
+  @include for-phone-only {
+    display: none !important;
+  }
+}
+
 .car-selection-screen {
   background-color: $backgroundGray;
   width: 100vw;
@@ -44,8 +56,7 @@
       @include for-tablet-portrait-up {
         min-height: calc(100vh - 185px);
       }
-
-      width: 300px;
+      
       background-color: $white;
       color: #333333;
       display: inline-block;
@@ -70,7 +81,6 @@
 
         .header-text {
           font-weight: 500;
-          font-size: 17px;
           letter-spacing: -0.82px;
           display: inline-block;
           vertical-align: middle;
@@ -240,18 +250,6 @@
     color:$pink;
   }
 
-  .tablet-up-invisible {
-    @include for-tablet-portrait-up {
-      display: none;
-    }
-  }
-
-  .phone-invisible {
-    @include for-phone-only {
-      display: none;
-    }
-  }
-
   .dateSelect {
     font-size: 25px;
     border: 2px solid #000000;
@@ -270,8 +268,12 @@
     display: flex;
     align-content: space-between;
     flex-direction: row;
+    @include for-tablet-portrait-up {
+      justify-content: center;
+    }
     justify-content: space-between;
     padding: 10px;
+    font-size: 20px;
   }
 
   .datePick {

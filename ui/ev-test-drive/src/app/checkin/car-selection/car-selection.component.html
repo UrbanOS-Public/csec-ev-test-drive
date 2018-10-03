@@ -20,13 +20,14 @@
     <div class="times-pane">
       <div class="times-header">
           <div class="titleContainer">
+            <img class="calendarLogo phone-invisible" src="assets/calendarLogoBlack.svg">
             <div class="header-text">Select a Time</div>
             <div class="clear tablet-up-invisible" (click)="doReset()">
                 <div class="clear-mobile">Clear</div>
             </div>
           </div>
           <div class="datePick">
-            <img class="calendarLogo" src="assets/calendarLogoBlack.svg">
+            <img class="calendarLogo tablet-up-invisible" src="assets/calendarLogoBlack.svg">
             <select [(ngModel)]="selectedDay" class="dateSelect">
               <option *ngFor="let day of days" [ngValue]="day">{{formatDate(day)}}</option>
             </select>
