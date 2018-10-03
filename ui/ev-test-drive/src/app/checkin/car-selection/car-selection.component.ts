@@ -17,9 +17,11 @@ export class CarSelectionComponent implements OnInit {
   timeCounter = 0;
   cars: any[] = [];
   times: any[] = [];
-  allTimes: any[] = [];
+  days: any[] = [];
+  allTimes: any;
   selectedCar: any;
   selectedTime: any;
+  selectedDay: any;
   formattedDate: string;
   isSubmitting = false;
   collapseCarTiles = false;
@@ -64,9 +66,23 @@ export class CarSelectionComponent implements OnInit {
   }
 
   getTimes() {
-    this.times = JSON.parse(localStorage.getItem('times'));
-    this.times.forEach((time) => {
+    this.allTimes = JSON.parse(localStorage.getItem('times'));
+    this.allTimes.forEach((time) => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
+    });
+    this.getDays();
+    this.selectedDay = this.days[0];
+    this.showTimesForDay(this.selectedDay)
+  }
+  
+  getDays() {
+    const unique = new Set(this.allTimes.map(item => item.date));
+    this.days = Array.from(unique);
+  }
+
+  showTimesForDay(day) {
+    this.times = this.allTimes.filter((time) => {
+      return time.date == day;
     });
   }
 

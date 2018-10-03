@@ -19,13 +19,18 @@
   <div class="times-container">
     <div class="times-pane">
       <div class="times-header">
-          <div class="clear tablet-up-invisible" (click)="doReset()">
-              <div class="clear-mobile">Clear</div>
+          <div class="titleContainer">
+            <div class="header-text">Select a Time</div>
+            <div class="clear tablet-up-invisible" (click)="doReset()">
+                <div class="clear-mobile">Clear</div>
+            </div>
           </div>
-        <div>
-          <img class="calendarLogo" src="assets/calendarLogoBlack.svg">
-          <p class="header-text">Select a Time</p>
-        </div>
+          <div class="datePick">
+            <img class="calendarLogo" src="assets/calendarLogoBlack.svg">
+            <select [(ngModel)]="selectedDay" class="dateSelect">
+              <option *ngFor="let day of days" [ngValue]="day">{{day}}</option>
+            </select>
+          </div>
       </div>
 
       <div class="date">
