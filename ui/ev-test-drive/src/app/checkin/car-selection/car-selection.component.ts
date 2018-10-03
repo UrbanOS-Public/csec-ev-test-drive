@@ -232,6 +232,7 @@ export class CarSelectionComponent implements OnInit {
   doSubmit() {
     if (!this.isSubmitting && this.selectedCar && this.selectedTime) {
       this.isSubmitting = true;
+      this.selectedTime.formattedDate = this.formatDate(this.selectedTime.date);
       localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
       localStorage.setItem('selectedTime', JSON.stringify(this.selectedTime));
       localStorage.setItem('carSlotId', JSON.stringify(this.carSlotId));

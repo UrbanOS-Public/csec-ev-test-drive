@@ -42,10 +42,16 @@ export class CarReviewComponent implements OnInit {
         carSlotId: this.carSlotId
       };
 
-      this.evService.postScheduleDrive(scheduleDriveData).subscribe(
-        response => this.handleScheduleDrivePostResponse(response),
+      this.evService.postReserveSlot({carSlotId:this.carSlotId, email: this.userEmail }).subscribe(
+        response => {
+          this.evService.postScheduleDrive(scheduleDriveData).subscribe(
+            response => this.handleScheduleDrivePostResponse(response),
+            error => this.handleError(error)
+          );
+        },
         error => this.handleError(error)
       );
+      
     } else {
       this.evService.postReserveSlot({carSlotId:this.carSlotId, email: this.userEmail }).subscribe(
         response => {},
