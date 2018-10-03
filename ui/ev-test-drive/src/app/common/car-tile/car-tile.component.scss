@@ -15,6 +15,11 @@
   vertical-align: top;
   text-align: left;
   color: #333333;
+  margin-left: 10px;
+  margin-right: 10px;
+  @include for-tablet-portrait-up {
+    min-height: 320px;
+  }
 
   .imageDiv {
     height: 100px;

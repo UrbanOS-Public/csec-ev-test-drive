@@ -45,8 +45,11 @@ export class CarSelectionComponent implements OnInit {
       this.getCars();
       this.getTimes();
       this.preSelectCarAndTime();
+      if (!this.cars || !this.times) {
+        this.router.navigateByUrl('/checkin');
+      }
     } else {
-      // this.router.navigateByUrl('/checkin');
+      this.router.navigateByUrl('/checkin');
     }
   }
 
@@ -156,6 +159,7 @@ export class CarSelectionComponent implements OnInit {
   }
 
   updateTimeStatesForCar(car) {
+    this.clearTimeAvailableStates();
     if (car) {
       this.times.forEach(time => {
         var carForSlot = time.cars.find((carSlot) => carSlot.carId == car.id);
@@ -167,8 +171,6 @@ export class CarSelectionComponent implements OnInit {
           }
         }
       });
-    } else {
-      this.clearTimeAvailableStates();
     }
   }
 
