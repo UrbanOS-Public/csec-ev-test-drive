@@ -1,7 +1,10 @@
 @import "../../../colors.scss";
+@import "../../../mixins.scss";
 
 .tile {
-  height: 310px;
+  height: auto;
+  padding-bottom: 9px;
+  padding-top: 9px;
   width: 315px;
   font-family: Gotham, sans-serif;
   background-color: $white;
@@ -15,19 +18,39 @@
 
   .imageDiv {
     height: 100px;
-    width: 315px;
-    text-align: center;
+    width: 50%;
+    text-align: left;
+
+    @include for-tablet-portrait-up {
+      width: 315px;
+      text-align: center;
+    }
+    
+    display: inline-block;
 
     .carImage {
       padding-top: 15px;
     }
   }
 
+  .make-model-container {
+    vertical-align: top;
+    width: 50%;
+    display: inline-block;
+     .value {
+      margin-top: 18px;
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+
   p {
+    width:100%;
     padding-left: 18px;
     padding-right: 18px;
     word-wrap: word;
     margin: 0;
+    display: inline-block;
   }
 
   .year {
@@ -40,10 +63,19 @@
 
   .make-model {
     font-weight: 700;
-    font-size: 25px;
+    font-size: 16px;
     letter-spacing: -1.21px;
     margin: 0;
-    display: block;
+    display: inline-block;
+  }
+
+  @include for-tablet-portrait-up {
+    .year {
+      display: block;
+    }
+    .make-model {
+      font-size: 25px; 
+    }
   }
 
   .stat {
