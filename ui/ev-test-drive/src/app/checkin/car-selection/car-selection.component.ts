@@ -101,6 +101,8 @@ export class CarSelectionComponent implements OnInit {
     if (preSelectCar && preSelectTime) {
       this.doSelectTime(this.times.find((time) => time.date == preSelectTime.date && time.startTime == preSelectTime.startTime));
       this.doSelectCar(this.cars.find((car) => car.id == preSelectCar.id));
+      this.selectedDay = this.days.find((day) => day == preSelectTime.date);
+      this.showTimesForDay(this.selectedDay);
     }
   }
 
