@@ -239,11 +239,9 @@ export class SurveyComponent implements OnInit {
       this.isSubmitting = false;
       this.router.navigateByUrl('/checkout/thankYou');
     } else {
-      const selectedTime = JSON.parse(localStorage.getItem('selectedTime'));
-      const selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
       const email = localStorage.getItem('email');
 
-      const carSlotId = selectedCar.times[selectedTime.formattedTime].timeSlotId;
+      var carSlotId = JSON.parse(localStorage.getItem('carSlotId'));
 
       const scheduleDriveData = {
         email: email,
