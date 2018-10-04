@@ -40,7 +40,7 @@
               <th scope="col">Time</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Confirmation #</th>
+              <th scope="col">Confirm. #</th>
               <th scope="col">Driving</th>
               <th scope="col">Actions</th>
             </tr>
@@ -53,7 +53,7 @@
               <div class="name tablet-up-invisible" ><p>{{slot.first_name}}</p></div>
             </td>
               <td data-label="Driver Name" class="phone-invisible">{{ slot.first_name }}</td>
-              <td data-label="Driver Email">{{ slot.email }}</td>
+              <td data-label="Driver Email" class="email">{{ slot.email }}</td>
               <td data-label="Confirmation Number">{{ slot.confirmation_number }}</td>
               <td data-label="Vehicle Info">{{slot.year}} {{slot.make}} {{slot.model}}</td>
               <td>
