@@ -17,6 +17,7 @@ export class ScheduleComponent implements OnInit {
   helpers = new Helpers();
   isSubmitting = false;
   showPinError = false;
+  scheduledDays: any[] = [];
 
   constructor(
     private router: Router,
@@ -36,6 +37,8 @@ export class ScheduleComponent implements OnInit {
   }
 
   handleSchedule(response) {
+    
+
     this.formattedDate = this.formatDate(moment(response.date).toDate());
     this.schedule = response.schedules.sort((a, b) => {
       let aNum = Number(a.scheduled_start_time.substring(0,2)
@@ -53,8 +56,24 @@ export class ScheduleComponent implements OnInit {
     this.schedule.forEach(slot => {
       slot.formattedTime = this.helpers.formatAMPM(slot.scheduled_start_time);
     });
+
+    this.mapDays(this.schedule);
     this.isSubmitting = false;
     this.closeModal('pin-modal');
+  }
+
+  mapDays(schedule) {
+    if(schedule && schedule.length > 0){
+      const unique = new Set(schedule.map(item => item.date));
+      var days = Array.from(unique);
+      days.sort();
+      days.forEach((day: any) => {
+        var timeSlotsForDay = schedule.filter((timeslot) => {
+          return timeslot.date == day;
+        });
+        this.scheduledDays.push({date:day, timeSlots: timeSlotsForDay});
+      })
+    }
   }
 
   handleLookupResponse(response) {
@@ -144,20 +163,20 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  formatDate(date: Date) {
-    const today = new Date();
-    const months = ['January', 'February', 'March', 'April',
-                    'May', 'June', 'July', 'August', 'September',
-                    'October', 'November', 'December'];
+  formatDate(date: any) {
+    date = moment(date, 'YYYY-MM-DD');
+    const today = moment();
     let dateStr = '';
     
-    if (today.getMonth() === date.getMonth()
-     && today.getDate() === date.getDate()
-     && today.getFullYear() === date.getFullYear()) {
-      dateStr;
+    if (today.month() === date.month()
+     && today.date() === date.date()
+     && today.year() === date.year()) {
+      dateStr += 'Today, ';
+    } else {
+      dateStr += `${date.format('ddd')}, `;
     }
 
-    dateStr += `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    dateStr += `${date.format('MMM')} ${date.date()}, ${date.year()}`;
 
     return dateStr;
   }
