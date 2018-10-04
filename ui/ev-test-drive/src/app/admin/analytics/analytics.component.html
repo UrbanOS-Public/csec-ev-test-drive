@@ -1,3 +1,34 @@
-<p>
-  analytics works!
-</p>
+<jw-modal id="pin-modal">
+    <div class="pin-pane">
+      <p>Please enter your PIN</p>
+      <input type="password" class="pin" [(ngModel)]="pin">
+      <br>
+      <p class="pin-error" *ngIf="showPinError">
+        Incorrect PIN, please try again.
+      </p>
+      <div class="close-button" (click)="closeModal('pin-modal')">
+        <p>Cancel</p>
+      </div>
+      <div class="confirm-button" (click)="doGetAnalytics()">
+        <p *ngIf="!isSubmitting">Submit</p>
+        <app-spinner *ngIf="isSubmitting"></app-spinner>
+      </div>
+    </div>
+  </jw-modal>
+  
+  <jw-modal id="error-modal">
+    <div id="error-pane" class="error-pane">
+      <h1 class="header-text">An error occurred, please try again.</h1>
+  
+      <div class="ok" (click)="closeModal('error-modal')">
+        <p>OK</p>
+      </div>
+    </div>
+</jw-modal>
+
+<div class="analytics-screen">
+  <app-header title="Analytics Dashboard"></app-header>
+  <div class="analytics-container">
+
+  </div>
+</div>
