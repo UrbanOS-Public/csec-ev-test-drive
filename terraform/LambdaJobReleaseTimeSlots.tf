@@ -40,7 +40,7 @@ module "JobReleaseTimeSlotsFunction" {
       user = "${var.user}"
       password = "${var.password}"
       email = "${var.email_send_from_account}"
-      timeout_in_minutes = "5"
+      timeout_in_minutes = "10"
     }
   }
 }
