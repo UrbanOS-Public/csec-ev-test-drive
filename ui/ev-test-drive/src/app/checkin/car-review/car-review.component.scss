@@ -99,11 +99,9 @@
   .footer {
     height: 90px;
     width: 100vw;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    text-align: right;
-    float: bottom;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
     background-color: #E9E9E9;
 
     .horizontal-rule {
@@ -116,6 +114,10 @@
     @include cancel;
 
     @include next;
+
+    .next.disabled {
+      opacity: 0.28;
+    }
   }
 }
 
