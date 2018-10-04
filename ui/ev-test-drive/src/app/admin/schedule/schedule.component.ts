@@ -17,6 +17,7 @@ export class ScheduleComponent implements OnInit {
   helpers = new Helpers();
   isSubmitting = false;
   showPinError = false;
+  scheduledDays: any[] = [];
 
   constructor(
     private router: Router,
@@ -36,6 +37,8 @@ export class ScheduleComponent implements OnInit {
   }
 
   handleSchedule(response) {
+    
+
     this.formattedDate = this.formatDate(moment(response.date).toDate());
     this.schedule = response.schedules.sort((a, b) => {
       let aNum = Number(a.scheduled_start_time.substring(0,2)
@@ -53,8 +56,23 @@ export class ScheduleComponent implements OnInit {
     this.schedule.forEach(slot => {
       slot.formattedTime = this.helpers.formatAMPM(slot.scheduled_start_time);
     });
+
+    this.mapDays(this.schedule);
     this.isSubmitting = false;
     this.closeModal('pin-modal');
+  }
+
+  mapDays(schedule) {
+    const unique = new Set(schedule.map(item => item.date));
+    var days = Array.from(unique);
+    days.forEach((day: any) => {
+      var timeSlotsForDay = schedule.filter((timeslot) => {
+        console.log("dates", timeslot.date, day)
+        return timeslot.date == day;
+      });
+      this.scheduledDays.push({date:day, timeSlots: timeSlotsForDay});
+    })
+    console.log(this.scheduledDays);
   }
 
   handleLookupResponse(response) {
