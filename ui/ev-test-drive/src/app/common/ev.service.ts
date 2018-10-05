@@ -69,7 +69,7 @@ export class EVService {
   }
 
   getAnalytics(pin) {
-    return this.http.post(globals.apiBaseUrl, {pin:pin}, httpOptions);
+    return this.http.post(globals.getAnalyticsUrl, {pin:pin}, httpOptions);
   }
 
   lookupUser(submitData) {

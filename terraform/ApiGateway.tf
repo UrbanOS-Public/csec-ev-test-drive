@@ -189,6 +189,19 @@ module "api_cancel_drive" {
   region = "${var.region}"
 }
 
+module "api_get_drive_survey_analytics_drive" {
+  source = "./modules/api/create_gateway_method_for_lambda"
+  parent_id = "${aws_api_gateway_rest_api.SmartExperienceApi.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
+  path = "analytics"
+  function_invoke_arn = "${module.ApiGetDriveSurveyAnalyticsFunction.invoke_arn}"
+  function_arn = "${module.ApiGetDriveSurveyAnalyticsFunction.arn}"
+  api_key_required = "true"
+  account_number = "${var.account_number}"
+  method = "POST"
+  region = "${var.region}"
+}
+
 
 resource "aws_api_gateway_authorizer" "SmartExperience" {
   name = "SmartExperienceAuthorizer"
