@@ -1,23 +1,33 @@
 
-<mat-card class="example-card">
+<mat-card class="metricsCard">
     <mat-card-header>
       <mat-card-title>Drive Summary Metrics</mat-card-title>
       <mat-card-subtitle>For PGA</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content *ngIf="sourceData">
-      <table mat-table [dataSource]="sourceData" class="mat-elevation-z8">
+      <table mat-table [dataSource]="rows" class="mat-elevation-z8 metricsTable">
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
       
         <!-- Position Column -->
-        <ng-container matColumnDef="zipcode">
-          <th mat-header-cell *matHeaderCellDef> Zipcode </th>
-          <td mat-cell *matCellDef="let thing"> {{thing.zipcode}} </td>
+        <ng-container matColumnDef="week">
+          <th mat-header-cell *matHeaderCellDef> Week </th>
+          <td mat-cell *matCellDef="let thing"> {{thing.week}} </td>
         </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="['zipcode']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['zipcode'];"></tr>
+
+        <div *ngFor="let car of cars">
+        <ng-container  matColumnDef="{{car}}Drives">
+            <th mat-header-cell *matHeaderCellDef> {{car}} Drives </th>
+            <td mat-cell *matCellDef="let thing"> {{thing.carSummary[car].drives}} </td>
+        </ng-container>
+        <ng-container  matColumnDef="{{car}}OptIns">
+            <th mat-header-cell *matHeaderCellDef> {{car}} OptIns </th>
+            <td mat-cell *matCellDef="let thing"> {{thing.carSummary[car].optIns}} </td>
+        </ng-container>
+        </div>
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
       </table>
     </mat-card-content>
     <!-- <mat-card-actions>
