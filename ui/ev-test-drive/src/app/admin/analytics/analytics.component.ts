@@ -12,6 +12,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
 
   isSubmitting = false;
   showPinError = false;
+  sourceData = {};
   pin;
 
   constructor(
@@ -20,7 +21,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
     private modalService: ModalService) {}
 
   ngOnInit() {
-    
+    this.doGetAnalytics();
   }
 
   ngAfterViewInit() {
@@ -44,7 +45,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   }
 
   doGetAnalytics() {
-    this.evService.getAnalytics(this.pin).subscribe(
+    this.evService.getAnalytics("***REMOVED***").subscribe( //Fix this
       response => this.handleAnalytics(response),
       error => this.handleError(error)
     );
@@ -52,6 +53,9 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
 
   handleAnalytics(response) {
     console.log(response);
+    this.sourceData = response;
+    console.log(this.sourceData);
+    this.modalService.close('pin-modal');
   }
 
   handleError(error) {
