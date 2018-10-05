@@ -1,7 +1,24 @@
+@import "../../../../colors.scss";
 .metricsCard {
-    width:50vw;
+    width: calc(100vw - 48px);
 }
 
 .metricsTable {
     width: 100%;
+}
+
+.overflow {
+    overflow-x: scroll;
+}
+
+.offColumn {
+    background-color: #f9f9f9;
+}
+
+.mat-cell, .mat-header-cell, .mat-footer-cell {
+    padding-left: 5px;
+}
+
+.mat-header-cell {
+    font-weight: bold;
 }
