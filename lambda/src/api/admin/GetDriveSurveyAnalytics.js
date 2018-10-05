@@ -22,13 +22,22 @@ class GetDriveSurveyAnalytics {
         }
         var analytics = new EmailAnalytics(this.pool, moment, null);
         analytics.getSurveyDataForThisWeek(this.moment().startOf('year').format("YYYY-MM-DD"), this.moment().format("YYYY-MM-DD"))
-        .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err));
+        .then((data) => this.successHandler(callback, this.sanitizeData(data)), (err) => this.errorHandler(callback, err));
+    }
+
+    sanitizeData(data) {
+        data.forEach((row) => {
+            delete row.first_name;
+            delete row.last_name;
+            delete row.email;
+            delete row.phone;
+        });
+        return data;
     }
 
     successHandler(callback, data) {
         this.pool.end();
         console.log(`Done`);
-        console.log(data);
         this.ApiHelpers.httpResponse(callback, 200, data);
     }
 
