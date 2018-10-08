@@ -18,11 +18,11 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (!this.sourceData){
+    if (!this.sourceData || !this.sourceData.map){ // This prevents console errors due to the async data not being loaded yet.
       return;
     }
     const uniqueWeeks = new Set(this.sourceData.map(item => {
-      return `${moment(item.date).startOf('week').format('MM-DD')} - ${moment(item.date).endOf('week').format('MM-DD')}`;
+      return moment(item.date).startOf('week').format('YYYY-MM-DD');
     }));
     var weeks = Array.from(uniqueWeeks);
     const uniqueCars = new Set(this.sourceData.map(item => item.model));
@@ -31,6 +31,7 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
     var rows = weeks.map((week) => { 
       return {
         week:week,
+        weekLabel: `${moment(week).startOf('week').format('MM-DD')} - ${moment(week).endOf('week').format('MM-DD')}`,
         carSummary: new Map(),
         totalOptIns: 0,
         totalDrives: 0
