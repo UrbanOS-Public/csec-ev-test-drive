@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
 import _ from 'underscore';
+import * as globals from '../../../app.constants';
 @Component({
   selector: 'app-drive-summary',
   templateUrl: './drive-summary.component.html',
@@ -21,9 +22,7 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
     if (!this.sourceData || !this.sourceData.map){ // This prevents console errors due to the async data not being loaded yet.
       return;
     }
-    const uniqueWeeks = new Set(this.sourceData.map(item => {
-      return moment(item.date).startOf('week').format('YYYY-MM-DD');
-    }));
+    const uniqueWeeks = new Set(this.sourceData.map(item => this.weekStart(item.date)));
     var weeks = Array.from(uniqueWeeks);
     const uniqueCars = new Set(this.sourceData.map(item => item.model));
     var cars = Array.from(uniqueCars);
@@ -38,13 +37,9 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
       };
     });
     var drives = _.groupBy(this.sourceData, 'model');
-    var optIns = _.groupBy(this.sourceData, 'POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?')["Yes, and I give you permission to share my contact information for this purpose"];
-    var optInsPerWeek = _.groupBy(optIns, (optIn) => {
-      return moment(optIn.date).startOf('week').format('YYYY-MM-DD');
-    });
-    var drivesPerWeek = _.groupBy(this.sourceData, (drive) => {
-      return moment(drive.date).startOf('week').format('YYYY-MM-DD');
-    });
+    var optIns = _.groupBy(this.sourceData, globals.optInQuestion)[globals.optInAnswer];
+    var optInsPerWeek = _.groupBy(optIns, (optIn) => this.weekStart(optIn.date));
+    var drivesPerWeek = _.groupBy(this.sourceData, (drive) => this.weekStart(drive.date));
     var optInsPerCar = _.groupBy(optIns, 'model');
 
     rows.forEach((row) => {
@@ -53,9 +48,7 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
       row.totalDrives = drivesPerWeek[row.week] ? drivesPerWeek[row.week].length : 0;
       var optInsPerCarPerWeek = _.groupBy(optInsPerWeek[row.week], 'model');
       cars.forEach((car) => {
-        var drivesPerWeek = _.groupBy(drives[car], (drive) => {
-          return moment(drive.date).startOf('week').format('YYYY-MM-DD');
-        });
+        var drivesPerWeek = _.groupBy(drives[car], (drive) => this.weekStart(drive.date));
         carSummary.set(car,
           {
             drives:drivesPerWeek[row.week] ? drivesPerWeek[row.week].length : 0, 
@@ -80,6 +73,10 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
       this.columns.push(`${car}Drives`);
       this.columns.push(`${car}OptIns`);
     })
+  }
+
+  weekStart(date) {
+    return moment(date).startOf('week').format('YYYY-MM-DD');
   }
 
 }
