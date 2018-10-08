@@ -2,6 +2,9 @@ import {environment} from '../environments/environment';
 
 export const api_key = environment.apiKey;
 
+export const optInQuestion = 'POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?';
+export const optInAnswer = 'Yes, and I give you permission to share my contact information for this purpose';
+
 export const apiBaseUrl       = environment.apiBaseUrl;
 
 export const newUserUrl       = apiBaseUrl + '/user';
@@ -9,8 +12,9 @@ export const carUrl           = apiBaseUrl + '/cars';
 export const timeslotUrl      = apiBaseUrl + '/timeSlots';
 export const preSurveyUrl     = apiBaseUrl + '/preSurvey';
 export const scheduleRideUrl  = apiBaseUrl + '/drive';
-export const reserveSlotUrl  = apiBaseUrl + '/reserve';
-export const releaseSlotUrl  = apiBaseUrl + '/release';
+export const reserveSlotUrl   = apiBaseUrl + '/reserve';
+export const releaseSlotUrl   = apiBaseUrl + '/release';
+export const getAnalyticsUrl  = apiBaseUrl + '/analytics';
 
 export const lookupUserUrl    = apiBaseUrl + '/getUser';
 export const postSurveyUrl    = apiBaseUrl + '/postSurvey';
