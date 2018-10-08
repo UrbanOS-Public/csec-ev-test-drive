@@ -16,20 +16,20 @@ class PatchCarState { //Should be a patch in terraform/AWS. We had issues with n
         const active = body.active;
         const pin = body.pin;
         this.verifyCar(carId)
-            .then((persistedCar) => this.patchCarState(car, persistedCar, active))
+            .then((persistedCar) => this.patchCarState(carId, persistedCar, active))
             .then((data) => this.successHandler(callback, data), (error) => this.errorHandler(callback, error))
         ;
     }
 
-    verifySlot(car) {
-        return this.pool.doQuery("select * from car where id = ?", car.id);
+    verifyCar(carId) {
+        return this.pool.doQuery("select * from car where id = ?", carId);
     }
 
-    patchCarState(car, persistedCar, active) {
+    patchCarState(carId, persistedCar, active) {
         console.log(persistedCar);
         if (persistedCar[0]) {
             var state = active ? 1 : 0;
-            return this.pool.doQuery("update car_schedule set active = ? where car_id = ? and date >= ?", [state, car.id, this.moment().format('YYYY-MM-DD')]);
+            return this.pool.doQuery("update car_schedule set active = ? where car_id = ? and date >= ?", [state, carId, this.moment().format('YYYY-MM-DD')]);
         } else {
             return Promise.reject("Car not found");
         }

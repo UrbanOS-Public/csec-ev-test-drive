@@ -11,17 +11,29 @@ export class VehiclesComponent implements OnInit {
   constructor(private evService: EVService) { }
 
   ngOnInit() {
+    this.getCars();
+  }
+
+  getCars() {
     this.evService.getCars().subscribe(
-      response => this.handleResponse(response), 
+      response => this.handleCarResponse(response), 
       error => this.handleError(error)
     );
   }
 
-  handleResponse(response) {
+  handleCarResponse(response) {
     this.cars = response.map((car) => {car.unavailable = !car.active; car.selected = car.active; return car;});
   }
 
+  handleStateResponse(response) {
+    this.getCars();
+  }
+
   doSelectCar(car) {
+    this.evService.postCarState({carId:car.id,active:!car.active,pin:""}).subscribe(
+      response => this.handleStateResponse(response), 
+      error => this.handleError(error)
+    );
     console.log("Placeholder for deactivating:", car);
   }
 
