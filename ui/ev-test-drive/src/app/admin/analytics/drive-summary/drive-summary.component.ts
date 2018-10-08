@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
 import _ from 'underscore';
 import * as globals from '../../../app.constants';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 @Component({
   selector: 'app-drive-summary',
   templateUrl: './drive-summary.component.html',
@@ -31,9 +32,9 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
       return {
         week:week,
         weekLabel: `${moment(week).startOf('week').format('MM-DD')} - ${moment(week).endOf('week').format('MM-DD')}`,
-        carSummary: new Map(),
         totalOptIns: 0,
-        totalDrives: 0
+        totalDrives: 0,
+        carSummary: new Map()
       };
     });
     var drives = _.groupBy(this.sourceData, 'model');
@@ -77,6 +78,27 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
 
   weekStart(date) {
     return moment(date).startOf('week').format('YYYY-MM-DD');
+  }
+
+  doExport() {
+    var headers = ["Week Of", "Total Drives", "Total Opt-Ins"];
+    const uniqueCars = new Set(this.sourceData.map(item => item.model));
+    var cars = Array.from(uniqueCars);
+    cars.forEach((car) => {
+      headers.push(`${car} Drives`);
+      headers.push(`${car} Opt Ins`);
+    });
+    var exportRows = this.rows.map((row) => {
+      var newRow = {...row};
+      newRow.carSummary.forEach((summary: any, car: string) => {
+        newRow[`${car} Drives`] = summary.drives;
+        newRow[`${car} Opt Ins`] = summary.optIns;
+      });
+      delete newRow.carSummary;
+      delete newRow.week;
+      return newRow;
+    });
+    new Angular5Csv(exportRows, 'DriveSummaryMetrics', {headers:headers});
   }
 
 }

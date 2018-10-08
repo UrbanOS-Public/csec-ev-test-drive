@@ -43,8 +43,7 @@
         <tr mat-footer-row *matFooterRowDef="columns"></tr>
       </table>
     </mat-card-content>
-    <!-- <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions> -->
+    <mat-card-actions>
+      <button mat-button (click)="doExport()" class="export">Export</button>
+    </mat-card-actions>
   </mat-card>
