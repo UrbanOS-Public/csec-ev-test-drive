@@ -9,7 +9,7 @@ module "ApiPatchCarStateFunction" {
   function_name = "${var.environment}ApiPatchCarState"
   handler = "src/api/admin/PatchCarState.handler"
   role_arn = "${module.ApiPatchCarStateRole.arn}"
-  timeout = "300"
+  timeout = "10"
   description = "Api to change the active state of a car"
   vpc_subnet_ids = [
     "${aws_subnet.Subnet2.id}",

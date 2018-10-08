@@ -53,6 +53,13 @@ export class EVService {
       httpOptions);
   }
 
+  postCarState(data) {
+    return this.http.post(
+      globals.patchCarState,
+      data,
+      httpOptions);
+  }
+
   getCars() {
     return this.http.get(globals.carUrl, httpOptions);
   }
