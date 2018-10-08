@@ -1,4 +1,4 @@
-<div class="tile" [ngClass]="{'selected': car.selected, 'unavailable': car.unavailable}" *ngIf="car.active">
+<div class="tile" [ngClass]="{'selected': car.selected, 'unavailable': car.unavailable}" *ngIf="car.active || showInactive">
   <div class="imageDiv">
     <img class="carImage" src="{{ car.imageUrl }}" (click)="onCollapse()">
   </div>

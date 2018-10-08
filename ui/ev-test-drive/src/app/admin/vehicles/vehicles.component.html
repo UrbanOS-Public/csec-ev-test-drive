@@ -1,0 +1,21 @@
+<div class="adminPane">
+  <app-header title="Manage Vehicles"></app-header>
+  <div class="cars-container">
+    <div class="cars-pane-container">
+      <div class="cars-pane">
+        <div class="car-tile-adds" *ngFor="let car of cars" >
+          <!-- <div class="button" (click)="doClose()" [ngClass]="{'active':car.active, 'inactive':!car.active}">
+            <p>{{car.active ? 'Active' : 'Inactive'}}</p>
+          </div> -->
+          <car-tile 
+            id="{{ car.tileId }}" 
+            [car]="car" 
+            (click)='doSelectCar(car)' 
+            [collapsed]='false'
+            [showInactive]='true'>
+          </car-tile> 
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
