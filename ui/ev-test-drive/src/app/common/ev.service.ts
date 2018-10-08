@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as globals from '../app.constants';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -66,6 +67,14 @@ export class EVService {
 
   getPostSurvey() {
     return this.http.get(globals.postSurveyUrl, httpOptions);
+  }
+
+  getAnalytics(pin) {
+    if (environment.useLocalAPI) {
+      return this.http.get(globals.getAnalyticsUrl, httpOptions);
+    } else {
+      return this.http.post(globals.getAnalyticsUrl, {pin:pin}, httpOptions);
+    }
   }
 
   lookupUser(submitData) {

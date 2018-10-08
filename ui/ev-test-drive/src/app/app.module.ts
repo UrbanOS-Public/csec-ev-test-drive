@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -28,6 +30,8 @@ import { ScheduleComponent } from './admin/schedule/schedule.component';
 import { ModalComponent } from './common/directives/modal.component';
 import { ModalService } from './common/modal.service';
 import { HeaderComponent } from './common/header/header.component';
+import { AnalyticsComponent } from './admin/analytics/analytics.component';
+import { DriveSummaryComponent } from './admin/analytics/drive-summary/drive-summary.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,9 @@ import { HeaderComponent } from './common/header/header.component';
     ThankYouComponent,
     ScheduleComponent,
     ModalComponent,
-    HeaderComponent
+    HeaderComponent,
+    AnalyticsComponent,
+    DriveSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +63,9 @@ import { HeaderComponent } from './common/header/header.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatSliderModule
+    MatSliderModule,
+    MatCardModule,
+    MatTableModule
   ],
   providers: [ModalService],
   bootstrap: [AppComponent]

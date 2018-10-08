@@ -2168,5 +2168,178 @@
         "email": "t@t.com"
       }
     ]
-  }
+  },
+  "analytics": [
+    {
+      "date": "2018-10-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-10-05",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "No"
+    },
+    {
+      "date": "2018-10-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BOB",
+      "model": "McZappy",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-10-05",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BOB",
+      "model": "McZappy",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "No"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-04",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-24",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i34",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-24",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3423423",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    },
+    {
+      "date": "2018-11-09",
+      "day_of_the_week": "Thursday",
+      "start_time_24_hr": "10:00:00",
+      "zipcode": "12345",
+      "make": "BMW",
+      "model": "i3234",
+      "POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?": "Yes, and I give you permission to share my contact information for this purpose"
+    }
+  ]
 }
