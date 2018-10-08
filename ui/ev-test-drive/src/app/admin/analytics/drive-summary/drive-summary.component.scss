@@ -19,6 +19,10 @@
     padding-left: 5px;
 }
 
-.mat-header-cell {
+.mat-header-cell, .mat-footer-cell {
     font-weight: bold;
+}
+
+.mat-footer-cell {
+    text-decoration: underline;
 }
