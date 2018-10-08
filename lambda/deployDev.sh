@@ -63,6 +63,7 @@ deployLambdas() {
             'dev_ApiGetSchedule'
             'dev_ApiReserveSlot'
             'dev_ApiReleaseSlot'
+            'dev_ApiGetDriveSurveyAnalytics'
         )
     fi
 
