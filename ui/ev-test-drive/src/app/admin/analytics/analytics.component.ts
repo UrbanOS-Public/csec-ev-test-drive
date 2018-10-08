@@ -52,14 +52,11 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   }
 
   handleAnalytics(response) {
-    console.log(response);
     this.sourceData = response;
-    console.log(this.sourceData);
     this.modalService.close('pin-modal');
   }
 
   handleError(error) {
     this.showPinError = true;
-    console.log(error);
   }
 }
