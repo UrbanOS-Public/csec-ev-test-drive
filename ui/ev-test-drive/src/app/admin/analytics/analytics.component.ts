@@ -21,7 +21,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
     private modalService: ModalService) {}
 
   ngOnInit() {
-    this.doGetAnalytics();
   }
 
   ngAfterViewInit() {
@@ -45,7 +44,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   }
 
   doGetAnalytics() {
-    this.evService.getAnalytics("17043215").subscribe( //Fix this
+    this.evService.getAnalytics(this.pin).subscribe(
       response => this.handleAnalytics(response),
       error => this.handleError(error)
     );

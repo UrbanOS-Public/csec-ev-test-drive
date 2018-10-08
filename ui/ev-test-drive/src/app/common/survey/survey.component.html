@@ -110,7 +110,7 @@
 
     <div class="next"
       (click)="doNext(null)"
-      *ngIf="dirtySliders"
+      *ngIf="dirtySliders || textVisible"
       [ngClass]="{'disabled': (!textVisible) && sliderValues.length !== questions.length }">
 
       <p>Next <img src="assets/arrow.png"></p>
