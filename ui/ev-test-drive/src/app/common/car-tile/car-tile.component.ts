@@ -9,6 +9,7 @@ import { HostListener } from "@angular/core";
 export class CarTileComponent implements OnInit {
   @Input() car: any = { specs: {} };
   @Input() collapsed = false;
+  @Input() showInactive = false;
   totalRangeText: string = "";
   screenWidth: number = 0;
 

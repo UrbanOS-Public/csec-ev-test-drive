@@ -1,0 +1,44 @@
+@import "../../../colors.scss";
+@import "../../../error.scss";
+@import "../../../mixins.scss";
+
+.adminPane {
+    font-family: Gotham, sans-serif;
+}
+
+.cars-container {
+    margin-top: 10px;
+}
+
+.car-tile-adds {
+    display:inline-block;
+    text-align: center;
+    width: 339px;
+}
+
+.button {
+    color: $white;
+    display: inline-block;
+    height: 48px;
+    width: 315px;
+    margin-top: 14px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+
+    p {
+      font-weight: 700;
+      font-size: 17px;
+      margin: 0;
+      margin-top: 14px;
+      text-transform: uppercase;
+    }
+}
+
+.active {
+    background-color:$green;
+}
+
+.inactive {
+    background-color: $pink;
+}
+
