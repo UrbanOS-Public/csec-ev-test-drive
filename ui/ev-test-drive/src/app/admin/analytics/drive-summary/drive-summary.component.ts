@@ -11,14 +11,19 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
   rows = [];
   cars = [];
   totals = new Map();
-  columns = ['week'];
+  columns = ['week', 'drives', 'optins'];
   constructor() { }
 
   ngOnInit() {
   }
 
   ngOnChanges() {
-    const uniqueWeeks = new Set(this.sourceData.map(item => moment(item.date).startOf('week').format('YYYY-MM-DD')));
+    if (!this.sourceData){
+      return;
+    }
+    const uniqueWeeks = new Set(this.sourceData.map(item => {
+      return `${moment(item.date).startOf('week').format('MM-DD')} - ${moment(item.date).endOf('week').format('MM-DD')}`;
+    }));
     var weeks = Array.from(uniqueWeeks);
     const uniqueCars = new Set(this.sourceData.map(item => item.model));
     var cars = Array.from(uniqueCars);
@@ -26,7 +31,9 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
     var rows = weeks.map((week) => { 
       return {
         week:week,
-        carSummary: new Map()
+        carSummary: new Map(),
+        totalOptIns: 0,
+        totalDrives: 0
       };
     });
     var drives = _.groupBy(this.sourceData, 'model');
@@ -34,10 +41,15 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
     var optInsPerWeek = _.groupBy(optIns, (optIn) => {
       return moment(optIn.date).startOf('week').format('YYYY-MM-DD');
     });
+    var drivesPerWeek = _.groupBy(this.sourceData, (drive) => {
+      return moment(drive.date).startOf('week').format('YYYY-MM-DD');
+    });
     var optInsPerCar = _.groupBy(optIns, 'model');
 
     rows.forEach((row) => {
       var carSummary = new Map();
+      row.totalOptIns = optInsPerWeek[row.week] ? optInsPerWeek[row.week].length : 0;
+      row.totalDrives = drivesPerWeek[row.week] ? drivesPerWeek[row.week].length : 0;
       var optInsPerCarPerWeek = _.groupBy(optInsPerWeek[row.week], 'model');
       cars.forEach((car) => {
         var drivesPerWeek = _.groupBy(drives[car], (drive) => {
@@ -54,9 +66,11 @@ export class DriveSummaryComponent implements OnInit, OnChanges {
 
     cars.forEach((car) => {
       this.totals.set(car, {
-        drives:drives[car].length,
-        optIns:optInsPerCar[car].length
+        drives:drives[car] ? drives[car].length : 0,
+        optIns:optInsPerCar[car] ? optInsPerCar[car].length : 0
       });
+      this.totals.set('allDrives', this.sourceData ? this.sourceData.length: 0);
+      this.totals.set('allOptIns', optIns ? optIns.length : 0);
     })
 
     this.rows = rows;

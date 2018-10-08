@@ -14,8 +14,20 @@
         <ng-container matColumnDef="week">
           <th mat-header-cell *matHeaderCellDef> Week Of </th>
           <td mat-cell *matCellDef="let thing"> {{thing.week}} </td>
-          <td mat-footer-cell *matFooterCellDef> <b>Totals:</b> </td>
+          <td mat-footer-cell *matFooterCellDef> Totals: </td>
         </ng-container>
+
+        <ng-container matColumnDef="drives">
+          <th mat-header-cell *matHeaderCellDef> Week Total <br/>Drives </th>
+          <td mat-cell *matCellDef="let thing"> {{thing.totalDrives}} </td>
+          <td mat-footer-cell *matFooterCellDef> {{totals.get('allDrives')}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="optins">
+            <th mat-header-cell *matHeaderCellDef> Week Total <br/>Opt-Ins </th>
+            <td mat-cell *matCellDef="let thing"> {{thing.totalOptIns}} </td>
+            <td mat-footer-cell *matFooterCellDef> {{totals.get('allOptIns')}} </td>
+          </ng-container>
 
         <div *ngFor="let car of cars; let i = index">
         <ng-container  matColumnDef="{{car}}Drives">
@@ -24,7 +36,7 @@
             <td mat-footer-cell *matFooterCellDef [ngClass]="{'offColumn': (i%2 == 0)}"> {{totals.get(car).drives}} </td>
         </ng-container>
         <ng-container  matColumnDef="{{car}}OptIns">
-            <th mat-header-cell *matHeaderCellDef [ngClass]="{'offColumn': (i%2 == 0)}"> {{car}}<br/>Opt Ins </th>
+            <th mat-header-cell *matHeaderCellDef [ngClass]="{'offColumn': (i%2 == 0)}"> {{car}}<br/>Opt-Ins </th>
             <td mat-cell *matCellDef="let thing" [ngClass]="{'offColumn': (i%2 == 0)}"> {{thing.carSummary.get(car).optIns}} </td>
             <td mat-footer-cell *matFooterCellDef [ngClass]="{'offColumn': (i%2 == 0)}"> {{totals.get(car).optIns}} </td>
         </ng-container>

@@ -6,7 +6,8 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'https://api.devdrivesmartcbus.com',
-  apiKey: "55UpoilmbN5SelQJbVuzG3m0EujXqWyb9AmcjEB8"
+  apiKey: "55UpoilmbN5SelQJbVuzG3m0EujXqWyb9AmcjEB8",
+  useLocalAPI: false
 };
 
 /*
