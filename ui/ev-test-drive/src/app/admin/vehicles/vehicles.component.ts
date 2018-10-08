@@ -21,6 +21,10 @@ export class VehiclesComponent implements OnInit {
     this.cars = response.map((car) => {car.unavailable = !car.active; car.selected = car.active; return car;});
   }
 
+  doSelectCar(car) {
+    console.log("Placeholder for deactivating:", car);
+  }
+
   handleError(error) {
     console.error(error);
   }
