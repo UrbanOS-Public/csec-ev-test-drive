@@ -32,6 +32,7 @@ import { ModalService } from './common/modal.service';
 import { HeaderComponent } from './common/header/header.component';
 import { AnalyticsComponent } from './admin/analytics/analytics.component';
 import { DriveSummaryComponent } from './admin/analytics/drive-summary/drive-summary.component';
+import { VehiclesComponent } from './admin/vehicles/vehicles.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { DriveSummaryComponent } from './admin/analytics/drive-summary/drive-sum
     ModalComponent,
     HeaderComponent,
     AnalyticsComponent,
-    DriveSummaryComponent
+    DriveSummaryComponent,
+    VehiclesComponent
   ],
   imports: [
     BrowserModule,
