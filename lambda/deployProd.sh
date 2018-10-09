@@ -49,6 +49,7 @@ deployLambdas() {
             'JobSendConfirmationEmail'
             'JobWeeklyEmailAnalytics'
             'JobMonthlyEmailAnalytics'
+            'JobReleaseTimeSlots'
             'ApiSaveUser'
             'ApiGetTimeSlots'
             'ApiGetCars'
@@ -60,6 +61,9 @@ deployLambdas() {
             'ApiGetUser'
             'ApiCancelDrive'
             'ApiGetSchedule'
+            'ApiReserveSlot'
+            'ApiReleaseSlot'
+            'ApiGetDriveSurveyAnalytics'
         )
     fi
 
