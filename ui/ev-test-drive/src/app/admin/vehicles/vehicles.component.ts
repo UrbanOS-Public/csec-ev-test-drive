@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EVService } from '../../common/ev.service';
+import { ModalService } from '../../common/modal.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -8,7 +9,12 @@ import { EVService } from '../../common/ev.service';
 })
 export class VehiclesComponent implements OnInit {
   cars;
-  constructor(private evService: EVService) { }
+  isSubmitting: boolean = false;
+  selectedCar;
+  showPinError;
+  pin;
+  constructor(private evService: EVService, private modalService: ModalService) { }
+  
 
   ngOnInit() {
     this.getCars();
@@ -26,18 +32,38 @@ export class VehiclesComponent implements OnInit {
   }
 
   handleStateResponse(response) {
+    this.closeModal('pin-modal');
     this.getCars();
   }
 
-  doSelectCar(car) {
-    this.evService.postCarState({carId:car.id,active:!car.active,pin:""}).subscribe(
+  doChangeVehicleState() {
+    this.evService.postCarState({carId:this.selectedCar.id,active:!this.selectedCar.active,pin:this.pin}).subscribe(
       response => this.handleStateResponse(response), 
-      error => this.handleError(error)
+      error => this.handlePinError(error)
     );
-    console.log("Placeholder for deactivating:", car);
+  }
+
+  doSelectCar(car) {
+    this.selectedCar = car;
+    this.openModal('pin-modal');
   }
 
   handleError(error) {
     console.error(error);
+  }
+
+  handlePinError(error) {
+    this.showPinError = true;
+    this.isSubmitting = false;
+  }
+
+  openModal(id) {
+    this.showPinError = false;
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.showPinError = false;
+    this.modalService.close(id);
   }
 }
