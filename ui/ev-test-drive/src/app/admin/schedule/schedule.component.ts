@@ -93,6 +93,8 @@ export class ScheduleComponent implements OnInit {
   handleSurveyResponse(response) {
     localStorage.setItem('postSurveyQuestions', JSON.stringify(response));
     this.isSubmitting = false;
+    this.selectedSlot.isSubmitting = false;
+    this.selectedSlot.checkingOut = false;
     this.router.navigateByUrl('/checkout/survey');
   }
 
@@ -129,8 +131,6 @@ export class ScheduleComponent implements OnInit {
   doCancelRide() {
     this.selectedSlot.isSubmitting = true;
     const confirmationNumber = this.selectedSlot.confirmation_number;
-    console.log(this.selectedSlot);
-    console.log(confirmationNumber);
     if (confirmationNumber) {
       this.evService.cancelRide(confirmationNumber, this.pin).subscribe(
         response => this.handleCancelRideResponse(response),
@@ -143,6 +143,7 @@ export class ScheduleComponent implements OnInit {
     this.selectedSlot = slot;
     const confirmationNumber = this.selectedSlot.confirmation_number;
     this.selectedSlot.isSubmitting = true;
+    this.selectedSlot.checkingOut = false;
     const lookupData = { confirmationNumber: confirmationNumber };
     localStorage.setItem('confirmationNumber', confirmationNumber);
 
