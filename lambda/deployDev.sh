@@ -64,6 +64,7 @@ deployLambdas() {
             'dev_ApiReserveSlot'
             'dev_ApiReleaseSlot'
             'dev_ApiGetDriveSurveyAnalytics'
+            'dev_ApiPatchCarState'
         )
     fi
 
