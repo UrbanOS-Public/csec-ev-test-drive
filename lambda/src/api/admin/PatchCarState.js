@@ -15,6 +15,9 @@ class PatchCarState { //Should be a patch in terraform/AWS. We had issues with n
         const carId = body.carId;
         const active = body.active;
         const pin = body.pin;
+        if ("17043215" !== pin) {
+            return this.ApiHelpers.httpResponse(callback, 404);
+        }
         this.verifyCar(carId)
             .then((persistedCar) => this.patchCarState(carId, persistedCar, active))
             .then((data) => this.successHandler(callback, data), (error) => this.errorHandler(callback, error))
