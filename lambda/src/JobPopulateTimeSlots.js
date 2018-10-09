@@ -20,8 +20,44 @@ class JobPopulateTimeSlots {
             .then(() => this.getScheduleForToday(today.format("YYYY-MM-DD"), dayOfTheWeekStartingSundayZeroBased))
             .then((schedule) => this.createTimeSlotsForPeriod(schedule, today, endOfPeriod))
             .then(() => this.createCarSlotsForPeriod(today, endOfPeriod))
+            .then(() => this.getFutureReservations())
+            .then((futureReservations) => this.reserveFutureSlotsForPeriod(futureReservations))
             .then((updateResponses) => this.successHandler(callback, updateResponses), (err) => this.errorHandler(callback, err))
         ;
+    }
+
+    getFutureReservations() {
+        const query = `
+        select u.email, t.date, t.start_time
+            from drive          d 
+            join car_slot       s on d.car_id = s.car_id 
+            join time_slot      t on s.time_slot_id = t.id 
+            join user_drive_map m on m.drive_id = d.id 
+            join user           u on m.user_id = u.id 
+        where d.scheduled_start_time = t.start_time 
+            and d.date = t.date;
+        `;
+        return this.pool.doQuery(query);
+    }
+
+    reserveFutureSlotsForPeriod(futureReservations) { // If there are issues with time slots being mysteriously open even when booked, I would suspect this method.
+        let promises = [];
+        let query = `
+            update time_slot ts, car_slot cs 
+                set ts.available_count = ts.available_count - 1, 
+                    cs.reserved = 1, 
+                    cs.reserved_by = ? 
+                where ts.id = cs.time_slot_id and ts.available_count >= 1 
+                and cs.reserved = 0 
+                and ts.date = ? 
+                and ts.start_time = ?
+            `;
+        
+        futureReservations.forEach((reservation) => {
+            let formattedDate = moment(reservation.date).format('YYYY-MM-DD');
+            promises.push(this.pool.doQuery(query, [reservation.email, formattedDate, reservation.start_time]));
+        });
+        return Promise.all(promises);
     }
 
     archiveCarSlots(yesterday) {
