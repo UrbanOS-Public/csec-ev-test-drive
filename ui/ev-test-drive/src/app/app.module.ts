@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -67,7 +68,8 @@ import { VehiclesComponent } from './admin/vehicles/vehicles.component';
     HttpClientModule,
     MatSliderModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule
   ],
   providers: [ModalService],
   bootstrap: [AppComponent]
