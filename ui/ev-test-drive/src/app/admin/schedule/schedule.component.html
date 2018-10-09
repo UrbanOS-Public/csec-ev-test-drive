@@ -2,7 +2,7 @@
 <jw-modal id="pin-modal">
   <div class="pin-pane">
     <p>Please enter your PIN</p>
-    <input type="password" class="pin">
+    <input type="password" class="pin" [(ngModel)]="pin">
     <br>
     <p class="pin-error" *ngIf="showPinError">
       Incorrect PIN, please try again.
@@ -59,12 +59,12 @@
               <td>
                 <div class="button-bar" id="{{slot.confirmation_number}}">
                     <div class="button-container"
-                        (click)="doCheckout(slot.confirmation_number)"
-                        (disabled)="isSubmitting">
-                      <img class="option-button" *ngIf="!isSubmitting" src="assets/answer.svg">
-                      <app-spinner *ngIf="isSubmitting"></app-spinner>
+                        (click)="doCheckout(slot)"
+                        (disabled)="isSubmitting || slot.isSubmitting">
+                      <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/answer.svg">
+                      <app-spinner *ngIf="slot.isSubmitting"></app-spinner>
                     </div>
-                    <div class="button-container" (click)="doCancel(slot.confirmation_number)" (disabled)="isSubmitting">
+                    <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
                       <img class="option-button" src="assets/cancel.svg">
                     </div>
                 </div>
