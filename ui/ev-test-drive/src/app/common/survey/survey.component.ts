@@ -99,7 +99,8 @@ export class SurveyComponent implements OnInit {
   }
 
   doCancelConfirm() {
-    this.evService.postReleaseSlot({carSlotId:this.carSlotId}).subscribe(
+    var carSlotId = JSON.parse(localStorage.getItem('carSlotId'));
+    this.evService.postReleaseSlot({carSlotId:carSlotId}).subscribe(
       response => this.router.navigateByUrl('/checkin'),
       error => this.handleError(console.log("Couldn't cancel the reservation. This is usually not critical"))
     );
