@@ -1,12 +1,28 @@
+<jw-modal id="pin-modal">
+    <div class="pin-pane" *ngIf="selectedCar">
+      <p>Please enter your PIN to {{selectedCar.active ? "Deactivate" : "Activate"}} the</p>
+      <p class="model-confirm">{{selectedCar.make}} {{selectedCar.model}}</p>
+      <input type="password" class="pin" [(ngModel)]="pin">
+      <br>
+      <p class="pin-error" *ngIf="showPinError">
+        Incorrect PIN, please try again.
+      </p>
+      <div class="close-button" (click)="closeModal('pin-modal')">
+        <p>Close</p>
+      </div>
+      <div class="confirm-button" (click)="doChangeVehicleState()">
+        <p *ngIf="!isSubmitting">{{selectedCar.active ? "Deactivate" : "Activate"}} Vehicle</p>
+        <app-spinner *ngIf="isSubmitting"></app-spinner>
+      </div>
+    </div>
+  </jw-modal>
+
 <div class="adminPane">
   <app-header title="Manage Vehicles"></app-header>
   <div class="cars-container">
     <div class="cars-pane-container">
       <div class="cars-pane">
         <div class="car-tile-adds" *ngFor="let car of cars" >
-          <!-- <div class="button" (click)="doClose()" [ngClass]="{'active':car.active, 'inactive':!car.active}">
-            <p>{{car.active ? 'Active' : 'Inactive'}}</p>
-          </div> -->
           <car-tile 
             id="{{ car.tileId }}" 
             [car]="car" 
