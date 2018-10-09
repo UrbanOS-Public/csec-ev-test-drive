@@ -2,7 +2,7 @@ import {environment} from '../environments/environment';
 
 export const api_key = environment.apiKey;
 
-export const optInQuestion = 'POST - Would you like someone from the local dealership to contact you with more information about electric vehicles (EVs)?';
+export const optInQuestion = "POST - Registration for this event may be used by participating automotive manufacturers to learn about your experience and communicate with you. Would you like a local dealership or participating automotive manufacturer to contact you with more information?";
 export const optInAnswer = 'Yes, and I give you permission to share my contact information for this purpose';
 
 export const apiBaseUrl       = environment.apiBaseUrl;
