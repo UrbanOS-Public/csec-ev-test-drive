@@ -47,7 +47,6 @@
           </thead>
         <tbody>
           <tr *ngFor="let slot of day.timeSlots">
-            <!-- <td data-label="Time" class="time"><p class="timeText">{{ slot.formattedTime }}</p></td> -->
             <td class="top-cell">
               <div class="time"><p class="timeText">{{ slot.formattedTime }}</p></div>
               <div class="name tablet-up-invisible" ><p>{{slot.first_name}}</p></div>
@@ -62,7 +61,7 @@
                         (click)="doCheckout(slot)"
                         (disabled)="isSubmitting || slot.isSubmitting">
                       <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/answer.svg">
-                      <app-spinner *ngIf="slot.isSubmitting"></app-spinner>
+                      <app-spinner *ngIf="slot.isSubmitting && slot.checkingOut"></app-spinner>
                     </div>
                     <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
                       <img class="option-button" src="assets/cancel.svg">
