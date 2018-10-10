@@ -44,6 +44,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   }
 
   doGetAnalytics() {
+    this.isSubmitting = true;
     this.evService.getAnalytics(this.pin).subscribe(
       response => this.handleAnalytics(response),
       error => this.handleError(error)
