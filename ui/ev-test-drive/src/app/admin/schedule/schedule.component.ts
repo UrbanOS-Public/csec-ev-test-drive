@@ -18,6 +18,8 @@ export class ScheduleComponent implements OnInit {
   isSubmitting = false;
   showPinError = false;
   scheduledDays: any[] = [];
+  selectedSlot;
+  pin;
 
   constructor(
     private router: Router,
@@ -37,7 +39,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   handleSchedule(response) {
-    
+    this.scheduledDays = [];
 
     this.formattedDate = this.formatDate(moment(response.date).toDate());
     this.schedule = response.schedules.sort((a, b) => {
@@ -91,20 +93,23 @@ export class ScheduleComponent implements OnInit {
   handleSurveyResponse(response) {
     localStorage.setItem('postSurveyQuestions', JSON.stringify(response));
     this.isSubmitting = false;
+    this.selectedSlot.isSubmitting = false;
+    this.selectedSlot.checkingOut = false;
     this.router.navigateByUrl('/checkout/survey');
   }
 
   handleCancelRideResponse(response) {
+    this.selectedSlot.isSubmitting = false;
     this.loadSchedule(); 
   }
 
   handleError(error) {
-    this.isSubmitting = false;
+    this.selectedSlot.isSubmitting = false;
     this.openModal('error-modal');
   }
 
   handlePinError(error) {
-    this.showPinError = true;
+    this.selectedSlot.isSubmitting = false;
     this.isSubmitting = false;
   }
 
@@ -118,49 +123,34 @@ export class ScheduleComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  doCancel(confirmationNumber) {
-    localStorage.setItem('cancelConfirmationNumber', confirmationNumber);
-    this.toggleMorePane(confirmationNumber);
+  doCancel(slot) {
+    this.selectedSlot = slot;
     this.openModal('pin-modal');
   }
 
   doCancelRide() {
-    const confirmationNumber = localStorage.getItem('cancelConfirmationNumber');
-    const pinPane = document.getElementsByClassName('pin-pane').item(0);
-    const pinInput = <HTMLInputElement>(pinPane.getElementsByClassName('pin').item(0));
-    const pin = (pinInput ? pinInput.value : 0) || 0;
-
-    this.isSubmitting = true;
-    if (pinInput) {
-      pinInput.value = "";
-    }
-
+    this.selectedSlot.isSubmitting = true;
+    const confirmationNumber = this.selectedSlot.confirmation_number;
     if (confirmationNumber) {
-      this.evService.cancelRide(confirmationNumber, pin).subscribe(
+      this.evService.cancelRide(confirmationNumber, this.pin).subscribe(
         response => this.handleCancelRideResponse(response),
         error => this.handlePinError(error)
       );
     }
   }
 
-  doCheckout(confirmationNumber) {
+  doCheckout(slot) {
+    this.selectedSlot = slot;
+    const confirmationNumber = this.selectedSlot.confirmation_number;
+    this.selectedSlot.isSubmitting = true;
+    this.selectedSlot.checkingOut = false;
     const lookupData = { confirmationNumber: confirmationNumber };
     localStorage.setItem('confirmationNumber', confirmationNumber);
-    this.isSubmitting = true;
 
     this.evService.lookupUser(lookupData).subscribe(
       response => this.handleLookupResponse(response),
       error => this.handleError(error)
     );
-  }
-
-  toggleMorePane(confirmationNumber) {
-    const driverInfoPane = document.getElementById(confirmationNumber);
-    const morePane = driverInfoPane.getElementsByClassName('more-pane').item(0);
-
-    if (morePane) {
-      morePane.classList.toggle('open');
-    }
   }
 
   formatDate(date: any) {
