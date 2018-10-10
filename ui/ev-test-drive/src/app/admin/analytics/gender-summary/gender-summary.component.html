@@ -1,0 +1,27 @@
+
+<mat-card class="metricsCard">
+  <mat-card-header>
+    <mat-card-title>Drives by Gender</mat-card-title>
+    <mat-card-subtitle>For PGA/OEM</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="sourceData" class="overflow">
+    <table mat-table [dataSource]="rows" class="mat-elevation-z8 metricsTable">
+
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef> Gender </th>
+        <td mat-cell *matCellDef="let thing"> {{thing.gender}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="drivesPercent">
+        <th mat-header-cell *matHeaderCellDef> % of Drives </th>
+        <td mat-cell *matCellDef="let thing"> {{thing.drivesPercent}}% </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button (click)="doExport()" class="export">Export</button>
+  </mat-card-actions>
+</mat-card>
