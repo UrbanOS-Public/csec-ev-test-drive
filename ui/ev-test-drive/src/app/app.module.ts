@@ -34,6 +34,7 @@ import { HeaderComponent } from './common/header/header.component';
 import { AnalyticsComponent } from './admin/analytics/analytics.component';
 import { DriveSummaryComponent } from './admin/analytics/drive-summary/drive-summary.component';
 import { VehiclesComponent } from './admin/vehicles/vehicles.component';
+import { ZipcodeSummaryComponent } from './admin/analytics/zipcode-summary/zipcode-summary.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { VehiclesComponent } from './admin/vehicles/vehicles.component';
     HeaderComponent,
     AnalyticsComponent,
     DriveSummaryComponent,
-    VehiclesComponent
+    VehiclesComponent,
+    ZipcodeSummaryComponent
   ],
   imports: [
     BrowserModule,
