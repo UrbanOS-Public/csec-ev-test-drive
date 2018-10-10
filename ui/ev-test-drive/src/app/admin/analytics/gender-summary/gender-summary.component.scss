@@ -1,6 +1,7 @@
 @import "../../../../colors.scss";
 .metricsCard {
     margin-top: 25px;
+    width: 50vw;
 }
 
 .metricsTable {
@@ -47,4 +48,9 @@
 .export {
     color: $white;
     background-color: $pink;
+}
+
+.visualize {
+    color: $white;
+    background-color: $green;
 }

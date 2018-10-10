@@ -35,6 +35,7 @@ import { AnalyticsComponent } from './admin/analytics/analytics.component';
 import { DriveSummaryComponent } from './admin/analytics/drive-summary/drive-summary.component';
 import { VehiclesComponent } from './admin/vehicles/vehicles.component';
 import { ZipcodeSummaryComponent } from './admin/analytics/zipcode-summary/zipcode-summary.component';
+import { GenderSummaryComponent } from './admin/analytics/gender-summary/gender-summary.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ZipcodeSummaryComponent } from './admin/analytics/zipcode-summary/zipco
     AnalyticsComponent,
     DriveSummaryComponent,
     VehiclesComponent,
-    ZipcodeSummaryComponent
+    ZipcodeSummaryComponent,
+    GenderSummaryComponent
   ],
   imports: [
     BrowserModule,
