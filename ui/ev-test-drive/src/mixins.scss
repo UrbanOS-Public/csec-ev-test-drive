@@ -158,3 +158,13 @@
         background-color: $pink;
     }
 }
+
+@mixin center-td-except-first-col {
+    .mat-cell:not(:first-child) {
+        text-align: center;
+    }
+
+    .mat-header-cell:not(:first-child) {
+        text-align: center;
+    }
+}
