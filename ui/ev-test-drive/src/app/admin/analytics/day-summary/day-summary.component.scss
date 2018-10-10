@@ -1,9 +1,10 @@
 @import "../../../../colors.scss";
 @import "../../../../mixins.scss";
-
 @include metrics-card;
 @include center-td-except-first-col;
 
 .metricsCard {
     width: 25vw;
 }
+
+
