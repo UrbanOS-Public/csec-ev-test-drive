@@ -106,3 +106,65 @@
         padding-left: 1px !important; 
       }
 }
+
+@mixin metrics-card {
+    .metricsCard {
+        margin-top: 25px;
+        width: 25vw;
+    }
+
+    .metricsTable {
+        width: 100%;
+    }
+
+    .overflow {
+        overflow-x: scroll;
+    }
+
+    .offColumn {
+        background-color: #f9f9f9;
+    }
+
+    .mat-cell, .mat-header-cell, .mat-footer-cell {
+        padding-left: 10px;
+    }
+
+    .mat-header-cell, .mat-footer-cell {
+        font-weight: bold;
+    }
+
+    .mat-footer-cell {
+        text-decoration: underline;
+        position: sticky;
+    }
+
+    .mat-header-cell {
+        position: sticky;
+        top:0;
+        background-color: inherit;
+    }
+
+    .mat-card-content {
+        max-height: 400px;
+        overflow: scroll;
+    }
+
+    .mat-row:hover {
+        text-decoration: underline;
+    }
+
+    .export {
+        color: $white;
+        background-color: $pink;
+    }
+}
+
+@mixin center-td-except-first-col {
+    .mat-cell:not(:first-child) {
+        text-align: center;
+    }
+
+    .mat-header-cell:not(:first-child) {
+        text-align: center;
+    }
+}
