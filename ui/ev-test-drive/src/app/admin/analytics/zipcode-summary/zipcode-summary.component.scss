@@ -1,51 +1,6 @@
 @import "../../../../colors.scss";
+@import "../../../../mixins.scss";
+@include metrics-card;
 .metricsCard {
-    margin-top: 25px;
     width: 25vw;
-}
-
-.metricsTable {
-    width: 100%;
-}
-
-.overflow {
-    overflow-x: scroll;
-}
-
-.offColumn {
-    background-color: #f9f9f9;
-}
-
-.mat-cell, .mat-header-cell, .mat-footer-cell {
-    padding-left: 5px;
-}
-
-.mat-header-cell, .mat-footer-cell {
-    font-weight: bold;
-}
-
-.mat-footer-cell {
-    text-decoration: underline;
-    position: sticky;
-}
-
-.mat-header-cell {
-    position: sticky;
-    top:0;
-    background-color: inherit;
-}
-
-.mat-card-content {
-    max-height: 300px;
-    overflow: scroll;
-}
-
-.mat-row:hover {
-    text-decoration: underline;
-}
-
-
-.export {
-    color: $white;
-    background-color: $pink;
 }
