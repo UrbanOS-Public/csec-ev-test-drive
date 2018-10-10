@@ -60,11 +60,11 @@
                     <div class="button-container"
                         (click)="doCheckout(slot)"
                         (disabled)="isSubmitting || slot.isSubmitting">
-                      <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/answer.svg">
+                      <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/list.svg">
                       <app-spinner *ngIf="slot.isSubmitting"></app-spinner>
                     </div>
                     <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
-                      <img class="option-button" src="assets/cancel.svg">
+                      <img class="option-button" src="assets/delete.svg">
                     </div>
                 </div>
               </td>
