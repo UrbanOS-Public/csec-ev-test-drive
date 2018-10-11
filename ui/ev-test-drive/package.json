@@ -25,6 +25,7 @@
     "angular5-csv": "^0.2.10",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "material-design-icons": "^3.0.1",
     "moment": "^2.22.2",
     "rxjs": "^6.0.0",
     "underscore": "^1.9.1",

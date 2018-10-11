@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
+import * as globals from '../../app.constants';
 
 @Component({
   selector: 'app-vehicles',
@@ -13,6 +14,7 @@ export class VehiclesComponent implements OnInit {
   selectedCar;
   showPinError;
   pin;
+  links = globals.adminNavbar;
   constructor(private evService: EVService, private modalService: ModalService) { }
   
 
