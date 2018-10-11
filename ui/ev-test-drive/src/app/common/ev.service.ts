@@ -25,6 +25,13 @@ export class EVService {
       httpOptions);
   }
 
+  postAddException(data) {
+    return this.http.post(
+      globals.addExceptionUrl,
+      data,
+      httpOptions);
+  }
+
   postSurvey(data) {
     return this.http.post(
       globals.surveySubmitUrl,
