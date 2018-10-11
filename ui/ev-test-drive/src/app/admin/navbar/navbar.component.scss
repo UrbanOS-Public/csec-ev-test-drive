@@ -1,4 +1,5 @@
 @import "../../../mixins.scss";
+@import "../../../colors.scss";
 
 i {
     color:white;
@@ -12,7 +13,6 @@ i {
 
 .button-container {
     background-color: black;
-    box-shadow: -5px 0px 0px 0px black;
     text-align:right;
 }
 
