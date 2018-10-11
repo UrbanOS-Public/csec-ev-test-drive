@@ -1,7 +1,14 @@
-<div class="button-container">
-    <button mat-icon-button *ngFor="let link of links" routerLink="{{link.route}}">
+<div class="button-container" [ngClass]="{'expanded':!collapsed}">
+    <span *ngIf="!collapsed">
+        <button mat-icon-button *ngFor="let link of links" routerLink="{{link.route}}" >
+            <i class="material-icons">
+                {{link.icon}}
+            </i> 
+        </button>   
+    </span>  
+    <button mat-icon-button (click)="collapsed = !collapsed" class="menu-button">
         <i class="material-icons">
-            {{link.icon}}
+                {{collapsed ? 'menu' : 'close'}}
         </i> 
-    </button>       
+    </button>  
 </div>
