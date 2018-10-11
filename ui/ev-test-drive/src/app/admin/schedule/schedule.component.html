@@ -29,7 +29,7 @@
 
 <div class="schedule-screen">
 
-  <app-header title="{{ formattedDate }}"></app-header>
+  <app-header title="Scheduled Drives" [links]="links"></app-header>
 
   <div class="schedule-pane">
     <div *ngFor="let day of scheduledDays" class="dayPane">

@@ -1,0 +1,7 @@
+<div class="button-container">
+    <button mat-icon-button *ngFor="let link of links" routerLink="{{link.route}}">
+        <i class="material-icons">
+            {{link.icon}}
+        </i> 
+    </button>       
+</div>

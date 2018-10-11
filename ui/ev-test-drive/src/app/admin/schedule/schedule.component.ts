@@ -4,6 +4,7 @@ import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
 import { Helpers } from '../../app.helpers';
 import * as moment from 'moment';
+import * as globals from '../../app.constants';
 
 @Component({
   selector: 'app-schedule',
@@ -20,6 +21,8 @@ export class ScheduleComponent implements OnInit {
   scheduledDays: any[] = [];
   selectedSlot;
   pin;
+
+  links = globals.adminNavbar;
 
   constructor(
     private router: Router,
