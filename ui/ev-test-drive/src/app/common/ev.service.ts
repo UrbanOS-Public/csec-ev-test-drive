@@ -64,6 +64,10 @@ export class EVService {
     return this.http.get(globals.carUrl, httpOptions);
   }
 
+  getExceptions() {
+    return this.http.get(globals.exceptionsUrl, httpOptions)
+  }
+
   getTimeslots() {
     return this.http.get(globals.timeslotUrl, httpOptions);
   }

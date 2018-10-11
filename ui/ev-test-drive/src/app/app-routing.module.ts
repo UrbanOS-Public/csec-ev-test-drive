@@ -18,6 +18,7 @@ import { SurveyComponent } from './common/survey/survey.component';
 import { ScheduleComponent } from './admin/schedule/schedule.component';
 import { AnalyticsComponent } from './admin/analytics/analytics.component';
 import { VehiclesComponent } from './admin/vehicles/vehicles.component';
+import { ExceptionsComponent } from './admin/exceptions/exceptions.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'admin/schedule', component: ScheduleComponent },
   { path: 'admin/analytics', component: AnalyticsComponent },
   { path: 'admin/vehicles', component: VehiclesComponent },
+  { path: 'admin/exceptions', component: ExceptionsComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
  
