@@ -1,4 +1,5 @@
 <div class="exceptions-screen">
     <app-header title="Exceptions Schedule"></app-header>
+    <app-exception-form (submit)="onSubmit($event)"></app-exception-form>
     <app-list [sourceData]="sourceData"></app-list>
 </div>
