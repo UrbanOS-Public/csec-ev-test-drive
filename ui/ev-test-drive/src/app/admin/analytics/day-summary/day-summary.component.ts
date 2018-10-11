@@ -25,7 +25,11 @@ export class DaySummaryComponent implements OnInit, OnChanges {
         return moment(drive.date).format('dddd');
       });
       this.dayOrder.forEach((day) => {
-        this.rows.push({day:day, drivesPercent: Math.round((byDay[day].length / this.sourceData.length * 100)), drives:byDay[day].length});
+        if (byDay[day]) {
+          this.rows.push({day:day, drivesPercent: Math.round((byDay[day].length / this.sourceData.length * 100)), drives:byDay[day].length});
+        } else {
+          this.rows.push({day:day, drivesPercent:0, drives:0});
+        }
       });
     }
   }
