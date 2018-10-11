@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EVService } from 'src/app/common/ev.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-exceptions',
@@ -24,12 +25,19 @@ export class ExceptionsComponent implements OnInit {
   }
 
   onSubmit(exception) {
-    console.log(exception);
+    this.evService.postAddException({date:moment(exception.date).format('YYYY-MM-DD')}).subscribe(
+      response => this.handleAddExceptionsResponse(response), 
+      error => this.handleError(error)
+    );
   }
 
   handleExceptionsResponse(response) {
     this.sourceData = response;
-    console.log('we got the data', response);
+  }
+
+  handleAddExceptionsResponse(response) {
+    console.log('added exception', response);
+    this.getExceptions();
   }
 
   handleError(error){

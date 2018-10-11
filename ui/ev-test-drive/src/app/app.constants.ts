@@ -10,6 +10,7 @@ export const apiBaseUrl       = environment.apiBaseUrl;
 export const newUserUrl       = apiBaseUrl + '/user';
 export const carUrl           = apiBaseUrl + '/cars';
 export const exceptionsUrl    = apiBaseUrl + '/exceptions';
+export const addExceptionUrl  = apiBaseUrl + '/addException';
 export const timeslotUrl      = apiBaseUrl + '/timeSlots';
 export const preSurveyUrl     = apiBaseUrl + '/preSurvey';
 export const scheduleRideUrl  = apiBaseUrl + '/drive';
