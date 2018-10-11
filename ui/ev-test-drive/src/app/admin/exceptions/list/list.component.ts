@@ -21,8 +21,8 @@ export class ListComponent implements OnInit, OnChanges {
           ...row,
           date: moment(row.date).format('YYYY-MM-DD'),
           date_created: moment(row.date_created).format('YYYY-MM-DD'),
-          start_time: moment(row.start_time, ['h:m a','H:m']).format('h:MM a'),
-          end_time: moment(row.end_time, ['h:m a','H:m']).format('h:MM a'),
+          start_time: moment(row.start_time, ['h:m: a','HH:mm:ss']).format('h:mm a'),
+          end_time: moment(row.end_time, ['h:m a','H:m']).format('h:mm a'),
         }
       })
     }
