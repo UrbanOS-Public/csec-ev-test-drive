@@ -23,6 +23,10 @@ export class ExceptionsComponent implements OnInit {
     );
   }
 
+  onSubmit(exception) {
+    console.log(exception);
+  }
+
   handleExceptionsResponse(response) {
     this.sourceData = response;
     console.log('we got the data', response);

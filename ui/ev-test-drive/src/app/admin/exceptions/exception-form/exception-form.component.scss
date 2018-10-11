@@ -1,0 +1,16 @@
+@import "../../../../colors.scss";
+@import "../../../../mixins.scss";
+
+.form-container {
+    background-color: white;
+    text-align: center;
+}
+
+.mat-form-field {
+    margin: 10px;
+}
+
+.mat-raised-button {
+    background-color: $pink;
+    color:white
+}
