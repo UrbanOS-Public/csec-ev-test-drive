@@ -65,6 +65,8 @@ deployLambdas() {
             'dev_ApiReleaseSlot'
             'dev_ApiGetDriveSurveyAnalytics'
             'dev_ApiPatchCarState'
+            'dev_ApiAddException'
+            'dev_ApiGetExceptions'
         )
     fi
 
