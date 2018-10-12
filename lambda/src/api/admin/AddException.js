@@ -11,7 +11,7 @@ class AddException {
 
     handleEvent(event, context, callback) {
         const body = JSON.parse(event.body);
-        const date = body.date;
+        const date = moment(body.date).format();
         
         this.addException(date)
             .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err))
@@ -22,7 +22,7 @@ class AddException {
         const query = `
             insert ignore into schedule_exception (date, start_time, end_time, slot_length_minutes, employees_per_slot) values (?)
         `
-        return this.pool.doQuery(query, [[date, "00:01", "23:59", "30", 0]]);
+        return this.pool.doQuery(query, [[date, "00:00", "23:59", "0", 0]]);
     }
 
     successHandler(callback, data) {
