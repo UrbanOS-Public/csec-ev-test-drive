@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
+import * as globals from '../../app.constants';
 
 @Component({
   selector: 'app-analytics',
@@ -14,6 +15,8 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   showPinError = false;
   sourceData = {};
   pin;
+
+  links = globals.adminNavbar;
 
   constructor(
     private router: Router,

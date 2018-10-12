@@ -42,6 +42,7 @@ import { DaySummaryComponent } from './admin/analytics/day-summary/day-summary.c
 import { ExceptionsComponent } from './admin/exceptions/exceptions.component';
 import { ListComponent } from './admin/exceptions/list/list.component';
 import { ExceptionFormComponent } from './admin/exceptions/exception-form/exception-form.component';
+import { NavbarComponent } from './admin/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ExceptionFormComponent } from './admin/exceptions/exception-form/except
     DaySummaryComponent,
     ExceptionsComponent,
     ListComponent,
-    ExceptionFormComponent
+    ExceptionFormComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
