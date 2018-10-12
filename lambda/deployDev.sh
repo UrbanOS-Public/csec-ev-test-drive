@@ -66,6 +66,7 @@ deployLambdas() {
             'dev_ApiGetDriveSurveyAnalytics'
             'dev_ApiPatchCarState'
             'dev_ApiAddException'
+            'dev_ApiDeleteException'
             'dev_ApiGetExceptions'
         )
     fi

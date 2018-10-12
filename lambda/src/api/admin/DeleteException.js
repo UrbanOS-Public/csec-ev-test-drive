@@ -2,7 +2,7 @@ const {BetterSmartExperienceMySQLPool} = require("../../utils/BetterSmartExperie
 const moment = require('moment');
 const ApiHelpers = require('../ApiHelpers');
 
-class AddException {
+class DeleteException {
     constructor(pool, moment, ApiHelpers) {
         this.pool = pool;
         this.moment = moment;
@@ -11,30 +11,29 @@ class AddException {
 
     handleEvent(event, context, callback) {
         const body = JSON.parse(event.body);
-        const date = moment(body.date).format();
-        const pin = body.pin;
+        const {pin, id} = body;
 
         if ("17043215" !== pin) {
             return this.ApiHelpers.httpResponse(callback, 404);
         }
         
-        this.addException(date)
+        this.deleteException(id)
             .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err))
         ;
     }
 
-    addException(date) {
+    deleteException(id) {
         const query = `
-            insert ignore into schedule_exception (date, start_time, end_time, slot_length_minutes, employees_per_slot) values (?)
+            delete from schedule_exception where id = ?
         `
-        return this.pool.doQuery(query, [[date, "00:00", "23:59", "0", 0]]);
+        return this.pool.doQuery(query, [id]);
     }
 
     successHandler(callback, data) {
         this.pool.end();
         console.log('Query Result: ', data);
         console.log(`Done`);
-        this.ApiHelpers.httpResponse(callback, 200, {message: "Successfully added a schedule exception"});
+        this.ApiHelpers.httpResponse(callback, 200, {message: "Successfully deleted the exception"});
     }
 
     errorHandler(callback, error) {
@@ -47,8 +46,8 @@ class AddException {
     }
 }
 
-exports.AddException = AddException;
+exports.DeleteException = DeleteException;
 exports.handler = (event, context, callback) => {
-    const handler = new AddException(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
+    const handler = new DeleteException(new BetterSmartExperienceMySQLPool(), moment, ApiHelpers);
     handler.handleEvent(event, context, callback);
 };
