@@ -34,7 +34,7 @@
           [disabled]="!loginForm.valid || formSubmitted"
           [ngClass]="{'disabled': !loginForm.valid || formSubmitted}">
             {{ formSubmitted ? '' : 'START' }}
-            <app-spinner *ngIf="formSubmitted"></app-spinner>
+            <app-spinner *ngIf="formSubmitted" color="white"></app-spinner>
         </button>
 
       </form>
