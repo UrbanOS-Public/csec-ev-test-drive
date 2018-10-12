@@ -1,0 +1,23 @@
+<jw-modal id="pin-modal">
+        <div class="pin-pane" *ngIf="exception">
+          <p>Please enter your PIN to {{pinWording.toUpperCase()}}</p>
+          <p>the Exception for {{moment(exception.date).format('YYYY-MM-DD')}}</p>
+          <input type="password" class="pin" [(ngModel)]="pin">
+          <br>
+          <p class="pin-error" *ngIf="showPinError">
+            Incorrect PIN, please try again.
+          </p>
+          <div class="close-button" (click)="closeModal('pin-modal')">
+            <p>Close</p>
+          </div>
+          <div class="confirm-button" (click)="pinConfirm()">
+            <p *ngIf="!isSubmitting">{{pinWording}} Exception</p>
+            <app-spinner *ngIf="isSubmitting"></app-spinner>
+          </div>
+        </div>
+      </jw-modal>
+<div class="exceptions-screen">
+    <app-header title="Schedule Exceptions" [links]="links"></app-header>
+    <app-exception-form (submit)="onSubmit($event)" [isSubmitting]="isSubmitting"></app-exception-form>
+    <app-list [sourceData]="sourceData" (delete)="onDelete($event)"></app-list>
+</div>

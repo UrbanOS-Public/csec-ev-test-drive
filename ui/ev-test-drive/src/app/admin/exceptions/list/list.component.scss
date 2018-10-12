@@ -1,0 +1,11 @@
+@import "../../../../mixins.scss";
+
+@include center-td-except-first-col;
+
+.mat-cell, .mat-header-cell, .mat-footer-cell {
+    padding-left: 10px;
+}
+
+table {
+    width: 100%;
+}

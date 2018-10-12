@@ -9,6 +9,9 @@ export const apiBaseUrl       = environment.apiBaseUrl;
 
 export const newUserUrl       = apiBaseUrl + '/user';
 export const carUrl           = apiBaseUrl + '/cars';
+export const exceptionsUrl    = apiBaseUrl + '/exceptions';
+export const addExceptionUrl  = apiBaseUrl + '/addException';
+export const deleteExceptionUrl  = apiBaseUrl + '/deleteException';
 export const timeslotUrl      = apiBaseUrl + '/timeSlots';
 export const preSurveyUrl     = apiBaseUrl + '/preSurvey';
 export const scheduleRideUrl  = apiBaseUrl + '/drive';
@@ -28,5 +31,6 @@ export const cancelDriveUrl   = apiBaseUrl + '/cancelDrive';
 export const adminNavbar = [
     {icon:'insert_chart_outlined',route:'/admin/analytics'},
     {icon:'directions_car',route:'/admin/vehicles'},
-    {icon:'today',route:'/admin/schedule'}
+    {icon:'perm_contact_calendar',route:'/admin/schedule'},
+    {icon:'schedule',route:'/admin/exceptions'}
 ]
