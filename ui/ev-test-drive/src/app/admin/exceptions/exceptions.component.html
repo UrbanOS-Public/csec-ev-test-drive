@@ -9,7 +9,7 @@
           <div class="close-button" (click)="closeModal('pin-modal')">
             <p>Close</p>
           </div>
-          <div class="confirm-button" (click)="doAddException()">
+          <div class="confirm-button" (click)="doPinConfirm()">
             <p *ngIf="!isSubmitting">Add Exception</p>
             <app-spinner *ngIf="isSubmitting"></app-spinner>
           </div>
@@ -18,5 +18,5 @@
 <div class="exceptions-screen">
     <app-header title="Exceptions Schedule"></app-header>
     <app-exception-form (submit)="onSubmit($event)" [isSubmitting]="isSubmitting"></app-exception-form>
-    <app-list [sourceData]="sourceData"></app-list>
+    <app-list [sourceData]="sourceData" (delete)="onDelete($event)"></app-list>
 </div>

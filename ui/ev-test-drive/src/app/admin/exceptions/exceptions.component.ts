@@ -11,8 +11,9 @@ export class ExceptionsComponent implements OnInit {
   sourceData;
   isSubmitting = false;
   showPinError = false;
-  newException;
+  exception;
   pin;
+  pinConfirm;
 
   ngOnInit() {
     this.getExceptions();
@@ -28,13 +29,28 @@ export class ExceptionsComponent implements OnInit {
   }
 
   onSubmit(exception) {
-    this.newException = exception;
+    this.exception = exception;
+    this.pinConfirm = this.doAddException;
+    this.openModal('pin-modal');
+  }
+
+  onDelete(exception) {
+    this.exception = exception;
+    this.pinConfirm = this.doDeleteException;
     this.openModal('pin-modal');
   }
 
   doAddException(){
     this.isSubmitting = true;
-    this.evService.postAddException({date:this.newException.date, pin:this.pin}).subscribe(
+    this.evService.postAddException({date:this.exception.date, pin:this.pin}).subscribe(
+      response => this.handleAddExceptionsResponse(response), 
+      error => this.handlePinError(error)
+    );
+  }
+
+  doDeleteException(){
+    this.isSubmitting = true;
+    this.evService.postAddException({id:this.exception.id, pin:this.pin}).subscribe(
       response => this.handleAddExceptionsResponse(response), 
       error => this.handlePinError(error)
     );
@@ -46,7 +62,7 @@ export class ExceptionsComponent implements OnInit {
 
   handleAddExceptionsResponse(response) {
     this.isSubmitting = false;
-    this.newException = null;
+    this.exception = null;
     this.closeModal('pin-modal');
     this.getExceptions();
   }
