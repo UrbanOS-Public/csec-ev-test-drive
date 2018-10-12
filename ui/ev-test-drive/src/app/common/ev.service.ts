@@ -32,6 +32,13 @@ export class EVService {
       httpOptions);
   }
 
+  postDeleteException(data) {
+    return this.http.post(
+      globals.deleteExceptionUrl,
+      data,
+      httpOptions);
+  }
+
   postSurvey(data) {
     return this.http.post(
       globals.surveySubmitUrl,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import * as moment from 'moment'
 
 @Component({
@@ -8,8 +8,9 @@ import * as moment from 'moment'
 })
 export class ListComponent implements OnInit, OnChanges {
   @Input() sourceData
+  @Output() delete = new EventEmitter<any>();
 
-  columns = ['date','start_time','end_time', 'slot_length_minutes', 'employees_per_slot', 'date_created']
+  columns = ['date','start_time','end_time', 'slot_length_minutes', 'employees_per_slot', 'date_created', 'delete']
   ngOnInit() {
 
   }
