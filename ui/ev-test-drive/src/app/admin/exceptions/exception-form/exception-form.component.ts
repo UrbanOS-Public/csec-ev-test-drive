@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { surveySubmitUrl } from 'src/app/app.constants';
 
 @Component({
@@ -8,6 +8,8 @@ import { surveySubmitUrl } from 'src/app/app.constants';
 })
 export class ExceptionFormComponent implements OnInit {
   @Output() submit = new EventEmitter<any>();
+  @Input() isSubmitting = false;
+
   exception = {date:null};
   
   constructor() { }

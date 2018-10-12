@@ -11,6 +11,16 @@
 }
 
 .mat-raised-button {
+    width: 128px;
+    height: 47px;
     background-color: $pink;
     color:white
+    
 }
+
+app-spinner {
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 37px;
+  }

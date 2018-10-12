@@ -10,7 +10,8 @@ import * as moment from 'moment'
 })
 export class ExceptionsComponent implements OnInit {
   sourceData;
-  
+  isSubmitting = false;
+
   ngOnInit() {
     this.getExceptions();
   }
@@ -25,6 +26,7 @@ export class ExceptionsComponent implements OnInit {
   }
 
   onSubmit(exception) {
+    this.isSubmitting = true;
     this.evService.postAddException({date:exception.date}).subscribe(
       response => this.handleAddExceptionsResponse(response), 
       error => this.handleError(error)
@@ -36,11 +38,12 @@ export class ExceptionsComponent implements OnInit {
   }
 
   handleAddExceptionsResponse(response) {
-    console.log('added exception', response);
+    this.isSubmitting = false;
     this.getExceptions();
   }
 
   handleError(error){
+    this.isSubmitting = false;
     console.log(error);
   }
 
