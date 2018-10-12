@@ -11,14 +11,13 @@ class JobPopulateTimeSlots {
         const yesterday = this.moment().subtract(1, 'days').format("YYYY-MM-DD");
         const today = this.moment(event.date);
         const endOfPeriod = this.moment(event.date).add(14, 'days');
-        const dayOfTheWeekStartingSundayZeroBased = this.moment().day();
 
         this.archiveCarSlots(yesterday)
             .then(() => this.deleteCarSlots(yesterday))
             .then(() => this.archiveTimeSlots(yesterday))
             .then(() => this.deleteTimeSlots(yesterday))
-            .then(() => this.getScheduleForToday(today.format("YYYY-MM-DD"), dayOfTheWeekStartingSundayZeroBased))
-            .then((schedule) => this.createTimeSlotsForPeriod(schedule, today, endOfPeriod))
+            .then(() => this.getSchedulesForWeek(today, endOfPeriod))
+            .then((schedules) => this.createTimeSlotsForPeriod(schedules, today, endOfPeriod))
             .then(() => this.createCarSlotsForPeriod(today, endOfPeriod))
             .then(() => this.getFutureReservations())
             .then((futureReservations) => this.reserveFutureSlotsForPeriod(futureReservations))
@@ -91,16 +90,31 @@ class JobPopulateTimeSlots {
                 if (scheduleException) {
                     return scheduleException;
                 } else {
-                    return defaultSchedule;
+                    return {...defaultSchedule, date:today};
                 }
             });
     }
 
-    createTimeSlotsForPeriod(schedule, start, end) {
+    getSchedulesForWeek(start, end) {
+        var schedulePromises = []
+        const days = end.diff(start, 'days');
+        for (var i = 0; i < days; i++) {
+            const thisDay = moment(start).add(i, 'days')
+            const formattedDate = thisDay.format(("YYYY-MM-DD"));
+            const thisDayNumber = thisDay.day();
+            schedulePromises.push(this.getScheduleForToday(formattedDate, thisDayNumber));
+        }
+        return Promise.all(schedulePromises);
+    }
+
+    createTimeSlotsForPeriod(schedules, start, end) {
+        console.log(schedules);
         var timePromises = [];
         const days = end.diff(start, 'days');
         for (var i = 0; i < days; i++) {
-            const formattedDate = moment(start).add(i, 'days').format(("YYYY-MM-DD"));
+            const thisDay = moment(start).add(i, 'days')
+            const formattedDate = thisDay.format(("YYYY-MM-DD"));
+            const schedule = schedules.find((schedule) => moment(schedule.date).format('YYYY-MM-DD') == formattedDate);
             timePromises.push(this.createTimeSlotsForDate(schedule, formattedDate));
         }
         return Promise.all(timePromises);
@@ -126,16 +140,19 @@ class JobPopulateTimeSlots {
         const end = this.moment(`${formattedDate} ${dayEndTime}`);
         const diffInMilliseconds = end.diff(start);
         const lengthOfDayInMinutes = diffInMilliseconds / 1000 / 60;
-        const numberOfSlots = lengthOfDayInMinutes / slot_length_minutes;
-
         let values = [];
-        for (var i = 0; i < numberOfSlots; i++) {
-            const row_start_time = this.moment(`${formattedDate} ${dayStartTime}`).add(i * slot_length_minutes, 'minutes').format("HH:mm:ss");
-            const row_end_time = this.moment(`${formattedDate} ${dayStartTime}`).add((i + 1) * slot_length_minutes, 'minutes').format("HH:mm:ss");
-            const row = [formattedDate, row_start_time, row_end_time, available_count];
-            values.push(row);
-        }
-        return this.pool.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time)", [values]);
+        if (slot_length_minutes > 0) {
+            const numberOfSlots = lengthOfDayInMinutes / slot_length_minutes;
+            for (var i = 0; i < numberOfSlots; i++) {
+                const row_start_time = this.moment(`${formattedDate} ${dayStartTime}`).add(i * slot_length_minutes, 'minutes').format("HH:mm:ss");
+                const row_end_time = this.moment(`${formattedDate} ${dayStartTime}`).add((i + 1) * slot_length_minutes, 'minutes').format("HH:mm:ss");
+                const row = [formattedDate, row_start_time, row_end_time, available_count];
+                values.push(row);
+            }
+            return this.pool.doQuery("insert ignore into time_slot (`date`, `start_time`, `end_time`, `available_count`) values ? on duplicate key update end_time = values(end_time)", [values]);
+        } else {
+            return Promise.resolve();
+        }   
     }
 
     createCarSlotsForDate(date) {
@@ -154,8 +171,11 @@ class JobPopulateTimeSlots {
                         values.push([timeSlot.id, car.car_id, false]);
                     }
                 }
-                
-                return this.pool.doQuery("insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values ?", [values]);
+                if (values.length > 0) {
+                    return this.pool.doQuery("insert ignore into car_slot (`time_slot_id`, `car_id`, `reserved`) values ?", [values]);
+                } else {
+                    return Promise.resolve();
+                }
             })
             .catch(err => {
                 console.log(`rejecting`);
