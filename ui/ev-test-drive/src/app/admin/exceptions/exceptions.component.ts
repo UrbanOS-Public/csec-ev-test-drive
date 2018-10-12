@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EVService } from 'src/app/common/ev.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import * as moment from 'moment'
+import { ModalService } from '../../common/modal.service';
 
 @Component({
   selector: 'app-exceptions',
@@ -11,12 +10,14 @@ import * as moment from 'moment'
 export class ExceptionsComponent implements OnInit {
   sourceData;
   isSubmitting = false;
+  showPinError = false;
+  newException;
 
   ngOnInit() {
     this.getExceptions();
   }
 
-  constructor(private evService: EVService) { }
+  constructor(private evService: EVService, private modalService: ModalService) { }
 
   getExceptions() {
     this.evService.getExceptions().subscribe(
@@ -26,8 +27,13 @@ export class ExceptionsComponent implements OnInit {
   }
 
   onSubmit(exception) {
+    this.newException = exception;
+    this.openModal('pin-modal');
+  }
+
+  doAddException(){
     this.isSubmitting = true;
-    this.evService.postAddException({date:exception.date}).subscribe(
+    this.evService.postAddException({date:this.newException.date}).subscribe(
       response => this.handleAddExceptionsResponse(response), 
       error => this.handleError(error)
     );
@@ -39,12 +45,29 @@ export class ExceptionsComponent implements OnInit {
 
   handleAddExceptionsResponse(response) {
     this.isSubmitting = false;
+    this.newException = null;
+    this.closeModal('pin-modal');
     this.getExceptions();
   }
 
   handleError(error){
     this.isSubmitting = false;
     console.log(error);
+  }
+
+  handlePinError(error) {
+    this.showPinError = true;
+    this.isSubmitting = false;
+  }
+
+  openModal(id) {
+    this.showPinError = false;
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.showPinError = false;
+    this.modalService.close(id);
   }
 
 }
