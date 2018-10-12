@@ -12,6 +12,7 @@ export class ExceptionsComponent implements OnInit {
   isSubmitting = false;
   showPinError = false;
   newException;
+  pin;
 
   ngOnInit() {
     this.getExceptions();
@@ -33,9 +34,9 @@ export class ExceptionsComponent implements OnInit {
 
   doAddException(){
     this.isSubmitting = true;
-    this.evService.postAddException({date:this.newException.date}).subscribe(
+    this.evService.postAddException({date:this.newException.date, pin:this.pin}).subscribe(
       response => this.handleAddExceptionsResponse(response), 
-      error => this.handleError(error)
+      error => this.handlePinError(error)
     );
   }
 

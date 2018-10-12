@@ -17,4 +17,9 @@ export class ExceptionFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  doSubmit() {
+    this.submit.emit({...this.exception});
+    this.exception = {date:null};
+  }
+
 }

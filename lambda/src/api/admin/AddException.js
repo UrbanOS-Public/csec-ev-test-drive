@@ -12,6 +12,11 @@ class AddException {
     handleEvent(event, context, callback) {
         const body = JSON.parse(event.body);
         const date = moment(body.date).format();
+        const pin = body.pin;
+
+        if ("***REMOVED***" !== pin) {
+            return this.ApiHelpers.httpResponse(callback, 404);
+        }
         
         this.addException(date)
             .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err))
