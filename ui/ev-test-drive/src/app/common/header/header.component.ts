@@ -8,6 +8,7 @@ import { EVService } from '../ev.service';
 })
 export class HeaderComponent implements OnInit {
   @Input() title;
+  @Input() links = [];
   constructor(private evService: EVService) { }
 
   ngOnInit() {
