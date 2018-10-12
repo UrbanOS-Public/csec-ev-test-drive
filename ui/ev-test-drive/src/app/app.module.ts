@@ -37,6 +37,7 @@ import { VehiclesComponent } from './admin/vehicles/vehicles.component';
 import { ZipcodeSummaryComponent } from './admin/analytics/zipcode-summary/zipcode-summary.component';
 import { GenderSummaryComponent } from './admin/analytics/gender-summary/gender-summary.component';
 import { DaySummaryComponent } from './admin/analytics/day-summary/day-summary.component';
+import { NavbarComponent } from './admin/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { DaySummaryComponent } from './admin/analytics/day-summary/day-summary.c
     VehiclesComponent,
     ZipcodeSummaryComponent,
     GenderSummaryComponent,
-    DaySummaryComponent
+    DaySummaryComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
