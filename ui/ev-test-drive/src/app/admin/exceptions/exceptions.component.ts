@@ -25,7 +25,7 @@ export class ExceptionsComponent implements OnInit {
   }
 
   onSubmit(exception) {
-    this.evService.postAddException({date:moment(exception.date).format('YYYY-MM-DD')}).subscribe(
+    this.evService.postAddException({date:exception.date}).subscribe(
       response => this.handleAddExceptionsResponse(response), 
       error => this.handleError(error)
     );

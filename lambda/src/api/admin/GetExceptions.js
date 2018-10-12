@@ -11,8 +11,17 @@ class GetExceptions {
 
     handleEvent(event, context, callback) {
         this.getExceptions()
+            .then((data) => this.formatData(data))
             .then((data) => this.successHandler(callback, data), (err) => this.errorHandler(callback, err))
         ;
+    }
+
+    formatData(data) {
+        data = data.map((exception) => {
+            exception.date = moment.utc(exception.date).format('YYYY-MM-DD');
+            return exception;
+        });
+        return Promise.resolve(data);
     }
 
     getExceptions() {
