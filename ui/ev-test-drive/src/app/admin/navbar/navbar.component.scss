@@ -1,0 +1,23 @@
+@import "../../../mixins.scss";
+@import "../../../colors.scss";
+
+i {
+    color:white;
+    font-size: 40px
+}
+
+.mat-icon-button {
+    height:70px;
+    width:70px;
+}
+
+.button-container {
+    background-color: black;
+    text-align:right;
+}
+
+.expanded {
+    @include for-phone-only {
+        width:calc(100vw - 67px);
+    }
+}
