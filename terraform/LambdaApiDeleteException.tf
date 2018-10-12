@@ -1,16 +1,16 @@
-module "ApiAddExceptionRole" {
+module "ApiDeleteExceptionRole" {
   source = "./modules/roles/create_lambda_role"
-  lambda_role_name = "${var.environment}ApiAddExceptionRole"
+  lambda_role_name = "${var.environment}ApiDeleteExceptionRole"
 }
 
-module "ApiAddExceptionFunction" {
+module "ApiDeleteExceptionFunction" {
   source = "./modules/lambda/create_lambda_function_in_vpc_with_env_variables"
   lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
-  function_name = "${var.environment}ApiAddException"
-  handler = "src/api/admin/AddException.handler"
-  role_arn = "${module.ApiAddExceptionRole.arn}"
+  function_name = "${var.environment}ApiDeleteException"
+  handler = "src/api/admin/DeleteException.handler"
+  role_arn = "${module.ApiDeleteExceptionRole.arn}"
   timeout = "10"
-  description = "Api to add an exception"
+  description = "Api to delete an exception"
   vpc_subnet_ids = [
     "${aws_subnet.Subnet2.id}",
     "${aws_subnet.Subnet3.id}"]
