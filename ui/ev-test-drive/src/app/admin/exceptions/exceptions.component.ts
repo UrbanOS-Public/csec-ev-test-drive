@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EVService } from 'src/app/common/ev.service';
 import { ModalService } from '../../common/modal.service';
+import * as moment from 'moment';
+import * as globals from '../../app.constants';
 
 @Component({
   selector: 'app-exceptions',
@@ -14,9 +16,13 @@ export class ExceptionsComponent implements OnInit {
   exception;
   pin;
   pinConfirm;
+  pinWording;
+  moment;
+  links = globals.adminNavbar;
 
   ngOnInit() {
     this.getExceptions();
+    this.moment = moment;
   }
 
   constructor(private evService: EVService, private modalService: ModalService) { }
@@ -31,12 +37,14 @@ export class ExceptionsComponent implements OnInit {
   onSubmit(exception) {
     this.exception = exception;
     this.pinConfirm = this.doAddException;
+    this.pinWording = "Add";
     this.openModal('pin-modal');
   }
 
   onDelete(exception) {
     this.exception = exception;
     this.pinConfirm = this.doDeleteException;
+    this.pinWording = "Delete";
     this.openModal('pin-modal');
   }
 
@@ -50,7 +58,7 @@ export class ExceptionsComponent implements OnInit {
 
   doDeleteException(){
     this.isSubmitting = true;
-    this.evService.postAddException({id:this.exception.id, pin:this.pin}).subscribe(
+    this.evService.postDeleteException({id:this.exception.id, pin:this.pin}).subscribe(
       response => this.handleAddExceptionsResponse(response), 
       error => this.handlePinError(error)
     );

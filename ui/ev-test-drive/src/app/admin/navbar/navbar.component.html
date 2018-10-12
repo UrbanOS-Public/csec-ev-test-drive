@@ -1,4 +1,4 @@
-<div class="button-container" [ngClass]="{'expanded':!collapsed}">
+<div class="button-container" [ngClass]="{'expanded':!collapsed}" *ngIf="links.length > 0">
     <span *ngIf="!collapsed">
         <button mat-icon-button *ngFor="let link of links" routerLink="{{link.route}}" >
             <i class="material-icons">

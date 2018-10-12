@@ -31,5 +31,6 @@ export const cancelDriveUrl   = apiBaseUrl + '/cancelDrive';
 export const adminNavbar = [
     {icon:'insert_chart_outlined',route:'/admin/analytics'},
     {icon:'directions_car',route:'/admin/vehicles'},
-    {icon:'today',route:'/admin/schedule'}
+    {icon:'perm_contact_calendar',route:'/admin/schedule'},
+    {icon:'schedule',route:'/admin/exceptions'}
 ]
