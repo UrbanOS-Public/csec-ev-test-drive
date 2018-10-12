@@ -4,8 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material';
+import {MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +39,9 @@ import { VehiclesComponent } from './admin/vehicles/vehicles.component';
 import { ZipcodeSummaryComponent } from './admin/analytics/zipcode-summary/zipcode-summary.component';
 import { GenderSummaryComponent } from './admin/analytics/gender-summary/gender-summary.component';
 import { DaySummaryComponent } from './admin/analytics/day-summary/day-summary.component';
+import { ExceptionsComponent } from './admin/exceptions/exceptions.component';
+import { ListComponent } from './admin/exceptions/list/list.component';
+import { ExceptionFormComponent } from './admin/exceptions/exception-form/exception-form.component';
 import { NavbarComponent } from './admin/navbar/navbar.component';
 
 @NgModule({
@@ -66,6 +71,9 @@ import { NavbarComponent } from './admin/navbar/navbar.component';
     ZipcodeSummaryComponent,
     GenderSummaryComponent,
     DaySummaryComponent,
+    ExceptionsComponent,
+    ListComponent,
+    ExceptionFormComponent,
     NavbarComponent
   ],
   imports: [
@@ -77,7 +85,12 @@ import { NavbarComponent } from './admin/navbar/navbar.component';
     MatSliderModule,
     MatCardModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatMomentDateModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [ModalService],
   bootstrap: [AppComponent]

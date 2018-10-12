@@ -25,6 +25,20 @@ export class EVService {
       httpOptions);
   }
 
+  postAddException(data) {
+    return this.http.post(
+      globals.addExceptionUrl,
+      data,
+      httpOptions);
+  }
+
+  postDeleteException(data) {
+    return this.http.post(
+      globals.deleteExceptionUrl,
+      data,
+      httpOptions);
+  }
+
   postSurvey(data) {
     return this.http.post(
       globals.surveySubmitUrl,
@@ -62,6 +76,10 @@ export class EVService {
 
   getCars() {
     return this.http.get(globals.carUrl, httpOptions);
+  }
+
+  getExceptions() {
+    return this.http.get(globals.exceptionsUrl, httpOptions)
   }
 
   getTimeslots() {

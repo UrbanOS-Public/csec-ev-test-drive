@@ -64,6 +64,10 @@ deployLambdas() {
             'ApiReserveSlot'
             'ApiReleaseSlot'
             'ApiGetDriveSurveyAnalytics'
+            'ApiPatchCarState'
+            'ApiAddException'
+            'ApiDeleteException'
+            'ApiGetExceptions'
         )
     fi
 

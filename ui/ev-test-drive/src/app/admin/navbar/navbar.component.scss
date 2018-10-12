@@ -18,6 +18,6 @@ i {
 
 .expanded {
     @include for-phone-only {
-        width:calc(100vw - 67px);
+        width:calc(100vw - 60px);
     }
 }
