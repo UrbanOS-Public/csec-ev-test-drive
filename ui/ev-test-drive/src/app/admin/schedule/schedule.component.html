@@ -32,6 +32,8 @@
   <app-header title="Scheduled Drives" [links]="links"></app-header>
 
   <div class="schedule-pane">
+    <app-adhoc-reservation></app-adhoc-reservation>
+
     <div *ngFor="let day of scheduledDays" class="dayPane">
       <div class="dayHeader"><h1>{{formatDate(day.date)}}</h1></div>
       <table >
