@@ -1,20 +1,25 @@
 <div class="adhoc-reservation-container">
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-          <mat-panel-description>
-            Type your name and age
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Adhoc Reservation
+      </mat-panel-title>
+      <mat-panel-description>
+        Enter Driver Information
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-        <mat-form-field>
-          <input matInput placeholder="First name">
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput placeholder="Age">
-        </mat-form-field>
-      </mat-expansion-panel>
+    <mat-form-field>
+      <input matInput placeholder="Driver's First name">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Driver's Last name">
+      </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Driver's Email" type="email">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Driver's Zipcode" type="number">
+      </mat-form-field>
+  </mat-expansion-panel>
 </div>
