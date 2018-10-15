@@ -1,0 +1,17 @@
+.adhoc-reservation-container {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-expansion-panel {
+    margin-bottom: 30px
+}
+
+mat-form-field {
+    margin-right: 20px;
+}
+
+
+.adhoc-reservation-container > * {
+width: 100%;
+}
