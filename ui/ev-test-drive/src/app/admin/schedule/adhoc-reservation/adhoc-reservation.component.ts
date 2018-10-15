@@ -11,7 +11,8 @@ export class AdhocReservationComponent implements OnInit {
     firstName: null,
     lastName: null,
     email: null,
-    zipcode: null
+    zipcode: null,
+    date: null
   };
 
   constructor() { }
@@ -21,6 +22,7 @@ export class AdhocReservationComponent implements OnInit {
 
   doAdhoc() {
     console.log("registration info: ", this.registration);
+    console.log("registration info: ", this.registration.date.format('YYYY-MM-DD'));
   }
 
 }

@@ -2,7 +2,7 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Adhoc Reservation
+        <b>Adhoc Reservation</b>
       </mat-panel-title>
       <mat-panel-description>
         Enter Driver Information
@@ -11,16 +11,24 @@
 
     <form autocomplete="off">
       <mat-form-field>
-        <input matInput placeholder="Driver's First name" name="first" [(ngModel)]="registration.firstName">
+        <input matInput placeholder="First name" name="first" [(ngModel)]="registration.firstName">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Driver's Last name" name="last" [(ngModel)]="registration.lastName">
+        <input matInput placeholder="Last name" name="last" [(ngModel)]="registration.lastName">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Driver's Email" name="email" type="email" required [(ngModel)]="registration.email">
+        <input matInput placeholder="Email" name="email" type="email" required [(ngModel)]="registration.email">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Driver's Zipcode" name="zipcode" type="number" [(ngModel)]="registration.zipcode">
+        <input matInput placeholder="Zipcode" name="zipcode" type="number" [(ngModel)]="registration.zipcode">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" required [(ngModel)]="registration.date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Start Time" name="drivetime" type="time" step="30" required [(ngModel)]="registration.drivetime">
       </mat-form-field>
       <button mat-flat-button (click)="doAdhoc()">Submit</button>
     </form>
