@@ -43,6 +43,8 @@ import { ExceptionsComponent } from './admin/exceptions/exceptions.component';
 import { ListComponent } from './admin/exceptions/list/list.component';
 import { ExceptionFormComponent } from './admin/exceptions/exception-form/exception-form.component';
 import { NavbarComponent } from './admin/navbar/navbar.component';
+import { AdhocReservationComponent } from './admin/schedule/adhoc-reservation/adhoc-reservation.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { NavbarComponent } from './admin/navbar/navbar.component';
     ExceptionsComponent,
     ListComponent,
     ExceptionFormComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdhocReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +93,7 @@ import { NavbarComponent } from './admin/navbar/navbar.component';
     MatFormFieldModule,
     MatMomentDateModule,
     MatInputModule,
+    MatExpansionModule,
     BrowserAnimationsModule
   ],
   providers: [ModalService],
