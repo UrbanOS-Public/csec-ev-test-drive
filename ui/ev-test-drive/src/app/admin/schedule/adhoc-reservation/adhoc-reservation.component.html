@@ -9,17 +9,21 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <mat-form-field>
-      <input matInput placeholder="Driver's First name">
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Driver's Last name">
+    <form autocomplete="off">
+      <mat-form-field>
+        <input matInput placeholder="Driver's First name" name="first" [(ngModel)]="registration.firstName">
       </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Driver's Email" type="email">
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Driver's Zipcode" type="number">
+      <mat-form-field>
+        <input matInput placeholder="Driver's Last name" name="last" [(ngModel)]="registration.lastName">
       </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Driver's Email" name="email" type="email" required [(ngModel)]="registration.email">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Driver's Zipcode" name="zipcode" type="number" [(ngModel)]="registration.zipcode">
+      </mat-form-field>
+      <button mat-flat-button (click)="doAdhoc()">Submit</button>
+    </form>
+
   </mat-expansion-panel>
 </div>
