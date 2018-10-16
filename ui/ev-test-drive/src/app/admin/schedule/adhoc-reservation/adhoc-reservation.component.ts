@@ -12,7 +12,8 @@ export class AdhocReservationComponent implements OnInit {
     lastName: null,
     email: null,
     zipcode: null,
-    date: null
+    date: null,
+    time: null
   };
 
   constructor() { }

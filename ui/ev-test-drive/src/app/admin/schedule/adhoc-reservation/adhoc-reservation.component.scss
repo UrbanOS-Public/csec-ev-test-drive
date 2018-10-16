@@ -3,15 +3,15 @@
     flex-direction: column;
 }
 
+.adhoc-reservation-container > * {
+    width: 100%;
+}
+
+
 mat-expansion-panel {
     margin-bottom: 30px
 }
 
 mat-form-field {
     margin-right: 20px;
-}
-
-
-.adhoc-reservation-container > * {
-width: 100%;
 }

@@ -23,13 +23,15 @@
         <input matInput placeholder="Zipcode" name="zipcode" type="number" [(ngModel)]="registration.zipcode">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" required [(ngModel)]="registration.date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" required [(ngModel)]="registration.date">
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Start Time" name="drivetime" type="time" step="30" required [(ngModel)]="registration.drivetime">
+        <input matInput [ngxTimepicker]="timePicker" placeholder="Choose a time" name="time" required [(ngModel)]="registration.time">
+        <ngx-material-timepicker #timePicker></ngx-material-timepicker>
       </mat-form-field>
+
       <button mat-flat-button (click)="doAdhoc()">Submit</button>
     </form>
 
