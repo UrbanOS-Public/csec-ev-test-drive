@@ -68,6 +68,7 @@ deployLambdas() {
             'dev_ApiAddException'
             'dev_ApiDeleteException'
             'dev_ApiGetExceptions'
+            'dev_ApiScheduleAdhocDrive'
         )
     fi
 
