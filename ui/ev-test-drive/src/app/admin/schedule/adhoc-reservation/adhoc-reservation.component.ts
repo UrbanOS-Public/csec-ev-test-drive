@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-adhoc-reservation',
@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adhoc-reservation.component.scss']
 })
 export class AdhocReservationComponent implements OnInit {
+  @Input() vehicles
+
+  selectedVehicle = ""
   registration = {
     firstName: null,
     lastName: null,
@@ -14,13 +17,39 @@ export class AdhocReservationComponent implements OnInit {
     zipcode: null
   };
 
+  reservation = {
+    date: null,
+    time: null
+  }
+
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  transformAdhocData(){
+    return {
+      vehicle: this.selectedVehicle,
+      driver: this.registration,
+      dateScheduled: this.transformDateTime()
+    }
+  }
+
+  transformDateTime() {
+    let {date, time } = this.reservation;
+
+    return {
+      formattedDate: date.format('YYYY-MM-DD'),
+      formattedTime: time
+    }
   }
 
   doAdhoc() {
-    console.log("registration info: ", this.registration);
+    console.log('make api call with data', this.transformAdhocData())
   }
+
+
+
 
 }
