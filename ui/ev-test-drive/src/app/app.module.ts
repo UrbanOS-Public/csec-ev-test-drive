@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
@@ -89,6 +90,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HttpClientModule,
     MatSliderModule,
     MatCardModule,
+    MatSelectModule,
     MatTableModule,
     MatButtonModule,
     MatDatepickerModule,

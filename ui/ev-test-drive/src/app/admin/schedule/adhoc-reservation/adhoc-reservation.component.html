@@ -5,11 +5,11 @@
         <b>Adhoc Reservation</b>
       </mat-panel-title>
       <mat-panel-description>
-        Enter Driver Information
+        Enter Reservation Details
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <form autocomplete="off">
+    <form #adhocForm="ngForm" autocomplete="off">
       <mat-form-field>
         <input matInput placeholder="First name" name="first" [(ngModel)]="registration.firstName">
       </mat-form-field>
@@ -23,17 +23,24 @@
         <input matInput placeholder="Zipcode" name="zipcode" type="number" [(ngModel)]="registration.zipcode">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" required [(ngModel)]="registration.date">
+        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" required [(ngModel)]="reservation.date">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [ngxTimepicker]="timePicker" placeholder="Choose a time" name="time" required [(ngModel)]="registration.time">
+        <input matInput [ngxTimepicker]="timePicker" placeholder="Choose a time" name="time" required [(ngModel)]="reservation.time">
         <ngx-material-timepicker #timePicker></ngx-material-timepicker>
       </mat-form-field>
-
-      <button mat-flat-button (click)="doAdhoc()">Submit</button>
+      <mat-form-field>
+        <mat-select placeholder="Select Vehicle" [(value)]="selectedVehicle" required>
+          <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
+            {{vehicle.formattedName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()">Submit</button>
     </form>
-
+    <br>
+    <h6>Note: After submitting, you'll be directed to the Pre-Survey</h6>
   </mat-expansion-panel>
 </div>
