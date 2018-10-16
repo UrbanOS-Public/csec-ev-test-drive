@@ -15,6 +15,7 @@ export const deleteExceptionUrl  = apiBaseUrl + '/deleteException';
 export const timeslotUrl      = apiBaseUrl + '/timeSlots';
 export const preSurveyUrl     = apiBaseUrl + '/preSurvey';
 export const scheduleRideUrl  = apiBaseUrl + '/drive';
+export const scheduleAdhocRideUrl  = apiBaseUrl + '/adhocDrive';
 export const reserveSlotUrl   = apiBaseUrl + '/reserve';
 export const releaseSlotUrl   = apiBaseUrl + '/release';
 export const getAnalyticsUrl  = apiBaseUrl + '/analytics';

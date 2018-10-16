@@ -17,7 +17,7 @@ export class RegistrationComponent implements OnInit {
   helpers = new Helpers();
   formSubmitted: boolean = false;
   submitApplicationFailed: boolean = false;
-  submitApplicationSuccessful: boolean = false;    
+  submitApplicationSuccessful: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,9 +54,10 @@ export class RegistrationComponent implements OnInit {
 
   private submitApplication() {
     const data = this.applicationForm.value;
+    console.log('original form data', data)
 
     this.evService.postNewUser(data).subscribe(
-      response => this.handleResponse(response), 
+      response => this.handleResponse(response),
       error => this.handleError(error)
     );
   }

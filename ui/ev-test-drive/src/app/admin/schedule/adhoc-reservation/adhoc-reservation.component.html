@@ -11,24 +11,27 @@
 
     <form #adhocForm="ngForm" autocomplete="off">
       <mat-form-field>
-        <input matInput placeholder="First name" name="first" [(ngModel)]="registration.firstName">
+        <input matInput placeholder="First name" name="first" required [(ngModel)]="registration.firstName">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Last name" name="last" [(ngModel)]="registration.lastName">
+        <input matInput placeholder="Last name" name="last" required [(ngModel)]="registration.lastName">
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="Email" name="email" type="email" required [(ngModel)]="registration.email">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Zipcode" name="zipcode" type="number" [(ngModel)]="registration.zipcode">
+        <input matInput placeholder="Zipcode" name="zip" required type="number" [(ngModel)]="registration.zip">
       </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Phone" name="phone" required type="tel" [(ngModel)]="registration.phone">
+        </mat-form-field>
       <mat-form-field>
         <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" required [(ngModel)]="reservation.date">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [ngxTimepicker]="timePicker" placeholder="Choose a time" name="time" required [(ngModel)]="reservation.time">
+        <input matInput [ngxTimepicker]="timePicker" placeholder="Choose a time" name="start_time" required [(ngModel)]="reservation.start_time">
         <ngx-material-timepicker #timePicker></ngx-material-timepicker>
       </mat-form-field>
       <mat-form-field>
