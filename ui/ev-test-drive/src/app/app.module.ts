@@ -2,12 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import {MatCardModule} from '@angular/material/card';
-import {MatTableModule} from '@angular/material/table';
-import {MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -87,6 +90,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HttpClientModule,
     MatSliderModule,
     MatCardModule,
+    MatSelectModule,
     MatTableModule,
     MatButtonModule,
     MatDatepickerModule,
@@ -94,7 +98,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatMomentDateModule,
     MatInputModule,
     MatExpansionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxMaterialTimepickerModule.forRoot()
   ],
   providers: [ModalService],
   bootstrap: [AppComponent]
