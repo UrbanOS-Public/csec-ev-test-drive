@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EVService } from '../../../common/ev.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../common/modal.service';
 
 @Component({
   selector: 'app-adhoc-reservation',
@@ -23,10 +24,13 @@ export class AdhocReservationComponent implements OnInit {
   maxDate = new Date();
   minDate = new Date(2018, 1, 1);
   isSubmitting = false;
+  pin;
+  showPinError = false;
 
   constructor(
     private evService: EVService,
-    private router: Router) { }
+    private router: Router,
+    private modalService: ModalService) { }
 
   ngOnInit() {}
 
@@ -38,6 +42,8 @@ export class AdhocReservationComponent implements OnInit {
       zip: this.zip.toString(),
       phone: this.phone
     }
+
+    this.isSubmitting = true;
 
     this.evService.postNewUser(driver).subscribe(
       response => this.handleResponse(response),
@@ -62,7 +68,8 @@ export class AdhocReservationComponent implements OnInit {
         date: dateTime.format('YYYY-MM-DD'),
         start_time: dateTime.format('HH:mm'),
         end_time: dateTime.add(30, 'minutes').format('HH:mm')
-      }
+      },
+      pin: this.pin
     }
   }
 
@@ -78,12 +85,7 @@ export class AdhocReservationComponent implements OnInit {
 
     this.evService.postScheduleAdhocDrive(driveRequestObject).subscribe(
       reservation => this.handleAdhocDrive(reservation),
-      error => this.handleError(error)
-    );
-
-    this.evService.getPreSurvey().subscribe(
-      response => this.handleSurveyResponse(response),
-      error => this.handleError(error)
+      error => this.handlePinError(error)
     );
   }
 
@@ -97,6 +99,12 @@ export class AdhocReservationComponent implements OnInit {
     if (response.confirmation_number) {
       localStorage.setItem('confirmationNumber', response.confirmation_number);
       localStorage.setItem('adhocReservation', 'true');
+
+      this.evService.getPreSurvey().subscribe(
+        response => this.handleSurveyResponse(response),
+        error => this.handlePinError(error)
+      );
+
     } else {
       this.handleError("no confirmation number!");
     }
@@ -108,7 +116,21 @@ export class AdhocReservationComponent implements OnInit {
   }
 
   doAdhoc() {
-    this.isSubmitting = true;
-    this.submitUser();
+    this.openModal('adhoc-pin-modal');
+  }
+
+  handlePinError(error) {
+    this.isSubmitting = false;
+    this.showPinError = true;
+  }
+
+  openModal(id) {
+    this.showPinError = false;
+    this.modalService.open(id);
+  }
+
+  closeModal(id) {
+    this.showPinError = false;
+    this.modalService.close(id);
   }
 }
