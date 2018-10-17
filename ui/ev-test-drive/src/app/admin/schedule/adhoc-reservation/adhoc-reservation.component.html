@@ -28,7 +28,7 @@
           <input matInput placeholder="Phone" name="phone" required type="tel" [(ngModel)]="phone">
         </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" required [(ngModel)]="date">
+        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" [min]="minDate" [max]="maxDate" required [(ngModel)]="date">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
       </mat-form-field>
