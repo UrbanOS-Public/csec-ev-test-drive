@@ -9,38 +9,45 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
+    <h5>*Note: All Fields are REQUIRED</h5>
+
     <form #adhocForm="ngForm" autocomplete="off">
       <mat-form-field>
-        <input matInput placeholder="First name" name="first" [(ngModel)]="registration.firstName">
+        <input matInput placeholder="First name" name="first" required [(ngModel)]="firstName">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Last name" name="last" [(ngModel)]="registration.lastName">
+        <input matInput placeholder="Last name" name="last" required [(ngModel)]="lastName">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Email" name="email" type="email" required [(ngModel)]="registration.email">
+        <input matInput placeholder="Email" name="email" type="email" required [(ngModel)]="email">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Zipcode" name="zipcode" type="number" [(ngModel)]="registration.zipcode">
+        <input matInput placeholder="Zipcode" name="zip" required type="number" [(ngModel)]="zip">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" required [(ngModel)]="reservation.date">
+          <input matInput placeholder="Phone" name="phone" required type="tel" [(ngModel)]="phone">
+        </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" [min]="minDate" [max]="maxDate" required [(ngModel)]="date">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [ngxTimepicker]="timePicker" placeholder="Choose a time" name="time" required [(ngModel)]="reservation.time">
+        <input matInput [ngxTimepicker]="timePicker" placeholder="Choose a time" name="start_time" required [(ngModel)]="startTime">
         <ngx-material-timepicker #timePicker></ngx-material-timepicker>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Select Vehicle" [(value)]="selectedVehicle" required>
+        <mat-select placeholder="Select Vehicle" [(value)]="selectedVehicle" name="selected_vehicle" required [(ngModel)]="selectedVehicle">
           <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
             {{vehicle.formattedName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()">Submit</button>
+      <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()">
+        <app-spinner *ngIf="isSubmitting" color='white'></app-spinner>
+        <span *ngIf="!isSubmitting">Submit</span>
+      </button>
     </form>
     <br>
-    <h6>Note: After submitting, you'll be directed to the Pre-Survey</h6>
   </mat-expansion-panel>
 </div>
