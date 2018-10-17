@@ -54,7 +54,6 @@ export class RegistrationComponent implements OnInit {
 
   private submitApplication() {
     const data = this.applicationForm.value;
-    console.log('original form data', data)
 
     this.evService.postNewUser(data).subscribe(
       response => this.handleResponse(response),

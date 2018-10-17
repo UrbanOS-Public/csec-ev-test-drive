@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EVService } from '../../../common/ev.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adhoc-reservation',
@@ -22,7 +23,9 @@ export class AdhocReservationComponent implements OnInit {
   maxDate = new Date();
   minDate = new Date(2018, 1, 1);
 
-  constructor(private evService: EVService) { }
+  constructor(
+    private evService: EVService,
+    private router: Router) { }
 
   ngOnInit() {}
 
@@ -76,11 +79,22 @@ export class AdhocReservationComponent implements OnInit {
       reservation => this.handleAdhocDrive(reservation),
       error => this.handleError(error)
     );
+
+    this.evService.getPreSurvey().subscribe(
+      response => this.handleSurveyResponse(response),
+      error => this.handleError(error)
+    );
+  }
+
+  handleSurveyResponse(response) {
+    localStorage.setItem('preSurveyQuestions', JSON.stringify(response));
+    this.router.navigateByUrl('/checkin/survey');
   }
 
   handleAdhocDrive(response) {
     if (response.confirmation_number) {
       localStorage.setItem('confirmationNumber', response.confirmation_number);
+      localStorage.setItem('adhocReservation', 'true');
     } else {
       this.handleError("no confirmation number!");
     }
