@@ -22,6 +22,7 @@ export class AdhocReservationComponent implements OnInit {
   endTime;
   maxDate = new Date();
   minDate = new Date(2018, 1, 1);
+  isSubmitting = false;
 
   constructor(
     private evService: EVService,
@@ -87,6 +88,7 @@ export class AdhocReservationComponent implements OnInit {
   }
 
   handleSurveyResponse(response) {
+    this.isSubmitting = false;
     localStorage.setItem('preSurveyQuestions', JSON.stringify(response));
     this.router.navigateByUrl('/checkin/survey');
   }
@@ -101,10 +103,12 @@ export class AdhocReservationComponent implements OnInit {
   }
 
   handleError(error) {
+    this.isSubmitting = false;
     console.log('an error occurred', error);
   }
 
   doAdhoc() {
+    this.isSubmitting = true;
     this.submitUser();
   }
 }

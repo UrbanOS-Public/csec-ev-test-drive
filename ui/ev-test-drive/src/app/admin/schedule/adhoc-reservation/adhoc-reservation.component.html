@@ -43,7 +43,10 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()">Submit</button>
+      <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()">
+        <app-spinner *ngIf="isSubmitting" color='white'></app-spinner>
+        <span *ngIf="!isSubmitting">Submit</span>
+      </button>
     </form>
     <br>
   </mat-expansion-panel>
