@@ -13,10 +13,7 @@ class ScheduleAdhocDrive {
     }
 
     handleEvent(event, context, callback) {
-        console.log("this is the event object", event);
-        console.log("this is the event body", event.body);
-
-        const body = event.body;
+        const body = JSON.parse(event.body);
         const email = body.email;
         const selectedCar = body.selectedCar;
         const reservation = body.reservation;
@@ -47,6 +44,7 @@ class ScheduleAdhocDrive {
             scheduled_start_time: start_time,
             scheduled_end_time: end_time
         };
+
         return new Promise((resolve, reject) => {
             this.pool.doQuery("insert into drive set ?", driveData)
                 .then((insertResponse) => {
@@ -56,7 +54,7 @@ class ScheduleAdhocDrive {
                     const userDriveMap = {
                         user_id: userId,
                         drive_id: drive_id,
-                        role: "DRIVER",
+                        role: "ADHOCDRIVER",
                         confirmation_number: confirmation_number
                     };
 
