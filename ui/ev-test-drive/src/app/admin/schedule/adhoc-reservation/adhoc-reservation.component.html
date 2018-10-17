@@ -1,3 +1,31 @@
+<jw-modal id="adhoc-pin-modal">
+  <div class="pin-pane">
+    <p>Please enter your PIN</p>
+    <input type="password" class="pin" [(ngModel)]="pin">
+    <br>
+    <p class="pin-error" *ngIf="showPinError">
+      Incorrect PIN, please try again.
+    </p>
+    <div class="close-button" (click)="closeModal('adhoc-pin-modal')">
+      <p>Close</p>
+    </div>
+    <div class="confirm-button" (click)="submitUser()">
+      <p *ngIf="!isSubmitting">Submit Pin</p>
+      <app-spinner *ngIf="isSubmitting"></app-spinner>
+    </div>
+  </div>
+</jw-modal>
+
+<jw-modal id="adhoc-error-modal">
+  <div id="adhoc-error-pane" class="error-pane">
+    <h1 class="header-text">An error occurred, please try again.</h1>
+
+    <div class="ok" (click)="closeModal('adhoc-error-modal')">
+      <p>OK</p>
+    </div>
+  </div>
+</jw-modal>
+
 <div class="adhoc-reservation-container">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -25,10 +53,11 @@
         <input matInput placeholder="Zipcode" name="zip" required type="number" [(ngModel)]="zip">
       </mat-form-field>
       <mat-form-field>
-          <input matInput placeholder="Phone" name="phone" required type="tel" [(ngModel)]="phone">
-        </mat-form-field>
+        <input matInput placeholder="Phone" name="phone" required type="tel" [(ngModel)]="phone">
+      </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" [min]="minDate" [max]="maxDate" required [(ngModel)]="date">
+        <input matInput [matDatepicker]="datePicker" placeholder="Choose a date" name="date" [min]="minDate" [max]="maxDate"
+          required [(ngModel)]="date">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
       </mat-form-field>
@@ -37,12 +66,14 @@
         <ngx-material-timepicker #timePicker></ngx-material-timepicker>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Select Vehicle" [(value)]="selectedVehicle" name="selected_vehicle" required [(ngModel)]="selectedVehicle">
+        <mat-select placeholder="Select Vehicle" [(value)]="selectedVehicle" name="selected_vehicle" required
+          [(ngModel)]="selectedVehicle">
           <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
             {{vehicle.formattedName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <br>
       <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()">
         <app-spinner *ngIf="isSubmitting" color='white'></app-spinner>
         <span *ngIf="!isSubmitting">Submit</span>

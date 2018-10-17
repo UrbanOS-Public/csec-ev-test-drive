@@ -17,6 +17,11 @@ class ScheduleAdhocDrive {
         const email = body.email;
         const selectedCar = body.selectedCar;
         const reservation = body.reservation;
+        const pin = body.pin;
+
+        if ("17043215" !== pin) {
+            return this.ApiHelpers.httpResponse(callback, 404);
+        }
 
         this.getUserData(email)
             .then((userData) => this.insertDrive(userData, selectedCar, reservation))
