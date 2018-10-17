@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EVService } from '../../../common/ev.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-adhoc-reservation',
@@ -9,52 +10,28 @@ import { EVService } from '../../../common/ev.service';
 export class AdhocReservationComponent implements OnInit {
   @Input() vehicles
 
-  selectedVehicle = ""
-  registration = {
-    firstName: null,
-    lastName: null,
-    email: null,
-    zip: null,
-    phone: null
-  };
-
-  reservation = {
-    date: null,
-    start_time: null,
-    end_time: null
-  }
+  firstName;
+  lastName;
+  email;
+  zip;
+  phone;
+  selectedVehicle;
+  date;
+  startTime;
+  endTime;
 
   constructor(private evService: EVService) { }
 
-  ngOnInit() {
-
-  }
-
-  transformAdhocData() {
-    this.transformRegistrationData()
-
-    return {
-      selectedVehicle: this.selectedVehicle,
-      userData: this.registration,
-      reservation: this.transformDateTime()
-    }
-  }
-
-  transformRegistrationData() {
-    this.registration.zip = this.registration.zip.toString();
-  }
-
-  transformDateTime() {
-    let { date, start_time, end_time } = this.reservation;
-
-    return {
-      formattedDate: date.format('YYYY-MM-DD'),
-      formattedTime: start_time
-    }
-  }
+  ngOnInit() {}
 
   submitUser() {
-    const driver = this.registration;
+    const driver = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      zip: this.zip.toString(),
+      phone: this.phone
+    }
 
     this.evService.postNewUser(driver).subscribe(
       response => this.handleResponse(response),
@@ -62,44 +39,49 @@ export class AdhocReservationComponent implements OnInit {
     );
   }
 
+  buildDateTime() {
+    let dateTimeString = this.date.format('YYYY-MM-DD').concat(this.startTime);
+    let dateTimeMoment = moment(dateTimeString, 'YYYY-MM-DDhh:mm a');
+
+    return dateTimeMoment;
+  }
+
+  buildDriveInfo(dateTime) {
+    return {
+      email: this.email,
+      selectedCar: {
+        id: this.selectedVehicle.id
+      },
+      reservation: {
+        date: dateTime.format('YYYY-MM-DD'),
+        start_time: dateTime.format('HH:mm'),
+        end_time: dateTime.add(30, 'minutes').format('HH:mm')
+      }
+    }
+  }
+
   handleResponse(response) {
-    console.log('successfully saved email to local storage')
     if (response && response.email) {
-      localStorage.setItem('email', this.registration.email);
+      localStorage.setItem('email', response.email);
     } else {
       this.handleError(null);
     }
 
-    const scheduleDriveData = {
-      email: 'stubemail@test.com',
-      selectedCar: { id: 1},
-      reservation: {
-        date: '2018-09-11',
-        start_time: '01:00:00',
-        end_time: '01:30:00'
-      }
-    };
+    const dateTimeMoment = this.buildDateTime();
+    const driveRequestObject = this.buildDriveInfo(dateTimeMoment);
 
-    const testing = {
-      "email": "test1@test.com",
-      "selectedCar": {
-        "id": 1
-      },
-      "reservation": {
-        "date": "2018-09-11",
-        "start_time": "01:00:00",
-        "end_time": "01:30:00"
-      }
-    }
-
-    this.evService.postScheduleAdhocDrive(testing).subscribe(
+    this.evService.postScheduleAdhocDrive(driveRequestObject).subscribe(
       reservation => this.handleAdhocDrive(reservation),
       error => this.handleError(error)
     );
   }
 
-  handleAdhocDrive(reservation) {
-    console.log('reservation was created', reservation);
+  handleAdhocDrive(response) {
+    if (response.confirmation_number) {
+      localStorage.setItem('confirmationNumber', response.confirmation_number);
+    } else {
+      this.handleError("no confirmation number!");
+    }
   }
 
   handleError(error) {
@@ -107,11 +89,6 @@ export class AdhocReservationComponent implements OnInit {
   }
 
   doAdhoc() {
-    console.log('make api call with data', this.transformAdhocData())
     this.submitUser();
   }
-
-
-
-
 }
