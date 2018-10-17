@@ -53,6 +53,13 @@ export class EVService {
       httpOptions);
   }
 
+  postScheduleAdhocDrive(data) {
+    return this.http.post(
+      globals.scheduleAdhocRideUrl,
+      data,
+      httpOptions);
+  }
+
   postReserveSlot(data) {
     return this.http.post(
       globals.reserveSlotUrl,
