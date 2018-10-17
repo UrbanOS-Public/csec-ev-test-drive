@@ -235,11 +235,20 @@ export class SurveyComponent implements OnInit {
   }
 
   handleSurveyPostResponse(response) {
-    if (this.baseModule === '/checkout') {
+    let isAdhocReservation = localStorage.getItem('adhocReservation');
+
+    // adhoc reservations don't need to postScheduleDrive b/c it's already occurred
+    if (isAdhocReservation) {
+      this.closeModal('loading-modal');
+      this.isSubmitting = false;
+      this.router.navigateByUrl('/admin/schedule');
+    }
+    else if (this.baseModule === '/checkout' || isAdhocReservation) {
       this.closeModal('loading-modal');
       this.isSubmitting = false;
       this.router.navigateByUrl('/checkout/thankYou');
-    } else {
+    }
+    else {
       const email = localStorage.getItem('email');
 
       var carSlotId = JSON.parse(localStorage.getItem('carSlotId'));
