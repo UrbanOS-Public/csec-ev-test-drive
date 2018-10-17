@@ -19,6 +19,8 @@ export class AdhocReservationComponent implements OnInit {
   date;
   startTime;
   endTime;
+  maxDate = new Date();
+  minDate = new Date(2018, 1, 1);
 
   constructor(private evService: EVService) { }
 
