@@ -81,7 +81,7 @@
   width: 100vw;
   height: 95vh;
   position: relative;
-  
+
   .schedule-pane {
     margin: 20px 25px 25px 25px;
   }
@@ -173,7 +173,7 @@
   }
 
   .time, .name {
-    background-color: #000000;
+    background-color: #5e5b5b;
     @include for-tablet-portrait-up {
       width: 100%;
     }
@@ -230,7 +230,7 @@
       display: inline-block;
     }
   }
-  
+
 }
 
 .top-cell {
@@ -242,7 +242,7 @@
 }
 
 .dayHeader {
-  background-color: black;
+  background-color: #5e5b5b;
   color: white;
   margin: 0;
   padding-top: 1px;
@@ -256,4 +256,8 @@
 
 .email {
   overflow: scroll;
-} 
+}
+
+mat-expansion-panel {
+  margin-bottom: 30px
+}
