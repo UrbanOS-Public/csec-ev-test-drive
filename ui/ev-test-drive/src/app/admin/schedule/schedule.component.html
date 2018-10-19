@@ -31,7 +31,62 @@
   <app-header title="Scheduled Drives" [links]="links"></app-header>
 
   <div class="schedule-pane">
-    <app-adhoc-reservation [vehicles]='vehicles'></app-adhoc-reservation>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <b>Upcoming Drives</b>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div *ngIf="upcomingScheduledDays?.length <= 0" class="dayHeader">
+        <h1>No Drives Scheduled</h1>
+      </div>
+
+      <div *ngFor="let day of upcomingScheduledDays" class="dayPane">
+        <div class="dayHeader">
+          <h1>{{formatDate(day.date)}}</h1>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Confirm. #</th>
+              <th scope="col">Driving</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let slot of day.timeSlots">
+              <td class="top-cell">
+                <div class="time">
+                  <p class="timeText">{{ slot.formattedTime }}</p>
+                </div>
+                <div class="name tablet-up-invisible">
+                  <p>{{slot.first_name}}</p>
+                </div>
+              </td>
+              <td data-label="Driver Name" class="phone-invisible">{{ slot.first_name }}</td>
+              <td data-label="Driver Email" class="email">{{ slot.email }}</td>
+              <td data-label="Confirmation Number">{{ slot.confirmation_number }}</td>
+              <td data-label="Vehicle Info">{{slot.year}} {{slot.make}} {{slot.model}}</td>
+              <td>
+                <div class="button-bar" id="{{slot.confirmation_number}}">
+                  <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting">
+                    <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/list.svg">
+                    <app-spinner *ngIf="slot.isSubmitting" color="white"></app-spinner>
+                  </div>
+                  <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
+                    <img class="option-button" src="assets/delete.svg">
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-expansion-panel>
 
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -85,57 +140,6 @@
       </div>
     </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <b>Upcoming Drives</b>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <div *ngFor="let day of upcomingScheduledDays" class="dayPane">
-        <div class="dayHeader">
-          <h1>{{formatDate(day.date)}}</h1>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Time</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Confirm. #</th>
-              <th scope="col">Driving</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let slot of day.timeSlots">
-              <td class="top-cell">
-                <div class="time">
-                  <p class="timeText">{{ slot.formattedTime }}</p>
-                </div>
-                <div class="name tablet-up-invisible">
-                  <p>{{slot.first_name}}</p>
-                </div>
-              </td>
-              <td data-label="Driver Name" class="phone-invisible">{{ slot.first_name }}</td>
-              <td data-label="Driver Email" class="email">{{ slot.email }}</td>
-              <td data-label="Confirmation Number">{{ slot.confirmation_number }}</td>
-              <td data-label="Vehicle Info">{{slot.year}} {{slot.make}} {{slot.model}}</td>
-              <td>
-                <div class="button-bar" id="{{slot.confirmation_number}}">
-                  <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting">
-                    <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/list.svg">
-                    <app-spinner *ngIf="slot.isSubmitting" color="white"></app-spinner>
-                  </div>
-                  <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
-                    <img class="option-button" src="assets/delete.svg">
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </mat-expansion-panel>
+    <app-adhoc-reservation [vehicles]='vehicles'></app-adhoc-reservation>
   </div>
 </div>
