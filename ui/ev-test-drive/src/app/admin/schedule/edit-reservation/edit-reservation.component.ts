@@ -45,7 +45,6 @@ export class EditReservationComponent implements OnInit, OnChanges {
   }
 
   doSubmit() {
-    this.isSubmitting = true;
     var timeObject = this.filteredTimes.find(time => time.startTime == this.reservation.time);
     this.reservation.carSlotId = this.getCarSlotId(timeObject, this.reservation.vehicle);
     this.submit.emit({...this.reservation});

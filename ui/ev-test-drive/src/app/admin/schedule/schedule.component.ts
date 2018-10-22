@@ -27,6 +27,7 @@ export class ScheduleComponent implements OnInit {
   timeSlots = [];
   days;
   selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null,carSlotId:null};
+  doPinConfirm;
 
   constructor(
     private router: Router,
@@ -154,8 +155,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   handlePinError(error) {
-    this.selectedSlot.isSubmitting = false;
+    if (this.selectedSlot) {
+      this.selectedSlot.isSubmitting = false;
+    }
     this.isSubmitting = false;
+    this.showPinError = true;
   }
 
   openModal(id) {
@@ -170,6 +174,7 @@ export class ScheduleComponent implements OnInit {
 
   doCancel(slot) {
     this.selectedSlot = slot;
+    this.doPinConfirm = this.doCancelRide;
     this.openModal('pin-modal');
   }
 
@@ -177,9 +182,13 @@ export class ScheduleComponent implements OnInit {
     if(reservation.day == null) {
       return;
     }
-    console.log("Sending Reservation", reservation);
-    reservation.pin = "17043215";
-    this.evService.postEditRide(reservation).subscribe(
+    this.selectedReservation = reservation;
+    this.doPinConfirm = this.doEditRide;
+    this.openModal('pin-modal');
+  }
+
+  doEditRide() {
+    this.evService.postEditRide({...this.selectedReservation, pin:this.pin}).subscribe(
       response => this.handleEditRideResponse(response),
       error => this.handlePinError(error)
     );

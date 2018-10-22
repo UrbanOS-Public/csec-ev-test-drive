@@ -9,8 +9,8 @@
     <div class="close-button" (click)="closeModal('pin-modal')">
       <p>Close</p>
     </div>
-    <div class="confirm-button" (click)="doCancelRide()">
-      <p *ngIf="!isSubmitting">Cancel Ride</p>
+    <div class="confirm-button" (click)="doPinConfirm()">
+      <p *ngIf="!isSubmitting">Confirm</p>
       <app-spinner *ngIf="isSubmitting"></app-spinner>
     </div>
   </div>
