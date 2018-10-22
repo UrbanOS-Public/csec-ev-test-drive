@@ -1,0 +1,11 @@
+@import "../../../../colors.scss";
+@import "../../../../error.scss";
+@import "../../../../mixins.scss";
+.editForm {
+    display: flex;
+    justify-content: space-around;
+}
+  
+.white {
+    background-color: $white;
+}

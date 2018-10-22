@@ -58,31 +58,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let slot of day.timeSlots">
-              <td class="top-cell">
-                <div class="time">
-                  <p class="timeText">{{ slot.formattedTime }}</p>
-                </div>
-                <div class="name tablet-up-invisible">
-                  <p>{{slot.first_name}}</p>
-                </div>
-              </td>
-              <td data-label="Driver Name" class="phone-invisible">{{ slot.first_name }}</td>
-              <td data-label="Driver Email" class="email">{{ slot.email }}</td>
-              <td data-label="Confirmation Number">{{ slot.confirmation_number }}</td>
-              <td data-label="Vehicle Info">{{slot.year}} {{slot.make}} {{slot.model}}</td>
-              <td>
-                <div class="button-bar" id="{{slot.confirmation_number}}">
-                  <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting">
-                    <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/list.svg">
-                    <app-spinner *ngIf="slot.isSubmitting" color="white"></app-spinner>
+            <ng-container *ngFor="let slot of day.timeSlots">
+              <tr>
+                <td class="top-cell">
+                  <div class="time">
+                    <p class="timeText">{{ slot.formattedTime }}</p>
                   </div>
-                  <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
-                    <img class="option-button" src="assets/delete.svg">
+                  <div class="name tablet-up-invisible">
+                    <p>{{slot.first_name}}</p>
                   </div>
-                </div>
-              </td>
-            </tr>
+                </td>
+                <td data-label="Driver Name" class="phone-invisible">{{ slot.first_name }}</td>
+                <td data-label="Driver Email" class="email">{{ slot.email }}</td>
+                <td data-label="Confirmation Number">{{ slot.confirmation_number }}</td>
+                <td data-label="Vehicle Info">{{slot.year}} {{slot.make}} {{slot.model}}</td>
+                <td>
+                  <div class="button-bar" id="{{slot.confirmation_number}}">
+                    <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting">
+                      <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/list.svg">
+                      <app-spinner *ngIf="slot.isSubmitting" color="white"></app-spinner>
+                    </div>
+                    <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
+                      <img class="option-button" src="assets/delete.svg">
+                    </div>
+                    <div class="button-container" (click)="doEdit(slot)" (disabled)="slot.isSubmitting">
+                      <img class="option-button" src="assets/delete.svg">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="slot.editing">
+                <td colspan="6" class="white">
+                  <app-edit-reservation [reservation]="selectedReservation" (submit)="doEditReservation($event)"></app-edit-reservation>
+                </td>
+              </tr>
+            </ng-container>
+
           </tbody>
         </table>
       </div>

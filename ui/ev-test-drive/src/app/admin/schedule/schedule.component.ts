@@ -24,6 +24,7 @@ export class ScheduleComponent implements OnInit {
   pastScheduledDays = [];
   upcomingScheduledDays = [];
   links = globals.adminNavbar;
+  selectedReservation = {day:null,vehicle:null,time:null};
 
   constructor(
     private router: Router,
@@ -168,6 +169,14 @@ export class ScheduleComponent implements OnInit {
   doCancel(slot) {
     this.selectedSlot = slot;
     this.openModal('pin-modal');
+  }
+
+  doEditReservation(reservation) {
+    console.log(reservation);
+  }
+
+  doEdit(slot) {
+    slot.editing = !slot.editing;
   }
 
   doCancelRide() {
