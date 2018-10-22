@@ -12,13 +12,10 @@ class PatchDrive { //Should be a patch in terraform/AWS. We had issues with non 
 
     handleEvent(event, context, callback) {
         const body = JSON.parse(event.body);
-        const carId = body.vehicle;
-        const selectedDay = body.day;
-        const selectedTime = body.time;
-        const confirmationNumber = body.confirmation_number;
+        const confirmationNumber = body.confirmationNumber;
         const newReservation = body;
-
         const pin = body.pin;
+        
         if ("17043215" !== pin) {
             return this.ApiHelpers.httpResponse(callback, 404);
         }
@@ -26,6 +23,7 @@ class PatchDrive { //Should be a patch in terraform/AWS. We had issues with non 
             .then((drive) => this.releaseTimeSlot(drive))
             .then(() => this.getUser(confirmationNumber))
             .then((user) => this.reserveTimeSlot(newReservation, user))
+            .then(() => this.getTimeSlot(newReservation))
             .then((timeSlot) => this.patchDrive(newReservation, timeSlot))
             .then((data) => this.successHandler(callback, data), (error) => this.errorHandler(callback, error))
         ;
@@ -40,15 +38,38 @@ class PatchDrive { //Should be a patch in terraform/AWS. We had issues with non 
     }
 
     releaseTimeSlot(drive){
-        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count + 1, cs.reserved = 0, cs.reserved_by = null where ts.id = cs.time_slot_id and ts.date = ? and ts.start_time = ?", [drive.date, drive.scheduled_start_time])
+        let driveObject = drive[0];
+        let date = driveObject.date;
+        let startTime = driveObject.scheduled_start_time;
+
+        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count + 1, cs.reserved = 0, cs.reserved_by = null where ts.id = cs.time_slot_id and ts.date = ? and ts.start_time = ?", [date, startTime])
     }
 
     reserveTimeSlot(newReservation, user) {
         return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1, cs.reserved_by = ? where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and ts.date = ? and ts.start_time = ?", [user.email, newReservation.day, newReservation.time])
     }
 
+    getTimeSlot(newReservation){
+        return this.pool.doQuery("select * from time_slot ts, car_slot cs where ts.id = cs.time_slot_id and cs.id = ?", [newReservation.carSlotId])
+    }
+
     patchDrive(newReservation, timeSlot) {
-        return this.pool.doQuery("update drive join user_drive_map on drive.id = user_drive_map.drive_id set date = ?, scheduled_start_time = ?, scheduled_end_time = ?, car_id = ? where confirmation_number = ?", [newReservation.day, timeSlot.start_time, timeSlot.end_time, newReservation.vehicle, newReservation.confirmationNumber]);
+        if (!timeSlot[0]) {
+            Promise.reject("No open timeslot found for the period starting with: " + newReservation.day)
+        }
+        let startTime = timeSlot[0].start_time;
+        let endTime = timeSlot[0].end_time;
+
+        const query = `
+            update drive
+                join user_drive_map on drive.id = user_drive_map.drive_id
+                set date = ?,
+                    scheduled_start_time = ?,
+                    scheduled_end_time = ?,
+                    car_id = ?
+                where confirmation_number = ?
+        `
+        return this.pool.doQuery(query, [moment.utc(timeSlot.date).format('YYYY-MM-DD'), startTime, endTime, newReservation.vehicle, newReservation.confirmationNumber]);
     }
 
     successHandler(callback, data) {

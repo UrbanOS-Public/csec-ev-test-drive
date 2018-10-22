@@ -10,7 +10,7 @@
     <mat-form-field>
       <mat-select placeholder="Select Time" [(value)]="reservation.time" name="time" required
         [(ngModel)]="reservation.time">
-        <mat-option *ngFor="let time of times" [value]="time.startTime">
+        <mat-option *ngFor="let time of filteredTimes" [value]="time.startTime">
           {{time.formattedTime}}
         </mat-option>
       </mat-select>
