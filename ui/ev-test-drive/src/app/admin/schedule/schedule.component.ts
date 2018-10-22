@@ -26,7 +26,7 @@ export class ScheduleComponent implements OnInit {
   links = globals.adminNavbar;
   timeSlots = [];
   days;
-  selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null};
+  selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null,carSlotId:null};
 
   constructor(
     private router: Router,
@@ -204,7 +204,8 @@ export class ScheduleComponent implements OnInit {
   handleEditRideResponse(response){
     let drive = this.schedule.find(drive => drive.confirmation_number == this.selectedReservation.confirmationNumber);
     drive.editing = false;
-    this.selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null};
+    this.loadSchedule();
+    this.selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null,carSlotId:null};
   }
 
   doCancelRide() {

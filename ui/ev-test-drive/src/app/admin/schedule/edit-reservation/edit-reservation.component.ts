@@ -9,10 +9,11 @@ import { CarSelectionComponent } from 'src/app/checkin/car-selection/car-selecti
   styleUrls: ['./edit-reservation.component.scss']
 })
 export class EditReservationComponent implements OnInit, OnChanges {
-  @Input() reservation = {day:null,vehicle:null,time:null};
+  @Input() reservation: any;
   @Output() submit = new EventEmitter<any>();
   @Input() times;
   @Input() vehicles;
+  filteredTimes;
   days;
   helpers = new Helpers();
   isSubmitting = false;
@@ -20,11 +21,10 @@ export class EditReservationComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    console.log("Init", this.reservation);
+
   }
 
   ngOnChanges() {
-    console.log("Change", this.reservation);
     if (this.times && this.times.length > 0) {
       this.getDays();
       this.getTimes();
@@ -32,7 +32,22 @@ export class EditReservationComponent implements OnInit, OnChanges {
     }
   }
 
+  getCarSlotId(time, carId) {
+    var carSlotId
+    if(time){
+      time.cars.forEach(carSlot => {
+        if (carSlot.carId == carId) {
+          carSlotId = carSlot.carSlotId;
+        }
+      });
+    }
+    return carSlotId;
+  }
+
   doSubmit() {
+    this.isSubmitting = true;
+    var timeObject = this.filteredTimes.find(time => time.startTime == this.reservation.time);
+    this.reservation.carSlotId = this.getCarSlotId(timeObject, this.reservation.vehicle);
     this.submit.emit({...this.reservation});
   }
 
@@ -48,8 +63,7 @@ export class EditReservationComponent implements OnInit, OnChanges {
   }
 
   filterTimes() {
-    console.log("Filtering");
-    this.times = this.times.filter((time) => {
+    this.filteredTimes = this.times.filter((time) => {
       return time.date == this.reservation.day;
     });
   }
