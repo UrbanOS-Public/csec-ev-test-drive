@@ -186,19 +186,23 @@ export class ScheduleComponent implements OnInit {
   }
 
   doEdit(slot) {
-    slot.editing = !slot.editing;
+    const editingState = !slot.editing;
+    this.schedule.forEach(schedule => schedule.editing = false);
+    slot.editing = editingState;
+    slot.preLoading = true;
     this.selectedReservation.day = moment.utc(slot.date).format('YYYY-MM-DD');
     this.selectedReservation.time = slot.scheduled_start_time;
     this.selectedReservation.vehicle = slot.carId;
     this.selectedReservation.confirmationNumber = slot.confirmation_number;
     this.evService.getTimeslots().subscribe(
-      times => this.handleTimeSlotsResponse(times),
+      times => this.handleTimeSlotsResponse(times, slot),
       error => this.handleError(error)
     );
   }
 
-  handleTimeSlotsResponse(response) {
+  handleTimeSlotsResponse(response, slot) {
     this.timeSlots = response;
+    slot.preLoading = false;
   }
 
   handleEditRideResponse(response){
