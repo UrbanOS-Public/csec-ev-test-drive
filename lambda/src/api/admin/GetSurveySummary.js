@@ -16,20 +16,13 @@ class GetSurveySummary {
         ;
     }
 
-    formatData(data) {
-        data = data.map((surveyRow) => {
-            let isPostSurveyComplete = surveyRow.surveys_completed_by_confirm_number == 2
-            return {
-                confirmation_number: surveyRow.confirmation_number,
-                post_survey_complete: isPostSurveyComplete
-            };
-        });
+    formatData(data) {  //Todo
         return Promise.resolve(data);
     }
 
     getSurveyCounts() {
         let query = `select confirmation_number,
-                        COUNT(DISTINCT(survey_id)) as 'surveys_completed_by_confirm_number'
+                        COUNT(DISTINCT(survey_id)) as 'surveys_completed'
                         from user_response
                         group by confirmation_number`
 
