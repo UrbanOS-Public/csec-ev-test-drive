@@ -26,7 +26,7 @@ export class ScheduleComponent implements OnInit {
   links = globals.adminNavbar;
   timeSlots = [];
   days;
-  selectedReservation = {day:null,vehicle:null,time:null,confirmation_number:null};
+  selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null};
 
   constructor(
     private router: Router,
@@ -186,6 +186,7 @@ export class ScheduleComponent implements OnInit {
     this.selectedReservation.day = moment.utc(slot.date).format('YYYY-MM-DD');
     this.selectedReservation.time = slot.scheduled_start_time;
     this.selectedReservation.vehicle = slot.carId;
+    this.selectedReservation.confirmationNumber = slot.confirmation_number;
     this.evService.getTimeslots().subscribe(
       times => this.handleTimeSlotsResponse(times),
       error => this.handleError(error)
@@ -197,9 +198,9 @@ export class ScheduleComponent implements OnInit {
   }
 
   handleEditRideResponse(response){
-    let drive = this.schedule.find(drive => drive.confirmation_number == this.selectedReservation.confirmation_number);
+    let drive = this.schedule.find(drive => drive.confirmation_number == this.selectedReservation.confirmationNumber);
     drive.editing = false;
-    this.selectedReservation = {day:null,vehicle:null,time:null,confirmation_number:null};
+    this.selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null};
   }
 
   doCancelRide() {
