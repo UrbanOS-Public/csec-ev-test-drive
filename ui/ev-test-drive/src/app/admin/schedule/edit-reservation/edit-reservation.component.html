@@ -1,8 +1,8 @@
 <form class="editForm">
     <mat-form-field>
-      <mat-select placeholder="Select Day" [(value)]="reservation.day" name="day" required
+      <mat-select placeholder="Select Day" [(value)]="reservation.day" name="day" required (selectionChange)="filterTimes()"
         [(ngModel)]="reservation.day">
-        <mat-option *ngFor="let day of days" [value]="vehicle">
+        <mat-option *ngFor="let day of days" [value]="day">
           {{day}}
         </mat-option>
       </mat-select>
@@ -10,16 +10,16 @@
     <mat-form-field>
       <mat-select placeholder="Select Time" [(value)]="reservation.time" name="time" required
         [(ngModel)]="reservation.time">
-        <mat-option *ngFor="let time of times" [value]="vehicle">
-          {{time}}
+        <mat-option *ngFor="let time of times" [value]="time.startTime">
+          {{time.formattedTime}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="Select Vehicle" [(value)]="reservation.vehicle" name="vehicle"
         required [(ngModel)]="reservation.vehicle">
-        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
-          {{vehicle}}
+        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+          {{vehicle.formattedName}}
         </mat-option>
       </mat-select>
     </mat-form-field>
