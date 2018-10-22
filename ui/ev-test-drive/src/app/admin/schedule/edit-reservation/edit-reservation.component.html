@@ -1,0 +1,30 @@
+<form class="editForm">
+    <mat-form-field>
+      <mat-select placeholder="Select Day" [(value)]="reservation.day" name="day" required
+        [(ngModel)]="reservation.day">
+        <mat-option *ngFor="let day of days" [value]="vehicle">
+          {{day}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Select Time" [(value)]="reservation.time" name="time" required
+        [(ngModel)]="reservation.time">
+        <mat-option *ngFor="let time of times" [value]="vehicle">
+          {{time}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Select Vehicle" [(value)]="reservation.vehicle" name="vehicle"
+        required [(ngModel)]="reservation.vehicle">
+        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
+          {{vehicle}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button (click)="doSubmit()">
+      <app-spinner *ngIf="isSubmitting" color='white'></app-spinner>
+      <span *ngIf="!isSubmitting">Submit</span>
+    </button>
+  </form>
