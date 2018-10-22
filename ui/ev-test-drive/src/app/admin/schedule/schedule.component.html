@@ -75,14 +75,20 @@
                 <td>
                   <div class="button-bar" id="{{slot.confirmation_number}}">
                     <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting">
-                      <img class="option-button" *ngIf="!slot.isSubmitting" src="assets/list.svg">
-                      <app-spinner *ngIf="slot.isSubmitting" color="white"></app-spinner>
+                      <i class="material-icons" *ngIf="!slot.isSubmitting">
+                          list_alt
+                      </i> 
+                      <app-spinner *ngIf="slot.isSubmitting"></app-spinner>
                     </div>
                     <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
-                      <img class="option-button" src="assets/delete.svg">
+                        <i class="material-icons">
+                            delete_forever
+                        </i> 
                     </div>
                     <div class="button-container" (click)="doEdit(slot)" (disabled)="slot.isSubmitting">
-                      <img class="option-button" *ngIf="!slot.preLoading" src="assets/delete.svg">
+                      <i class="material-icons" *ngIf="!slot.preLoading">
+                          edit
+                      </i> 
                       <app-spinner *ngIf="slot.preLoading"></app-spinner>
                     </div>
                   </div>
