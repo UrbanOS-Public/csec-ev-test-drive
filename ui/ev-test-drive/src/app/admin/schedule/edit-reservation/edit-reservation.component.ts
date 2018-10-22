@@ -15,6 +15,7 @@ export class EditReservationComponent implements OnInit, OnChanges {
   @Input() vehicles;
   days;
   helpers = new Helpers();
+  isSubmitting = false;
 
   constructor() { }
 

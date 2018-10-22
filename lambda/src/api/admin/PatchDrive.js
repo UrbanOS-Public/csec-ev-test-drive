@@ -32,7 +32,7 @@ class PatchDrive { //Should be a patch in terraform/AWS. We had issues with non 
     }
 
     getDrive(confirmationNumber) {
-        return this.pool.doQuery("select * from drive where confirmation_number = ?", [confirmationNumber])
+        return this.pool.doQuery("select * from drive d join user_drive_map udm on d.id = udm.drive_id where confirmation_number = ?", [confirmationNumber])
     }
 
     getUser(confirmationNumber) {

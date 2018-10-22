@@ -174,7 +174,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   doEditReservation(reservation) {
-    console.log(reservation);
+    if(reservation.day == null) {
+      return;
+    }
+    console.log("Sending Reservation", reservation);
+    reservation.pin = "17043215";
     this.evService.postEditRide(reservation).subscribe(
       response => this.handleEditRideResponse(response),
       error => this.handlePinError(error)
