@@ -82,7 +82,8 @@
                       <img class="option-button" src="assets/delete.svg">
                     </div>
                     <div class="button-container" (click)="doEdit(slot)" (disabled)="slot.isSubmitting">
-                      <img class="option-button" src="assets/delete.svg">
+                      <img class="option-button" *ngIf="!slot.preLoading" src="assets/delete.svg">
+                      <app-spinner *ngIf="slot.preLoading"></app-spinner>
                     </div>
                   </div>
                 </td>
