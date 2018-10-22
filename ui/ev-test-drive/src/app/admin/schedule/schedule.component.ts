@@ -21,7 +21,8 @@ export class ScheduleComponent implements OnInit {
   selectedSlot;
   pin;
   vehicles: any[] = [];
-
+  pastScheduledDays = [];
+  upcomingScheduledDays = [];
   links = globals.adminNavbar;
 
   constructor(
@@ -35,8 +36,9 @@ export class ScheduleComponent implements OnInit {
   }
 
   loadSchedule() {
+    let startOfYear = new Date(2018, 1, 1);
     this.isSubmitting = true;
-    this.evService.getSchedule().subscribe(
+    this.evService.getSchedule(startOfYear).subscribe(
       response => this.handleSchedule(response),
       error => this.handleError(error)
     );
@@ -49,17 +51,30 @@ export class ScheduleComponent implements OnInit {
     );
   }
 
+  getSurveySummaryData() {
+    this.evService.getSurveySummary().subscribe(
+      surveyResults => this.handleSurveySummaryResponse(surveyResults),
+      error => this.handleError(error)
+    );
+  }
+
+  handleSurveySummaryResponse(response) {
+    // this.surveySummary = new Map(response.map(i => [i.confirmation_number, i.surveys_completed]));
+  }
+
   handleVehicles(response) {
     this.vehicles = response.map((vehicle) => {
-     return {
-       id: vehicle.id,
-       formattedName: vehicle.make + " " + vehicle.model
-     }
+      return {
+        id: vehicle.id,
+        formattedName: vehicle.make + " " + vehicle.model
+      }
     });
   }
 
   handleSchedule(response) {
     this.scheduledDays = [];
+    this.pastScheduledDays = [];
+    this.upcomingScheduledDays = [];
 
     this.formattedDate = this.formatDate(moment(response.date).toDate());
     this.schedule = response.schedules.sort((a, b) => {
@@ -85,6 +100,8 @@ export class ScheduleComponent implements OnInit {
   }
 
   mapDays(schedule) {
+    const today = moment().startOf('day').format('YYYY-MM-DD');
+
     if (schedule && schedule.length > 0) {
       const unique = new Set(schedule.map(item => item.date));
       var days = Array.from(unique);
@@ -93,7 +110,12 @@ export class ScheduleComponent implements OnInit {
         var timeSlotsForDay = schedule.filter((timeslot) => {
           return timeslot.date == day;
         });
-        this.scheduledDays.push({ date: day, timeSlots: timeSlotsForDay });
+
+        let diffFromToday = moment(day).diff(today, 'days');
+        let scheduleByDate = { date: day, timeSlots: timeSlotsForDay }
+
+        diffFromToday >= 0 ? this.upcomingScheduledDays.push(scheduleByDate) :
+          this.pastScheduledDays.push(scheduleByDate)
       })
     }
   }

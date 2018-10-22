@@ -89,6 +89,10 @@ export class EVService {
     return this.http.get(globals.exceptionsUrl, httpOptions)
   }
 
+  getSurveySummary() {
+    return this.http.get(globals.surveySummaryUrl, httpOptions)
+  }
+
   getTimeslots() {
     return this.http.get(globals.timeslotUrl, httpOptions);
   }
