@@ -13,7 +13,6 @@ import * as globals from '../../app.constants';
 })
 export class ScheduleComponent implements OnInit {
   schedule: any[] = [];
-  surveySummary
   formattedDate: string;
   helpers = new Helpers();
   isSubmitting = false;
@@ -34,7 +33,6 @@ export class ScheduleComponent implements OnInit {
   ngOnInit() {
     this.loadSchedule();
     this.getVehicles();
-    this.getSurveySummaryData();
   }
 
   loadSchedule() {
@@ -61,9 +59,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   handleSurveySummaryResponse(response) {
-    this.surveySummary = {};
-    this.surveySummary = new Map(response.map(obj => [obj.confirmation_number, obj.post_survey_complete]));
-    console.log('we did it', this.surveySummary);
+    // this.surveySummary = new Map(response.map(i => [i.confirmation_number, i.surveys_completed]));
   }
 
   handleVehicles(response) {
