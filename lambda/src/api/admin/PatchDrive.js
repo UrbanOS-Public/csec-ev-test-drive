@@ -46,7 +46,7 @@ class PatchDrive { //Should be a patch in terraform/AWS. We had issues with non 
     }
 
     reserveTimeSlot(newReservation, user) {
-        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1, cs.reserved_by = ? where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and ts.date = ? and ts.start_time = ?", [user.email, newReservation.day, newReservation.time])
+        return this.pool.doQuery("update time_slot ts, car_slot cs set ts.available_count = ts.available_count - 1, cs.reserved = 1, cs.reserved_by = ? where ts.id = cs.time_slot_id and ts.available_count >= 1 and cs.reserved = 0 and ts.date = ? and ts.start_time = ? and cs.id = ?", [user.email, newReservation.day, newReservation.time, newReservation.carSlotId])
     }
 
     getTimeSlot(newReservation){
