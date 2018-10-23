@@ -52,13 +52,15 @@ class SaveUser {
             select
                 u.id as user_id,
                 u.email as email,
-                if(ur.id is NULL, 'false', 'true') as pre_survey_taken
+                if(ur.id is NULL, 'false', 'true') as pre_survey_taken,
+                ur.date_created as survey_last_taken
             from
                 user u
                 left outer join user_response ur on u.id = ur.user_id
                 left outer join survey s on s.id = ur.survey_id and s.type = 'PRE'
             where
                     u.email = ?
+            order by survey_last_taken desc 
         `;
         return this.pool.doQueryFirstRow(query, [email]);
     }

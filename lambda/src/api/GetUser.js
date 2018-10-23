@@ -36,7 +36,7 @@ class GetUser {
     }
 
     getUser(email) {
-        return this.pool.doQuery("select id, email from user where email = ?", [email]);
+        return this.pool.doQuery("select user.id, email, MAX(drive.date) as last_drive from user join user_drive_map udm on user.id = udm.user_id join drive on udm.drive_id = drive.id where email = ?", [email]);
     }
 
     getUserByConfirmationNumber(confirmationNumber) {
