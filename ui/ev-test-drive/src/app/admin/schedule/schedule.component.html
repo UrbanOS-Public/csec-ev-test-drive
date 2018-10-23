@@ -96,7 +96,7 @@
               </tr>
               <tr *ngIf="slot.editing">
                 <td colspan="6" class="white">
-                  <app-edit-reservation [reservation]="selectedReservation" (submit)="doEditReservation($event)" [times]="timeSlots" [vehicles]="vehicles"></app-edit-reservation>
+                  <app-edit-reservation [reservation]="selectedReservation" (submit)="doEditReservation($event)" [times]="timeSlots" [cars]="vehicles"></app-edit-reservation>
                 </td>
               </tr>
             </ng-container>

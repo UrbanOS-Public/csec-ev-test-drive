@@ -8,18 +8,18 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Select Time" [(value)]="reservation.time" name="time" required
+      <mat-select placeholder="Select Time" [(value)]="selectedTime" name="time" required (selectionChange)="doSelectTime(selectedTime)"
         [(ngModel)]="reservation.time">
-        <mat-option *ngFor="let time of filteredTimes" [value]="time.startTime">
+        <mat-option *ngFor="let time of filteredTimes" [value]="time.startTime" [disabled]="time.availableCount <= 0 || time.disabled">
           {{time.formattedTime}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Select Vehicle" [(value)]="reservation.vehicle" name="vehicle"
+      <mat-select placeholder="Select Vehicle" [(value)]="selectedCar" name="vehicle" (selectionChange)="doSelectCar(selectedCar)"
         required [(ngModel)]="reservation.vehicle">
-        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
-          {{vehicle.formattedName}}
+        <mat-option *ngFor="let vehicle of cars" [value]="vehicle.id" [disabled]="vehicle.unavailable || vehicle.active == false">
+          {{vehicle.formattedName}}{{vehicle.active ? "" : " (Inactive)"}}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -12,11 +12,13 @@ export class EditReservationComponent implements OnInit, OnChanges {
   @Input() reservation: any;
   @Output() submit = new EventEmitter<any>();
   @Input() times;
-  @Input() vehicles;
+  @Input() cars;
   filteredTimes;
   days;
   helpers = new Helpers();
   isSubmitting = false;
+  selectedTime;
+  selectedCar;
 
   constructor() { }
 
@@ -64,6 +66,75 @@ export class EditReservationComponent implements OnInit, OnChanges {
   filterTimes() {
     this.filteredTimes = this.times.filter((time) => {
       return time.date == this.reservation.day;
+    });
+  }
+
+  doSelectTime(selectedTime) {
+    selectedTime = this.times.find(time => time.startTime == selectedTime);
+    if (!selectedTime || selectedTime.disabled || selectedTime.availableCount <= 0) {
+      return;
+    }
+    this.updateCarStatesForTime(selectedTime);
+  }
+
+  doSelectCar(selectedCar) {
+    selectedCar = this.cars.find(car => car.id == selectedCar);
+    if (!selectedCar || selectedCar.unavailable) {
+      return;
+    }
+    this.updateTimeStatesForCar(selectedCar);
+  }
+
+  updateCarStatesForTime(time) {
+    if (time) {
+      time.cars.forEach(carSlot => {
+        var carInSlot = this.cars.find((car) => {
+          return car.id == carSlot.carId;
+        });
+        carInSlot.unavailable = carSlot.reserved;
+        if (carSlot.reserved) {
+          carInSlot.selected = false;
+          if (carInSlot == this.selectedCar){
+            this.selectedCar = null;
+          }
+        }
+      });
+    } else {
+      this.clearCarAvailableStates();
+    }
+  }
+
+  updateTimeStatesForCar(car) {
+    this.clearTimeAvailableStates();
+    if (car) {
+      this.times.forEach(time => {
+        var carForSlot = time.cars.find((carSlot) => carSlot.carId == car.id);
+        if (carForSlot && carForSlot.reserved) {
+          time.disabled = true;
+          time.selected = false;
+          if (time == this.selectedTime) {
+            this.selectedTime = null;
+          }
+        }
+      });
+    }
+  }
+
+  clearCarAvailableStates(){
+    this.cars.forEach((car) => {
+      car.unavailable = false;
+    });
+  }
+
+  clearSelectedStates(list){
+    list.forEach((thing) => {
+      thing.selected = false;
+    });
+  }
+
+  clearTimeAvailableStates(){
+    this.times.forEach((time) => {
+      time.disabled = false;
     });
   }
 
