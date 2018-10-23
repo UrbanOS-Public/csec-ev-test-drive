@@ -16,6 +16,13 @@
   letter-spacing: -0.82px;
 }
 
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  width: calc(100% + 6px) !important;
+  height: 56px !important; 
+}
+
 .field.has-warning {
   border: solid 2px $pink;
 }
@@ -74,3 +81,5 @@ p::first-letter {
   font-family: Gotham, sans-serif;
   min-height: 80px;
 }
+
+
