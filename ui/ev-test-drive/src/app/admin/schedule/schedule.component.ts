@@ -70,7 +70,8 @@ export class ScheduleComponent implements OnInit {
     this.vehicles = response.map((vehicle) => {
       return {
         id: vehicle.id,
-        formattedName: vehicle.make + " " + vehicle.model
+        formattedName: vehicle.make + " " + vehicle.model,
+        active:vehicle.active
       }
     });
   }
@@ -216,7 +217,9 @@ export class ScheduleComponent implements OnInit {
 
   handleEditRideResponse(response){
     let drive = this.schedule.find(drive => drive.confirmation_number == this.selectedReservation.confirmationNumber);
-    drive.editing = false;
+    if (drive) {
+      drive.editing = false;
+    }
     this.loadSchedule();
     this.selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null,carSlotId:null};
   }

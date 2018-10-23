@@ -3,8 +3,12 @@
 @import "../../../../mixins.scss";
 .editForm {
     display: flex;
+    @include for-phone-only {
+        justify-content: space-between;
+    }
     justify-content: space-around;
     margin-top:17px;
+    flex-wrap: wrap;
 }
 
 .submit-button {

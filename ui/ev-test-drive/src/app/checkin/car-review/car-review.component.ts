@@ -77,7 +77,6 @@ export class CarReviewComponent implements OnInit {
   }
 
   doCancelConfirm() {
-    console.log("Confirmed!");
     this.evService.postReleaseSlot({carSlotId:this.carSlotId}).subscribe(
       response => this.router.navigateByUrl('/checkin'),
       error => this.handleError(console.log(error))
