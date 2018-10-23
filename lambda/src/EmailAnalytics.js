@@ -53,7 +53,8 @@ class EmailAnalytics {
                     phone: row.phone,
                     zipcode: row.zipcode,
                     make: row.make,
-                    model: row.model
+                    model: row.model,
+                    passenger_count: row.passenger_count
                 };
                 const preSurveyPromise = this.getPreSurveyResults(row.user_id);
                 const postSurveyPromise = this.getPostSurveyResults(row.user_response_id);
@@ -159,6 +160,7 @@ class EmailAnalytics {
                 u.first_name,
                 u.last_name,
                 d.scheduled_start_time,
+                d.passenger_count,
                 c.make,
                 c.model,
                 ur.id as user_response_id
@@ -266,6 +268,7 @@ class EmailAnalytics {
                 start_time_24_hr: row.scheduled_start_time,
                 first_name: row.first_name,
                 last_name: row.last_name,
+                passenger_count: row.passenger_count,
                 make: row.make,
                 model: row.model,
                 post_survey_status: row.user_response_id === null ? "Not Taken" : "Taken"
