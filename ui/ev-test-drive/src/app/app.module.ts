@@ -49,6 +49,7 @@ import { NavbarComponent } from './admin/navbar/navbar.component';
 import { AdhocReservationComponent } from './admin/schedule/adhoc-reservation/adhoc-reservation.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { EditReservationComponent } from './admin/schedule/edit-reservation/edit-reservation.component';
+import { AppRawDataComponent } from './admin/analytics/app-raw-data/app-raw-data.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { EditReservationComponent } from './admin/schedule/edit-reservation/edit
     ExceptionFormComponent,
     NavbarComponent,
     AdhocReservationComponent,
-    EditReservationComponent
+    EditReservationComponent,
+    AppRawDataComponent
   ],
   imports: [
     BrowserModule,
