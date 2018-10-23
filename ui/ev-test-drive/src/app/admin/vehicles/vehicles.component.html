@@ -23,6 +23,7 @@
     <div class="cars-pane-container">
       <div class="cars-pane">
         <div class="car-tile-adds" *ngFor="let car of cars" >
+          <span *ngIf="car.make != 'Other'">
           <car-tile 
             id="{{ car.tileId }}" 
             [car]="car" 
@@ -30,6 +31,7 @@
             [collapsed]='false'
             [showInactive]='true'>
           </car-tile> 
+        </span>
       </div>
       </div>
     </div>
