@@ -92,6 +92,17 @@
           [group]="applicationForm"
           [formSubmitted]="formSubmitted">
         </text-field>
+
+        <text-field
+          class="passengers"
+          [questionId]="'passengers'"
+          [type]="'select'"
+          [question]="'Passengers'"
+          [required]="false"
+          [group]="applicationForm"
+          [formSubmitted]="formSubmitted"
+          [options]="[0,1,2,3]">
+        </text-field>
     
       </div>
     </div> 
