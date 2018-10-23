@@ -1,6 +1,6 @@
 @import "../../../colors.scss";
 
-input {
+.field {
   margin-top: 15px;
   margin-bottom: 8px !important;
   padding-left: 19px;
@@ -16,11 +16,11 @@ input {
   letter-spacing: -0.82px;
 }
 
-input.has-warning {
+.field.has-warning {
   border: solid 2px $pink;
 }
 
-input.has-danger {
+.field.has-danger {
   border: solid 2px $pink;
 }
 
@@ -41,7 +41,7 @@ label {
   color: #333333;
 }
 
-input::placeholder {
+.field::placeholder {
   color: #999999;
 }
 
@@ -62,8 +62,8 @@ p::first-letter {
   display: inline-block;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+.field[type=number]::-webkit-inner-spin-button,
+.field[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

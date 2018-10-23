@@ -39,7 +39,8 @@ export class CarReviewComponent implements OnInit {
 
       const scheduleDriveData = {
         email: this.userEmail,
-        carSlotId: this.carSlotId
+        carSlotId: this.carSlotId,
+        passengers: localStorage.getItem('passengers')
       };
 
       this.evService.postReserveSlot({carSlotId:this.carSlotId, email: this.userEmail }).subscribe(

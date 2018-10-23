@@ -55,7 +55,7 @@ export class RegistrationComponent implements OnInit {
 
   private submitApplication() {
     const data = this.applicationForm.value;
-
+    localStorage.setItem('passengers', this.applicationForm.value.passengers);
     this.evService.postNewUser(data).subscribe(
       response => this.handleResponse(response),
       error => this.handleError(error)

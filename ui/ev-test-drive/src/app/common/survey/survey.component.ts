@@ -253,7 +253,8 @@ export class SurveyComponent implements OnInit {
 
       const scheduleDriveData = {
         email: email,
-        carSlotId: carSlotId
+        carSlotId: carSlotId,
+        passengers: localStorage.getItem('passengers')
       };
 
       this.evService.postScheduleDrive(scheduleDriveData).subscribe(
