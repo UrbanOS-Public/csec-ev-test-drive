@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormComponent } from '../form/form.component';
 
 @Component({
@@ -7,7 +7,7 @@ import { FormComponent } from '../form/form.component';
   styleUrls: ['./text-field.component.scss']
 })
 export class TextFieldComponent extends FormComponent {
-
+  @Input() options = [];
   constructor() {
     super();
   }

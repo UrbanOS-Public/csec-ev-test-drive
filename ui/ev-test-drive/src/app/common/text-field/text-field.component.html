@@ -8,12 +8,24 @@
   </label>
 
   <input
+    *ngIf="type != 'select'"
     id="{{questionId}}"
     formControlName="{{questionId}}"
     type="{{type}}"
-    class="form-control"
+    class="form-control field"
     autocomplete="off"
     [ngClass]="{'has-danger': hasDanger(), 'has-warning': hasWarning()}">
+
+  <select
+    *ngIf="type == 'select'"
+    id="{{questionId}}"
+    formControlName="{{questionId}}"
+    class="form-control field"
+    autocomplete="off"
+    [ngClass]="{'has-danger': hasDanger(), 'has-warning': hasWarning()}"
+    [value]="options[0]">
+    <option *ngFor="let option of options" [value]="option" [selected]="options.indexOf(option) == 0">{{option}}</option>
+  </select>
 
   <div class="form-errors danger">
     <div class="form-control-feedback">
