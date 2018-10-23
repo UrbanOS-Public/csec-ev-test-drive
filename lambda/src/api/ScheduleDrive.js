@@ -16,10 +16,12 @@ class ScheduleDrive {
         const body = JSON.parse(event.body);
         const carSlotId = body.carSlotId;
         const email = body.email;
+        const passengerCount = body.passengers;
+
         this.verifySlot(carSlotId)
             .then((updateResponse) => this.validateResponse(email, updateResponse))
             .then(() => this.getUserAndDriveData(email, carSlotId))
-            .then((userAndDriveData) => this.insertDrive(userAndDriveData))
+            .then((userAndDriveData) => this.insertDrive(userAndDriveData, passengerCount))
             .then((data) => this.successHandler(callback, data), (error) => this.errorHandler(callback, error))
         ;
     }
@@ -42,7 +44,7 @@ class ScheduleDrive {
         return Promise.all([userPromise, carSlotPromise]);
     }
 
-    insertDrive(userAndDriveData) {
+    insertDrive(userAndDriveData, passengerCount) {
         const user = userAndDriveData[0][0];
         const userId = user.id;
         const carTimeSlotData = userAndDriveData[1][0];
@@ -54,7 +56,8 @@ class ScheduleDrive {
             car_id: car_id,
             date: date,
             scheduled_start_time: start_time,
-            scheduled_end_time: end_time
+            scheduled_end_time: end_time,
+            passenger_count: passengerCount
         };
         return new Promise((resolve, reject) => {
             this.pool.doQuery("insert into drive set ?", driveData)
