@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Helpers } from '../../app.helpers';
 import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-registration',
@@ -65,7 +66,7 @@ export class RegistrationComponent implements OnInit {
     if (response && response.email) {
       localStorage.setItem('email', this.applicationForm.value.email);
 
-      if (response.pre_survey_taken) {
+      if (response.pre_survey_taken && moment().format('YYYY-MM-DD') == moment(response.survey_last_taken).format('YYYY-MM-DD')) {
         localStorage.setItem('skipPreSurvey', response.pre_survey_taken);
       }
 
