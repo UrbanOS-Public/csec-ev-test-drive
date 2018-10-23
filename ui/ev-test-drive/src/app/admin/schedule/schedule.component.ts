@@ -24,6 +24,10 @@ export class ScheduleComponent implements OnInit {
   pastScheduledDays = [];
   upcomingScheduledDays = [];
   links = globals.adminNavbar;
+  timeSlots = [];
+  days;
+  selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null,carSlotId:null};
+  doPinConfirm;
 
   constructor(
     private router: Router,
@@ -66,7 +70,8 @@ export class ScheduleComponent implements OnInit {
     this.vehicles = response.map((vehicle) => {
       return {
         id: vehicle.id,
-        formattedName: vehicle.make + " " + vehicle.model
+        formattedName: vehicle.make + " " + vehicle.model,
+        active:vehicle.active
       }
     });
   }
@@ -151,8 +156,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   handlePinError(error) {
-    this.selectedSlot.isSubmitting = false;
+    if (this.selectedSlot) {
+      this.selectedSlot.isSubmitting = false;
+    }
     this.isSubmitting = false;
+    this.showPinError = true;
   }
 
   openModal(id) {
@@ -167,7 +175,53 @@ export class ScheduleComponent implements OnInit {
 
   doCancel(slot) {
     this.selectedSlot = slot;
+    this.doPinConfirm = this.doCancelRide;
     this.openModal('pin-modal');
+  }
+
+  doEditReservation(reservation) {
+    if(reservation.day == null) {
+      return;
+    }
+    this.selectedReservation = reservation;
+    this.doPinConfirm = this.doEditRide;
+    this.openModal('pin-modal');
+  }
+
+  doEditRide() {
+    this.evService.postEditRide({...this.selectedReservation, pin:this.pin}).subscribe(
+      response => this.handleEditRideResponse(response),
+      error => this.handlePinError(error)
+    );
+  }
+
+  doEdit(slot) {
+    const editingState = !slot.editing;
+    this.schedule.forEach(schedule => schedule.editing = false);
+    slot.editing = editingState;
+    slot.preLoading = true;
+    this.selectedReservation.day = moment.utc(slot.date).format('YYYY-MM-DD');
+    this.selectedReservation.time = slot.scheduled_start_time;
+    this.selectedReservation.vehicle = slot.carId;
+    this.selectedReservation.confirmationNumber = slot.confirmation_number;
+    this.evService.getTimeslots().subscribe(
+      times => this.handleTimeSlotsResponse(times, slot),
+      error => this.handleError(error)
+    );
+  }
+
+  handleTimeSlotsResponse(response, slot) {
+    this.timeSlots = response;
+    slot.preLoading = false;
+  }
+
+  handleEditRideResponse(response){
+    let drive = this.schedule.find(drive => drive.confirmation_number == this.selectedReservation.confirmationNumber);
+    if (drive) {
+      drive.editing = false;
+    }
+    this.loadSchedule();
+    this.selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null,carSlotId:null};
   }
 
   doCancelRide() {

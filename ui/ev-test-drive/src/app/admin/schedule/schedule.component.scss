@@ -95,19 +95,16 @@
     table-layout: fixed;
   }
 
-  table tr {
+  tr {
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: .35em;
     text-align: center;
   }
 
-  table th {
+  th {
     padding: .625em;
     text-align: center;
-  }
-
-  table th {
     font-size: .85em;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -119,7 +116,7 @@
       border: 0;
     }
 
-    table caption {
+    caption {
       font-size: 1.3em;
     }
 
@@ -127,7 +124,7 @@
       text-align: left;
     }
 
-    table thead {
+    thead {
       border: none;
       clip: rect(0 0 0 0);
       height: 1px;
@@ -138,25 +135,25 @@
       width: 1px;
     }
 
-    table tr {
+    tr {
       border-bottom: 3px solid #ddd;
       display: block;
       margin-bottom: .625em;
     }
 
-    table td {
+    td {
       border-bottom: 1px solid #ddd;
       display: block;
       font-size: .8em;
       text-align: right;
     }
 
-    table td .time p {
+    td .time p {
       display: block;
       text-align: center;
     }
 
-    table td::before {
+    td::before {
       /*
       * aria-label has no advantage, it won't be read inside a table
       content: attr(aria-label);
@@ -167,7 +164,7 @@
       text-transform: uppercase;
     }
 
-    table td:last-child {
+    td:last-child {
       border-bottom: 0;
     }
   }
@@ -220,7 +217,7 @@
   .button-container {
     display: inline-block;
     text-align: center;
-    width:50%;
+    width:30%;
     padding-top: 10px;
     padding-bottom: 10px;
     .option-button {
@@ -261,3 +258,8 @@
 mat-expansion-panel {
   margin-bottom: 30px
 }
+
+.material-icons {
+  font-size:28px;
+}
+

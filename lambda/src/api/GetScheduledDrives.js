@@ -29,7 +29,7 @@ class GetScheduledDrives {
     }
 
     getData(date) {
-        return this.pool.doQuery("select u.first_name, u.email, d.date, d.scheduled_start_time, udm.confirmation_number, c.year, c.make, c.model from drive d, car c, user_drive_map udm, user u where d.car_id = c.id and udm.drive_id = d.id and udm.user_id = u.id and date >= ?", [date]);
+        return this.pool.doQuery("select u.first_name, u.email, d.date, d.scheduled_start_time, udm.confirmation_number, c.year, c.make, c.model, c.id from drive d, car c, user_drive_map udm, user u where d.car_id = c.id and udm.drive_id = d.id and udm.user_id = u.id and date >= ?", [date]);
     }
 
     transformData(rows, date) {
@@ -42,6 +42,7 @@ class GetScheduledDrives {
                 year: row.year,
                 make: row.make,
                 model: row.model,
+                carId: row.id,
                 email: this.maskEmail(row.email)
             }
         });

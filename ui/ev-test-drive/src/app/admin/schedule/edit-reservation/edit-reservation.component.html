@@ -1,0 +1,30 @@
+<form #editForm="ngForm" class="editForm" *ngIf="days">
+    <mat-form-field>
+      <mat-select placeholder="Select Day" [(value)]="reservation.day" name="day" required (selectionChange)="filterTimes();clearForm();"
+        [(ngModel)]="reservation.day">
+        <mat-option *ngFor="let day of days" [value]="day">
+          {{day}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Select Time" name="time" required (selectionChange)="doSelectTime(reservation.time)"
+        [(ngModel)]="reservation.time">
+        <mat-option *ngFor="let time of filteredTimes" [value]="time.startTime" [disabled]="time.availableCount <= 0 || time.disabled">
+          {{time.formattedTime}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Select Vehicle" [(value)]="selectedCar" name="vehicle" (selectionChange)="doSelectCar(selectedCar)"
+        required [(ngModel)]="reservation.vehicle">
+        <mat-option *ngFor="let vehicle of cars" [value]="vehicle.id" [disabled]="vehicle.unavailable || vehicle.active == false">
+          {{vehicle.formattedName}}{{vehicle.active ? "" : " (Inactive)"}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button [disabled]="!reservation.time || !reservation.vehicle" mat-flat-button (click)="doSubmit()" class="submit-button">
+      <app-spinner *ngIf="isSubmitting" color='white'></app-spinner>
+      <span *ngIf="!isSubmitting">Submit</span>
+    </button>
+  </form>

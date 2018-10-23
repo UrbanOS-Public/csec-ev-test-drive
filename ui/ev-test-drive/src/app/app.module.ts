@@ -48,6 +48,7 @@ import { ExceptionFormComponent } from './admin/exceptions/exception-form/except
 import { NavbarComponent } from './admin/navbar/navbar.component';
 import { AdhocReservationComponent } from './admin/schedule/adhoc-reservation/adhoc-reservation.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { EditReservationComponent } from './admin/schedule/edit-reservation/edit-reservation.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ListComponent,
     ExceptionFormComponent,
     NavbarComponent,
-    AdhocReservationComponent
+    AdhocReservationComponent,
+    EditReservationComponent
   ],
   imports: [
     BrowserModule,
