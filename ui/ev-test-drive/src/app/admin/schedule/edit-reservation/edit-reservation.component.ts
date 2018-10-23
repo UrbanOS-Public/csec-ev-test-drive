@@ -24,13 +24,15 @@ export class EditReservationComponent implements OnInit, OnChanges {
 
   ngOnInit() {
 
-  }
+  }  
 
   ngOnChanges() {
     if (this.times && this.times.length > 0) {
       this.getDays();
       this.getTimes();
       this.filterTimes();
+      this.doSelectTime(this.reservation.time)
+      this.doSelectCar(this.reservation.vehicle)
     }
   }
 
@@ -67,6 +69,13 @@ export class EditReservationComponent implements OnInit, OnChanges {
     this.filteredTimes = this.times.filter((time) => {
       return time.date == this.reservation.day;
     });
+  }
+
+  clearForm() {
+    this.reservation.time = null;
+    this.reservation.vehicle = null;
+    this.updateCarStatesForTime(null);
+    this.updateTimeStatesForCar(null);
   }
 
   doSelectTime(selectedTime) {
