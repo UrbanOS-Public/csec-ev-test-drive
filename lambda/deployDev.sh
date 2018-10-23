@@ -70,6 +70,7 @@ deployLambdas() {
             'dev_ApiGetExceptions'
             'dev_ApiScheduleAdhocDrive'
             'dev_ApiGetSurveySummary'
+            'dev_ApiEditDrive'
         )
     fi
 

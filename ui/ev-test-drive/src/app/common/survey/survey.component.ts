@@ -49,7 +49,6 @@ export class SurveyComponent implements OnInit {
       this.surveyType + 'SurveyQuestions'));
 
     if (!surveyObject) {
-      console.log("No survey object found!");
       this.router.navigateByUrl(this.baseModule);
     } else {
 
@@ -77,7 +76,6 @@ export class SurveyComponent implements OnInit {
               const question1 = questionGroup.surveyQuestions[0];
               this.nextVisible = question1.type !== 'MC';
             } else {
-              console.log("Can't find question group!");
               this.location.back();
             }
           }

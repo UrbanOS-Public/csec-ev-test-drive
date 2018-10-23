@@ -21,6 +21,7 @@ export const reserveSlotUrl   = apiBaseUrl + '/reserve';
 export const releaseSlotUrl   = apiBaseUrl + '/release';
 export const getAnalyticsUrl  = apiBaseUrl + '/analytics';
 export const patchCarState    = apiBaseUrl + '/carState';
+export const editRideUrl      = apiBaseUrl + '/editDrive'
 
 export const lookupUserUrl    = apiBaseUrl + '/getUser';
 export const postSurveyUrl    = apiBaseUrl + '/postSurvey';

@@ -1,0 +1,21 @@
+@import "../../../../colors.scss";
+@import "../../../../error.scss";
+@import "../../../../mixins.scss";
+.editForm {
+    display: flex;
+    @include for-phone-only {
+        justify-content: space-between;
+    }
+    justify-content: space-around;
+    margin-top:17px;
+    flex-wrap: wrap;
+}
+
+.submit-button {
+    height:50%;
+    background-color: $pink;
+}
+  
+.white {
+    background-color: $white;
+}
