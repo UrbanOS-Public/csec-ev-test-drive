@@ -1,0 +1,1 @@
+insert into car values(9999, 9999, 'Other', 'Vehicle', '', 'Other', 'Varies', 0, 0, 'Varies', 'Varies', 'Varies',  CURRENT_TIMESTAMP , CURRENT_TIMESTAMP );
