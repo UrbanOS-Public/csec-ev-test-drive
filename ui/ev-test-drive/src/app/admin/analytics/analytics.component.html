@@ -29,10 +29,10 @@
 <div class="analytics-screen">
   <app-header title="Analytics Dashboard" [links]="links"></app-header>
   <div class="analytics-container">
-    <app-raw-data [pin]="pin" [sourceData]="sourceData"></app-raw-data>
     <app-drive-summary [sourceData]="sourceData"></app-drive-summary>
     <app-zipcode-summary [sourceData]="sourceData"></app-zipcode-summary>
     <app-gender-summary [sourceData]="sourceData"></app-gender-summary>
     <app-day-summary [sourceData]="sourceData"></app-day-summary>
+    <app-raw-data [pin]="pin" [sourceData]="sourceData"></app-raw-data>
   </div>
 </div>
