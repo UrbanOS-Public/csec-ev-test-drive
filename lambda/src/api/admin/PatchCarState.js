@@ -1,6 +1,7 @@
 const moment = require('moment');
 const {BetterSmartExperienceMySQLPool} = require('../../utils/BetterSmartExperienceMySQLPool');
 const ApiHelpers = require('../ApiHelpers');
+const {JobPopulateTimeSlots} = require('../../JobPopulateTimeSlots');
 const extend = require('extend');
 
 class PatchCarState { //Should be a patch in terraform/AWS. We had issues with non post/get api gateway endpoints. This is set up as a post as a workaround
@@ -20,6 +21,7 @@ class PatchCarState { //Should be a patch in terraform/AWS. We had issues with n
         }
         this.verifyCar(carId)
             .then((persistedCar) => this.patchCarState(carId, persistedCar, active))
+            .then(() => this.updateCarSlots(event, context, callback))
             .then((data) => this.successHandler(callback, data), (error) => this.errorHandler(callback, error))
         ;
     }
@@ -36,6 +38,12 @@ class PatchCarState { //Should be a patch in terraform/AWS. We had issues with n
         } else {
             return Promise.reject("Car not found");
         }
+    }
+
+    updateCarSlots(event, context, callback) {
+        new JobPopulateTimeSlots(new BetterSmartExperienceMySQLPool(), moment)
+        .handleEvent(event, context, callback);
+        return Promise.resolve();
     }
 
     successHandler(callback, data) {
