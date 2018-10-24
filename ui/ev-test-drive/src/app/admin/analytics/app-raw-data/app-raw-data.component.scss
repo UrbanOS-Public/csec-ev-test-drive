@@ -1,0 +1,16 @@
+@import "../../../../colors.scss";
+@import "../../../../mixins.scss";
+@include metrics-card;
+@include center-td-except-first-col;
+
+.metricsCard {
+    width: 90vw;
+}
+
+.date {
+    font-weight: bold;
+}
+
+.email {
+    margin-left:8px;
+}

@@ -1,0 +1,13 @@
+<mat-card class="metricsCard">
+  <mat-card-header>
+    <mat-card-title>Data Summary</mat-card-title>
+    <mat-card-subtitle>For Internal</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="sourceData" class="overflow">
+    {{sourceData.length}} rows of data from <span class="date">{{firstDay}}</span> to <span class="date">{{lastDay}}</span>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button (click)="doExport()" class="export">Export</button>
+    <button mat-flat-button (click)="doEmailReport()" class="export email">Email</button>
+  </mat-card-actions>
+</mat-card>

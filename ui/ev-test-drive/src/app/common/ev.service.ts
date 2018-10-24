@@ -82,6 +82,14 @@ export class EVService {
     )
   }
 
+  postEmailAnalytics(data) {
+    return this.http.post(
+      globals.emailAnalyticsUrl,
+      data,
+      httpOptions
+    )
+  }
+
   postCarState(data) {
     return this.http.post(
       globals.patchCarState,
