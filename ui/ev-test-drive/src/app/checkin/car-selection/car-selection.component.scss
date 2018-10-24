@@ -136,6 +136,10 @@
         opacity: 0.28;
       }
 
+      .time.hidden {
+        display: none;
+      }
+
       .time.selected {
         color: $white;
         background-color: $pink;
