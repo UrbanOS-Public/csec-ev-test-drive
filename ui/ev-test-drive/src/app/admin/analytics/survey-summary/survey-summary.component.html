@@ -1,3 +1,42 @@
-<p>
-  survey-summary works!
-</p>
+
+<mat-card class="metricsCard">
+    <mat-card-header>
+      <mat-card-title>Survey Summary Metrics</mat-card-title>
+      <mat-card-subtitle>For PGA</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content *ngIf="sourceData" class="overflow">
+      <table mat-table [dataSource]="rows" class="mat-elevation-z8 metricsTable table-fixed">
+
+        <ng-container matColumnDef="question">
+          <th mat-header-cell *matHeaderCellDef> Question </th>
+          <td mat-cell *matCellDef="let thing" class="question"> {{thing.question}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="answer">
+            <th mat-header-cell *matHeaderCellDef> Answer </th>
+            <td mat-cell *matCellDef="let thing"> {{thing.answer != 'undefined' ? thing.answer : 'No Data'}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="preAnswers">
+          <th mat-header-cell *matHeaderCellDef> % of Pre-Survey <br/>Answers </th>
+          <td mat-cell *matCellDef="let thing"> {{thing.preAnswersPercent}}% </td>
+        </ng-container>
+
+        <ng-container matColumnDef="postAnswers">
+          <th mat-header-cell *matHeaderCellDef> % of Post-Survey <br/>Answers </th>
+          <td mat-cell *matCellDef="let thing"> {{thing.postAnswersPercent}}% </td>
+        </ng-container>
+
+        <ng-container matColumnDef="diffPoints">
+          <th mat-header-cell *matHeaderCellDef> Delta <br/> <i>Percentage Points</i> </th>
+          <td mat-cell *matCellDef="let thing"> {{thing.pointDelta > 0 ? '+': ''}}{{thing.pointDelta}} pt </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button (click)="doExport()" class="export">Export</button>
+    </mat-card-actions>
+  </mat-card>
