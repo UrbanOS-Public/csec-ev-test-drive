@@ -61,6 +61,9 @@ export class CarSelectionComponent implements OnInit {
     this.allTimes = JSON.parse(localStorage.getItem('times'));
     this.allTimes.forEach((time) => {
       time.formattedTime = this.helpers.formatAMPM(time.startTime);
+      if (time.startTime <= moment().format('HH:mm:ss') && time.date == moment().format('YYYY-MM-DD')) {
+        time.hidden = true;
+      }
     });
     this.getDays();
     this.selectedDay = this.days[0];
