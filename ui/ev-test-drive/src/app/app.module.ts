@@ -50,6 +50,7 @@ import { AdhocReservationComponent } from './admin/schedule/adhoc-reservation/ad
 import { MatExpansionModule } from '@angular/material/expansion';
 import { EditReservationComponent } from './admin/schedule/edit-reservation/edit-reservation.component';
 import { AppRawDataComponent } from './admin/analytics/app-raw-data/app-raw-data.component';
+import { SurveySummaryComponent } from './admin/analytics/survey-summary/survey-summary.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { AppRawDataComponent } from './admin/analytics/app-raw-data/app-raw-data
     NavbarComponent,
     AdhocReservationComponent,
     EditReservationComponent,
-    AppRawDataComponent
+    AppRawDataComponent,
+    SurveySummaryComponent
   ],
   imports: [
     BrowserModule,
