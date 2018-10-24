@@ -46,7 +46,10 @@
           class="time"
           *ngFor="let time of times"
           id="{{ time.tileId }}"
-          [ngClass]="{'disabled': time.availableCount <= 0 || time.disabled, 'selected': time.selected}"
+          [ngClass]="{'disabled': time.availableCount <= 0 || time.disabled, 
+                      'selected': time.selected,
+                      'hidden': time.hidden
+                    }"
           (click)="doSelectTime(time)">
 
           <p>{{ time.formattedTime }}</p>
