@@ -71,6 +71,7 @@ deployLambdas() {
             'dev_ApiScheduleAdhocDrive'
             'dev_ApiGetSurveySummary'
             'dev_ApiEditDrive'
+            'dev_ApiSendAnalyticsEmail'
         )
     fi
 
