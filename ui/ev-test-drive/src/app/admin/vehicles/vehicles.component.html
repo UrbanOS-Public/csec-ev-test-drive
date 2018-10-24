@@ -4,6 +4,9 @@
       <p class="model-confirm">{{selectedCar.make}} {{selectedCar.model}}</p>
       <input type="password" class="pin" [(ngModel)]="pin">
       <br>
+      <p class="pin-error" *ngIf="!showPinError">
+        Note: This may affect users in the middle of a reservation. Use with caution.
+      </p>
       <p class="pin-error" *ngIf="showPinError">
         Incorrect PIN, please try again.
       </p>
