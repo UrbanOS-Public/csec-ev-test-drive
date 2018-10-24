@@ -21,10 +21,7 @@ class GetSurveySummary {
     }
 
     getSurveyCounts() {
-        let query = `select confirmation_number,
-                        COUNT(DISTINCT(survey_id)) as 'surveys_completed'
-                        from user_response
-                        group by confirmation_number`
+        let query = `select confirmation_number from user_response where survey_id = '1000001'`
 
         return this.pool.doQuery(query);
     }

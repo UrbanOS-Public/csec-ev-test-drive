@@ -28,6 +28,7 @@ export class ScheduleComponent implements OnInit {
   days;
   selectedReservation = {day:null,vehicle:null,time:null,confirmationNumber:null,carSlotId:null};
   doPinConfirm;
+  surveySummary;
 
   constructor(
     private router: Router,
@@ -35,8 +36,8 @@ export class ScheduleComponent implements OnInit {
     private modalService: ModalService) { }
 
   ngOnInit() {
-    this.loadSchedule();
     this.getVehicles();
+    this.getSurveySummaryData();
   }
 
   loadSchedule() {
@@ -63,7 +64,8 @@ export class ScheduleComponent implements OnInit {
   }
 
   handleSurveySummaryResponse(response) {
-    // this.surveySummary = new Map(response.map(i => [i.confirmation_number, i.surveys_completed]));
+    this.surveySummary = response;
+    this.loadSchedule();
   }
 
   handleVehicles(response) {
@@ -97,6 +99,7 @@ export class ScheduleComponent implements OnInit {
     });
     this.schedule.forEach(slot => {
       slot.formattedTime = this.helpers.formatAMPM(slot.scheduled_start_time);
+      slot.tookPostSurvey = this.surveySummary.find(summary => summary.confirmation_number == slot.confirmation_number) != undefined;
     });
 
     this.mapDays(this.schedule);
@@ -236,6 +239,9 @@ export class ScheduleComponent implements OnInit {
   }
 
   doCheckout(slot) {
+    if (slot.tookPostSurvey){
+      return;
+    }
     this.selectedSlot = slot;
     const confirmationNumber = this.selectedSlot.confirmation_number;
     this.selectedSlot.isSubmitting = true;
