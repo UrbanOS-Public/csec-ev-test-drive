@@ -4,7 +4,7 @@
 @include center-td-except-first-col;
 
 .metricsCard {
-    width: auto;
+    width: 90vw;
 }
 
 .date {
@@ -12,5 +12,5 @@
 }
 
 .email {
-    float: right;
+    margin-left:8px;
 }
