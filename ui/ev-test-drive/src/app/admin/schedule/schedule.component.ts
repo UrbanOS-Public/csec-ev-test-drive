@@ -272,4 +272,8 @@ export class ScheduleComponent implements OnInit {
 
     return dateStr;
   }
+
+  gotoTop() {
+    window.scrollTo(0,0);
+  }
 }
