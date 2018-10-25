@@ -50,16 +50,12 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
     this.isSubmitting = true;
     this.evService.getAnalytics(this.pin).subscribe(
       response => this.handleAnalytics(response),
-      error => this.handleError(error)
+      error => this.handlePinError(error)
     );
   }
 
   handleAnalytics(response) {
     this.sourceData = response;
     this.modalService.close('pin-modal');
-  }
-
-  handleError(error) {
-    this.showPinError = true;
   }
 }
