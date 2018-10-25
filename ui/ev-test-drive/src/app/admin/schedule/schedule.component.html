@@ -76,22 +76,22 @@
                   <div class="button-bar" id="{{slot.confirmation_number}}">
                     <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting || slot.tookPostSurvey">
                       <i class="material-icons" *ngIf="!slot.isSubmitting && !slot.tookPostSurvey">
-                          list_alt
+                        list_alt
                       </i>
                       <i class="material-icons" *ngIf="slot.tookPostSurvey">
-                          check
-                      </i> 
+                        check
+                      </i>
                       <app-spinner *ngIf="slot.isSubmitting"></app-spinner>
                     </div>
                     <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
-                        <i class="material-icons">
-                            delete_forever
-                        </i> 
+                      <i class="material-icons">
+                        delete_forever
+                      </i>
                     </div>
                     <div class="button-container" (click)="doEdit(slot)" (disabled)="slot.isSubmitting">
                       <i class="material-icons" *ngIf="!slot.preLoading">
-                          edit
-                      </i> 
+                        edit
+                      </i>
                       <app-spinner *ngIf="slot.preLoading"></app-spinner>
                     </div>
                   </div>
@@ -99,7 +99,8 @@
               </tr>
               <tr *ngIf="slot.editing">
                 <td colspan="6" class="white">
-                  <app-edit-reservation [reservation]="selectedReservation" (submit)="doEditReservation($event)" [times]="timeSlots" [cars]="vehicles"></app-edit-reservation>
+                  <app-edit-reservation [reservation]="selectedReservation" (submit)="doEditReservation($event)"
+                    [times]="timeSlots" [cars]="vehicles"></app-edit-reservation>
                 </td>
               </tr>
             </ng-container>
@@ -146,34 +147,36 @@
               <td data-label="Vehicle Info">{{slot.year}} {{slot.make}} {{slot.model}}</td>
               <td>
                 <div class="button-bar" id="{{slot.confirmation_number}}">
-                    <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting || slot.tookPostSurvey">
-                        <i class="material-icons" *ngIf="!slot.isSubmitting && !slot.tookPostSurvey">
-                            list_alt
-                        </i>
-                        <i class="material-icons" *ngIf="slot.tookPostSurvey">
-                            check
-                        </i> 
-                        <app-spinner *ngIf="slot.isSubmitting"></app-spinner>
-                      </div>
-                      <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
-                          <i class="material-icons">
-                              delete_forever
-                          </i> 
-                      </div>
-                      <div class="button-container" (click)="doEdit(slot)" (disabled)="slot.isSubmitting">
-                        <i class="material-icons" *ngIf="!slot.preLoading">
-                            edit
-                        </i> 
-                        <app-spinner *ngIf="slot.preLoading"></app-spinner>
-                      </div>
+                  <div class="button-container" (click)="doCheckout(slot)" (disabled)="isSubmitting || slot.isSubmitting || slot.tookPostSurvey">
+                    <i class="material-icons" *ngIf="!slot.isSubmitting && !slot.tookPostSurvey">
+                      list_alt
+                    </i>
+                    <i class="material-icons" *ngIf="slot.tookPostSurvey">
+                      check
+                    </i>
+                    <app-spinner *ngIf="slot.isSubmitting"></app-spinner>
+                  </div>
+                  <div class="button-container" (click)="doCancel(slot)" (disabled)="slot.isSubmitting">
+                    <i class="material-icons">
+                      delete_forever
+                    </i>
+                  </div>
+                  <div class="button-container" (click)="doEdit(slot)" (disabled)="slot.isSubmitting">
+                    <i class="material-icons" *ngIf="!slot.preLoading">
+                      edit
+                    </i>
+                    <app-spinner *ngIf="slot.preLoading"></app-spinner>
+                  </div>
                 </div>
               </td>
             </tr>
           </tbody>
+          <div (click)="gotoTop()" class="btt-btn">
+              <i class="material-icons">&#xE316;</i>
+            </div>
         </table>
       </div>
     </mat-expansion-panel>
-
     <app-adhoc-reservation [vehicles]='vehicles'></app-adhoc-reservation>
   </div>
 </div>
