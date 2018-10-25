@@ -74,7 +74,7 @@
         </mat-select>
       </mat-form-field>
       <br>
-      <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()">
+      <button [disabled]="!adhocForm.valid" mat-flat-button (click)="doAdhoc()" class="submit">
         <app-spinner *ngIf="isSubmitting" color='white'></app-spinner>
         <span *ngIf="!isSubmitting">Submit</span>
       </button>
