@@ -170,7 +170,7 @@ export class CarSelectionComponent implements OnInit {
   }
 
   updateCarSlotId(time, car) {
-    if(time){
+    if(time && car){
       time.cars.forEach(carSlot => {
         if (carSlot.carId == car.id) {
           this.carSlotId = carSlot.carSlotId;

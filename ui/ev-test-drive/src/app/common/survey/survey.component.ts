@@ -118,12 +118,13 @@ export class SurveyComponent implements OnInit {
   }
 
   doNext(questionOption) {
+
     if (questionOption) {
       this.storeResponse(questionOption.id, questionOption.survey_question_id, null);
     } else if (this.questions[0].type === 'SCALE') {
       this.handleScaleResponses();
-    } else {
-      this.extractTextResponse();
+    } else if (!this.extractTextResponse()) {
+      return;
     }
 
     if (this.pageDisplayId == this.totalQuestions) {
@@ -183,9 +184,13 @@ export class SurveyComponent implements OnInit {
 
   extractTextResponse() {
     const textElement = document.getElementsByClassName('text-entry').item(0) as HTMLInputElement;
+    if (!textElement) {
+      return false;
+    }
     let response: string = textElement ? textElement.value : "Not specified";
 
     this.storeResponse(textElement.id, this.questions[0].id, response);
+    return true;
   }
 
   handleTextEntry(questionOption) {
