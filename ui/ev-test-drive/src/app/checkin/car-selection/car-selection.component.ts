@@ -113,6 +113,7 @@ export class CarSelectionComponent implements OnInit {
       this.selectedTime = null;
     }
     this.updateCarStatesForTime(this.selectedTime);
+    this.updateCarSlotId(this.selectedTime, this.selectedCar);
   }
 
   doSelectCar(selectedCar) {
