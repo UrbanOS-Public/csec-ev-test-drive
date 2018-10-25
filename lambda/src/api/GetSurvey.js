@@ -47,12 +47,17 @@ class GetSurvey {
         const surveyQuestions = promiseResults[2];
         const surveyQuestionOptions = promiseResults[3];
 
+        //sort((a, b) => {
+            // a.order_index - b.order_index
+        // })
         const question_groups = surveyQuestionGroups.map((surveyQuestionGroup) => {
             const surveyQuestionsForGroup = surveyQuestions.filter((surveyQuestion) => {
                 return surveyQuestion.survey_question_group_id === surveyQuestionGroup.id;
             }).map((surveyQuestion) => {
                 const surveyQuestionOptionsForQuestion = surveyQuestionOptions.filter((surveyQuestionOption) => {
                     return surveyQuestionOption.survey_question_id === surveyQuestion.id;
+                }).sort((a, b) => {
+                     return a.order_index - b.order_index
                 });
                 return extend({}, surveyQuestion, {surveyQuestionOptions: surveyQuestionOptionsForQuestion});
             });
