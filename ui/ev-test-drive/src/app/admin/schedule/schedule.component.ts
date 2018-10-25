@@ -5,6 +5,7 @@ import { ModalService } from '../../common/modal.service';
 import { Helpers } from '../../app.helpers';
 import * as moment from 'moment';
 import * as globals from '../../app.constants';
+import _ from 'underscore';
 
 @Component({
   selector: 'app-schedule',
@@ -103,6 +104,7 @@ export class ScheduleComponent implements OnInit {
     });
 
     this.mapDays(this.schedule);
+    this.pastScheduledDays = _.sortBy(this.pastScheduledDays, 'date').reverse();
     this.isSubmitting = false;
     this.closeModal('pin-modal');
   }
