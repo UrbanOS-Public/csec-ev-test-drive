@@ -69,6 +69,9 @@ deployLambdas() {
             'ApiDeleteException'
             'ApiGetExceptions'
             'ApiScheduleAdhocDrive'
+            'ApiGetSurveySummary'
+            'ApiEditDrive'
+            'ApiSendAnalyticsEmail'
         )
     fi
 
