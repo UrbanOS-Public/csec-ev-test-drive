@@ -1,5 +1,5 @@
 UPDATE survey_question set order_index = '9' where id = 1000669;
-UPDATE survey_question_option set order_index = 9 where id = 1000669
+UPDATE survey_question_option set order_index = 9 where id = 1000669;
 UPDATE survey_question_option set order_index = '10' where id = 1000779;
 
 insert into survey_question_option (`id`, `survey_question_id`, `text`, `free_form`, `order_index`, `image_url`)
