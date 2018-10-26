@@ -69,7 +69,7 @@ class PatchDrive { //Should be a patch in terraform/AWS. We had issues with non 
                     car_id = ?
                 where confirmation_number = ?
         `
-        return this.pool.doQuery(query, [moment.utc(timeSlot.date).format('YYYY-MM-DD'), startTime, endTime, newReservation.vehicle, newReservation.confirmationNumber]);
+        return this.pool.doQuery(query, [newReservation.day, startTime, endTime, newReservation.vehicle, newReservation.confirmationNumber]);
     }
 
     successHandler(callback, data) {
