@@ -8,3 +8,4 @@ skip_final_snapshot = true
 environment = "dev_"
 domain_prefix = "dev-"
 ami_id = "ami-6cd6f714"
+email_send_from_account = "no-reply@devdrivesmartcbus.com"
