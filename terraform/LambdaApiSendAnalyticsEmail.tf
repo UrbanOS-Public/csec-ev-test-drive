@@ -9,8 +9,8 @@ module "ApiSendAnalyticsEmailFunction" {
   function_name = "${var.environment}ApiSendAnalyticsEmail"
   handler = "src/api/admin/SendAnalyticsEmail.handler"
   role_arn = "${module.JobMonthlyEmailAnalyticsRole.arn}"
-  timeout = "10"
-  description = "Api to add an exception"
+  timeout = "150"
+  description = "API to send analytics email on demand"
   vpc_subnet_ids = [
     "${aws_subnet.Subnet2.id}",
     "${aws_subnet.Subnet3.id}"]
