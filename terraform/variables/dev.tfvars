@@ -8,3 +8,4 @@ skip_final_snapshot = true
 environment = "dev_"
 domain_prefix = "dev-"
 ami_id = "***REMOVED***"
+email_send_from_account = "***REMOVED***"
