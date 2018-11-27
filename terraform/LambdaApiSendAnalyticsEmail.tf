@@ -8,9 +8,9 @@ module "ApiSendAnalyticsEmailFunction" {
   lambda_s3_artifact_bucket = "${aws_s3_bucket.smart_experience_artifact_repo.id}"
   function_name = "${var.environment}ApiSendAnalyticsEmail"
   handler = "src/api/admin/SendAnalyticsEmail.handler"
-  role_arn = "${module.ApiSendAnalyticsEmailRole.arn}"
-  timeout = "10"
-  description = "Api to add an exception"
+  role_arn = "${module.JobMonthlyEmailAnalyticsRole.arn}"
+  timeout = "150"
+  description = "API to send analytics email on demand"
   vpc_subnet_ids = [
     "${aws_subnet.Subnet2.id}",
     "${aws_subnet.Subnet3.id}"]
