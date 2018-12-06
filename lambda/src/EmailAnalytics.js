@@ -39,7 +39,6 @@ class EmailAnalytics {
         const drivesToGetSurveyResultsFor = driveAndSurveyData.filter((drive) => {
             return drive.user_response_id !== null;
         });
-
         const promises = drivesToGetSurveyResultsFor.map((row) => {
             const date = this.moment(row.date);
             return new Promise((resolve, reject) => {
