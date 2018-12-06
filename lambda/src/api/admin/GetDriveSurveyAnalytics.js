@@ -21,7 +21,7 @@ class GetDriveSurveyAnalytics {
             return this.ApiHelpers.httpResponse(callback, 404);
         }
         var analytics = new EmailAnalytics(this.pool, moment, null);
-        analytics.getSurveyDataForThisWeek(this.moment().startOf('year').format("YYYY-MM-DD"), this.moment().format("YYYY-MM-DD"))
+        analytics.getSurveyDataForThisWeek(this.moment().subtract(90, 'days').format("YYYY-MM-DD"), this.moment().format("YYYY-MM-DD"))
         .then((data) => this.successHandler(callback, this.sanitizeData(data)), (err) => this.errorHandler(callback, err));
     }
 
