@@ -31,7 +31,6 @@ class EmailAnalytics {
     }
 
     getSurveyDataForThisWeek(oneWeekAgo, today) {
-        console.log("Starting to get survey Data For This Week");
         return this.getDrivesForThisWeek(oneWeekAgo, today)
             .then((driveAndSurveyData) => this.transformSurveyData(driveAndSurveyData))
     }
@@ -40,7 +39,6 @@ class EmailAnalytics {
         const drivesToGetSurveyResultsFor = driveAndSurveyData.filter((drive) => {
             return drive.user_response_id !== null;
         });
-        console.log("Starting to transform Survey Data");
         const promises = drivesToGetSurveyResultsFor.map((row) => {
             const date = this.moment(row.date);
             return new Promise((resolve, reject) => {
@@ -60,7 +58,6 @@ class EmailAnalytics {
                 const preSurveyPromise = this.getPreSurveyResults(row.user_id);
                 const postSurveyPromise = this.getPostSurveyResults(row.user_response_id);
 
-                console.log("Starting to the two data promises");
                 Promise.all([preSurveyPromise, postSurveyPromise])
                     .then((surveyData) => {
                         const preSurveyData = surveyData[0];
@@ -152,7 +149,6 @@ class EmailAnalytics {
     }
 
     getDrivesForThisWeek(oneWeekAgo, today) {
-        console.log("Starting to get Drives For This Week");
         const query = `
             select 
                 d.date,
