@@ -357,7 +357,7 @@ class EmailAnalytics {
             const mailOptions = {
                 from: `EV Test Drive <${process.env.email}>`,
                 sender: process.env.email,
-                to: [process.env.send_to_email],
+                to: process.env.send_to_email.split(";"),
                 replyTo: process.env.email,
                 subject: `EV Test Drive Weekly Analytics`,
                 text: `Attached are the analytics for ${oneWeekAgo} through ${yesterday}`,
