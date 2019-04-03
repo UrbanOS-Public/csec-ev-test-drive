@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { EVService } from '../../common/ev.service';
 import { ModalService } from '../../common/modal.service';
 import { Helpers } from '../../app.helpers';
+import _ from 'underscore';
 import * as moment from 'moment';
 
 @Component({
@@ -79,6 +80,7 @@ export class CarSelectionComponent implements OnInit {
     this.times = this.allTimes.filter((time) => {
       return time.date == day;
     });
+    this.times = _.sortBy(this.times, 'startTime')
   }
 
   doDaySelect() {
