@@ -1,1 +1,3 @@
 insert into car values(9999, 9999, 'Other', 'Vehicle', '', 'Other', 'Varies', 0, 0, 'Varies', 'Varies', 'Varies',  CURRENT_TIMESTAMP , CURRENT_TIMESTAMP );
+
+insert into car values(8, 2019, 'Mitsubishi', 'Outlander', 'https://drivesmartcbus.com/assets/cars/2019_Mitsubishi_Outlander.png', 'Plug-In Hybrid Electric Vehicle (PHEV)', '$34,595', 22, 310, '12.5 kWh', 'Level 2 (240V)', '2.5 hours',  CURRENT_TIMESTAMP , CURRENT_TIMESTAMP );
