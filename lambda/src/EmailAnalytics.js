@@ -125,6 +125,7 @@ class EmailAnalytics {
             and ur.survey_id = s.id
             and s.type = 'PRE' 
             and ur.user_id = ?
+            order by ura.survey_question_id asc
         `;
         return new Promise((resolve, reject) => {
             this.pool.doQuery(query, [user_id])
