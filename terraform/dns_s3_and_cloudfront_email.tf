@@ -22,11 +22,10 @@ resource "aws_route53_record" "ns" {
 //  name = "_23e0705e6d375e3b1d868773b74af662.drivesmartcbus.com."
 //  type = "CNAME"
 //  ttl = "30"
-//
-//  records = [
-//    "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
-//  ]
-//}
+//   records = [
+//     "_bc6a032549e56c911c308163202f969d.acm-validations.aws."
+//   ]
+// }
 //
 //resource "aws_route53_record" "cert_domain_verification_2" {
 //  zone_id = "${aws_route53_zone.main.zone_id}"
