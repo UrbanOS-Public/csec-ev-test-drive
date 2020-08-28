@@ -22,24 +22,25 @@ import { ExceptionsComponent } from './admin/exceptions/exceptions.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/checkin', pathMatch: 'full' },
+  // { path: '', redirectTo: '/checkin', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'info/:pageId', component: InfoComponent },
-  { path: 'checkin', component: CheckinWelcomeComponent },
-  { path: 'checkin/registration', component: RegistrationComponent },
-  { path: 'checkin/carSelection', component: CarSelectionComponent },
-  { path: 'checkin/carReview', component: CarReviewComponent },
-  { path: 'checkin/survey', component: SurveyComponent },
-  { path: 'checkin/survey/:questionId', component: SurveyComponent },
-  { path: 'checkin/carConfirm', component: CarConfirmComponent },
-  { path: 'checkout', component: CheckoutWelcomeComponent },
-  { path: 'checkout/survey', component: SurveyComponent },
-  { path: 'checkout/survey/:questionId', component: SurveyComponent },
-  { path: 'checkout/thankYou', component: ThankYouComponent },
+  // { path: 'info/:pageId', component: InfoComponent },
+  // { path: 'checkin', component: CheckinWelcomeComponent },
+  // { path: 'checkin/registration', component: RegistrationComponent },
+  // { path: 'checkin/carSelection', component: CarSelectionComponent },
+  // { path: 'checkin/carReview', component: CarReviewComponent },
+  // { path: 'checkin/survey', component: SurveyComponent },
+  // { path: 'checkin/survey/:questionId', component: SurveyComponent },
+  // { path: 'checkin/carConfirm', component: CarConfirmComponent },
+  // { path: 'checkout', component: CheckoutWelcomeComponent },
+  // { path: 'checkout/survey', component: SurveyComponent },
+  // { path: 'checkout/survey/:questionId', component: SurveyComponent },
+  // { path: 'checkout/thankYou', component: ThankYouComponent },
   { path: 'admin/schedule', component: ScheduleComponent },
   { path: 'admin/analytics', component: AnalyticsComponent },
   { path: 'admin/vehicles', component: VehiclesComponent },
   { path: 'admin/exceptions', component: ExceptionsComponent },
+  // { path: '**', redirectTo: '/home', pathMatch: 'full' }
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
  

@@ -1,4 +1,116 @@
-p {
-  font-family: Gotham;
-  font-size: 36px;
+@import "../../colors.scss";
+@import "../../mixins.scss";
+
+.welcomeScreen {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  margin: 0;
+  font-family: Gotham, sans-serif;
+
+  .headerImage {
+    background: no-repeat top/100% url("../../assets/top_banner.jpg");
+    background-color: #000;
+    position: relative;
+    overflow: visible;
+    height: 466px;
+
+    .scLogo {
+      left: 36px;
+      top: 36px;
+      display: inline-block;
+      height: 140px;
+      width: 100px;
+      position: absolute;
+    }
+    
+    .welcomePane {
+      @include for-phone-only {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+      @include for-tablet-portrait-up {
+        width: 50%;
+        margin-left: 25%;
+        margin-right: 25%;
+      }
+      background-color: #FFF;
+      overflow: visible;
+      display: inline-block;
+      margin-left: calc(50vw - 222px);
+      margin-top: 325px;
+      border: 1px solid #DBDBDB;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.19);
+
+      .titleText {
+        color: #333;
+        @include for-phone-only {
+          font-size: 32px;
+          line-height: 40px;
+        }
+        font-size: 45px;
+        font-weight: 500;
+        line-height: 51px;
+        letter-spacing: -0.93px;
+        text-align: center;
+      }
+
+      .getStartedText {
+        color: #333;
+        font-size: 21px;
+        font-weight: 200;
+        line-height: 32px;
+        letter-spacing: -0.93px;
+        text-align: center;
+        margin-left: 50px;
+        margin-right: 50px;
+      }
+
+      .scheduleDriveLink {
+        margin: 0;
+        color: #FFF;
+        text-decoration: none;
+        cursor: pointer;
+
+        .scheduleDriveButton {
+          @include for-phone-only {
+            width: 90%;
+          }
+          width: 90%;
+          margin-top: 5vh;
+          margin-left:auto;
+          margin-right: auto;
+          background-color: $pink;
+          border-radius: 4px;
+          box-shadow: 5px 5px 0 0 rgba(58, 52, 66, 0.22);
+
+          .scheduleDriveButtonText {
+            color: #FFF;
+            @include for-phone-only {
+              font-size: 18px;
+            }
+            font-size: 24px;
+            font-weight: 500;
+            // line-height: 42px;
+            letter-spacing: -0.68px;
+            text-align: center;
+            text-transform: uppercase;
+            padding: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.returnElement {
+  text-align: center; 
+  margin-top: 4vh;
+  color:white;
+}
+
+.returnLink {
+  cursor: pointer;
+  color: white; 
 }
