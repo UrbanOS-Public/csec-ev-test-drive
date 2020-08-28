@@ -21,11 +21,6 @@ resource "aws_api_gateway_usage_plan" "DefaultUseagePlan" {
 
 resource "aws_api_gateway_api_key" "Smart_Experience_Key" {
   name = "Smart_Experience_Key"
-
-  stage_key {
-    rest_api_id = "${aws_api_gateway_rest_api.SmartExperienceApi.id}"
-    stage_name  = "${aws_api_gateway_deployment.event_stage.stage_name}"
-  }
 }
 
 resource "aws_api_gateway_usage_plan_key" "main" {

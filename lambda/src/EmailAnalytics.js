@@ -116,8 +116,7 @@ class EmailAnalytics {
             user_response_answer ura, 
             survey_question sq, 
             survey_question_option sqo,
-            survey s,
-            user u 
+            survey s
         where 
                 ur.id = ura.user_response_id
             and ura.survey_question_id = sq.id 
