@@ -1,11 +1,12 @@
-# Running the app Locally
-The ui can be run locally in one of three ways by running one of the following commands from `ui/ev-test-drive`:
- - `ng serve`
-    - This will run the ui using the `db.json` stub database. This stub will need to be running, using the command `json-server --watch db.json`. **Note**: This method does *not* use the actual backend. Behavior may be different.
- - `ng serve --configuration=dev`
-    - This will run the ui and hit the AWS dev instance of the app.
- - `ng serve --configuration=production`
-    - This will run the ui and hit the AWS prod instance instead. ***Don't Do This***
+# Open Source Effort
+This app has been made open source by request of the Smart Columbus team. It is provided with no guarantee of support and is intended to serve as a reference for similar efforts in other cities.
+
+If this app is reused in whole or in part, the developers strongly recommend remediating the use of API "pins" in the lambda api and replacing them with a more mature access control solution such as OAuth.
+```javascript
+if ("PINNUMBERS" !== pin) {
+    return this.ApiHelpers.httpResponse(callback, 404);
+}
+```
 
 # csec-ev-test-drive
 The Columbus Smart Experience Center - EV Test Drive application allows for scheduling of test drives and capturing of survey information.
@@ -53,6 +54,14 @@ These rows would need to be in the database before the nightly job runs to popul
 
 ** employees_per_slot should not be greater than the number of active cars for the day.
 
+# Running the app Locally
+The ui can be run locally in one of three ways by running one of the following commands from `ui/ev-test-drive`:
+ - `ng serve`
+    - This will run the ui using the `db.json` stub database. This stub will need to be running, using the command `json-server --watch db.json`. **Note**: This method does *not* use the actual backend. Behavior may be different.
+ - `ng serve --configuration=dev`
+    - This will run the ui and hit the AWS dev instance of the app.
+ - `ng serve --configuration=production`
+    - This will run the ui and hit the AWS prod instance instead. ***Don't Do This***
 # Terraform And AWS
 [Terraform](https://www.terraform.io/) was used to setup our AWS environment.  Nearly everything done is configured in the scripts except the things listed.
 - Simple Email Service - Verified Email - https://console.aws.amazon.com/ses/home?region=us-east-1#verified-senders-email.  You would need to add the specific accounts based on the domain name.
@@ -75,8 +84,8 @@ To deploy/update the lambdas you can run the `deploy.sh` script that is in the r
 The database is using a hosted MySQL RDS instance.  This instance is not publicly available so you need to be inside of the Virtual Private Cloud (VPC) to be able to connect to the database.  
 If you need to do this to make data changes then you would need to:
 1. Turn on the [Jumpbox EC2 instance](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:search=Jumpbox;sort=instanceType). Turning on this instance will assign it a new IP address.
-2. ssh to the server with a command like this: `ssh -i ~/.ssh/PillarSmartExperienceKey.pem ec2-user@***REMOVED***`
-3. Once on the server you can connect to the database with the following command: `mysql smart_experience -h ***REMOVED***.amazonaws.com -usmrt -p'<PASSWORD>'`
+2. ssh to the server with a command like this: `ssh -i ~/.ssh/PillarSmartExperienceKey.pem ec2-user@54.209.254.201`
+3. Once on the server you can connect to the database with the following command: `mysql smart_experience -h smartexperience.ccpbmhkikhpm.us-east-1.rds.amazonaws.com -usmrt -p'<PASSWORD>'`
 
 If you don't have access to the mentioned private key you can create a new EC2 Instance uses the Amazon Linux AMI, and add the `Jumpbox Security Group` to it's list of Security Groups.  This Security Group allows access via a restricted range of IP address.  
 If you are trying to ssh to the server and cannot you may want to ensure that your IP address is in the ingress list of IP Addresses.
